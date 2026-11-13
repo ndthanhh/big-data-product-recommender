@@ -1,0 +1,23 @@
+# Local credentials and environments
+.env
+.env.*
+!.env.example
+.venv/
+
+# Python and tool output
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+build/
+dist/
+
+# Generated data and Spark output
+/data/*/*
+!/data/*/.gitkeep
+/spark-warehouse/
+/metastore_db/
+/derby.log
+*.log

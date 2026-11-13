@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "product-recommender"
+version = "0.1.0"
+description = "Behavior-based product recommendation demo"
+readme = "docs/README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = ["python-dotenv>=1,<2"]
+
+[project.optional-dependencies]
+pipeline = ["pyspark==3.5.7", "Faker>=30,<50", "numpy>=1.26,<3"]
+app = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1", "psycopg[binary]>=3.2,<4", "streamlit>=1.40,<2"]
+dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
