@@ -93,6 +93,7 @@ big-data/
 ├── docs/
 │   ├── README.md             # Hướng dẫn vận hành theo trạng thái triển khai
 │   ├── ARCHITECTURE.md       # Thành phần, batch, snapshot, session
+│   ├── CONVENTIONS.md        # Chuẩn hóa duy nhất: tên biến, schema, API, quy ước chung
 │   ├── DATA_CONTRACTS.md     # Schema dữ liệu, PostgreSQL và API v1
 │   ├── EXPERIMENT_PLAN.md    # Chia tập, metric, chất lượng, hiệu năng
 │   └── PROJECT_CHECKLIST.md  # Theo dõi P0–P15 và nghiệm thu
@@ -122,6 +123,7 @@ Các chú thích module mô tả trách nhiệm dự kiến, không hàm ý đã
 | [Kiến trúc](docs/ARCHITECTURE.md) | Hiểu Bronze → Silver → Gold, snapshot nguyên tử và session feedback. |
 | [Hợp đồng dữ liệu và API v1](docs/DATA_CONTRACTS.md) | Viết schema, migration, importer, API và fixture. |
 | [Kế hoạch thực nghiệm](docs/EXPERIMENT_PLAN.md) | Chia tập chống rò rỉ, tính metric và đo hiệu năng. |
+| [Quy ước đồng nhất](docs/CONVENTIONS.md) | Single Source of Truth: từ điển tên biến, weights 1-2-4, SQL, API, Git. |
 | [Kế hoạch & Phân công](PLAN.md) | Kế hoạch triển khai, ma trận phân công 2 người và tiêu chí hoàn thành. |
 | [Checklist dự án](docs/PROJECT_CHECKLIST.md) | Theo dõi tiến độ P0–P15; phân biệt tài liệu với kiểm chứng triển khai. |
 

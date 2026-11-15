@@ -1,6 +1,6 @@
 # Hợp đồng dữ liệu, PostgreSQL và API v1
 
-[Trang chủ repo](../README.md) · [Vận hành](README.md) · [Kiến trúc](ARCHITECTURE.md) · [Thực nghiệm](EXPERIMENT_PLAN.md) · [Kế hoạch & Phân công](../PLAN.md) · [Checklist](PROJECT_CHECKLIST.md)
+[Trang chủ repo](../README.md) · [Quy ước đồng nhất](CONVENTIONS.md) · [Vận hành](README.md) · [Kiến trúc](ARCHITECTURE.md) · [Thực nghiệm](EXPERIMENT_PLAN.md) · [Kế hoạch & Phân công](../PLAN.md) · [Checklist](PROJECT_CHECKLIST.md)
 
 ## 1. Phạm vi và quy ước chung
 
