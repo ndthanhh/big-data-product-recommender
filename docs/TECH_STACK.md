@@ -153,7 +153,51 @@ Lưu trữ catalog sản phẩm phục vụ, tiếp nhận sự kiện tương t
 
 ---
 
-### 2.5. Tầng Giao diện Lập trình: **FastAPI & Uvicorn**
+### 2.5. Cơ chế Thu thập & Lưu trữ Hành vi Người dùng (Clickstream / Event Store)
+
+#### Vai trò trong hệ thống
+Tiếp nhận, kiểm tra tính toàn vẹn (idempotency, schema) và lưu trữ mọi hành vi tương tác của người dùng (`view`, `click`, `add_to_cart`) ở cả hai cấp độ: **Thời gian thực tức thì (Online Serving)** và **Lưu trữ phân tích dài hạn (Data Lake)**.
+
+#### Kiến trúc Lưu trữ Hành vi Hai Cấp (Dual-Tier Storage Architecture)
+Hệ thống **không bỏ sót bất kỳ hành vi nào** mà phân chia việc lưu trữ làm 2 tầng có vai trò rõ ràng:
+
+```text
+Streamlit (Thao tác: View / Click / Add)
+     │
+     ▼ (HTTP POST /api/v1/events)
+FastAPI (Idempotency check: 201 Created / 200 Duplicate / 409 Conflict)
+     │
+     ▼
+[TẦNG 1: ONLINE EVENT STORE] ───► PostgreSQL (Bảng `events` - Immutable Log)
+                                       │  • Lưu tức thì (sub-10ms)
+                                       │  • Phục vụ gợi ý theo phiên (Session Reranking)
+                                       ▼ (Script trích xuất định kỳ / batch trigger)
+[TẦNG 2: OFFLINE DATA LAKE]  ───► Data Lake Bronze (`data/bronze/events/*.jsonl`)
+                                       │  • Kết hợp cùng Synthetic Events từ Faker
+                                       ▼ (PySpark ETL)
+                                  Data Lake Silver (`data/silver/events/*.parquet`)
+                                       │  • Dùng huấn luyện ALS, Popularity, FP-Growth
+```
+
+1. **Tầng 1 — Online Event Store (PostgreSQL bảng `events`)**:
+   - **Mục đích**: Ghi nhận ngay tức thì khi người dùng thao tác trên web. Đảm bảo tính **Bất biến (Immutable Append-Only Log)** và **Khử trùng lặp (Idempotency)**: nếu mạng lag khiến người dùng click 2 lần cùng một `event_id`, DB sẽ không bị nhân bản bản ghi.
+   - **Tối ưu truy vấn phiên**: Bảng `events` được đánh index trên `(session_id, event_at DESC)` giúp API đọc lại các tương tác gần nhất trong phiên hiện tại chỉ mất **2–3 mili-giây** để lập tức xếp hạng lại (rerank) top-K gợi ý theo thời gian thực mà không cần chạy lại mô hình batch.
+2. **Tầng 2 — Offline Data Lake (Bronze JSONL $\rightarrow$ Silver Parquet)**:
+   - **Mục đích**: Lưu trữ bền vững toàn bộ lịch sử hành vi tích lũy qua nhiều ngày/tháng để làm dữ liệu huấn luyện cho PySpark.
+   - Script `export_events.py` trích xuất các event demo từ PostgreSQL sang file JSONL trong `data/bronze/events/`, kết hợp cùng hàng trăm nghìn sự kiện mô phỏng từ Faker để đưa vào pipeline PySpark ETL nén sang Parquet phục vụ huấn luyện batch.
+
+#### So sánh với các giải pháp lưu trữ hành vi khác
+
+| Giải pháp | Cơ chế hoạt động | Ưu điểm | Nhược điểm đối với dự án này | Kết luận đánh giá |
+| :--- | :--- | :--- | :--- | :--- |
+| **FastAPI + PostgreSQL Events (Được chọn cho Online) + Data Lake (Offline)** | FastAPI ghi nhận, lưu DB quan hệ có Index và xuất ra Parquet Data Lake. | **Đơn giản, tin cậy, nhẹ RAM, đảm bảo 100% ACID**, chống duplicate tốt, truy vấn phiên tức thì dưới 5ms. | Khi quy mô lên tới >50.000 events/giây cần sharding hoặc partitioning bảng. | **Lựa chọn tối ưu và chuẩn mực nhất** cho hệ thống demo đồ án chạy local. |
+| **Apache Kafka** | Distributed Streaming Platform, ghi event log vào các Partition Topic. | Xử lý hàng trăm nghìn event/s, decoupled producer và consumer. | Cực kỳ nặng (cần Zookeeper/KRaft và JVM daemon), tốn thêm **2–4GB RAM**, cài đặt phức tạp trên máy cá nhân, quá cồng kềnh cho phạm vi demo 2 người. | Không chọn do lãng phí tài nguyên máy và tăng rủi ro lỗi runtime khi demo. |
+| **Redis Streams** | In-memory message stream trong Redis. | Tốc độ ghi cực nhanh (in-memory). | Lưu trữ trên RAM đắt đỏ, không bền vững lâu dài bằng RDBMS, vẫn cần viết thêm worker để flush dữ liệu ra đĩa. | Thừa thãi khi PostgreSQL local đã đáp ứng độ trễ vài mili-giây. |
+| **Ghi thẳng vào file JSON/Log (Direct File Logging)** | Web server ghi nối dòng trực tiếp vào file text trên đĩa. | Nhanh, không cần database. | Không đảm bảo an toàn đa luồng (file lock conflict khi nhiều request ghi đồng thời), không có index để truy vấn nhanh sự kiện theo phiên cho session reranking. | Không an toàn cho môi trường web đa luồng. |
+
+---
+
+### 2.6. Tầng Giao diện Lập trình: **FastAPI & Uvicorn**
 
 #### Vai trò trong hệ thống
 Cung cấp cổng giao tiếp RESTful API v1 phục vụ dữ liệu catalog, tiếp nhận sự kiện tương tác từ website và trả về các danh sách gợi ý (Dành cho bạn, Thay thế, Mua kèm).
@@ -174,7 +218,7 @@ Cung cấp cổng giao tiếp RESTful API v1 phục vụ dữ liệu catalog, ti
 
 ---
 
-### 2.6. Tầng Giao diện Người dùng Demo: **Streamlit**
+### 2.7. Tầng Giao diện Người dùng Demo: **Streamlit**
 
 #### Vai trò trong hệ thống
 Website thương mại điện tử demo tương tác trực quan cho phép người dùng lướt xem sản phẩm, click, thêm vào giỏ hàng và quan sát trực tiếp kết quả của 3 khối gợi ý.
@@ -195,7 +239,7 @@ Website thương mại điện tử demo tương tác trực quan cho phép ngư
 
 ---
 
-### 2.7. Bộ Thuật toán Xếp hạng & Gợi ý (Algorithmic Suite)
+### 2.8. Bộ Thuật toán Xếp hạng & Gợi ý (Algorithmic Suite)
 
 Hệ thống kết hợp đa thuật toán có chủ đích nhằm giải quyết toàn diện các bài toán thực tế trong thương mại điện tử:
 
@@ -232,7 +276,7 @@ Hệ thống kết hợp đa thuật toán có chủ đích nhằm giải quyế
 
 ---
 
-### 2.8. Bộ Công cụ Đảm bảo Chất lượng & Năng suất (Developer Tooling & QA)
+### 2.9. Bộ Công cụ Đảm bảo Chất lượng & Năng suất (Developer Tooling & QA)
 
 | Công cụ | Phiên bản | Vai trò & Điểm nổi bật | Lý do vượt trội so với giải pháp khác |
 | :--- | :--- | :--- | :--- |
@@ -260,3 +304,4 @@ Tech Stack của dự án được lựa chọn dựa trên 3 nguyên tắc bấ
 1. **Đúng chuyên môn Dữ liệu lớn**: Sử dụng Apache Spark làm lõi xử lý dữ liệu và thuật toán học máy phân tán.
 2. **Kiến trúc phân tầng chuyên nghiệp**: Tách biệt rõ ràng giữa Data Lake (lưu trữ phân tích), PostgreSQL (phục vụ giao dịch), FastAPI (giao diện kết nối) và Streamlit (trình diễn).
 3. **Thực tế và khả thi**: Toàn bộ hệ thống có thể khởi chạy, kiểm thử và demo hoàn hảo trên một máy tính cá nhân thông thường (Core i5 / 8GB RAM) mà vẫn sẵn sàng mở rộng quy mô khi cần thiết.
+
