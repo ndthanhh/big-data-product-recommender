@@ -1,6 +1,6 @@
 # Kế hoạch thực nghiệm và đo hiệu năng
 
-[Trang chủ repo](../README.md) · [Quy ước đồng nhất](CONVENTIONS.md) · [Vận hành](README.md) · [Kiến trúc](ARCHITECTURE.md) · [Hợp đồng v1](DATA_CONTRACTS.md) · [Kế hoạch & Phân công](../PLAN.md) · [Checklist](PROJECT_CHECKLIST.md)
+[Trang chủ repo](../README.md) · [Tech Stack](TECH_STACK.md) · [Quy ước đồng nhất](CONVENTIONS.md) · [Vận hành](README.md) · [Kiến trúc](ARCHITECTURE.md) · [Hợp đồng v1](DATA_CONTRACTS.md) · [Kế hoạch & Phân công](../PLAN.md) · [Checklist](PROJECT_CHECKLIST.md)
 
 ## 1. Câu hỏi và nguyên tắc thực nghiệm
 

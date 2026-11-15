@@ -1,4 +1,7 @@
 # Bảng Quy ước Đồng nhất Hệ thống (CONVENTIONS.md)
+
+[Trang chủ repo](../README.md) · [Tech Stack](TECH_STACK.md) · [Vận hành](README.md) · [Kiến trúc](ARCHITECTURE.md) · [Hợp đồng v1](DATA_CONTRACTS.md) · [Thực nghiệm](EXPERIMENT_PLAN.md) · [Kế hoạch & Phân công](../PLAN.md) · [Checklist](PROJECT_CHECKLIST.md)
+
 *Tài liệu chuẩn hóa duy nhất (Single Source of Truth - SSOT) dùng chung giữa Nguyễn Đức Thành và Phan Văn Pháp*
 
 ---
@@ -297,3 +300,4 @@ Cả hai người dùng chung 2 mốc thời gian UTC cố định để chia t�
 ---
 
 *Mọi thắc mắc hoặc đề xuất thay đổi bất kỳ quy ước nào trong file này phải được thảo luận và thống nhất giữa Nguyễn Đức Thành và Phan Văn Pháp trước khi cập nhật mã nguồn.*
+

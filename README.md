@@ -96,7 +96,8 @@ big-data/
 │   ├── CONVENTIONS.md        # Chuẩn hóa duy nhất: tên biến, schema, API, quy ước chung
 │   ├── DATA_CONTRACTS.md     # Schema dữ liệu, PostgreSQL và API v1
 │   ├── EXPERIMENT_PLAN.md    # Chia tập, metric, chất lượng, hiệu năng
-│   └── PROJECT_CHECKLIST.md  # Theo dõi P0–P15 và nghiệm thu
+│   ├── PROJECT_CHECKLIST.md  # Theo dõi P0–P15 và nghiệm thu
+│   └── TECH_STACK.md         # Đặc tả Tech Stack, lý do chọn và so sánh công cụ
 ├── data/
 │   ├── bronze/              # JSONL gốc; không commit dữ liệu sinh ra
 │   ├── silver/              # Parquet sạch theo dataset_version
@@ -125,6 +126,7 @@ Các chú thích module mô tả trách nhiệm dự kiến, không hàm ý đã
 | [Kế hoạch thực nghiệm](docs/EXPERIMENT_PLAN.md) | Chia tập chống rò rỉ, tính metric và đo hiệu năng. |
 | [Quy ước đồng nhất](docs/CONVENTIONS.md) | Single Source of Truth: từ điển tên biến, weights 1-2-4, SQL, API, Git. |
 | [Kế hoạch & Phân công](PLAN.md) | Kế hoạch triển khai, ma trận phân công 2 người và tiêu chí hoàn thành. |
+| [Đặc tả Tech Stack](docs/TECH_STACK.md) | Phân tích lý do chọn công nghệ, so sánh đối chiếu với giải pháp cùng loại. |
 | [Checklist dự án](docs/PROJECT_CHECKLIST.md) | Theo dõi tiến độ P0–P15; phân biệt tài liệu với kiểm chứng triển khai. |
 
 ## Quy tắc đóng góp

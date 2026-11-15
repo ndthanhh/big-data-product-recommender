@@ -2,7 +2,7 @@
 
 Cập nhật ngày 13/11/2026. Áp dụng cho dự án hai người theo đề cương Nhóm 1, gồm thu thập catalog, sinh hành vi, Data Lake, ETL PySpark, ba nhóm gợi ý, API, website demo và báo cáo thực nghiệm. Bổ sung luồng gợi ý theo phiên và chia sẻ dataset tự động từ các trao đổi sau đề cương.
 
-[Trang chủ repo](../README.md) · [Quy ước đồng nhất](CONVENTIONS.md) · [Vận hành](README.md) · [Kiến trúc](ARCHITECTURE.md) · [Hợp đồng v1](DATA_CONTRACTS.md) · [Thực nghiệm](EXPERIMENT_PLAN.md) · [Kế hoạch & Phân công](../PLAN.md)
+[Trang chủ repo](../README.md) · [Tech Stack](TECH_STACK.md) · [Quy ước đồng nhất](CONVENTIONS.md) · [Vận hành](README.md) · [Kiến trúc](ARCHITECTURE.md) · [Hợp đồng v1](DATA_CONTRACTS.md) · [Thực nghiệm](EXPERIMENT_PLAN.md) · [Kế hoạch & Phân công](../PLAN.md)
 
 ## Cách dùng và trạng thái hiện tại
 
