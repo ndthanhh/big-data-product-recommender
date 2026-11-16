@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Behavior-based product recommendation demo"
 readme = "docs/README.md"
 requires-python = ">=3.11,<3.12"
-dependencies = ["python-dotenv>=1,<2"]
+dependencies = ["pydantic>=2,<3", "python-dotenv>=1,<2"]
 
 [project.optional-dependencies]
 pipeline = ["pyspark==3.5.7", "Faker>=30,<50", "numpy>=1.26,<3", "minio>=7.2.0"]

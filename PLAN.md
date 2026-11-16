@@ -113,7 +113,7 @@ flowchart TD
 
 ---
 
-### [T02] Cấu trúc Nền tảng, Data Contracts Code & Test Fixtures
+### [T02] [COMPLETED] Cấu trúc Nền tảng, Data Contracts Code & Test Fixtures
 - **Người phụ trách**: Cả hai (Hợp đồng chung)
 - **Người review**: Antigravity
 - **Đầu vào**: Đặc tả kỹ thuật từ `docs/DATA_CONTRACTS.md`.
