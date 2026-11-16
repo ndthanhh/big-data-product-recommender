@@ -1,4 +1,4 @@
-﻿# Script chạy streaming sự kiện hành vi người dùng qua Kafka và MinIO
+# Script chạy streaming sự kiện hành vi người dùng qua Kafka và MinIO
 param (
     [int]$Events = 1000,
     [float]$Rate = 20,
@@ -47,3 +47,4 @@ if (-not $kafkaReady) {
 
 Write-Host "Kafka đã sẵn sàng! Bắt đầu phát stream sự kiện..." -ForegroundColor Green
 & $python -m recommender.streaming.producer --catalog $catalog --users $users --bootstrap-servers 127.0.0.1:9092 --topic product-events --max-events $Events --rate $Rate
+
