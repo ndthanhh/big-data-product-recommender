@@ -65,7 +65,11 @@ CREATE DATABASE recommender OWNER recommender;
 
 | Biến trong `.env` | Ý nghĩa |
 | --- | --- |
-| `DATA_LAKE_DIR=data` | Gốc Bronze/Silver/Gold; đường dẫn tương đối tính từ gốc repo. |
+| `DATA_LAKE_DIR=data` | Gốc Bronze/Silver/Gold; đường dẫn tương đối tính từ gốc repo khi fallback local. |
+| `MINIO_ENDPOINT=127.0.0.1:9000` | Địa chỉ S3 API của MinIO Object Storage phục vụ Data Lake. |
+| `MINIO_CONSOLE_URL=http://127.0.0.1:9001` | Giao diện web MinIO Console để duyệt bucket/file. |
+| `MINIO_ACCESS_KEY=minioadmin` | Access key đăng nhập MinIO. |
+| `MINIO_SECRET_KEY=minioadmin` | Secret key đăng nhập MinIO. |
 | `DATABASE_URL` | URI PostgreSQL của role `recommender`, database `recommender`, host `127.0.0.1`, port `5432`; URL-encode ký tự đặc biệt trong mật khẩu. |
 | `API_BASE_URL=http://127.0.0.1:8000` | Địa chỉ API mà Streamlit gọi. |
 | `RANDOM_SEED=42` | Seed dùng cho bộ sinh, chia tập và mô hình có hỗ trợ seed. |

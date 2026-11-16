@@ -78,8 +78,16 @@ $$\text{Weight}(\text{add\_to\_cart}) = 4$$
 Cả hai người dùng chung các key cấu hình sau trong `.env`:
 
 ```ini
-# Thư mục gốc chứa Data Lake (tương đối với thư mục gốc repo)
+# Thư mục gốc chứa Data Lake (tương đối với thư mục gốc repo khi chạy local)
 DATA_LAKE_DIR=data
+
+# Cấu hình MinIO S3 Object Storage (Data Lake chính thức)
+MINIO_ENDPOINT=127.0.0.1:9000
+MINIO_CONSOLE_URL=http://127.0.0.1:9001
+MINIO_ACCESS_KEY=minioadmin
+MINIO_SECRET_KEY=minioadmin
+MINIO_SECURE=false
+DATA_LAKE_STORAGE=minio
 
 # Kết nối PostgreSQL (User: recommender, Pass: do bạn đặt, DB: recommender)
 DATABASE_URL=postgresql://recommender:change-me@127.0.0.1:5432/recommender
@@ -95,16 +103,21 @@ RANDOM_SEED=42
 
 ---
 
-## 5. Cấu trúc Thư mục & Đường dẫn File Dữ liệu
+## 5. Cấu trúc MinIO S3 Buckets & Đường dẫn File Dữ liệu
+
+Data Lake được tổ chức theo 3 tầng chuẩn Medallion trên **MinIO Object Storage** (chuẩn giao thức S3A `s3a://<bucket>/...`) và đồng bộ ánh xạ với thư mục local `data/`:
+
+| Tầng Data Lake | MinIO S3 Bucket & Path | Ánh xạ thư mục Local | Định dạng & Chuẩn nén |
+| :--- | :--- | :--- | :--- |
+| **Bronze** | `s3a://bronze/products/`<br>`s3a://bronze/events/` | `data/bronze/products/`<br>`data/bronze/events/` | JSON Lines (`.jsonl`), UTF-8, Append-only |
+| **Silver** | `s3a://silver/products/<dataset_version>/`<br>`s3a://silver/events/<dataset_version>/` | `data/silver/products/`<br>`data/silver/events/` | Apache Parquet (`.parquet`), nén Snappy |
+| **Gold** | `s3a://gold/<run_id>/` | `data/gold/<run_id>/` | Apache Parquet (`.parquet`), nén Snappy |
 
 ```text
-data/
+minio/ (Bucket s3a:// hoặc local data/)
 ├── bronze/                         # File JSONL gốc UTF-8 (1 dòng = 1 object JSON)
-│   ├── products/                   # Catalog thu thập
-│   │   └── products_<source>_<timestamp>.jsonl
-│   └── events/                     # Sự kiện người dùng
-│       ├── events_synthetic_<seed>_<timestamp>.jsonl
-│       └── events_demo_<timestamp>.jsonl
+│   ├── products/                   # Catalog thu thập (products_<source>_<timestamp>.jsonl)
+│   └── events/                     # Sự kiện (events_synthetic_... hoặc events_demo_...)
 ├── silver/                         # Parquet sạch, nén Snappy, schema chuẩn
 │   ├── products/                   # Silver catalog Parquet
 │   └── events/                     # Silver events Parquet

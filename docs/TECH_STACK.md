@@ -14,10 +14,14 @@ flowchart TB
         CatalogCrawler["Catalog Connector<br>(JSON/REST/Crawler)"]
     end
 
-    subgraph Layer2["2. Tầng Lưu trữ Dữ liệu Lớn (Data Lake Storage Layer)"]
-        Bronze["Bronze Layer<br>(Raw JSONL - Schema on Read)"]
-        Silver["Silver Layer<br>(Parquet Snappy - Cleaned & Partitioned)"]
-        Gold["Gold Layer<br>(Parquet Snappy - Feature Matrix & Top-K)"]
+    subgraph Layer2["2. Tầng Lưu trữ Dữ liệu Lớn (Data Lake Object Storage - MinIO S3)"]
+        MinIO["MinIO S3 Object Storage<br>(Port 9000 S3 API, Port 9001 Console)"]
+        Bronze["Bucket: bronze<br>(Raw JSONL - Schema on Read)"]
+        Silver["Bucket: silver<br>(Parquet Snappy - Cleaned & Partitioned)"]
+        Gold["Bucket: gold<br>(Parquet Snappy - Feature Matrix & Top-K)"]
+        MinIO --- Bronze
+        MinIO --- Silver
+        MinIO --- Gold
     end
 
     subgraph Layer3["3. Tầng Xử lý & Mô hình Dữ liệu Lớn (Big Data & ML Layer)"]
@@ -102,28 +106,36 @@ Thực hiện quá trình ETL dữ liệu ba lớp Data Lake (Bronze $\rightarro
 
 ---
 
-### 2.3. Định dạng Lưu trữ Data Lake: **JSON Lines (Bronze) & Apache Parquet (Silver, Gold)**
+### 2.3. Tầng Lưu trữ Đối tượng Data Lake: **MinIO Object Storage (S3-Compatible) & Định dạng Parquet / JSONL**
 
 #### Vai trò trong hệ thống
-- **Bronze**: Lưu trữ raw events và raw catalog dưới dạng file JSON Lines (`.jsonl`).
-- **Silver & Gold**: Lưu trữ dữ liệu đã làm sạch và các bảng đặc trưng phục vụ dưới dạng Apache Parquet (`.parquet`) nén Snappy.
+Lưu trữ toàn bộ các lớp dữ liệu Data Lake phân tán theo kiến trúc Medallion:
+- **Bucket `bronze`**: Lưu trữ raw events và raw catalog dưới dạng file JSON Lines (`.jsonl`).
+- **Bucket `silver` & `gold`**: Lưu trữ dữ liệu sạch và các bảng đặc trưng/kết quả phục vụ dưới dạng Apache Parquet (`.parquet`) nén Snappy.
 
-#### Lý do lựa chọn
-1. **Bronze dùng JSONL (Schema-on-Read)**: Mỗi dòng là một JSON object độc lập, không cần đóng mở ngoặc mảng như JSON thông thường; cực kỳ thuận tiện cho việc append sự kiện theo thời gian thực mà không làm hỏng file cũ; dễ kiểm tra, debug trực tiếp bằng mắt thường hoặc CLI.
-2. **Silver/Gold dùng Parquet (Columnar Storage)**: 
-   - **Nén dung lượng vượt trội**: Nén Snappy giúp giảm từ **70% đến 85%** dung lượng đĩa so với CSV và JSON.
-   - **Column Pruning & Predicate Pushdown**: Khi Spark tính toán ma trận tương tác chỉ cần đọc `user_id`, `product_id`, `event_type`, Parquet chỉ tải đúng các cột này lên RAM, bỏ qua toàn bộ các cột khác, giảm thiểu triệt để băng thông đĩa.
-   - **Lưu trữ Metadata & Schema nguyên vẹn**: Giữ nguyên kiểu dữ liệu (timestamp, int, double) mà không lo lỗi parse chuỗi ngày tháng như CSV.
+#### Lý do lựa chọn MinIO Object Storage
+1. **Chuẩn hóa Giao thức Công nghiệp S3 (Industry-Standard S3 API)**:
+   - Amazon S3 là chuẩn lưu trữ Data Lake số 1 thế giới trong các kiến trúc Cloud-Native (AWS EMR, Databricks, Snowflake).
+   - MinIO tương thích 100% với S3 API. PySpark giao tiếp với MinIO thông qua **Hadoop S3A Connector** (`s3a://bronze/...`). Khi đưa lên môi trường Cloud thật (AWS S3, Google Cloud Storage), nhóm **chỉ cần đổi endpoint URL mà không cần sửa đổi bất kỳ dòng mã nguồn PySpark nào**.
+2. **Phân tách Độc lập giữa Tính toán và Lưu trữ (Decoupled Compute & Storage)**:
+   - Phá vỡ sự phụ thuộc vào ổ cứng cục bộ của một máy đơn lẻ. MinIO đóng vai trò máy chủ lưu trữ tập trung (Centralized Object Store), cho phép cả hai thành viên (Thành và Pháp) và nhiều Spark worker node cùng truy xuất song song.
+3. **Giao diện Web Trực quan (MinIO Console Port 9001)**:
+   - Cung cấp giao diện trực quan như AWS S3 Console, giúp nhóm và giảng viên duyệt bucket, kiểm tra kích thước file, xem trước dữ liệu và quản lý phân quyền (Access Key / Secret Key) thuận tiện.
+4. **Hiệu năng cao, gọn nhẹ và miễn phí 100%**:
+   - Viết bằng Golang, tiêu tốn rất ít RAM (~50–100MB), tốc độ đọc/ghi cực nhanh, hoàn toàn miễn phí, không yêu cầu thẻ tín dụng quốc tế như AWS S3.
 
-#### So sánh với các định dạng lưu trữ khác
+#### Lý do kết hợp với Parquet và JSONL
+- **Bronze dùng JSONL (Schema-on-Read)**: Append-only linh hoạt, dễ debug, độc lập từng dòng.
+- **Silver/Gold dùng Parquet Snappy (Columnar Storage)**: Nén giảm **70% đến 85%** dung lượng đĩa, hỗ trợ *Column Pruning* và *Predicate Pushdown* tăng tốc độ truy vấn phân tích cột lên hàng chục lần.
 
-| Định dạng | Cấu trúc lưu | Tỷ lệ nén | Tốc độ đọc phân tích (OLAP) | Bảo toàn Schema | Đánh giá |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **JSONL (Chọn cho Bronze)** | Row-based | Thấp | Chậm | Có cấu trúc linh hoạt | **Tốt nhất cho Raw Ingestion** |
-| **Parquet (Chọn cho Silver/Gold)** | Columnar | **Rất cao (Snappy)** | **Cực nhanh** | **Tuyệt đối (Strong typing)** | **Chuẩn mực công nghiệp cho Data Lake** |
-| **CSV** | Row-based | Rất thấp | Chậm | Kém (mọi thứ là text, dễ lỗi dấu phẩy) | Lạc hậu, không dùng cho Big Data |
-| **Apache Avro** | Row-based | Cao | Trung bình | Tốt (Schema JSON) | Tốt cho message bus (Kafka), kém hơn Parquet trong truy vấn phân tích cột |
-| **Delta Lake / Iceberg** | Parquet + Transaction Log | Rất cao | Rất nhanh | Có thêm ACID & Time-travel | Quá phức tạp và nặng cấu hình cho phạm vi đồ án local demo |
+#### So sánh MinIO với các giải pháp lưu trữ Data Lake khác
+
+| Giải pháp Lưu trữ | Loại hình | Ưu điểm nổi bật | Nhược điểm đối với dự án này | Kết luận đánh giá |
+| :--- | :--- | :--- | :--- | :--- |
+| **MinIO Object Storage (Được chọn)** | S3-Compatible Object Storage | **Chuẩn S3 100%, tách rời compute/storage, có Web UI đẹp, miễn phí, nhẹ RAM, 2 máy share mượt mà.** | Cần bật 1 tiến trình service MinIO (port 9000/9001). | **Lựa chọn hiện đại và tối ưu nhất cho đồ án.** |
+| **Local File System (Ổ cứng máy đơn)** | File System cục bộ (NTFS) | Không cần cài service ngoài, tốc độ SSD nhanh. | Không phân tách compute/storage; máy người khác không thể đọc/ghi trực tiếp qua mạng; không chuẩn hóa giao thức Cloud S3. | Phù hợp làm fallback khi chạy offline hoàn toàn. |
+| **Amazon AWS S3** | Cloud Object Storage | Tiêu chuẩn toàn cầu, độ sẵn sàng 99.999999999%. | Tốn chi phí thẻ visa; phụ thuộc tốc độ đường truyền Internet quốc tế; chi phí truyền dữ liệu (data egress). | Quá tốn kém và rủi ro cho đồ án sinh viên. |
+| **Hadoop HDFS** | Distributed File System | Rất mạnh trên cụm vật lý nhiều máy server. | Cực kỳ nặng (cần NameNode/DataNode Java daemon ngốn **3–4GB RAM**), cấu hình phức tạp, lỗi thời so với xu hướng Object Storage. | Không phù hợp cho máy cá nhân. |
 
 ---
 

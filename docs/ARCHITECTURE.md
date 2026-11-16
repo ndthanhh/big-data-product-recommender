@@ -41,17 +41,19 @@ flowchart TB
 
 Môi trường chuẩn: Python 3.11, JDK 17, PySpark 3.5.7, PostgreSQL 17, FastAPI và Streamlit theo dependency trong `pyproject.toml`. Spark chạy `local[2]` trong kiểm tra nhỏ; cấu hình benchmark được ghi cùng kết quả.
 
-## 3. Data Lake ba lớp
+## 3. Data Lake ba lớp trên MinIO S3 Object Storage
+
+Data Lake được lưu trữ tập trung trên **MinIO Object Storage** (chuẩn giao thức Amazon S3, URI `s3a://`, cổng API `9000`, cổng Console `9001`), hỗ trợ cả chế độ phân tán qua mạng LAN/Tailscale lẫn fallback thư mục local `data/`:
 
 ### 3.1. Bronze: nguồn gốc và khả năng replay
 
-`data/bronze/products/` và `data/bronze/events/` chứa JSONL UTF-8, một object mỗi dòng. Phân chia theo nguồn và đợt nhập; mỗi đợt có manifest ghi schema version, file, SHA-256, số dòng, seed nếu mô phỏng, nguồn và khoảng thời gian. Tên file khác nhau không thay đổi `event_id` khi xuất lại dữ liệu.
+Bucket `bronze` (`s3a://bronze/products/` và `s3a://bronze/events/`) chứa JSONL UTF-8, một object mỗi dòng. Phân chia theo nguồn và đợt nhập; mỗi đợt có manifest ghi schema version, file, SHA-256, số dòng, seed nếu mô phỏng, nguồn và khoảng thời gian. Tên file khác nhau không thay đổi `event_id` khi xuất lại dữ liệu.
 
 Catalog giữ lịch sử các lần thu thập; `product_id` ổn định theo `<source>:<id_goc>`. Event gồm `view`, `click`, `add_to_cart`; `source` của event chỉ là `synthetic` hoặc `demo`. Bronze là bản ghi nguồn, không ghi đè một đợt đã công bố. File đang ghi ở vị trí tạm; chỉ công bố manifest sau khi đóng file và kiểm tra checksum.
 
 ### 3.2. Silver: schema rõ ràng và kiểm tra chất lượng
 
-Silver lưu Parquet tại `data/silver/products/<dataset_version>/` và `data/silver/events/<dataset_version>/`. Các schema, kiểu và nullable nằm trong [DATA_CONTRACTS.md](DATA_CONTRACTS.md). ETL thực hiện:
+Silver lưu Parquet tại `s3a://silver/products/<dataset_version>/` và `s3a://silver/events/<dataset_version>/` (hoặc local `data/silver/...`). Các schema, kiểu và nullable nằm trong [DATA_CONTRACTS.md](DATA_CONTRACTS.md). ETL thực hiện:
 
 1. Đọc với schema tường minh; từ chối ID rỗng, thời gian thiếu múi giờ, event type/source ngoài enum và `add_to_cart` thiếu `cart_id`.
 2. Chuẩn hóa timestamp UTC và UUID. Đặt `spark.sql.session.timeZone=UTC` cho cả đọc, tổng hợp và ghi.
@@ -64,7 +66,7 @@ Silver lưu Parquet tại `data/silver/products/<dataset_version>/` và `data/si
 
 ### 3.3. Gold: tổng hợp sau chia tập và đầu ra theo batch
 
-Mỗi lần chạy ghi dưới `data/gold/<run_id>/`. Đầu vào được cố định từ lúc bắt đầu. Khi đánh giá offline, **chia thời gian trước khi** cộng trọng số hoặc tạo giỏ. Không dùng một bảng tổng hợp toàn bộ Silver để train rồi mới chia đánh giá.
+Mỗi lần chạy ghi dưới `s3a://gold/<run_id>/` (hoặc local `data/gold/<run_id>/`). Đầu vào được cố định từ lúc bắt đầu. Khi đánh giá offline, **chia thời gian trước khi** cộng trọng số hoặc tạo giỏ. Không dùng một bảng tổng hợp toàn bộ Silver để train rồi mới chia đánh giá.
 
 | Nhóm output | Nội dung |
 | --- | --- |
