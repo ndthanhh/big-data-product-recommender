@@ -2,9 +2,9 @@
 
 [Trang chủ repo](../README.md) · [Tech Stack](TECH_STACK.md) · [Quy ước đồng nhất](CONVENTIONS.md) · [Kiến trúc](ARCHITECTURE.md) · [Hợp đồng v1](DATA_CONTRACTS.md) · [Thực nghiệm](EXPERIMENT_PLAN.md) · [Kế hoạch & Phân công](../PLAN.md) · [Checklist](PROJECT_CHECKLIST.md)
 
-## 1. Trạng thái có thể chạy sau T01
+## 1. Trạng thái có thể chạy sau T03
 
-Repo hiện có `pyproject.toml`, `.env.example`, cấu trúc `src/recommender/`, các lớp `data/` và thư mục `tests/fixtures/`. Các module mới có `__init__.py`. T01 hoàn thiện tài liệu; chưa có entry point ETL, train, importer, FastAPI hoặc Streamlit. Fixture và test hợp đồng thuộc T02. Cài package thành công chưa phải bằng chứng hệ thống chạy end-to-end.
+Repo đã có cấu hình, schema Pydantic và fixture/test hợp đồng T02, cùng CLI thu thập catalog Best Buy và sinh sự kiện T03. Chưa có entry point ETL, train, importer, FastAPI hoặc Streamlit. Cài package thành công chưa phải bằng chứng hệ thống chạy end-to-end.
 
 [README gốc](../README.md) là điểm bắt đầu cài môi trường và chỉ mục tài liệu. [PLAN.md](../PLAN.md) định nghĩa T01–T12; [PROJECT_CHECKLIST.md](PROJECT_CHECKLIST.md) theo dõi nguồn catalog, chia sẻ dataset, thực nghiệm và báo cáo P0–P15. T01 không tự đánh dấu hoàn tất kiểm tra triển khai hoặc review nhóm.
 
@@ -42,6 +42,53 @@ Module đọc `.env` thuộc T02, ưu tiên môi trường tiến trình. Chép 
 | 11 | T12: runner và benchmark | Luồng đầy đủ → số đo chất lượng, batch, API/UI gắn run/dataset/code. |
 
 T07 phải có trước khi fit thí nghiệm T05/T06 dù số task lớn hơn: chia tập trước khi tổng hợp dữ liệu học. API/UI có thể viết bằng fixture và tích hợp snapshot popularity trước ALS.
+
+### 3.1. Thu thập catalog và sinh Bronze (T03)
+
+Chạy từ gốc repo sau khi cài extras `pipeline,dev`. Lệnh đầu ưu tiên seed local;
+nếu chưa có hoặc không đủ sản phẩm thì tải từ [Best Buy Open Data Set](https://github.com/BestBuyAPIs/open-data-set).
+`--source` chọn tường minh file JSON list hoặc URL HTTP(S), kể cả khi đã có cache.
+
+```powershell
+.\.venv\Scripts\python -m recommender.ingestion.catalog --limit 1000 --output data/bronze/products/products.jsonl --seed 42
+.\.venv\Scripts\python -m recommender.ingestion.synthetic --catalog data/bronze/products/products.jsonl --output data/bronze/events --events 100000 --users 1000 --sessions 5000 --seed 42
+```
+
+Catalog lưu seed JSON list đã chuẩn hóa tại `data/raw/products_bestbuy_1000.json`
+để dùng offline. Bộ lọc loại SKU trùng, giá không dương/không hữu hạn, tên/ảnh
+không hợp lệ, dịch vụ và danh mục ngoài công nghệ. Ba nhóm hỗn hợp Connected
+Home, Musical Instruments và Toys chỉ nhận danh mục con điện tử. Chọn cân bằng
+12 nhóm, ưu tiên bản ghi đầy đủ mô tả/thương hiệu/model/link, tie-break theo seed.
+Nếu nguồn không đủ số lượng yêu cầu, CLI trả lỗi thay vì xuất thiếu sản phẩm.
+
+Schema `Product` v1 được giữ nguyên: `category_id` là mã ngành hàng chữ thường,
+`collected_at` là mốc snapshot thí nghiệm `2026-10-01T00:00:00Z`; `attributes`
+lưu `price`, tên `category`, `model`, `is_active="true"` và `tags` là chuỗi JSON
+list (đọc bằng `json.loads`). Đây là metadata trong object phẳng string → string
+theo hợp đồng. `image_url` và `product_url` được nâng sang HTTPS.
+
+Synthetic nhận `--output` là thư mục hoặc file `.jsonl`. Mặc định sinh 100.000
+event; nếu chỉ giảm `--events`, CLI tự chọn số user/phiên phù hợp. Khi truyền
+tường minh cần `1 <= users <= sessions <= events`; dataset rỗng dùng cả ba số 0.
+Mỗi user có sở thích danh mục bền vững (85% chọn trong nhóm yêu thích), sản phẩm
+được lấy theo Zipf (số mũ 1,2), phiên có chuỗi view → click → add_to_cart và
+giỏ hai món lặp lại. Giỏ thể hiện đồng xuất hiện, không khẳng định tương thích
+kỹ thuật. `cart_id` luôn null với view/click. Event được stream trực tiếp ra file,
+không giữ toàn bộ sự kiện trong RAM.
+
+Thời gian mô phỏng trải từ `2026-10-02` đến `2026-11-08` UTC để phủ các cutoff
+thí nghiệm; nếu catalog có snapshot mới hơn, cửa sổ tự dịch sau snapshot đó.
+Cùng catalog, tham số, seed và phiên bản Faker/NumPy tạo cùng byte JSONL. Manifest
+ghi phiên bản thư viện và thời gian công bố thực, cùng đầy đủ thống kê, phiên bản
+catalog, commit/code_dirty và SHA-256 tính từ byte dữ liệu. Mỗi thư mục đầu ra có
+`manifest.json` tương ứng file vừa công bố; dùng thư mục riêng cho mỗi gói cần giữ.
+
+```powershell
+.\.venv\Scripts\python -m recommender.ingestion.catalog --source data/raw/products_bestbuy_1000.json --limit 1000 --seed 42
+.\.venv\Scripts\python -m pytest tests/test_ingestion.py -v
+.\.venv\Scripts\python -m pytest tests/ -v
+.\.venv\Scripts\python -m ruff check src tests
+```
 
 ## 4. Kịch bản nghiệm thu demo
 

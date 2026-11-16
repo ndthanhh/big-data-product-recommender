@@ -17,6 +17,7 @@ dist/
 # Generated data and Spark output
 /data/*/*
 !/data/*/.gitkeep
+!/data/raw/products_bestbuy_1000.json
 /spark-warehouse/
 /metastore_db/
 /derby.log
