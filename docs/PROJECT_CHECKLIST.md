@@ -97,14 +97,14 @@ Phụ trách A, B review ý nghĩa dữ liệu. Phụ thuộc catalog fixture P2
 
 Phụ trách B, A hỗ trợ dữ liệu nguồn. Phụ thuộc fixture P2 và P3.
 
-- [ ] **P4-01** Khai báo schema khi đọc catalog và events, xử lý timestamp UTC, chuỗi rỗng và bản ghi không đọc được.
-- [ ] **P4-02** Khử trùng sản phẩm theo quy tắc đã chốt và sự kiện theo `event_id`. Phát hiện cùng ID nhưng nội dung khác nhau.
-- [ ] **P4-03** Kiểm tra event tham chiếu đến catalog, loại hành vi hợp lệ và cart bắt buộc khi thêm giỏ. Ghi số dòng nhận, hợp lệ và bị loại theo lý do.
-- [ ] **P4-04** Ghi catalog và events sạch thành Parquet trong `data/silver/products/` và `data/silver/events/`.
-- [ ] **P4-05** Gắn Silver với `dataset_version`, manifest và checksum. Công bố một phiên bản sau khi toàn bộ file cần thiết đã ghi và kiểm tra xong.
-- [ ] **P4-06** Viết bước đọc Silver để tổng hợp tương tác có trọng số và tạo tập giỏ riêng cho từng cửa sổ train được chọn.
-- [ ] **P4-07** Chốt bố trí Gold theo `run_id`, lưu các bảng phục vụ, manifest, cấu hình, ánh xạ ID, model và kết quả đánh giá có liên kết với dataset.
-- [ ] **P4-08** Kiểm tra chạy lại, đầu vào rỗng, batch dở dang và thư mục đã có kết quả. Giữ bản thành công trước đó có thể dùng tiếp.
+- [x] **P4-01** Khai báo schema khi đọc catalog và events, xử lý timestamp UTC, chuỗi rỗng và bản ghi không đọc được.
+- [x] **P4-02** Khử trùng sản phẩm theo quy tắc đã chốt và sự kiện theo `event_id`. Phát hiện cùng ID nhưng nội dung khác nhau.
+- [x] **P4-03** Kiểm tra event tham chiếu đến catalog, loại hành vi hợp lệ và cart bắt buộc khi thêm giỏ. Ghi số dòng nhận, hợp lệ và bị loại theo lý do.
+- [x] **P4-04** Ghi catalog và events sạch thành Parquet trong `data/silver/products/` và `data/silver/events/`.
+- [x] **P4-05** Gắn Silver với `dataset_version`, manifest và checksum. Công bố một phiên bản sau khi toàn bộ file cần thiết đã ghi và kiểm tra xong.
+- [x] **P4-06** Viết bước đọc Silver để tổng hợp tương tác có trọng số và tạo tập giỏ riêng cho từng cửa sổ train được chọn.
+- [x] **P4-07** Chốt bố trí Gold theo `run_id`, lưu các bảng phục vụ, manifest, cấu hình, ánh xạ ID, model và kết quả đánh giá có liên kết với dataset.
+- [x] **P4-08** Kiểm tra chạy lại, đầu vào rỗng, batch dở dang và thư mục đã có kết quả. Giữ bản thành công trước đó có thể dùng tiếp.
 
 Đầu ra là entry point ETL có hướng dẫn chạy và Silver đọc được từ máy teammate. Thư mục, schema, lịch sử metadata và manifest theo [DATA_CONTRACTS.md](DATA_CONTRACTS.md); luồng dữ liệu theo [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -127,12 +127,12 @@ Phụ trách A viết bước công bố, B viết bước tải và tích hợp
 
 Phụ trách B, A review. Phụ thuộc Silver P4.
 
-- [ ] **P6-01** Triển khai hai cutoff UTC và khoảng nửa mở theo [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md), lưu cấu hình; đổi lịch dataset phải chốt trước train.
-- [ ] **P6-02** Fit popularity, ALS, hồ sơ nội dung và luật giỏ bằng dữ liệu có trước mốc dự đoán. Vectorizer và metadata dùng để dự đoán phải sẵn có ở thời điểm đó.
-- [ ] **P6-03** Chốt relevance từ click và thêm giỏ, cách khử trùng nhãn, tập ứng viên và quy tắc loại item đã tương tác.
-- [ ] **P6-04** Ghi rõ user đủ điều kiện đánh giá, user không còn nhãn sau lọc và các user hoặc item mới. Lưu số lượng của từng nhóm.
-- [ ] **P6-05** Chia giỏ thành đơn vị nguyên vẹn, purge toàn bộ event gắn giỏ đi qua cutoff theo [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md); ghi số giỏ/event bị loại.
-- [ ] **P6-06** Chuẩn bị fixture có kết quả Recall@10 và NDCG@10 tính tay để đối chiếu cách tính metric.
+- [x] **P6-01** Triển khai hai cutoff UTC và khoảng nửa mở theo [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md), lưu cấu hình; đổi lịch dataset phải chốt trước train.
+- [x] **P6-02** Fit popularity, ALS, hồ sơ nội dung và luật giỏ bằng dữ liệu có trước mốc dự đoán. Vectorizer và metadata dùng để dự đoán phải sẵn có ở thời điểm đó.
+- [x] **P6-03** Chốt relevance từ click và thêm giỏ, cách khử trùng nhãn, tập ứng viên và quy tắc loại item đã tương tác.
+- [x] **P6-04** Ghi rõ user đủ điều kiện đánh giá, user không còn nhãn sau lọc và các user hoặc item mới. Lưu số lượng của từng nhóm.
+- [x] **P6-05** Chia giỏ thành đơn vị nguyên vẹn, purge toàn bộ event gắn giỏ đi qua cutoff theo [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md); ghi số giỏ/event bị loại.
+- [x] **P6-06** Chuẩn bị fixture có kết quả Recall@10 và NDCG@10 tính tay để đối chiếu cách tính metric.
 
 Đầu ra là split và metric thực thi theo [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md), dùng chung cho mọi mô hình. Tổng hợp trọng số và tạo giỏ học sau chia tập; test fixture đối chiếu ví dụ tính tay trong tài liệu.
 
@@ -142,38 +142,38 @@ Phụ trách B. Phụ thuộc P6. Làm popularity trước để tích hợp web
 
 ### Popularity
 
-- [ ] **P7-01** Tính độ phổ biến từ tập train theo trọng số hành vi và tạo danh sách phổ biến có thứ tự ổn định khi điểm bằng nhau.
-- [ ] **P7-02** Lọc sản phẩm không còn hợp lệ và item user đã tương tác, xuất ứng viên đủ lớn để lấy top 10 sau lọc.
-- [ ] **P7-03** Lưu baseline vào Gold và dùng nó làm đường chuẩn để so sánh, đồng thời làm fallback trong API.
+- [x] **P7-01** Tính độ phổ biến từ tập train theo trọng số hành vi và tạo danh sách phổ biến có thứ tự ổn định khi điểm bằng nhau.
+- [x] **P7-02** Lọc sản phẩm không còn hợp lệ và item user đã tương tác, xuất ứng viên đủ lớn để lấy top 10 sau lọc.
+- [x] **P7-03** Lưu baseline vào Gold và dùng nó làm đường chuẩn để so sánh, đồng thời làm fallback trong API.
 
 ### TF-IDF và gợi ý thay thế
 
-- [ ] **P7-04** Tạo nội dung từ tên, danh mục và mô tả, xử lý trường rỗng, lưu vectorizer và cấu hình tiền xử lý.
-- [ ] **P7-05** Tính sản phẩm tương tự bằng cosine, giới hạn cùng danh mục cho gợi ý thay thế và loại sản phẩm gốc.
-- [ ] **P7-06** Tạo hồ sơ nội dung của user từ lịch sử có trọng số để có mô hình cá nhân hóa TF-IDF so sánh với ALS.
-- [ ] **P7-07** Xuất danh sách tương tự cho các sản phẩm để API dùng cho trang chi tiết và lấy ứng viên theo phiên.
+- [x] **P7-04** Tạo nội dung từ tên, danh mục và mô tả, xử lý trường rỗng, lưu vectorizer và cấu hình tiền xử lý.
+- [x] **P7-05** Tính sản phẩm tương tự bằng cosine, giới hạn cùng danh mục cho gợi ý thay thế và loại sản phẩm gốc.
+- [x] **P7-06** Tạo hồ sơ nội dung của user từ lịch sử có trọng số để có mô hình cá nhân hóa TF-IDF so sánh với ALS.
+- [x] **P7-07** Xuất danh sách tương tự cho các sản phẩm để API dùng cho trang chi tiết và lấy ứng viên theo phiên.
 
 ### Implicit ALS
 
-- [ ] **P7-08** Tạo ánh xạ `user_id` và `product_id` sang số nguyên trong giới hạn ALS, lưu ánh xạ kèm model và `run_id`.
-- [ ] **P7-09** Train với `implicitPrefs=True`, chốt không gian thử rank, số vòng lặp, regularization, alpha và seed theo khả năng máy.
-- [ ] **P7-10** Chọn cấu hình trên validation, xử lý dự đoán thiếu cho user hoặc item mới bằng chính sách fallback đã chốt.
-- [ ] **P7-11** Lưu model, tải lại để tính gợi ý và đối chiếu kết quả với model trong lần train.
-- [ ] **P7-12** Sinh ứng viên, lọc item đã tương tác hoặc không có trong catalog phục vụ, loại điểm không hữu hạn rồi xuất top K bằng ID gốc.
+- [x] **P7-08** Tạo ánh xạ `user_id` và `product_id` sang số nguyên trong giới hạn ALS, lưu ánh xạ kèm model và `run_id`.
+- [x] **P7-09** Train với `implicitPrefs=True`, chốt không gian thử rank, số vòng lặp, regularization, alpha và seed theo khả năng máy.
+- [x] **P7-10** Chọn cấu hình trên validation, xử lý dự đoán thiếu cho user hoặc item mới bằng chính sách fallback đã chốt.
+- [x] **P7-11** Lưu model, tải lại để tính gợi ý và đối chiếu kết quả với model trong lần train.
+- [x] **P7-12** Sinh ứng viên, lọc item đã tương tác hoặc không có trong catalog phục vụ, loại điểm không hữu hạn rồi xuất top K bằng ID gốc.
 
 ### FP-Growth và mua kèm
 
-- [ ] **P7-13** Tạo tập sản phẩm duy nhất cho từng giỏ trong train, thống kê số giỏ có từ hai sản phẩm và xử lý giỏ rỗng.
-- [ ] **P7-14** Train FP-Growth, chọn minSupport và minConfidence theo dữ liệu thử, xuất antecedent, consequent, support, confidence và lift.
-- [ ] **P7-15** Chuẩn hóa và khử trùng các ID trong antecedent, tách từng consequent nếu cần để phù hợp bảng phục vụ.
-- [ ] **P7-16** Chọn luật khi antecedent nằm trong giỏ hiện tại, khử trùng kết quả, loại item đã có trong giỏ và xử lý trường hợp thiếu luật.
-- [ ] **P7-17** Viết quy tắc tương thích cho những danh mục có đủ thông số, ghi rõ cách xử lý thông số thiếu và fixture cặp hợp lệ, không hợp lệ.
+- [x] **P7-13** Tạo tập sản phẩm duy nhất cho từng giỏ trong train, thống kê số giỏ có từ hai sản phẩm và xử lý giỏ rỗng.
+- [x] **P7-14** Train FP-Growth, chọn minSupport và minConfidence theo dữ liệu thử, xuất antecedent, consequent, support, confidence và lift.
+- [x] **P7-15** Chuẩn hóa và khử trùng các ID trong antecedent, tách từng consequent nếu cần để phù hợp bảng phục vụ.
+- [x] **P7-16** Chọn luật khi antecedent nằm trong giỏ hiện tại, khử trùng kết quả, loại item đã có trong giỏ và xử lý trường hợp thiếu luật.
+- [ ] **P7-17** Viết quy tắc tương thích cho những danh mục có đủ thông số, ghi rõ cách xử lý thông số thiếu và fixture cặp hợp lệ, không hợp lệ. *(Đã có: `COMPATIBILITY_RULES` và fixture connector trùng/khác/thiếu. Catalog Best Buy chưa có thuộc tính connector nên chưa bật quy tắc nào.)*
 
 ### MMR
 
-- [ ] **P7-18** Chuẩn hóa điểm phù hợp trước khi kết hợp với cosine similarity, chốt cách xử lý ứng viên thiếu vector.
-- [ ] **P7-19** Áp dụng MMR trên tập ứng viên lớn hơn K, chọn lambda trên validation và giữ thứ tự ổn định khi hòa điểm.
-- [ ] **P7-20** Xuất cùng một lượt gợi ý có và chưa áp dụng MMR để đánh giá tác động tới độ phù hợp, đa dạng và độ phủ.
+- [x] **P7-18** Chuẩn hóa điểm phù hợp trước khi kết hợp với cosine similarity, chốt cách xử lý ứng viên thiếu vector.
+- [x] **P7-19** Áp dụng MMR trên tập ứng viên lớn hơn K, chọn lambda trên validation và giữ thứ tự ổn định khi hòa điểm.
+- [x] **P7-20** Xuất cùng một lượt gợi ý có và chưa áp dụng MMR để đánh giá tác động tới độ phù hợp, đa dạng và độ phủ.
 
 Đầu ra gồm model có thể tải lại, cấu hình và ánh xạ ID, danh sách gợi ý theo user, danh sách thay thế, luật mua kèm và baseline. Mỗi output ghi dataset và mốc dữ liệu đã dùng.
 
@@ -239,15 +239,15 @@ Phụ trách A + B. B xác định cách lấy ứng viên và tính điểm, A 
 
 Phụ trách B đo mô hình và batch, A đo API và UI. Phụ thuộc các mô hình P7, API P9 và phần phiên P11.
 
-- [ ] **P12-01** Chạy popularity, TF-IDF, ALS và phương án cá nhân hóa có MMR trên cùng bộ dữ liệu, mốc chia, tập ứng viên và chính sách lọc.
-- [ ] **P12-02** Báo Recall@10, NDCG@10, đa dạng nội danh sách và độ phủ catalog, kèm số user và số nhãn thực sự được đánh giá.
+- [x] **P12-01** Chạy popularity, TF-IDF, ALS và phương án cá nhân hóa có MMR trên cùng bộ dữ liệu, mốc chia, tập ứng viên và chính sách lọc.
+- [x] **P12-02** Báo Recall@10, NDCG@10, đa dạng nội danh sách và độ phủ catalog, kèm số user và số nhãn thực sự được đánh giá.
 - [ ] **P12-03** Đánh giá thay thế bằng ca cùng danh mục và kiểm tra mua kèm bằng giỏ giữ lại sản phẩm, ghi support, confidence và lift của các luật dùng.
 - [ ] **P12-04** So sánh chỉ batch, chỉ tín hiệu phiên và kết hợp bằng dự đoán click tiếp theo. Chỉ dùng các sự kiện xảy ra trước thời điểm dự đoán.
 - [ ] **P12-05** Phân tích user hoặc item mới, danh mục ít dữ liệu và các trường hợp fallback. Tách kết quả dữ liệu mô phỏng với demo khi đủ mẫu.
 - [ ] **P12-06** Đo ETL, train, xuất top K, kích thước output và bộ nhớ nếu có thể, ở các mức dữ liệu đã chốt. Ghi CPU, RAM, hệ điều hành và cấu hình Spark.
 - [ ] **P12-07** Đo độ trễ API p50/p95 sau warm-up, tỷ lệ lỗi và số request đồng thời. Đo riêng API đọc gợi ý và API nhận event.
 - [ ] **P12-08** Đo tốc độ nhận click và độ trễ gợi ý theo phiên, theo dõi ảnh hưởng khi batch và demo cùng chạy trên một máy.
-- [ ] **P12-09** Cố định cấu hình sau validation rồi chạy test cuối, lưu CSV hoặc JSON kết quả và biểu đồ liên kết với `dataset_version`, commit code và `run_id`.
+- [x] **P12-09** Cố định cấu hình sau validation rồi chạy test cuối, lưu CSV hoặc JSON kết quả và biểu đồ liên kết với `dataset_version`, commit code và `run_id`.
 - [ ] **P12-10** Phân tích các mức tăng hoặc giảm so với baseline, tác động của MMR và các giới hạn của dữ liệu mô phỏng dựa trên kết quả đã đo.
 
 Đầu ra là bảng kết quả và biểu đồ dùng được trong báo cáo. Kết quả mô hình được so sánh bằng đúng tập dữ liệu và cách tính metric đã chốt.

@@ -21,7 +21,7 @@ Tài liệu này chi tiết hóa toàn bộ các bước triển khai kỹ thu�
 Dự án do **Nguyễn Đức Thành** (Thành - Vai trò A: Ingestion/Database/API/UI/Complements) và **Phan Văn Pháp** (Pháp - Vai trò B: Data Lake/PySpark ETL/Mô hình/Evaluation) cùng thực hiện.
 
 ### 2.1. Đánh giá Khối lượng Công việc (Workload Balance)
-- **Nhánh Nguyễn Đức Thành (Full-stack Data App)**: Xây dựng bộ sinh hành vi Faker/NumPy, thiết kế PostgreSQL DDL/Migrations, Atomic Importer, thuật toán FP-Growth mua kèm, FastAPI (7 routes, xử lý concurrency/idempotency), gợi ý theo phiên thời gian thực và Streamlit Web UI. Khối lượng tập trung vào tính rộng của hệ thống, nhiều công nghệ tích hợp (SQL, API, Frontend, Session State).
+- **Nhánh Nguyễn Đức Thành (Full-stack Data App)**: Xây dựng bộ sinh hành vi Faker/NumPy, thiết kế PostgreSQL DDL/Migrations, Atomic Importer, FastAPI (7 routes, xử lý concurrency/idempotency), gợi ý theo phiên thời gian thực và Streamlit Web UI. Khối lượng tập trung vào tính rộng của hệ thống, nhiều công nghệ tích hợp (SQL, API, Frontend, Session State).
 - **Nhánh Phan Văn Pháp (Big Data & Machine Learning Core)**: Xây dựng pipeline PySpark ETL (chuẩn hóa Bronze $\rightarrow$ Silver $\rightarrow$ Gold Parquet), thuật toán Popularity, TF-IDF Content-Based (Substitutes), Collaborative Filtering Implicit ALS, tái xếp hạng MMR và toàn bộ module đánh giá (Time-based split, Recall@10, NDCG@10, Diversity, Coverage). Khối lượng tập trung vào độ sâu thuật toán, tối ưu tài nguyên PySpark local và tính toán toán học.
 - **Kết luận**: Khối lượng công việc tương đương 50/50, cân bằng hoàn hảo giữa **Kỹ thuật Dữ liệu lớn & Mô hình hóa (Big Data / ML)** và **Ứng dụng & Phục vụ Thời gian thực (Serving / Web App)**.
 
@@ -36,7 +36,7 @@ Dự án do **Nguyễn Đức Thành** (Thành - Vai trò A: Ingestion/Database/
 | **T03** | Bộ Sinh Dữ liệu Hành vi Mô phỏng (Synthetic Data) | **Nguyễn Đức Thành** | Phan Văn Pháp | Bộ sinh Faker/NumPy, Bronze JSONL events |
 | **T04** | Pipeline ETL PySpark: Bronze $\rightarrow$ Silver $\rightarrow$ Gold Base | **Phan Văn Pháp** | Nguyễn Đức Thành | Script ETL PySpark, Parquet sạch, ma trận tương tác |
 | **T05** | Mô hình 1: Popularity Baseline & TF-IDF Substitutes | **Phan Văn Pháp** | Nguyễn Đức Thành | Model Popularity & TF-IDF, gợi ý thay thế |
-| **T06** | Mô hình 2: Implicit ALS, FP-Growth & MMR Re-ranking | **Phan Văn Pháp** *(ALS, MMR)*<br>**Nguyễn Đức Thành** *(FP-Growth)* | Chéo nhau | Model ALS, luật giỏ hàng FP-Growth, tái xếp hạng MMR |
+| **T06** | Mô hình 2: Implicit ALS, FP-Growth & MMR Re-ranking | **Phan Văn Pháp** *(ALS, MMR, FP-Growth)* | Nguyễn Đức Thành | Model ALS, luật giỏ hàng FP-Growth, tái xếp hạng MMR |
 | **T07** | Phân chia Đánh giá Thời gian & Đo lường Metrics | **Phan Văn Pháp** | Nguyễn Đức Thành | Time split 2 mốc UTC, Recall@10, NDCG@10, Diversity |
 | **T08** | PostgreSQL Schema DDL, Migration & Snapshot Importer | **Nguyễn Đức Thành** | Phan Văn Pháp | SQL migrations, importer nạp Gold snapshot vào DB |
 | **T09** | Phát triển Dịch vụ FastAPI (Serving & Ingestion) | **Nguyễn Đức Thành** | Phan Văn Pháp | FastAPI app 7 routes, xử lý idempotency, status codes |
@@ -62,20 +62,22 @@ flowchart TD
         T08 --> T09["T09: FastAPI Serving & Event Ingestion"]
         T09 --> T10["T10: Session Reranking & Xuất Log Demo"]
         T10 --> T11["T11: Website Demo Streamlit"]
-        T03 -.->|Luật giỏ hàng| T06B["T06: FP-Growth Complements"]
     end
 
     subgraph TrackPhap["Nhánh Phan Văn Pháp (Data Lake & Mô hình Học máy)"]
-        T02 --> T04["T04: PySpark ETL Bronze → Silver → Gold Base"]
+        T02 --> T04["T04: PySpark ETL Bronze → Silver → Gold Base [COMPLETED]"]
         T04 --> T05["T05: Popularity Baseline & TF-IDF Substitutes"]
         T05 --> T06A["T06: Implicit ALS & Tái xếp hạng MMR"]
+        T04 --> T06B["T06: FP-Growth Complements"]
         T06A --> T07["T07: Time-based Evaluation & Metrics"]
+        T06B --> T07
+        T07 --> SNAP["Gold snapshot export (M2)"]
+        SNAP -.->|gold/run_id| T08
     end
 
     subgraph TichHop["Giai đoạn Tích hợp & Nghiệm thu (Cả hai)"]
         T07 --> T12["T12: End-to-End Pipeline, Đo p50/p95 & Báo cáo"]
         T11 --> T12
-        T06B --> T12
     end
 ```
 
@@ -85,7 +87,7 @@ flowchart TD
 1. **Mốc M0 (Contracts & Fixtures)**: Thành bàn giao mẫu event; Pháp bàn giao mẫu catalog. Cả hai cùng kiểm tra `tests/fixtures/` chạy được offline.
 2. **Mốc M1 (Dữ liệu & ETL)**: Thành bàn giao Bronze events sinh từ Faker; Pháp bàn giao script PySpark đọc Bronze xuất Silver Parquet và Gold popularity.
 3. **Mốc M2 (Phục vụ & Snapshot)**: Pháp bàn giao cấu trúc file Gold snapshot; Thành xây dựng Importer nạp snapshot vào PostgreSQL và kích hoạt nguyên tử (atomic transaction).
-4. **Mốc M3 (Mô hình & API)**: Pháp bàn giao danh sách cá nhân hóa (ALS + MMR) và thay thế (TF-IDF); Thành bàn giao luật giỏ hàng (FP-Growth), hoàn thiện 3 endpoint gợi ý trên FastAPI.
+4. **Mốc M3 (Mô hình & API)**: Pháp bàn giao danh sách cá nhân hóa (ALS + MMR), thay thế (TF-IDF) và luật giỏ hàng (FP-Growth) trong Gold snapshot; Thành hoàn thiện 3 endpoint gợi ý trên FastAPI.
 5. **Mốc M4 (Tương tác Phiên & UI)**: Thành tích hợp gợi ý theo phiên trên API và giao diện Streamlit; Pháp hỗ trợ logic trọng số tương tác phiên.
 6. **Mốc M5 (Tích hợp & Báo cáo)**: Cả hai chạy script `run_pipeline.py` từ checkout sạch, đo đạc thông số và hoàn thiện slide/báo cáo.
 
@@ -171,7 +173,8 @@ flowchart TD
 
 ---
 
-### [T04] Pipeline ETL PySpark: Bronze $\rightarrow$ Silver $\rightarrow$ Gold Base
+### [T04] [COMPLETED] Pipeline ETL PySpark: Bronze $\rightarrow$ Silver $\rightarrow$ Gold Base
+- **Bằng chứng thực thi 16/11/2026**: `python -m recommender.pipeline.etl` công bố Silver `ds-13b649c6ecec4d976cb2fcb9` (1.000 sản phẩm, 100.000 events, 0 bản ghi bị loại) trong ~30 giây; dữ liệu Bronze tái lập trùng SHA-256 trên hai máy. Validation từng dòng dùng chính `Product`/`Event` Pydantic (UDF), dedup/FK/chủ sở hữu session–cart chạy native Spark; conflict chặn phát hành. Gold base ở `pipeline/gold.py`. `tests/test_etl.py`: 7 pass (kể cả đầu vào rỗng và batch dở dang).
 - **Người phụ trách**: Phan Văn Pháp
 - **Người review**: Nguyễn Đức Thành
 - **Đầu vào**: Dữ liệu Bronze từ T02/T03.
@@ -198,7 +201,8 @@ flowchart TD
 
 ---
 
-### [T05] Mô hình Xếp hạng 1: Popularity Baseline & TF-IDF Content-Based (Substitutes)
+### [T05] [COMPLETED] Mô hình Xếp hạng 1: Popularity Baseline & TF-IDF Content-Based (Substitutes)
+- **Bằng chứng thực thi 16/11/2026**: Snapshot có 200 dòng `popular`, 82.336 dòng `substitute` cho 1.000 context, không có dòng khác danh mục hoặc trùng sản phẩm gốc; vocabulary TF-IDF 4.985 token, 0 vector rỗng. `tests/test_ranking_tfidf.py`: 6 pass.
 - **Người phụ trách**: Phan Văn Pháp
 - **Người review**: Nguyễn Đức Thành
 - **Đầu vào**: Silver catalog và Gold interactions từ T04.
@@ -227,9 +231,10 @@ flowchart TD
 
 ---
 
-### [T06] Mô hình Xếp hạng 2: Implicit ALS, FP-Growth (Complements) & MMR Re-ranking
-- **Người phụ trách**: Phan Văn Pháp *(Implicit ALS & MMR)* và Nguyễn Đức Thành *(FP-Growth Complements)*
-- **Người review**: Review chéo giữa hai người
+### [T06] [COMPLETED] Mô hình Xếp hạng 2: Implicit ALS, FP-Growth (Complements) & MMR Re-ranking
+- **Bằng chứng thực thi 16/11/2026**: ALS `rank=16, regParam=0.1, alpha=1` sinh 200.000 dòng personalized cho 1.000 user, 0 dòng trùng `seen_products`; model tải lại được cùng ánh xạ ID. FP-Growth fit 4.960 giỏ ≥2 món (loại 14 giỏ một món), xuất 759 luật đã tính lại support/confidence/lift theo từng consequent. `tests/test_ranking_advanced.py`: 9 pass (kể cả tải lại ALS cho cùng top-K).
+- **Người phụ trách**: Phan Văn Pháp *(Implicit ALS, MMR & FP-Growth Complements — thống nhất với Vai trò B trong `docs/PROJECT_CHECKLIST.md`)*
+- **Người review**: Nguyễn Đức Thành
 - **Đầu vào**: Ma trận tương tác Gold và danh sách giỏ hàng từ T04.
 - **Đầu ra bàn giao**: Bộ luật mua kèm `association_rules` và top-K cá nhân hóa `recommendation_items`.
 - **Mục tiêu**: Xây dựng mô hình Collaborative Filtering (PySpark ALS), khai phá tập phổ biến giỏ hàng (FP-Growth) và thuật toán tái xếp hạng đa dạng hóa (MMR).
@@ -238,7 +243,7 @@ flowchart TD
     - Ánh xạ chuỗi `user_id`, `product_id` sang số nguyên 32-bit và lưu bảng tra cứu ánh xạ.
     - Huấn luyện PySpark ALS với `implicitPrefs=True`.
     - Dự đoán top-K cho người dùng, lọc bỏ các sản phẩm đã tương tác trong snapshot, fallback về Popularity khi user mới hoặc thiếu ứng viên.
-  - `src/recommender/ranking/fpgrowth.py` *(Thành)*:
+  - `src/recommender/ranking/fpgrowth.py` *(Pháp)*:
     - Huấn luyện FP-Growth trên tập giỏ hàng (`cart_id`, `product_ids`).
     - Trích xuất association rules (`antecedent_ids`, `consequent_id`, `support`, `confidence`, `lift`).
     - Logic truy vấn luật: Chọn luật có vế trái nằm trong giỏ, ưu tiên `confidence` cao nhất -> `lift` cao nhất -> sắp theo `product_id`. Loại bỏ các item đã có trong giỏ.
@@ -256,7 +261,8 @@ flowchart TD
 
 ---
 
-### [T07] Phân chia Đánh giá theo Thời gian & Tính toán Metric Đánh giá
+### [T07] [COMPLETED] Phân chia Đánh giá theo Thời gian & Tính toán Metric Đánh giá
+- **Bằng chứng thực thi 16/11/2026**: Split train/validation/test = 62.151/18.668/19.175 events, purge 2 giỏ qua biên, bốn bất biến chống rò rỉ đạt. Test (502 user): Recall@10 Popularity 0,0738, TF-IDF 0,0796, ALS 0,3434, ALS+MMR 0,3434 (`lambda=1.0` được chọn trên validation); FP-Growth Hit@10 0,811. Kết quả ở `data/gold/<run_id>/evaluation/` và [docs/README.md](docs/README.md#33-etl-mô-hình-đánh-giá-và-gold-snapshot-t04t07). `tests/test_evaluation.py` (khớp fixture tính tay 0,919720789 và ILD 2/3) + `tests/test_snapshot.py`: 7 pass; `tests/`: 357 pass; Ruff check/format pass.
 - **Người phụ trách**: Phan Văn Pháp
 - **Người review**: Nguyễn Đức Thành
 - **Đầu vào**: Dữ liệu Silver và các mô hình ranking từ T05, T06.
@@ -269,6 +275,8 @@ flowchart TD
     - Tính Intra-List Diversity (dựa trên khoảng cách cosine đặc trưng nội dung) và Catalog Coverage (tỷ lệ sản phẩm được gợi ý ít nhất một lần).
   - `src/recommender/evaluation/benchmark.py`: So sánh 4 phương án (Popularity, TF-IDF, Implicit ALS, ALS + MMR), xuất kết quả ra bảng JSON/CSV.
   - `tests/test_evaluation.py`: Test đối chiếu kết quả Recall@10 và NDCG@10 với kết quả tính tay trong test fixture.
+  - `src/recommender/pipeline/snapshot.py` *(bổ sung, Vai trò B theo `docs/PROJECT_CHECKLIST.md`)*: Fit lại cấu hình đã khóa trên toàn bộ dữ liệu, xuất Gold snapshot `gold/<run_id>/` (bốn bảng phục vụ, interactions, baskets, model, ánh xạ ID, evaluation và `manifest.json`) làm đầu vào cho importer T08 (mốc M2).
+  - `tests/test_snapshot.py`: Kiểm tra bảng Gold theo hợp đồng, checksum manifest, tải lại ALS và chạy lại cùng run là no-op.
 - **Tiêu chí hoàn thành (DoD)**:
   - Hàm tính metric khớp 100% với số liệu tính tay trong test fixture.
   - Không có hiện tượng rò rỉ dữ liệu tương lai vào tập huấn luyện.

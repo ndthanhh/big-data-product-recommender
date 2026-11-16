@@ -2,9 +2,9 @@
 
 [Trang chủ repo](../README.md) · [Tech Stack](TECH_STACK.md) · [Quy ước đồng nhất](CONVENTIONS.md) · [Kiến trúc](ARCHITECTURE.md) · [Hợp đồng v1](DATA_CONTRACTS.md) · [Thực nghiệm](EXPERIMENT_PLAN.md) · [Kế hoạch & Phân công](../PLAN.md) · [Checklist](PROJECT_CHECKLIST.md)
 
-## 1. Trạng thái có thể chạy sau T03
+## 1. Trạng thái có thể chạy sau T07
 
-Repo đã có cấu hình, schema Pydantic và fixture/test hợp đồng T02, cùng CLI thu thập catalog Best Buy và sinh sự kiện T03. Chưa có entry point ETL, train, importer, FastAPI hoặc Streamlit. Cài package thành công chưa phải bằng chứng hệ thống chạy end-to-end.
+Repo đã có cấu hình, schema Pydantic và fixture/test hợp đồng T02, CLI thu thập catalog Best Buy và sinh sự kiện T03, cùng nhánh Big Data/ML của Vai trò B: ETL PySpark Bronze → Silver (T04), Popularity/TF-IDF/Substitutes (T05), Implicit ALS/MMR/FP-Growth (T06), split + metric + benchmark (T07) và xuất Gold snapshot theo `run_id` cho importer T08. Chưa có importer, FastAPI hoặc Streamlit (T08–T11).
 
 [README gốc](../README.md) là điểm bắt đầu cài môi trường và chỉ mục tài liệu. [PLAN.md](../PLAN.md) định nghĩa T01–T12; [PROJECT_CHECKLIST.md](PROJECT_CHECKLIST.md) theo dõi nguồn catalog, chia sẻ dataset, thực nghiệm và báo cáo P0–P15. T01 không tự đánh dấu hoàn tất kiểm tra triển khai hoặc review nhóm.
 
@@ -150,6 +150,44 @@ Kiểm thử users, dry-run, mock Kafka producer/consumer và MinIO hoàn toàn 
 ```powershell
 .\.venv\Scripts\python -m pytest tests/test_users.py tests/test_streaming.py -v
 ```
+
+### 3.3. ETL, mô hình, đánh giá và Gold snapshot (T04–T07)
+
+Chạy từ gốc repo sau bước 3.1. `DATA_LAKE_STORAGE=local` ghi vào `DATA_LAKE_DIR` (mặc định `data/`); `minio` ghi `s3a://bronze|silver|gold/...` qua `hadoop-aws` (Spark tự tải package, cần MinIO đang chạy). Khi `.env` chép từ `.env.example` (giá trị `minio`) mà chưa có MinIO, đặt `DATA_LAKE_STORAGE=local` trong `.env`.
+
+```powershell
+# T04: Bronze JSONL -> Silver Parquet + quarantine + quality report (no-op nếu đã có cùng dataset_version)
+.\.venv\Scripts\python -m recommender.pipeline.etl
+# T07 + Gold: chọn cấu hình trên validation, chấm test một lần, rồi fit lại và xuất snapshot phục vụ
+.\.venv\Scripts\python -m recommender.pipeline.snapshot
+# Biến thể: chỉ benchmark | grid rút gọn để thử nhanh | bỏ benchmark, dùng cấu hình mặc định
+.\.venv\Scripts\python -m recommender.evaluation.benchmark
+.\.venv\Scripts\python -m recommender.pipeline.snapshot --quick
+.\.venv\Scripts\python -m recommender.pipeline.snapshot --skip-evaluation
+.\.venv\Scripts\python -m pytest tests/test_etl.py tests/test_ranking_tfidf.py tests/test_ranking_advanced.py tests/test_evaluation.py tests/test_snapshot.py -v
+```
+
+| Bước | Module | Đầu ra |
+| --- | --- | --- |
+| ETL | `pipeline/etl.py` | `silver/products/<v>/`, `silver/events/<v>/`, `silver/quarantine/<v>/`, `silver/quality/<v>.json`, `silver/<v>.manifest.json` (ghi sau cùng). `<v>` = `ds-` + SHA-256 của checksum file Bronze và `ETL_VERSION`. Conflict cùng ID khác payload chặn phát hành (exit code 3, không có manifest). |
+| Gold base | `pipeline/gold.py` | `catalog_as_of`, `interactions` (1/2/4), `baskets` (chỉ `add_to_cart`), `seen_products` cho từng cửa sổ `[start, end)`. |
+| Split | `evaluation/split.py` | Hai cutoff `2026-10-25`, `2026-11-01` UTC; purge giỏ đi qua cutoff; kiểm tra bất biến chống rò rỉ. |
+| Mô hình | `ranking/` | `popularity`, `tfidf` (CountVectorizer + IDF), `substitutes`, `als` (`implicitPrefs=True`), `mmr`, `fpgrowth` (metric tính lại theo từng consequent). |
+| Benchmark | `evaluation/benchmark.py` | `gold/<run_id>/evaluation/`: `config.json`, `split_summary.json`, `selection.json`, `quality.csv`, `complements.csv`, `batch_timings.csv`. |
+| Snapshot | `pipeline/snapshot.py` | `gold/<run_id>/` gồm `products`, `interactions`, `baskets`, `seen_products`, `recommendation_items`, `association_rules`, `models/*` và `manifest.json` (fingerprint = SHA-256 của manifest; run đã có thì không ghi đè). |
+
+TF-IDF fit bằng Spark ML trên catalog as-of cutoff; ma trận vector (1.000 × ~5.000) được chuẩn hóa L2 ở driver bằng NumPy vì chiều sản phẩm nhỏ, còn chiều sự kiện (interactions, split, ALS, FP-Growth) chạy trên Spark. ALS xuất top-200 ứng viên/user sau lọc seen và catalog; MMR tái xếp trên 200 ứng viên đó, thứ tự hạng là thứ tự chọn.
+
+**Kết quả đo 16/11/2026** (dataset `ds-13b649c6ecec4d976cb2fcb9`: 1.000 sản phẩm, 100.000 events, seed 42; Spark `local[2]`, driver 2 GB; toàn bộ benchmark 8 ALS × 4 lambda × 4 FP-Growth + snapshot mất 1 phút 55 giây trên Linux VM 4 vCPU/3 GB, JDK 11; chạy lại trên JDK 21 x86 cho cùng số liệu tới 4 chữ số thập phân. Run `run_20261108T000000Z_alsmmr_42_ac4f2ab7`). Split: train 62.151 / validation 18.668 / test 19.175 events, purge 2 giỏ (6 events), bốn bất biến đều đạt. Cấu hình chọn trên validation: ALS `rank=16, regParam=0.1, alpha=1, maxIter=10`; MMR `lambda=1.0`; FP-Growth `minSupport=0.001, minConfidence=0.2`.
+
+| Test (502 user, 1.629 nhãn) | Recall@10 | NDCG@10 | ILD | Coverage | Fallback |
+| --- | --- | --- | --- | --- | --- |
+| Popularity | 0,0738 | 0,0424 | 0,9891 | 0,0210 | 100% |
+| TF-IDF cá nhân hóa | 0,0796 | 0,0472 | 0,7555 | 0,2960 | 0% |
+| Implicit ALS | 0,3434 | 0,2541 | 0,9362 | 0,3280 | 0% |
+| ALS + MMR (`lambda=1.0`) | 0,3434 | 0,2541 | 0,9362 | 0,3280 | 0% |
+
+Trên validation, MMR đổi độ phù hợp lấy đa dạng: `lambda` 0,3 / 0,5 / 0,7 / 1,0 cho NDCG@10 0,2280 / 0,2372 / 0,2411 / 0,2458 và ILD 0,972 / 0,962 / 0,952 / 0,937. Tiêu chí chọn theo NDCG nên `lambda=1.0` thắng, khiến ALS + MMR trùng ALS ở test. Mua kèm FP-Growth: Hit@10 của item giữ lại = 0,811 trên 935 giỏ test, 582 luật. Con số này cao vì bộ sinh T03 cố ý lặp giỏ hai món phổ biến theo danh mục; không suy rộng sang người mua thật. Tất cả user đánh giá đều có lịch sử train, nên cohort `new_user` ở trạng thái `not_evaluable`.
 
 ## 4. Kịch bản nghiệm thu demo
 

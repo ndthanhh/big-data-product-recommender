@@ -87,6 +87,7 @@ MINIO_CONSOLE_URL=http://127.0.0.1:9001
 MINIO_ACCESS_KEY=minioadmin
 MINIO_SECRET_KEY=minioadmin
 MINIO_SECURE=false
+# local = thư mục DATA_LAKE_DIR (mặc định trong code); minio = s3a:// qua hadoop-aws
 DATA_LAKE_STORAGE=minio
 
 # Kết nối PostgreSQL (User: recommender, Pass: do bạn đặt, DB: recommender)
@@ -110,7 +111,7 @@ Data Lake được tổ chức theo 3 tầng chuẩn Medallion trên **MinIO Obj
 | Tầng Data Lake | MinIO S3 Bucket & Path | Ánh xạ thư mục Local | Định dạng & Chuẩn nén |
 | :--- | :--- | :--- | :--- |
 | **Bronze** | `s3a://bronze/products/`<br>`s3a://bronze/events/` | `data/bronze/products/`<br>`data/bronze/events/` | JSON Lines (`.jsonl`), UTF-8, Append-only |
-| **Silver** | `s3a://silver/products/<dataset_version>/`<br>`s3a://silver/events/<dataset_version>/` | `data/silver/products/`<br>`data/silver/events/` | Apache Parquet (`.parquet`), nén Snappy |
+| **Silver** | `s3a://silver/products/<dataset_version>/`<br>`s3a://silver/events/<dataset_version>/`<br>`s3a://silver/<dataset_version>.manifest.json` | `data/silver/products/<dataset_version>/`<br>`data/silver/events/<dataset_version>/`<br>`data/silver/quarantine/<dataset_version>/`, `data/silver/quality/<dataset_version>.json` | Apache Parquet (`.parquet`), nén Snappy; manifest ở gốc Silver để mọi `path` là tương đối |
 | **Gold** | `s3a://gold/<run_id>/` | `data/gold/<run_id>/` | Apache Parquet (`.parquet`), nén Snappy |
 
 ```text
@@ -122,12 +123,16 @@ minio/ (Bucket s3a:// hoặc local data/)
 │   ├── products/                   # Silver catalog Parquet
 │   └── events/                     # Silver events Parquet
 └── gold/                           # Kết quả batch theo từng run_id
-    └── <run_id>/
-        ├── user_interactions.parquet      # Cặp (user_id, product_id, interaction_weight)
-        ├── recommendation_items.parquet   # Top-K dự đoán (personalized, substitute, popular)
-        ├── seen_products.parquet          # Lịch sử sản phẩm user đã tương tác để lọc trùng
-        ├── association_rules.parquet      # Luật FP-Growth cho giỏ hàng
-        └── manifest.json                  # Metadata, số dòng, metrics, seed
+    └── <run_id>/                   # Mỗi bảng là một thư mục Parquet (DATA_CONTRACTS.md mục 4)
+        ├── products/                      # Catalog as-of training_end
+        ├── interactions/                  # (user_id, product_id, interaction_weight, last_event_at)
+        ├── baskets/                       # Giỏ add_to_cart, product_ids sắp tăng
+        ├── seen_products/                 # Lịch sử đã tương tác để lọc trùng
+        ├── recommendation_items/          # Top-200 (personalized, substitute, popular)
+        ├── association_rules/             # Luật FP-Growth một consequent
+        ├── models/                        # tfidf, tfidf_features, als, als_user_index, als_product_index
+        ├── evaluation/                    # config.json, split_summary.json, quality.csv, ...
+        └── manifest.json                  # Ghi sau cùng; fingerprint = SHA-256 của file này
 ```
 
 - **Test Fixtures** (dùng cho unit test offline):
@@ -286,7 +291,7 @@ Cả hai người dùng chung 2 mốc thời gian UTC cố định để chia t�
 - **Tập Train**: Toàn bộ events trước `split_val_time`.
 - **Tập Validation**: Events từ `split_val_time` đến trước `split_test_time` (dùng chỉnh tham số $\lambda$ của MMR, rank của ALS, minSupport/minConfidence của FP-Growth).
 - **Tập Test**: Events từ `split_test_time` trở đi (đánh giá cuối cùng, đo Recall@10, NDCG@10).
-- **Nguyên tắc vàng**: Giỏ hàng (`cart_id`) đi qua mốc thời gian không được xé đôi; giữ nguyên giỏ hàng cho tập xảy ra sau. Tuyệt đối không để dữ liệu tương lai rò rỉ vào tập Train.
+- **Nguyên tắc vàng**: Giỏ hàng (`cart_id`) đi qua mốc thời gian (`first_event_at < cutoff <= last_event_at`) không được xé đôi và **bị purge toàn bộ khỏi cả ba tập** theo [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md) mục 3.2 (không chuyển sang tập sau). Tuyệt đối không để dữ liệu tương lai rò rỉ vào tập Train. Cài đặt: `src/recommender/evaluation/split.py`.
 
 ---
 
