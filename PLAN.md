@@ -137,12 +137,11 @@ flowchart TD
 
 ---
 
-### [T03] [COMPLETED] Thu thập Catalog Best Buy Open Data Set (1.000 Sản phẩm) & Bộ Sinh Dữ liệu Hành vi
+### [T03] Thu thập Catalog Best Buy Open Data Set (1.000 Sản phẩm) & Bộ Sinh Dữ liệu Hành vi
 - **Người phụ trách**: Nguyễn Đức Thành
 - **Người review**: Phan Văn Pháp
 - **Đầu vào**: Best Buy Open Data Set (`BestBuyAPIs/open-data-set`), cấu hình seed từ T02.
 - **Đầu ra bàn giao**: Dữ liệu Bronze catalog (1.000 sản phẩm thật), Bronze events (hàng chục/trăm nghìn dòng) có quy luật và manifest để Pháp bắt đầu viết ETL PySpark.
-- **Bằng chứng thực thi 16/11/2026**: Đã tạo seed offline, catalog 1.000 sản phẩm thuộc 12 nhóm và 100.000 events (1.000 users, 5.000 sessions, 4.960 giỏ nhiều món). Kiểm tra SHA-256, khóa ngoại và tái lập từng byte thành công. `tests/test_ingestion.py`: 49 pass; `tests/`: 328 pass; Ruff check và format đều pass. Hướng dẫn CLI và cách ánh xạ metadata vào schema `Product` v1 tại [docs/README.md](docs/README.md#31-thu-thập-catalog-và-sinh-bronze-t03).
 - **Mục tiêu**: 
   - Xây dựng module `src/recommender/ingestion/catalog.py` tải/trích xuất và lọc đúng **1.000 sản phẩm công nghệ thật** từ Best Buy Open Data Set thuộc các ngành hàng tiêu biểu (TV, Laptops, Audio, Cell Phones, Cameras, Video Games, Appliances...), chuẩn hóa schema `Product`, lưu file seed `data/raw/products_bestbuy_1000.json` và xuất Bronze `data/bronze/products/products.jsonl`.
   - Xây dựng module `src/recommender/ingestion/synthetic.py` sinh dữ liệu tương tác người dùng có quy luật (nhóm sở thích danh mục, độ lệch phổ biến, chuỗi hành vi theo phiên, giỏ hàng nhiều sản phẩm cho FP-Growth) sử dụng Faker/NumPy dựa trên catalog 1.000 sản phẩm.

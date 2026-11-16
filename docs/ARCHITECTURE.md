@@ -6,7 +6,7 @@
 
 Hệ thống chạy local cho tiểu luận Nhóm 1. Pipeline batch xử lý dữ liệu lớn hơn log demo, tạo model và snapshot có thể tái lập. FastAPI phục vụ kết quả đã tính sẵn và xử lý tín hiệu phiên; Streamlit chỉ gọi API, không truy cập trực tiếp Spark hoặc database. Ba đầu ra bắt buộc là Dành cho bạn, Sản phẩm thay thế và Thường thêm cùng.
 
-T01 đặc tả kiến trúc cho T02–T12 trong [PLAN.md](../PLAN.md). Chưa có dịch vụ hay migration chạy được trong khung hiện tại. V1 không yêu cầu Kafka, Spark Structured Streaming, cluster phân tán hoặc train lại model khi có click. “Cập nhật theo phiên” là tính lại điểm trong request sau khi event được lưu, còn học dài hạn diễn ra theo batch.
+T01 đặc tả kiến trúc cho T02–T12 trong [PLAN.md](../PLAN.md). Nhánh ingestion đã có CLI và một luồng Kafka mô phỏng tùy chọn; các migration/API/model tiếp tục theo kế hoạch. V1 không yêu cầu Spark Structured Streaming, cluster phân tán hoặc train lại model khi có click. “Cập nhật theo phiên” là tính lại điểm trong request sau khi event được lưu, còn học dài hạn diễn ra theo batch.
 
 ## 2. Thành phần và trách nhiệm
 
@@ -33,13 +33,14 @@ flowchart TB
 | Thành phần | Trách nhiệm | Không làm trong đường request |
 | --- | --- | --- |
 | `ingestion/` | Chuẩn hóa catalog từ nguồn cho phép; sinh event có seed, sở thích, phiên và giỏ nhiều sản phẩm. | Không ghi trực tiếp kết quả mô hình vào DB. |
+| `streaming/` | Mô phỏng profiles → Kafka product-events → micro-batch Bronze local/MinIO. | Không cập nhật model hoặc snapshot phục vụ. |
 | `pipeline/` | ETL, ghi manifest, xuất log demo, kiểm tra và nạp snapshot. | Không được kích hoạt batch chưa đầy đủ. |
 | `ranking/` | Tính ứng viên, điểm, MMR, luật giỏ và điểm theo phiên. | Không train ALS/FP-Growth khi API nhận request. |
 | `evaluation/` | Chia dữ liệu, tính metric, benchmark và lưu cấu hình phép đo. | Không dùng test để chọn tham số. |
 | `api/` | Đọc snapshot, lọc/rank ứng viên, nhận event bất biến, trả status code theo hợp đồng. | Không đọc Parquet hay khởi tạo Spark trong request. |
 | `ui/` | Giữ user/session/cart, hiển thị catalog, ghi hành vi và yêu cầu gợi ý mới. | Không suy luận trực tiếp bằng model hoặc ghi thẳng DB. |
 
-Môi trường chuẩn: Python 3.11, JDK 17, PySpark 3.5.7, PostgreSQL 17, FastAPI và Streamlit theo dependency trong `pyproject.toml`. Spark chạy `local[2]` trong kiểm tra nhỏ; cấu hình benchmark được ghi cùng kết quả.
+Môi trường chuẩn: Python 3.11, JDK 17, PySpark 3.5.7, PostgreSQL 17, FastAPI và Streamlit theo dependency trong `pyproject.toml`. Spark chạy `local[2]` trong kiểm tra nhỏ; cấu hình benchmark được ghi cùng kết quả. `docker-compose.yml` cung cấp PostgreSQL 17, MinIO và Kafka 3.8.0 KRaft một node cho luồng mô phỏng tùy chọn. Profiles nhân khẩu học dùng Faker `vi_VN`; cả bộ sinh batch và producer đều kiểm tra sở thích theo category_id của catalog.
 
 ## 3. Data Lake ba lớp trên MinIO S3 Object Storage
 

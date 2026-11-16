@@ -90,6 +90,67 @@ catalog, commit/code_dirty và SHA-256 tính từ byte dữ liệu. Mỗi thư m
 .\.venv\Scripts\python -m ruff check src tests
 ```
 
+### 3.2. Profiles tiếng Việt và luồng Kafka tùy chọn
+
+Sinh profiles và events theo đúng user_id, sở thích chính/phụ:
+
+```powershell
+.\.venv\Scripts\python -m recommender.ingestion.users --limit 1000 --seed 42
+.\.venv\Scripts\python -m recommender.ingestion.synthetic --catalog data/bronze/products/products.jsonl --users-file data/bronze/users/users.jsonl --events 100000 --sessions 5000 --output data/bronze/events/profile-demo --seed 42
+.\.venv\Scripts\python -m recommender.streaming.producer --dry-run --max-events 20 --rate 100 --seed 42
+```
+
+Users CLI mặc định ghi seed `data/raw/users_1000.json`, JSONL
+`data/bronze/users/users.jsonl` và manifest cùng thư mục JSONL. Có thể đổi bằng
+`--cache-path`/`--output`. Loader hỗ trợ cả seed array và JSONL, từ chối ID trùng
+và category không có trong catalog. `--users-file` dùng toàn bộ profiles, thay cho
+`--users`; số events phải đủ để mỗi user có ít nhất một phiên. Sở thích phụ chiếm
+25% lựa chọn có thiên hướng trong các funnel ngẫu nhiên; giỏ mẫu lặp ưu tiên chính.
+
+Khởi động Docker Engine rồi chạy từ gốc repo:
+
+```powershell
+docker compose config --quiet
+docker compose up -d
+docker compose ps
+# Terminal 1: 100 events hoặc 5 giây mỗi batch, Ctrl+C flush phần còn dư.
+.\.venv\Scripts\python -m recommender.streaming.consumer --max-events 1000
+# Terminal 2:
+.\.venv\Scripts\python -m recommender.streaming.producer --rate 20 --max-events 1000 --seed 42
+```
+
+PostgreSQL dùng `recommender/change-me`, database `recommender`, cổng 5432.
+MinIO API/Console ở cổng 9000/9001, `minioadmin/minioadmin`; `minio-init` đợi dịch
+vụ và tạo ba bucket bronze/silver/gold theo cách idempotent với
+[`mc mb --ignore-existing`](https://docs.min.io/aistor/reference/cli/mc-mb/).
+Kafka dùng [cấu hình KRaft của image Apache 3.8.0](https://github.com/apache/kafka/blob/3.8.0/docker/examples/docker-compose-files/single-node/plaintext/docker-compose.yml),
+client trên host kết nối `localhost:9092`, trong network Docker dùng
+`kafka:19092`. Healthcheck tạo sẵn topic `product-events`; auto-create cũng bật.
+Ba dịch vụ lưu dữ liệu trong named volumes riêng trên network bridge.
+
+Producer hỗ trợ `--catalog`, `--users`, `--bootstrap-servers`, `--topic`, `--rate`,
+`--max-events`, `--seed`, `--dry-run`. Không truyền max-events thì chạy tới Ctrl+C.
+Dry-run chỉ in event JSONL ra stdout; thống kê ra stderr và không kết nối broker.
+Timestamp live dùng giờ UTC thực, còn seed cố định lựa chọn hành vi; mỗi lần chạy
+có namespace ID riêng để tránh conflict khi khởi động lại.
+
+Consumer hỗ trợ `--bootstrap-servers`, `--topic`, `--group-id`, `--output-dir`,
+`--max-events`, thêm `--batch-size` (100), `--flush-interval` (5 giây) và
+`--local-only`. Mỗi batch có JSONL/manifest tại
+`data/bronze/events/streaming/batch_<uuid>/` và được upload đến
+`bronze/events/streaming/batch_<uuid>/`. Consumer luôn lưu local trước; MinIO lỗi
+thì giữ batch local và ghi cảnh báo. Khi MinIO hoạt động lại, có thể đồng bộ các
+thư mục batch còn thiếu bằng `mc mirror data/bronze/events/streaming local/bronze/events/streaming`.
+Manifest là dấu hiệu batch hoàn chỉnh, chỉ đọc các batch có manifest và checksum đúng.
+Offset Kafka được commit sau khi lưu, chỉ tới record thực sự đã xử lý; replay
+at-least-once nên ETL vẫn phải dedup event_id. `group-id` mới đọc lại từ đầu topic.
+
+Kiểm thử users, dry-run, mock Kafka producer/consumer và MinIO hoàn toàn offline:
+
+```powershell
+.\.venv\Scripts\python -m pytest tests/test_users.py tests/test_streaming.py -v
+```
+
 ## 4. Kịch bản nghiệm thu demo
 
 1. Ghi dataset version, run ID, seed và commit. Chọn snapshot ready; kiểm tra catalog/kết quả cùng run. Health kiểm tra tiến trình, catalog kiểm tra DB/snapshot.

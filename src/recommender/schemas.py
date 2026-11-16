@@ -142,6 +142,19 @@ class ContractModel(BaseModel):
     )
 
 
+class UserProfile(ContractModel):
+    """Synthetic Vietnamese demographics; interest IDs reference the taxonomy."""
+
+    user_id: BusinessId
+    name: Annotated[str, StringConstraints(min_length=1, max_length=128)]
+    gender: Literal["male", "female", "other"]
+    age: Annotated[int, Field(ge=13, le=100)]
+    city: str
+    primary_interest: BusinessId
+    secondary_interest: BusinessId | None = None
+    created_at: UtcTimestamp
+
+
 class Product(ContractModel):
     """One version of Bronze/Silver product metadata; also the API product body."""
 

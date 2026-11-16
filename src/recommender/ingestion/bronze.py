@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from recommender.config import PROJECT_ROOT
-from recommender.schemas import SCHEMA_VERSION, Event, Product
+from recommender.schemas import SCHEMA_VERSION, Event, Product, UserProfile
 
 
 def catalog_version(products: Sequence[Product]) -> str:
@@ -69,11 +69,11 @@ def _provenance() -> tuple[str, bool]:
 
 
 def write_bronze(
-    records: Iterable[Product | Event],
+    records: Iterable[Product | Event | UserProfile],
     output: Path,
     *,
     source: str,
-    seed: int,
+    seed: int | None,
     parameters: dict[str, Any],
     products: Sequence[Product],
     generator_version: str | None = None,
@@ -105,6 +105,8 @@ def write_bronze(
                 digest.update(data)
                 rows += 1
                 size += len(data)
+                if isinstance(record, UserProfile):
+                    users.add(record.user_id)
                 if isinstance(record, Event):
                     event_count += 1
                     users.add(record.user_id)

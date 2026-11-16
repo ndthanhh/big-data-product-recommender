@@ -15,6 +15,8 @@ DEFAULT_MINIO_CONSOLE_URL = "http://127.0.0.1:9001"
 DEFAULT_MINIO_ACCESS_KEY = "minioadmin"
 DEFAULT_MINIO_SECRET_KEY = "minioadmin"
 DEFAULT_MINIO_SECURE = False
+DEFAULT_KAFKA_BOOTSTRAP_SERVERS = "127.0.0.1:9092"
+DEFAULT_KAFKA_TOPIC_EVENTS = "product-events"
 
 
 @dataclass(frozen=True, slots=True)
@@ -30,6 +32,8 @@ class Settings:
     minio_access_key: str = DEFAULT_MINIO_ACCESS_KEY
     minio_secret_key: str = DEFAULT_MINIO_SECRET_KEY
     minio_secure: bool = DEFAULT_MINIO_SECURE
+    kafka_bootstrap_servers: str = DEFAULT_KAFKA_BOOTSTRAP_SERVERS
+    kafka_topic_events: str = DEFAULT_KAFKA_TOPIC_EVENTS
 
 
 def get_settings(env_file: str | Path | None = PROJECT_ROOT / ".env") -> Settings:
@@ -69,4 +73,8 @@ def get_settings(env_file: str | Path | None = PROJECT_ROOT / ".env") -> Setting
         minio_access_key=read("MINIO_ACCESS_KEY", DEFAULT_MINIO_ACCESS_KEY),
         minio_secret_key=read("MINIO_SECRET_KEY", DEFAULT_MINIO_SECRET_KEY),
         minio_secure=minio_secure,
+        kafka_bootstrap_servers=read(
+            "KAFKA_BOOTSTRAP_SERVERS", DEFAULT_KAFKA_BOOTSTRAP_SERVERS
+        ),
+        kafka_topic_events=read("KAFKA_TOPIC_EVENTS", DEFAULT_KAFKA_TOPIC_EVENTS),
     )

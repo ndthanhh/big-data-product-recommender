@@ -90,6 +90,39 @@ Manifest là object JSON có các trường sau. Một phiên bản chỉ đư�
 
 `path` tương đối với thư mục chứa manifest, dùng `/`, không có đường dẫn tuyệt đối hoặc `..`. Parquet liệt kê từng data file; `rows` là số dòng trong chính file đó, không tính `_SUCCESS`. Tổng số dòng được đối chiếu với thống kê bảng. Dataset Silver bổ sung `quality_report` (đường dẫn JSON nằm trong danh sách file kiểm tra toàn vẹn) chứa số dòng input, accepted, duplicate và rejected theo lý do. Đợt export demo thêm `exported_at` và `received_at_max` để chẩn đoán phạm vi dữ liệu, không coi chúng là watermark bảo đảm mọi transaction cũ đã commit.
 
+### 2.4. Hồ sơ người dùng mô phỏng
+
+Vị trí: `data/bronze/users/users.jsonl`; seed JSON array tại
+`data/raw/users_1000.json`. `UserProfile` kế thừa `ContractModel`: strict,
+forbid extra, không ép kiểu primitive. Profiles là dữ liệu giả lập phục vụ bộ sinh,
+không bổ sung bảng tài khoản hoặc thay đổi payload Event/API v1.
+
+| Trường | Kiểu JSON | Ràng buộc |
+| --- | --- | --- |
+| `user_id` | string | BusinessId, duy nhất trong tập profiles. |
+| `name` | string | 1–128 ký tự; Faker locale `vi_VN`. |
+| `gender` | string enum | `male`, `female`, `other`. |
+| `age` | integer | 13–100; từ chối boolean, float và chuỗi số. |
+| `city` | string | Bộ sinh chọn tên thành phố Việt Nam. |
+| `primary_interest` | string | BusinessId tham chiếu category_id. |
+| `secondary_interest` | string hoặc null | Default null; nếu có phải tham chiếu category_id. |
+| `created_at` | string UTC | Nhận `Z`/`+00:00`, xuất `Z`. |
+
+Schema kiểm tra từng bản ghi; loader kiểm tra user_id trùng và khóa ngoại sở
+thích với catalog được truyền vào. Bộ sinh dùng 12 mã ngành hàng trong
+`ingestion/catalog.py`, cân bằng sở thích chính và chọn sở thích phụ khác chính.
+Nhân khẩu học được sinh độc lập với sở thích. Cùng seed và phiên bản Faker tạo
+cùng nội dung seed/JSONL; thời gian công bố manifest vẫn là thời gian thực.
+
+Consumer Kafka ghi từng micro-batch vào thư mục riêng, JSONL giữ nguyên tám
+trường Event. Manifest có `source="kafka"`, `seed=null` (consumer không biết seed
+của producer), `parameters.topic` và `catalog_validation="deferred_to_etl"`.
+Consumer không nạp catalog: catalog_version/counts của catalog rỗng là giá trị
+chẩn đoán; ETL phải gắn batch với catalog thật và kiểm tra khóa ngoại trước Silver.
+File local được hoàn tất trước khi upload MinIO; manifest remote được upload sau
+JSONL. Chỉ commit offset các event đã lưu bền vững ở local, kể cả khi MinIO lỗi.
+Replay có thể tạo batch trùng; dedup theo event_id ở Silver giữ nguyên yêu cầu v1.
+
 ## 3. Silver Parquet
 
 | Bảng và khóa logic | Trường Spark | Nullable |
