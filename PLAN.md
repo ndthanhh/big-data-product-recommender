@@ -137,27 +137,36 @@ flowchart TD
 
 ---
 
-### [T03] Bộ Sinh Dữ liệu Hành vi Mô phỏng (Synthetic Data Generator)
+### [T03] Thu thập Catalog Best Buy Open Data Set (1.000 Sản phẩm) & Bộ Sinh Dữ liệu Hành vi
 - **Người phụ trách**: Nguyễn Đức Thành
 - **Người review**: Phan Văn Pháp
-- **Đầu vào**: Catalog fixture từ T02.
-- **Đầu ra bàn giao**: Dữ liệu Bronze events có quy luật và manifest để Pháp bắt đầu viết ETL PySpark.
-- **Mục tiêu**: Xây dựng module sinh dữ liệu tương tác người dùng có quy luật (user preference clusters, độ lệch phổ biến, chuỗi hành vi theo phiên, giỏ hàng nhiều sản phẩm) sử dụng Faker/NumPy.
+- **Đầu vào**: Best Buy Open Data Set (`BestBuyAPIs/open-data-set`), cấu hình seed từ T02.
+- **Đầu ra bàn giao**: Dữ liệu Bronze catalog (1.000 sản phẩm thật), Bronze events (hàng chục/trăm nghìn dòng) có quy luật và manifest để Pháp bắt đầu viết ETL PySpark.
+- **Mục tiêu**: 
+  - Xây dựng module `src/recommender/ingestion/catalog.py` tải/trích xuất và lọc đúng **1.000 sản phẩm công nghệ thật** từ Best Buy Open Data Set thuộc các ngành hàng tiêu biểu (TV, Laptops, Audio, Cell Phones, Cameras, Video Games, Appliances...), chuẩn hóa schema `Product`, lưu file seed `data/raw/products_bestbuy_1000.json` và xuất Bronze `data/bronze/products/products.jsonl`.
+  - Xây dựng module `src/recommender/ingestion/synthetic.py` sinh dữ liệu tương tác người dùng có quy luật (nhóm sở thích danh mục, độ lệch phổ biến, chuỗi hành vi theo phiên, giỏ hàng nhiều sản phẩm cho FP-Growth) sử dụng Faker/NumPy dựa trên catalog 1.000 sản phẩm.
 - **Phạm vi**:
+  - `src/recommender/ingestion/catalog.py`:
+    - CLI/hàm: tải từ GitHub `BestBuyAPIs/open-data-set` hoặc đọc từ cache/seed `data/raw/products_bestbuy_1000.json`, lọc chọn 1.000 sản phẩm sạch nhất thuộc ~10-12 ngành hàng chính.
+    - Chuẩn hóa schema `Product`: gán ID chuẩn `bestbuy:<sku>`, format `image_url` (hỗ trợ HTTPS), trích xuất tags từ `manufacturer`, `model`, subcategory.
+    - Ghi file JSONL ra `data/bronze/products/` và tạo file `manifest.json`.
   - `src/recommender/ingestion/synthetic.py`:
     - CLI/hàm nhận: `catalog_path`, `n_users`, `n_sessions`, `n_events`, `output_dir`, `seed`.
     - Sinh `event_id` (UUID), `user_id`, `session_id`, `product_id`, `event_type`, `event_at`, `source="synthetic"`, `cart_id`.
-    - Tạo phân bố sở thích danh mục theo nhóm người dùng và giỏ hàng chứa nhiều item đi kèm.
+    - Tạo phân bố sở thích danh mục theo nhóm người dùng và giỏ hàng chứa nhiều item đi kèm (cho FP-Growth).
     - Ghi JSONL theo chunk vào `data/bronze/events/` và tạo `manifest.json`.
-  - `tests/test_ingestion.py`: Test tính duy nhất của `event_id`, tính toàn vẹn khóa ngoại tham chiếu catalog, tính tái lập 100% khi cùng seed.
+  - `tests/test_ingestion.py`: Test tải/chuẩn hóa catalog, kiểm tra quy mô 1.000 sản phẩm, test tính duy nhất của `event_id`, tính toàn vẹn khóa ngoại tham chiếu catalog, quy tắc `cart_id`, tính tái lập 100% khi cùng seed.
 - **Tiêu chí hoàn thành (DoD)**:
-  - Sinh thành công tập Bronze events mẫu không bị lỗi bộ nhớ.
-  - Cùng một seed luôn sinh ra đúng từng byte/bản ghi.
-  - 100% `product_id` trong events đều tồn tại trong catalog fixture.
+  - Xuất thành công catalog 1.000 sản phẩm chuẩn schema `Product`, 100% thuộc tính hợp lệ.
+  - Sinh thành công tập Bronze events mẫu tương ứng không bị lỗi bộ nhớ.
+  - Cùng một seed luôn sinh ra đúng từng byte/bản ghi cho cả catalog và events.
+  - 100% `product_id` trong events đều tồn tại trong catalog sinh ra.
+  - 100% test trong `tests/test_ingestion.py` pass và ruff lint sạch sẽ.
 - **Lệnh kiểm tra**:
   ```powershell
   python -m pytest tests/test_ingestion.py -v
-  python -m recommender.ingestion.synthetic --catalog tests/fixtures/products.jsonl --output data/bronze/events --events 500 --seed 42
+  python -m recommender.ingestion.catalog --limit 1000 --output data/bronze/products/products.jsonl --seed 42
+  python -m recommender.ingestion.synthetic --catalog data/bronze/products/products.jsonl --output data/bronze/events --events 500 --seed 42
   ```
 
 ---
