@@ -1,0 +1,1000 @@
+{"user_id":"u_syn_0001","name":"Nam Vũ","gender":"male","age":42,"city":"Vũng Tàu","primary_interest":"musical_instruments","secondary_interest":"cameras_camcorders","created_at":"2026-09-30T05:24:09Z"}
+{"user_id":"u_syn_0002","name":"Chị Lan Trần","gender":"other","age":96,"city":"Buôn Ma Thuột","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-27T10:54:10Z"}
+{"user_id":"u_syn_0003","name":"Khoa Bùi","gender":"other","age":48,"city":"Hà Nội","primary_interest":"cameras_camcorders","secondary_interest":"cell_phones","created_at":"2026-09-08T18:00:59Z"}
+{"user_id":"u_syn_0004","name":"Ngọc Trần","gender":"female","age":32,"city":"Cần Thơ","primary_interest":"toys_games_drones","secondary_interest":"wearable_technology","created_at":"2026-09-17T08:09:39Z"}
+{"user_id":"u_syn_0005","name":"Quang Văn Mai","gender":"male","age":58,"city":"Huế","primary_interest":"tv_home_theater","secondary_interest":"car_electronics_gps","created_at":"2026-09-30T07:23:30Z"}
+{"user_id":"u_syn_0006","name":"Quý cô Mai Dương","gender":"other","age":71,"city":"Vũng Tàu","primary_interest":"connected_home","secondary_interest":"musical_instruments","created_at":"2026-09-07T01:25:58Z"}
+{"user_id":"u_syn_0007","name":"Cô Bảo Bùi","gender":"female","age":23,"city":"Vũng Tàu","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-15T05:34:38Z"}
+{"user_id":"u_syn_0008","name":"Anh Trí Phạm","gender":"other","age":59,"city":"Quy Nhơn","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-10T08:01:56Z"}
+{"user_id":"u_syn_0009","name":"Tú Quang Bùi","gender":"other","age":42,"city":"Hải Phòng","primary_interest":"cell_phones","secondary_interest":"musical_instruments","created_at":"2026-09-04T20:57:51Z"}
+{"user_id":"u_syn_0010","name":"Quang Đặng","gender":"male","age":61,"city":"Hải Phòng","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-23T00:15:40Z"}
+{"user_id":"u_syn_0011","name":"An Mai Mai","gender":"male","age":60,"city":"Huế","primary_interest":"audio","secondary_interest":"connected_home","created_at":"2026-09-11T04:05:36Z"}
+{"user_id":"u_syn_0012","name":"Kim Trần","gender":"other","age":22,"city":"Quy Nhơn","primary_interest":"video_games","secondary_interest":"audio","created_at":"2026-09-09T07:23:27Z"}
+{"user_id":"u_syn_0013","name":"Hải Phú Hoàng","gender":"male","age":72,"city":"Nha Trang","primary_interest":"musical_instruments","secondary_interest":"tv_home_theater","created_at":"2026-09-14T02:30:43Z"}
+{"user_id":"u_syn_0014","name":"Cô Ngọc Phạm","gender":"other","age":84,"city":"Cần Thơ","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-16T17:49:00Z"}
+{"user_id":"u_syn_0015","name":"Hà Hải Trần","gender":"male","age":42,"city":"Hà Nội","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-16T07:31:45Z"}
+{"user_id":"u_syn_0016","name":"Bác Bảo Đặng","gender":"male","age":85,"city":"Buôn Ma Thuột","primary_interest":"toys_games_drones","secondary_interest":"computers_tablets","created_at":"2026-09-16T06:37:34Z"}
+{"user_id":"u_syn_0017","name":"Thành Đặng","gender":"female","age":95,"city":"Đà Lạt","primary_interest":"tv_home_theater","secondary_interest":"cell_phones","created_at":"2026-09-07T22:27:26Z"}
+{"user_id":"u_syn_0018","name":"Bà Yến Trần","gender":"other","age":84,"city":"Vũng Tàu","primary_interest":"connected_home","secondary_interest":"toys_games_drones","created_at":"2026-09-13T18:06:58Z"}
+{"user_id":"u_syn_0019","name":"Chị Bảo Dương","gender":"other","age":64,"city":"Huế","primary_interest":"wearable_technology","secondary_interest":"car_electronics_gps","created_at":"2026-09-11T15:31:37Z"}
+{"user_id":"u_syn_0020","name":"Bác Tùng Phạm","gender":"male","age":78,"city":"Đà Lạt","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-05T09:55:01Z"}
+{"user_id":"u_syn_0021","name":"An Hải Nguyễn","gender":"male","age":93,"city":"Đà Nẵng","primary_interest":"cell_phones","secondary_interest":"computers_tablets","created_at":"2026-09-21T11:51:07Z"}
+{"user_id":"u_syn_0022","name":"Quý cô Hạnh Trần","gender":"female","age":89,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":"wearable_technology","created_at":"2026-09-26T16:27:46Z"}
+{"user_id":"u_syn_0023","name":"Nhiên Tấn Phạm","gender":"male","age":100,"city":"Buôn Ma Thuột","primary_interest":"audio","secondary_interest":"cell_phones","created_at":"2026-09-06T13:27:44Z"}
+{"user_id":"u_syn_0024","name":"Quý cô Xuân Dương","gender":"female","age":95,"city":"Huế","primary_interest":"video_games","secondary_interest":"cell_phones","created_at":"2026-09-06T09:58:03Z"}
+{"user_id":"u_syn_0025","name":"Hạnh Lê","gender":"female","age":13,"city":"Buôn Ma Thuột","primary_interest":"musical_instruments","secondary_interest":"toys_games_drones","created_at":"2026-09-13T18:52:13Z"}
+{"user_id":"u_syn_0026","name":"Tùng Đức Hoàng","gender":"male","age":77,"city":"TP.HCM","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-15T11:42:48Z"}
+{"user_id":"u_syn_0027","name":"Khoa Hữu Đặng","gender":"other","age":90,"city":"Cần Thơ","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-08T10:04:14Z"}
+{"user_id":"u_syn_0028","name":"Chị Vân Dương","gender":"other","age":80,"city":"Hà Nội","primary_interest":"toys_games_drones","secondary_interest":"cameras_camcorders","created_at":"2026-09-30T01:49:15Z"}
+{"user_id":"u_syn_0029","name":"Hưng Trần","gender":"male","age":59,"city":"Hải Phòng","primary_interest":"tv_home_theater","secondary_interest":"musical_instruments","created_at":"2026-09-12T14:58:55Z"}
+{"user_id":"u_syn_0030","name":"Phúc Bảo Hoàng","gender":"male","age":23,"city":"Buôn Ma Thuột","primary_interest":"connected_home","secondary_interest":"audio","created_at":"2026-09-24T14:13:11Z"}
+{"user_id":"u_syn_0031","name":"Kim Bùi","gender":"other","age":29,"city":"Đà Nẵng","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-24T01:44:38Z"}
+{"user_id":"u_syn_0032","name":"Bác Tùng Nguyễn","gender":"male","age":46,"city":"Vũng Tàu","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-30T10:43:59Z"}
+{"user_id":"u_syn_0033","name":"Hải Mai","gender":"other","age":38,"city":"Buôn Ma Thuột","primary_interest":"cell_phones","secondary_interest":"toys_games_drones","created_at":"2026-09-16T03:10:32Z"}
+{"user_id":"u_syn_0034","name":"Dũng Trần","gender":"other","age":60,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":"video_games","created_at":"2026-09-26T03:01:10Z"}
+{"user_id":"u_syn_0035","name":"Kim Xuân Dương","gender":"male","age":21,"city":"Huế","primary_interest":"audio","secondary_interest":"toys_games_drones","created_at":"2026-09-02T00:30:24Z"}
+{"user_id":"u_syn_0036","name":"Yến Vũ","gender":"other","age":41,"city":"Hà Nội","primary_interest":"video_games","secondary_interest":"toys_games_drones","created_at":"2026-09-04T10:42:46Z"}
+{"user_id":"u_syn_0037","name":"Minh Đức Vũ","gender":"male","age":21,"city":"Hà Nội","primary_interest":"musical_instruments","secondary_interest":"computers_tablets","created_at":"2026-09-17T00:58:37Z"}
+{"user_id":"u_syn_0038","name":"Bảo Đặng","gender":"female","age":98,"city":"Đà Lạt","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-11T09:36:14Z"}
+{"user_id":"u_syn_0039","name":"Cô Khoa Đặng","gender":"other","age":73,"city":"Cần Thơ","primary_interest":"cameras_camcorders","secondary_interest":"audio","created_at":"2026-09-23T23:03:12Z"}
+{"user_id":"u_syn_0040","name":"Ông Tú Đặng","gender":"male","age":25,"city":"TP.HCM","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-21T22:12:39Z"}
+{"user_id":"u_syn_0041","name":"Chị An Phạm","gender":"female","age":19,"city":"Biên Hòa","primary_interest":"tv_home_theater","secondary_interest":"car_electronics_gps","created_at":"2026-09-05T18:39:54Z"}
+{"user_id":"u_syn_0042","name":"Vũ Dương","gender":"male","age":44,"city":"Cần Thơ","primary_interest":"connected_home","secondary_interest":"wearable_technology","created_at":"2026-09-10T05:36:33Z"}
+{"user_id":"u_syn_0043","name":"Vi Mai","gender":"female","age":36,"city":"Hải Phòng","primary_interest":"wearable_technology","secondary_interest":"cameras_camcorders","created_at":"2026-09-23T11:00:02Z"}
+{"user_id":"u_syn_0044","name":"Bảo Dương","gender":"female","age":83,"city":"TP.HCM","primary_interest":"car_electronics_gps","secondary_interest":"computers_tablets","created_at":"2026-09-03T10:56:22Z"}
+{"user_id":"u_syn_0045","name":"Anh Bảo Phạm","gender":"male","age":24,"city":"Cần Thơ","primary_interest":"cell_phones","secondary_interest":"appliances","created_at":"2026-09-09T01:45:59Z"}
+{"user_id":"u_syn_0046","name":"Khoa Hữu Đặng","gender":"male","age":64,"city":"Hà Nội","primary_interest":"appliances","secondary_interest":"car_electronics_gps","created_at":"2026-09-08T23:48:58Z"}
+{"user_id":"u_syn_0047","name":"Quý cô Hương Phạm","gender":"female","age":71,"city":"Hải Phòng","primary_interest":"audio","secondary_interest":"wearable_technology","created_at":"2026-09-21T12:50:21Z"}
+{"user_id":"u_syn_0048","name":"Cô Linh Nguyễn","gender":"other","age":75,"city":"Đà Nẵng","primary_interest":"video_games","secondary_interest":"cell_phones","created_at":"2026-09-10T05:14:49Z"}
+{"user_id":"u_syn_0049","name":"Chị Ngọc Trần","gender":"other","age":82,"city":"Hà Nội","primary_interest":"musical_instruments","secondary_interest":"computers_tablets","created_at":"2026-09-16T05:22:33Z"}
+{"user_id":"u_syn_0050","name":"Mai Trần","gender":"female","age":77,"city":"Vũng Tàu","primary_interest":"computers_tablets","secondary_interest":"audio","created_at":"2026-09-08T15:25:20Z"}
+{"user_id":"u_syn_0051","name":"Dũng Trần","gender":"male","age":36,"city":"TP.HCM","primary_interest":"cameras_camcorders","secondary_interest":"appliances","created_at":"2026-09-29T21:15:58Z"}
+{"user_id":"u_syn_0052","name":"Hạnh Dương","gender":"female","age":28,"city":"Quy Nhơn","primary_interest":"toys_games_drones","secondary_interest":"tv_home_theater","created_at":"2026-09-12T22:51:42Z"}
+{"user_id":"u_syn_0053","name":"Chị Yến Hoàng","gender":"other","age":23,"city":"Nha Trang","primary_interest":"tv_home_theater","secondary_interest":"musical_instruments","created_at":"2026-09-29T08:01:39Z"}
+{"user_id":"u_syn_0054","name":"Chị Vi Dương","gender":"female","age":39,"city":"Biên Hòa","primary_interest":"connected_home","secondary_interest":"wearable_technology","created_at":"2026-09-16T06:03:02Z"}
+{"user_id":"u_syn_0055","name":"Anh Tú Trần","gender":"male","age":98,"city":"Biên Hòa","primary_interest":"wearable_technology","secondary_interest":"car_electronics_gps","created_at":"2026-09-15T13:31:18Z"}
+{"user_id":"u_syn_0056","name":"Bác Huy Bùi","gender":"male","age":71,"city":"Quy Nhơn","primary_interest":"car_electronics_gps","secondary_interest":"computers_tablets","created_at":"2026-09-28T07:56:06Z"}
+{"user_id":"u_syn_0057","name":"Ông Tú Nguyễn","gender":"male","age":81,"city":"Cần Thơ","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-25T13:23:54Z"}
+{"user_id":"u_syn_0058","name":"Bác Tú Phạm","gender":"male","age":44,"city":"Huế","primary_interest":"appliances","secondary_interest":"connected_home","created_at":"2026-09-14T20:02:03Z"}
+{"user_id":"u_syn_0059","name":"Chị Vân Dương","gender":"other","age":51,"city":"Quy Nhơn","primary_interest":"audio","secondary_interest":"cell_phones","created_at":"2026-09-26T16:15:38Z"}
+{"user_id":"u_syn_0060","name":"Kim Lê","gender":"female","age":97,"city":"TP.HCM","primary_interest":"video_games","secondary_interest":"cell_phones","created_at":"2026-09-07T12:27:37Z"}
+{"user_id":"u_syn_0061","name":"Bảo Phạm","gender":"other","age":83,"city":"Đà Nẵng","primary_interest":"musical_instruments","secondary_interest":"cameras_camcorders","created_at":"2026-09-14T05:18:31Z"}
+{"user_id":"u_syn_0062","name":"Nhật Mai","gender":"other","age":56,"city":"Cần Thơ","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-13T19:33:48Z"}
+{"user_id":"u_syn_0063","name":"Hưng Mai","gender":"male","age":24,"city":"Biên Hòa","primary_interest":"cameras_camcorders","secondary_interest":"connected_home","created_at":"2026-09-21T13:30:05Z"}
+{"user_id":"u_syn_0064","name":"Vũ Phạm","gender":"male","age":13,"city":"Huế","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-07T08:24:57Z"}
+{"user_id":"u_syn_0065","name":"Huy Mai Bảo Dương","gender":"male","age":69,"city":"Vũng Tàu","primary_interest":"tv_home_theater","secondary_interest":"connected_home","created_at":"2026-09-21T18:17:28Z"}
+{"user_id":"u_syn_0066","name":"Thành Thị Lê","gender":"male","age":32,"city":"Vũng Tàu","primary_interest":"connected_home","secondary_interest":"computers_tablets","created_at":"2026-09-02T17:58:32Z"}
+{"user_id":"u_syn_0067","name":"An Hữu Vũ","gender":"other","age":83,"city":"Đà Nẵng","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-21T20:44:16Z"}
+{"user_id":"u_syn_0068","name":"Bà Hồng Mai","gender":"female","age":18,"city":"Huế","primary_interest":"car_electronics_gps","secondary_interest":"tv_home_theater","created_at":"2026-09-11T04:45:24Z"}
+{"user_id":"u_syn_0069","name":"Anh Trung Vũ","gender":"male","age":58,"city":"Vũng Tàu","primary_interest":"cell_phones","secondary_interest":"video_games","created_at":"2026-09-20T17:27:50Z"}
+{"user_id":"u_syn_0070","name":"Cô Duyên Mai","gender":"other","age":32,"city":"Cần Thơ","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-08T21:19:41Z"}
+{"user_id":"u_syn_0071","name":"Dũng Nguyễn","gender":"male","age":65,"city":"Hà Nội","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-09T16:58:13Z"}
+{"user_id":"u_syn_0072","name":"Duyên Dương","gender":"female","age":98,"city":"Buôn Ma Thuột","primary_interest":"video_games","secondary_interest":"connected_home","created_at":"2026-09-13T01:08:08Z"}
+{"user_id":"u_syn_0073","name":"An Mai","gender":"female","age":17,"city":"Đà Lạt","primary_interest":"musical_instruments","secondary_interest":"cameras_camcorders","created_at":"2026-09-11T19:09:14Z"}
+{"user_id":"u_syn_0074","name":"Ánh Lê","gender":"female","age":52,"city":"Cần Thơ","primary_interest":"computers_tablets","secondary_interest":"cell_phones","created_at":"2026-09-11T19:43:29Z"}
+{"user_id":"u_syn_0075","name":"Duyên Trần","gender":"female","age":55,"city":"Hải Phòng","primary_interest":"cameras_camcorders","secondary_interest":"tv_home_theater","created_at":"2026-09-04T08:52:51Z"}
+{"user_id":"u_syn_0076","name":"Kim Trần","gender":"female","age":57,"city":"Biên Hòa","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-25T17:30:02Z"}
+{"user_id":"u_syn_0077","name":"Khoa Hoàng","gender":"female","age":16,"city":"TP.HCM","primary_interest":"tv_home_theater","secondary_interest":"appliances","created_at":"2026-09-13T16:20:15Z"}
+{"user_id":"u_syn_0078","name":"Trọng Trần","gender":"male","age":26,"city":"Quy Nhơn","primary_interest":"connected_home","secondary_interest":"tv_home_theater","created_at":"2026-09-22T02:18:12Z"}
+{"user_id":"u_syn_0079","name":"Bà Xuân Vũ","gender":"female","age":90,"city":"Vũng Tàu","primary_interest":"wearable_technology","secondary_interest":"connected_home","created_at":"2026-09-06T14:44:13Z"}
+{"user_id":"u_syn_0080","name":"Dũng Hải Vũ","gender":"male","age":45,"city":"Hà Nội","primary_interest":"car_electronics_gps","secondary_interest":"audio","created_at":"2026-09-22T04:02:37Z"}
+{"user_id":"u_syn_0081","name":"Bảo Thế Dương","gender":"other","age":98,"city":"Cần Thơ","primary_interest":"cell_phones","secondary_interest":"appliances","created_at":"2026-09-18T16:20:55Z"}
+{"user_id":"u_syn_0082","name":"Cô An Dương","gender":"female","age":92,"city":"Huế","primary_interest":"appliances","secondary_interest":"video_games","created_at":"2026-09-07T01:11:56Z"}
+{"user_id":"u_syn_0083","name":"Hà Mai","gender":"other","age":52,"city":"Biên Hòa","primary_interest":"audio","secondary_interest":"tv_home_theater","created_at":"2026-09-20T19:48:44Z"}
+{"user_id":"u_syn_0084","name":"Bà Lan Đặng","gender":"other","age":29,"city":"Cần Thơ","primary_interest":"video_games","secondary_interest":"tv_home_theater","created_at":"2026-09-21T09:51:19Z"}
+{"user_id":"u_syn_0085","name":"Lâm Đặng","gender":"other","age":35,"city":"Quy Nhơn","primary_interest":"musical_instruments","secondary_interest":"car_electronics_gps","created_at":"2026-09-28T15:03:20Z"}
+{"user_id":"u_syn_0086","name":"Bảo Mai Mai","gender":"male","age":51,"city":"Hải Phòng","primary_interest":"computers_tablets","secondary_interest":"appliances","created_at":"2026-09-11T04:52:50Z"}
+{"user_id":"u_syn_0087","name":"Trọng Mai","gender":"other","age":96,"city":"Huế","primary_interest":"cameras_camcorders","secondary_interest":"audio","created_at":"2026-09-23T13:45:01Z"}
+{"user_id":"u_syn_0088","name":"Tùng Vũ","gender":"male","age":78,"city":"Đà Lạt","primary_interest":"toys_games_drones","secondary_interest":"video_games","created_at":"2026-09-09T05:42:17Z"}
+{"user_id":"u_syn_0089","name":"Bảo Vũ","gender":"other","age":97,"city":"Biên Hòa","primary_interest":"tv_home_theater","secondary_interest":"connected_home","created_at":"2026-09-17T06:31:21Z"}
+{"user_id":"u_syn_0090","name":"Hà Mai","gender":"other","age":52,"city":"Cần Thơ","primary_interest":"connected_home","secondary_interest":"toys_games_drones","created_at":"2026-09-10T16:00:11Z"}
+{"user_id":"u_syn_0091","name":"Anh Thế Hoàng","gender":"male","age":73,"city":"Quy Nhơn","primary_interest":"wearable_technology","secondary_interest":"musical_instruments","created_at":"2026-09-04T12:51:03Z"}
+{"user_id":"u_syn_0092","name":"Bà Mai Vũ","gender":"other","age":37,"city":"Buôn Ma Thuột","primary_interest":"car_electronics_gps","secondary_interest":"video_games","created_at":"2026-09-19T15:22:02Z"}
+{"user_id":"u_syn_0093","name":"Bác Hưng Trần","gender":"male","age":96,"city":"Buôn Ma Thuột","primary_interest":"cell_phones","secondary_interest":"toys_games_drones","created_at":"2026-09-01T06:27:36Z"}
+{"user_id":"u_syn_0094","name":"Bác Hưng Nguyễn","gender":"male","age":67,"city":"Cần Thơ","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-09T12:55:22Z"}
+{"user_id":"u_syn_0095","name":"Hoàng Đức Lê","gender":"other","age":79,"city":"Đà Lạt","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-03T10:30:31Z"}
+{"user_id":"u_syn_0096","name":"Quý cô Vân Nguyễn","gender":"female","age":30,"city":"Đà Lạt","primary_interest":"video_games","secondary_interest":"computers_tablets","created_at":"2026-09-26T18:48:48Z"}
+{"user_id":"u_syn_0097","name":"Hà Lê","gender":"other","age":53,"city":"Đà Lạt","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-30T17:47:30Z"}
+{"user_id":"u_syn_0098","name":"Ánh Đặng","gender":"other","age":67,"city":"Vũng Tàu","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-22T15:31:37Z"}
+{"user_id":"u_syn_0099","name":"Quý cô Bảo Nguyễn","gender":"other","age":73,"city":"Đà Lạt","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-13T13:58:48Z"}
+{"user_id":"u_syn_0100","name":"Bà An Đặng","gender":"female","age":79,"city":"Đà Lạt","primary_interest":"toys_games_drones","secondary_interest":"video_games","created_at":"2026-09-12T14:44:29Z"}
+{"user_id":"u_syn_0101","name":"Chị Dương Trần","gender":"other","age":49,"city":"Cần Thơ","primary_interest":"tv_home_theater","secondary_interest":"computers_tablets","created_at":"2026-09-14T04:34:15Z"}
+{"user_id":"u_syn_0102","name":"Phương Bảo Hoàng","gender":"male","age":30,"city":"Đà Nẵng","primary_interest":"connected_home","secondary_interest":"appliances","created_at":"2026-09-12T05:26:20Z"}
+{"user_id":"u_syn_0103","name":"Chị Bảo Lê","gender":"other","age":40,"city":"TP.HCM","primary_interest":"wearable_technology","secondary_interest":"cameras_camcorders","created_at":"2026-09-21T03:21:22Z"}
+{"user_id":"u_syn_0104","name":"Cô Lan Đặng","gender":"female","age":66,"city":"Hà Nội","primary_interest":"car_electronics_gps","secondary_interest":"appliances","created_at":"2026-09-11T00:58:46Z"}
+{"user_id":"u_syn_0105","name":"Chị Thảo Lê","gender":"female","age":87,"city":"Buôn Ma Thuột","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-01T22:45:22Z"}
+{"user_id":"u_syn_0106","name":"Kim Nguyễn","gender":"other","age":61,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-01T06:52:09Z"}
+{"user_id":"u_syn_0107","name":"Chị Mai Dương","gender":"female","age":62,"city":"Nha Trang","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-27T03:04:20Z"}
+{"user_id":"u_syn_0108","name":"Khoa Hải Phạm","gender":"other","age":41,"city":"Đà Lạt","primary_interest":"video_games","secondary_interest":"cell_phones","created_at":"2026-09-11T15:38:41Z"}
+{"user_id":"u_syn_0109","name":"Trung Bùi","gender":"male","age":62,"city":"Huế","primary_interest":"musical_instruments","secondary_interest":"cell_phones","created_at":"2026-09-20T15:03:47Z"}
+{"user_id":"u_syn_0110","name":"Hạnh Quang Vũ","gender":"male","age":92,"city":"Vũng Tàu","primary_interest":"computers_tablets","secondary_interest":"cell_phones","created_at":"2026-09-02T07:25:05Z"}
+{"user_id":"u_syn_0111","name":"Minh Hữu Mai","gender":"other","age":85,"city":"Biên Hòa","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-02T07:34:34Z"}
+{"user_id":"u_syn_0112","name":"An Đức Vũ","gender":"male","age":72,"city":"Đà Nẵng","primary_interest":"toys_games_drones","secondary_interest":"car_electronics_gps","created_at":"2026-09-03T10:35:09Z"}
+{"user_id":"u_syn_0113","name":"Nhiên Đức Nguyễn","gender":"male","age":71,"city":"Huế","primary_interest":"tv_home_theater","secondary_interest":"wearable_technology","created_at":"2026-09-17T09:12:59Z"}
+{"user_id":"u_syn_0114","name":"Duyên Bùi","gender":"female","age":66,"city":"Hải Phòng","primary_interest":"connected_home","secondary_interest":"car_electronics_gps","created_at":"2026-09-04T23:25:39Z"}
+{"user_id":"u_syn_0115","name":"Nhật Tấn Bùi","gender":"male","age":57,"city":"Cần Thơ","primary_interest":"wearable_technology","secondary_interest":"appliances","created_at":"2026-09-04T07:56:46Z"}
+{"user_id":"u_syn_0116","name":"Thành Hoàng","gender":"male","age":16,"city":"Cần Thơ","primary_interest":"car_electronics_gps","secondary_interest":"video_games","created_at":"2026-09-10T16:16:19Z"}
+{"user_id":"u_syn_0117","name":"Bà Ngọc Bùi","gender":"other","age":32,"city":"Cần Thơ","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-07T03:03:29Z"}
+{"user_id":"u_syn_0118","name":"Vân Mai","gender":"other","age":40,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":"computers_tablets","created_at":"2026-09-13T10:32:43Z"}
+{"user_id":"u_syn_0119","name":"Bà Hồng Trần","gender":"other","age":90,"city":"Buôn Ma Thuột","primary_interest":"audio","secondary_interest":"cameras_camcorders","created_at":"2026-09-06T13:26:25Z"}
+{"user_id":"u_syn_0120","name":"Bà Hải Trần","gender":"female","age":26,"city":"Quy Nhơn","primary_interest":"video_games","secondary_interest":"cameras_camcorders","created_at":"2026-09-02T05:55:03Z"}
+{"user_id":"u_syn_0121","name":"Minh Vũ","gender":"other","age":99,"city":"Nha Trang","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-20T06:08:09Z"}
+{"user_id":"u_syn_0122","name":"Bác Thành Vũ","gender":"male","age":22,"city":"Quy Nhơn","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-12T18:56:24Z"}
+{"user_id":"u_syn_0123","name":"Chị Kim Bùi","gender":"other","age":89,"city":"TP.HCM","primary_interest":"cameras_camcorders","secondary_interest":"connected_home","created_at":"2026-09-28T11:21:33Z"}
+{"user_id":"u_syn_0124","name":"Bà Kim Mai","gender":"other","age":67,"city":"Biên Hòa","primary_interest":"toys_games_drones","secondary_interest":"wearable_technology","created_at":"2026-09-18T23:44:46Z"}
+{"user_id":"u_syn_0125","name":"Thảo Vũ","gender":"female","age":14,"city":"Nha Trang","primary_interest":"tv_home_theater","secondary_interest":"video_games","created_at":"2026-09-24T19:07:34Z"}
+{"user_id":"u_syn_0126","name":"Quý cô Vi Hoàng","gender":"other","age":71,"city":"Buôn Ma Thuột","primary_interest":"connected_home","secondary_interest":"wearable_technology","created_at":"2026-09-08T10:14:51Z"}
+{"user_id":"u_syn_0127","name":"Bảo Mai Dương","gender":"other","age":47,"city":"Quy Nhơn","primary_interest":"wearable_technology","secondary_interest":"appliances","created_at":"2026-09-27T03:01:00Z"}
+{"user_id":"u_syn_0128","name":"Phương Dương","gender":"female","age":88,"city":"Hải Phòng","primary_interest":"car_electronics_gps","secondary_interest":"cell_phones","created_at":"2026-09-16T15:30:43Z"}
+{"user_id":"u_syn_0129","name":"Vũ Thế Mai","gender":"male","age":48,"city":"Đà Lạt","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-12T20:07:17Z"}
+{"user_id":"u_syn_0130","name":"Vũ Hải Vũ","gender":"other","age":98,"city":"Nha Trang","primary_interest":"appliances","secondary_interest":"audio","created_at":"2026-09-17T07:55:49Z"}
+{"user_id":"u_syn_0131","name":"Trung Trí Nguyễn","gender":"male","age":75,"city":"Cần Thơ","primary_interest":"audio","secondary_interest":"connected_home","created_at":"2026-09-18T05:24:03Z"}
+{"user_id":"u_syn_0132","name":"Mai Dương","gender":"female","age":89,"city":"Buôn Ma Thuột","primary_interest":"video_games","secondary_interest":"connected_home","created_at":"2026-09-14T09:52:34Z"}
+{"user_id":"u_syn_0133","name":"Bảo Bùi","gender":"male","age":23,"city":"Cần Thơ","primary_interest":"musical_instruments","secondary_interest":"appliances","created_at":"2026-09-20T17:31:23Z"}
+{"user_id":"u_syn_0134","name":"Quý cô Chi Bùi","gender":"other","age":73,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-24T19:50:53Z"}
+{"user_id":"u_syn_0135","name":"Hoàng Văn Trần","gender":"male","age":50,"city":"Cần Thơ","primary_interest":"cameras_camcorders","secondary_interest":"musical_instruments","created_at":"2026-09-20T15:09:41Z"}
+{"user_id":"u_syn_0136","name":"Lâm Xuân Mai","gender":"other","age":87,"city":"Huế","primary_interest":"toys_games_drones","secondary_interest":"connected_home","created_at":"2026-09-23T23:23:18Z"}
+{"user_id":"u_syn_0137","name":"Cô Vân Phạm","gender":"female","age":83,"city":"Huế","primary_interest":"tv_home_theater","secondary_interest":"wearable_technology","created_at":"2026-09-18T01:53:20Z"}
+{"user_id":"u_syn_0138","name":"Chi Lê","gender":"female","age":45,"city":"Cần Thơ","primary_interest":"connected_home","secondary_interest":"tv_home_theater","created_at":"2026-09-06T20:34:27Z"}
+{"user_id":"u_syn_0139","name":"Bác Bảo Hoàng","gender":"male","age":81,"city":"Buôn Ma Thuột","primary_interest":"wearable_technology","secondary_interest":"connected_home","created_at":"2026-09-09T23:42:54Z"}
+{"user_id":"u_syn_0140","name":"Quý cô Xuân Lê","gender":"female","age":88,"city":"Vũng Tàu","primary_interest":"car_electronics_gps","secondary_interest":"cell_phones","created_at":"2026-09-29T23:18:41Z"}
+{"user_id":"u_syn_0141","name":"Quý ông Anh Phạm","gender":"male","age":50,"city":"Cần Thơ","primary_interest":"cell_phones","secondary_interest":"computers_tablets","created_at":"2026-09-18T12:27:24Z"}
+{"user_id":"u_syn_0142","name":"Minh Dương","gender":"other","age":81,"city":"Đà Nẵng","primary_interest":"appliances","secondary_interest":"musical_instruments","created_at":"2026-09-14T07:35:45Z"}
+{"user_id":"u_syn_0143","name":"Bà Chi Trần","gender":"other","age":50,"city":"Buôn Ma Thuột","primary_interest":"audio","secondary_interest":"musical_instruments","created_at":"2026-09-07T03:07:34Z"}
+{"user_id":"u_syn_0144","name":"Lâm Đức Đặng","gender":"male","age":14,"city":"Quy Nhơn","primary_interest":"video_games","secondary_interest":"car_electronics_gps","created_at":"2026-09-14T19:16:45Z"}
+{"user_id":"u_syn_0145","name":"Cô Bảo Lê","gender":"female","age":36,"city":"Hà Nội","primary_interest":"musical_instruments","secondary_interest":"cell_phones","created_at":"2026-09-13T06:09:31Z"}
+{"user_id":"u_syn_0146","name":"Kim Lê","gender":"female","age":27,"city":"TP.HCM","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-20T10:51:28Z"}
+{"user_id":"u_syn_0147","name":"Cô Hồng Bùi","gender":"other","age":100,"city":"Hà Nội","primary_interest":"cameras_camcorders","secondary_interest":"audio","created_at":"2026-09-08T08:46:29Z"}
+{"user_id":"u_syn_0148","name":"Quý cô Kim Nguyễn","gender":"female","age":23,"city":"Cần Thơ","primary_interest":"toys_games_drones","secondary_interest":"audio","created_at":"2026-09-06T18:00:21Z"}
+{"user_id":"u_syn_0149","name":"Quý cô Hồng Hoàng","gender":"other","age":89,"city":"Quy Nhơn","primary_interest":"tv_home_theater","secondary_interest":"car_electronics_gps","created_at":"2026-09-11T22:56:40Z"}
+{"user_id":"u_syn_0150","name":"Ánh Hoàng","gender":"female","age":69,"city":"Hải Phòng","primary_interest":"connected_home","secondary_interest":"car_electronics_gps","created_at":"2026-09-29T13:40:53Z"}
+{"user_id":"u_syn_0151","name":"Quý cô Ngọc Đặng","gender":"female","age":85,"city":"Quy Nhơn","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-03T22:10:24Z"}
+{"user_id":"u_syn_0152","name":"Kim Bảo Mai","gender":"male","age":93,"city":"Cần Thơ","primary_interest":"car_electronics_gps","secondary_interest":"computers_tablets","created_at":"2026-09-13T20:20:06Z"}
+{"user_id":"u_syn_0153","name":"Châu Hải Vũ","gender":"male","age":35,"city":"Vũng Tàu","primary_interest":"cell_phones","secondary_interest":"cameras_camcorders","created_at":"2026-09-04T15:27:24Z"}
+{"user_id":"u_syn_0154","name":"Quý cô Ngọc Bùi","gender":"female","age":89,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":"wearable_technology","created_at":"2026-09-15T03:20:30Z"}
+{"user_id":"u_syn_0155","name":"Thành Xuân Dương","gender":"other","age":49,"city":"Buôn Ma Thuột","primary_interest":"audio","secondary_interest":"tv_home_theater","created_at":"2026-09-23T00:59:05Z"}
+{"user_id":"u_syn_0156","name":"Khoa Mai","gender":"female","age":93,"city":"Quy Nhơn","primary_interest":"video_games","secondary_interest":"toys_games_drones","created_at":"2026-09-10T14:28:33Z"}
+{"user_id":"u_syn_0157","name":"Thành Hoàng","gender":"male","age":95,"city":"Đà Nẵng","primary_interest":"musical_instruments","secondary_interest":"appliances","created_at":"2026-09-13T21:29:03Z"}
+{"user_id":"u_syn_0158","name":"Vũ Bùi","gender":"male","age":20,"city":"Đà Nẵng","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-15T22:23:37Z"}
+{"user_id":"u_syn_0159","name":"Nhật Lê","gender":"female","age":69,"city":"TP.HCM","primary_interest":"cameras_camcorders","secondary_interest":"audio","created_at":"2026-09-23T18:04:21Z"}
+{"user_id":"u_syn_0160","name":"Thảo Bùi","gender":"female","age":77,"city":"Vũng Tàu","primary_interest":"toys_games_drones","secondary_interest":"car_electronics_gps","created_at":"2026-09-24T23:18:47Z"}
+{"user_id":"u_syn_0161","name":"Lâm Mai Đặng","gender":"male","age":68,"city":"Buôn Ma Thuột","primary_interest":"tv_home_theater","secondary_interest":"audio","created_at":"2026-09-16T15:31:54Z"}
+{"user_id":"u_syn_0162","name":"Kim Đức Bùi","gender":"male","age":42,"city":"Biên Hòa","primary_interest":"connected_home","secondary_interest":"musical_instruments","created_at":"2026-09-28T22:09:19Z"}
+{"user_id":"u_syn_0163","name":"Vũ Dương","gender":"other","age":47,"city":"Quy Nhơn","primary_interest":"wearable_technology","secondary_interest":"musical_instruments","created_at":"2026-09-02T22:52:23Z"}
+{"user_id":"u_syn_0164","name":"Yến Mai","gender":"female","age":79,"city":"Biên Hòa","primary_interest":"car_electronics_gps","secondary_interest":"cameras_camcorders","created_at":"2026-09-22T11:14:04Z"}
+{"user_id":"u_syn_0165","name":"Quang Phạm","gender":"male","age":87,"city":"Nha Trang","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-24T20:54:07Z"}
+{"user_id":"u_syn_0166","name":"Vi Nguyễn","gender":"female","age":57,"city":"Nha Trang","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-17T04:19:56Z"}
+{"user_id":"u_syn_0167","name":"Quang Phạm","gender":"male","age":55,"city":"Nha Trang","primary_interest":"audio","secondary_interest":"computers_tablets","created_at":"2026-09-25T01:15:47Z"}
+{"user_id":"u_syn_0168","name":"Duyên Lê","gender":"other","age":17,"city":"Đà Lạt","primary_interest":"video_games","secondary_interest":"wearable_technology","created_at":"2026-09-05T06:35:49Z"}
+{"user_id":"u_syn_0169","name":"Hoàng Mai Bảo Trần","gender":"male","age":64,"city":"Vũng Tàu","primary_interest":"musical_instruments","secondary_interest":"wearable_technology","created_at":"2026-09-01T01:20:27Z"}
+{"user_id":"u_syn_0170","name":"Nhật Vũ","gender":"female","age":65,"city":"Hà Nội","primary_interest":"computers_tablets","secondary_interest":"appliances","created_at":"2026-09-10T02:32:58Z"}
+{"user_id":"u_syn_0171","name":"Chị Khoa Hoàng","gender":"female","age":93,"city":"Đà Lạt","primary_interest":"cameras_camcorders","secondary_interest":"audio","created_at":"2026-09-03T12:07:55Z"}
+{"user_id":"u_syn_0172","name":"Phúc Vũ","gender":"male","age":49,"city":"Đà Lạt","primary_interest":"toys_games_drones","secondary_interest":"appliances","created_at":"2026-09-24T12:43:48Z"}
+{"user_id":"u_syn_0173","name":"Khoa Nguyễn","gender":"other","age":43,"city":"Buôn Ma Thuột","primary_interest":"tv_home_theater","secondary_interest":"video_games","created_at":"2026-09-08T16:31:26Z"}
+{"user_id":"u_syn_0174","name":"Nhiên Bùi","gender":"other","age":65,"city":"TP.HCM","primary_interest":"connected_home","secondary_interest":"musical_instruments","created_at":"2026-09-11T21:47:42Z"}
+{"user_id":"u_syn_0175","name":"Anh Vũ Hoàng","gender":"male","age":72,"city":"TP.HCM","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-08T11:23:21Z"}
+{"user_id":"u_syn_0176","name":"Cô Yến Vũ","gender":"other","age":47,"city":"Nha Trang","primary_interest":"car_electronics_gps","secondary_interest":"tv_home_theater","created_at":"2026-09-24T10:09:09Z"}
+{"user_id":"u_syn_0177","name":"Nhiên Nguyễn","gender":"male","age":71,"city":"Vũng Tàu","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-08T00:31:12Z"}
+{"user_id":"u_syn_0178","name":"Tùng Bảo Đặng","gender":"other","age":30,"city":"TP.HCM","primary_interest":"appliances","secondary_interest":"audio","created_at":"2026-09-14T09:51:05Z"}
+{"user_id":"u_syn_0179","name":"Vân Đặng","gender":"female","age":77,"city":"Hải Phòng","primary_interest":"audio","secondary_interest":"wearable_technology","created_at":"2026-09-01T02:59:19Z"}
+{"user_id":"u_syn_0180","name":"Ánh Bùi","gender":"other","age":87,"city":"Biên Hòa","primary_interest":"video_games","secondary_interest":"tv_home_theater","created_at":"2026-09-24T18:28:20Z"}
+{"user_id":"u_syn_0181","name":"Cô Hồng Đặng","gender":"female","age":81,"city":"Đà Lạt","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-17T18:05:54Z"}
+{"user_id":"u_syn_0182","name":"Chị Hồng Lê","gender":"female","age":71,"city":"Huế","primary_interest":"computers_tablets","secondary_interest":"appliances","created_at":"2026-09-10T03:47:45Z"}
+{"user_id":"u_syn_0183","name":"Khoa Mai Bảo Dương","gender":"male","age":86,"city":"Nha Trang","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-12T08:07:11Z"}
+{"user_id":"u_syn_0184","name":"Bà Linh Phạm","gender":"female","age":18,"city":"Huế","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-23T23:03:26Z"}
+{"user_id":"u_syn_0185","name":"Thảo Dương","gender":"female","age":97,"city":"Biên Hòa","primary_interest":"tv_home_theater","secondary_interest":"car_electronics_gps","created_at":"2026-09-08T09:12:55Z"}
+{"user_id":"u_syn_0186","name":"Bảo Hữu Đặng","gender":"male","age":77,"city":"Quy Nhơn","primary_interest":"connected_home","secondary_interest":"musical_instruments","created_at":"2026-09-17T02:48:06Z"}
+{"user_id":"u_syn_0187","name":"Chi Đặng","gender":"female","age":25,"city":"Vũng Tàu","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-23T04:21:35Z"}
+{"user_id":"u_syn_0188","name":"Nhật Phạm","gender":"female","age":96,"city":"Đà Nẵng","primary_interest":"car_electronics_gps","secondary_interest":"cameras_camcorders","created_at":"2026-09-04T15:10:52Z"}
+{"user_id":"u_syn_0189","name":"Bà Thành Vũ","gender":"female","age":92,"city":"Buôn Ma Thuột","primary_interest":"cell_phones","secondary_interest":"tv_home_theater","created_at":"2026-09-20T07:06:05Z"}
+{"user_id":"u_syn_0190","name":"Tùng Nguyễn","gender":"other","age":81,"city":"Nha Trang","primary_interest":"appliances","secondary_interest":"connected_home","created_at":"2026-09-16T08:56:13Z"}
+{"user_id":"u_syn_0191","name":"Cô Mai Bùi","gender":"other","age":17,"city":"Quy Nhơn","primary_interest":"audio","secondary_interest":"car_electronics_gps","created_at":"2026-09-04T07:42:57Z"}
+{"user_id":"u_syn_0192","name":"Chị Yến Dương","gender":"female","age":42,"city":"Buôn Ma Thuột","primary_interest":"video_games","secondary_interest":"audio","created_at":"2026-09-05T09:17:58Z"}
+{"user_id":"u_syn_0193","name":"Quý ông Nam Trần","gender":"other","age":25,"city":"Đà Lạt","primary_interest":"musical_instruments","secondary_interest":"cameras_camcorders","created_at":"2026-09-09T01:49:44Z"}
+{"user_id":"u_syn_0194","name":"Lâm Hữu Phạm","gender":"male","age":54,"city":"Hà Nội","primary_interest":"computers_tablets","secondary_interest":"musical_instruments","created_at":"2026-09-15T05:47:53Z"}
+{"user_id":"u_syn_0195","name":"Hải Phú Dương","gender":"male","age":44,"city":"Vũng Tàu","primary_interest":"cameras_camcorders","secondary_interest":"car_electronics_gps","created_at":"2026-09-21T00:04:30Z"}
+{"user_id":"u_syn_0196","name":"Kim Tấn Đặng","gender":"male","age":35,"city":"TP.HCM","primary_interest":"toys_games_drones","secondary_interest":"cameras_camcorders","created_at":"2026-09-30T14:06:33Z"}
+{"user_id":"u_syn_0197","name":"Bác Khoa Vũ","gender":"other","age":100,"city":"Cần Thơ","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-25T03:49:27Z"}
+{"user_id":"u_syn_0198","name":"Tú Hoàng Đặng","gender":"male","age":42,"city":"Đà Lạt","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-13T07:54:18Z"}
+{"user_id":"u_syn_0199","name":"Tùng Lê","gender":"male","age":72,"city":"Hải Phòng","primary_interest":"wearable_technology","secondary_interest":"video_games","created_at":"2026-09-27T12:49:58Z"}
+{"user_id":"u_syn_0200","name":"Lâm Dương","gender":"female","age":88,"city":"Hải Phòng","primary_interest":"car_electronics_gps","secondary_interest":"cell_phones","created_at":"2026-09-21T14:21:20Z"}
+{"user_id":"u_syn_0201","name":"Bà Hà Phạm","gender":"female","age":38,"city":"Nha Trang","primary_interest":"cell_phones","secondary_interest":"car_electronics_gps","created_at":"2026-09-24T10:58:41Z"}
+{"user_id":"u_syn_0202","name":"Quang Đặng","gender":"other","age":58,"city":"Quy Nhơn","primary_interest":"appliances","secondary_interest":"wearable_technology","created_at":"2026-09-15T08:42:58Z"}
+{"user_id":"u_syn_0203","name":"Hạnh Nguyễn","gender":"female","age":15,"city":"Biên Hòa","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-20T05:08:49Z"}
+{"user_id":"u_syn_0204","name":"Bà An Nguyễn","gender":"other","age":19,"city":"Quy Nhơn","primary_interest":"video_games","secondary_interest":"appliances","created_at":"2026-09-25T02:43:45Z"}
+{"user_id":"u_syn_0205","name":"Chị Hải Dương","gender":"female","age":42,"city":"Quy Nhơn","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-18T02:29:01Z"}
+{"user_id":"u_syn_0206","name":"An Hoàng","gender":"other","age":45,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-07T15:21:33Z"}
+{"user_id":"u_syn_0207","name":"Châu Dương","gender":"other","age":18,"city":"Hải Phòng","primary_interest":"cameras_camcorders","secondary_interest":"video_games","created_at":"2026-09-22T09:35:46Z"}
+{"user_id":"u_syn_0208","name":"Bác Phúc Nguyễn","gender":"other","age":29,"city":"TP.HCM","primary_interest":"toys_games_drones","secondary_interest":"wearable_technology","created_at":"2026-09-15T07:49:42Z"}
+{"user_id":"u_syn_0209","name":"Nhật Đức Trần","gender":"male","age":38,"city":"Đà Nẵng","primary_interest":"tv_home_theater","secondary_interest":"car_electronics_gps","created_at":"2026-09-27T04:27:20Z"}
+{"user_id":"u_syn_0210","name":"Quý cô Hương Hoàng","gender":"female","age":80,"city":"Vũng Tàu","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-14T05:31:02Z"}
+{"user_id":"u_syn_0211","name":"Lan Lê","gender":"female","age":74,"city":"Hải Phòng","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-17T10:37:54Z"}
+{"user_id":"u_syn_0212","name":"Cô Lâm Trần","gender":"female","age":22,"city":"Đà Nẵng","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-11T22:51:36Z"}
+{"user_id":"u_syn_0213","name":"Khoa Hải Mai","gender":"other","age":99,"city":"Nha Trang","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-28T01:18:58Z"}
+{"user_id":"u_syn_0214","name":"Quý ông Bảo Vũ","gender":"male","age":46,"city":"Vũng Tàu","primary_interest":"appliances","secondary_interest":"wearable_technology","created_at":"2026-09-06T23:59:28Z"}
+{"user_id":"u_syn_0215","name":"Hạnh Thị Hoàng","gender":"other","age":99,"city":"Hải Phòng","primary_interest":"audio","secondary_interest":"video_games","created_at":"2026-09-29T09:03:42Z"}
+{"user_id":"u_syn_0216","name":"Vi Phạm","gender":"female","age":26,"city":"Biên Hòa","primary_interest":"video_games","secondary_interest":"audio","created_at":"2026-09-12T08:25:20Z"}
+{"user_id":"u_syn_0217","name":"Bà Dương Trần","gender":"other","age":54,"city":"Quy Nhơn","primary_interest":"musical_instruments","secondary_interest":"audio","created_at":"2026-09-11T17:54:41Z"}
+{"user_id":"u_syn_0218","name":"Lâm Lê","gender":"female","age":51,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"video_games","created_at":"2026-09-20T19:41:56Z"}
+{"user_id":"u_syn_0219","name":"Phúc Nguyễn","gender":"male","age":51,"city":"Đà Lạt","primary_interest":"cameras_camcorders","secondary_interest":"musical_instruments","created_at":"2026-09-06T15:17:24Z"}
+{"user_id":"u_syn_0220","name":"Quý ông Trọng Dương","gender":"male","age":62,"city":"Đà Lạt","primary_interest":"toys_games_drones","secondary_interest":"appliances","created_at":"2026-09-19T00:15:35Z"}
+{"user_id":"u_syn_0221","name":"Cô Lâm Vũ","gender":"female","age":88,"city":"Buôn Ma Thuột","primary_interest":"tv_home_theater","secondary_interest":"appliances","created_at":"2026-09-08T12:01:56Z"}
+{"user_id":"u_syn_0222","name":"Bảo Trần","gender":"other","age":25,"city":"Đà Lạt","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-30T21:17:12Z"}
+{"user_id":"u_syn_0223","name":"Anh Hoàng Bùi","gender":"male","age":60,"city":"Cần Thơ","primary_interest":"wearable_technology","secondary_interest":"tv_home_theater","created_at":"2026-09-22T12:34:43Z"}
+{"user_id":"u_syn_0224","name":"Vân Phạm","gender":"female","age":25,"city":"Biên Hòa","primary_interest":"car_electronics_gps","secondary_interest":"toys_games_drones","created_at":"2026-09-18T19:58:34Z"}
+{"user_id":"u_syn_0225","name":"Hạnh Lê","gender":"female","age":20,"city":"Nha Trang","primary_interest":"cell_phones","secondary_interest":"video_games","created_at":"2026-09-14T09:25:30Z"}
+{"user_id":"u_syn_0226","name":"Ngọc Lê","gender":"female","age":24,"city":"Biên Hòa","primary_interest":"appliances","secondary_interest":"computers_tablets","created_at":"2026-09-11T07:07:16Z"}
+{"user_id":"u_syn_0227","name":"Khoa Thế Dương","gender":"male","age":19,"city":"Huế","primary_interest":"audio","secondary_interest":"appliances","created_at":"2026-09-12T19:46:41Z"}
+{"user_id":"u_syn_0228","name":"Nhật Vũ","gender":"other","age":39,"city":"TP.HCM","primary_interest":"video_games","secondary_interest":null,"created_at":"2026-09-27T21:41:55Z"}
+{"user_id":"u_syn_0229","name":"Bác Minh Mai","gender":"male","age":55,"city":"Đà Nẵng","primary_interest":"musical_instruments","secondary_interest":"tv_home_theater","created_at":"2026-09-29T22:22:08Z"}
+{"user_id":"u_syn_0230","name":"Quý ông Vũ Hoàng","gender":"male","age":82,"city":"Hải Phòng","primary_interest":"computers_tablets","secondary_interest":"toys_games_drones","created_at":"2026-09-09T11:18:13Z"}
+{"user_id":"u_syn_0231","name":"Huy Đặng","gender":"male","age":14,"city":"Huế","primary_interest":"cameras_camcorders","secondary_interest":"musical_instruments","created_at":"2026-09-12T13:12:37Z"}
+{"user_id":"u_syn_0232","name":"An Quang Phạm","gender":"male","age":46,"city":"Hà Nội","primary_interest":"toys_games_drones","secondary_interest":"musical_instruments","created_at":"2026-09-07T03:41:03Z"}
+{"user_id":"u_syn_0233","name":"Anh Hoàng","gender":"male","age":21,"city":"Đà Lạt","primary_interest":"tv_home_theater","secondary_interest":"appliances","created_at":"2026-09-22T18:16:42Z"}
+{"user_id":"u_syn_0234","name":"Vi Lê","gender":"other","age":26,"city":"Đà Lạt","primary_interest":"connected_home","secondary_interest":"appliances","created_at":"2026-09-25T11:00:52Z"}
+{"user_id":"u_syn_0235","name":"Quý ông Anh Lê","gender":"male","age":97,"city":"Vũng Tàu","primary_interest":"wearable_technology","secondary_interest":"audio","created_at":"2026-09-15T15:25:29Z"}
+{"user_id":"u_syn_0236","name":"Quý ông Vũ Dương","gender":"male","age":74,"city":"Nha Trang","primary_interest":"car_electronics_gps","secondary_interest":"musical_instruments","created_at":"2026-09-21T16:38:41Z"}
+{"user_id":"u_syn_0237","name":"Huy Tấn Đặng","gender":"other","age":69,"city":"TP.HCM","primary_interest":"cell_phones","secondary_interest":"car_electronics_gps","created_at":"2026-09-04T22:07:39Z"}
+{"user_id":"u_syn_0238","name":"Phúc Đặng","gender":"male","age":29,"city":"Hải Phòng","primary_interest":"appliances","secondary_interest":"cameras_camcorders","created_at":"2026-09-29T09:59:57Z"}
+{"user_id":"u_syn_0239","name":"Quý cô Thảo Bùi","gender":"female","age":89,"city":"Vũng Tàu","primary_interest":"audio","secondary_interest":"connected_home","created_at":"2026-09-15T07:34:50Z"}
+{"user_id":"u_syn_0240","name":"Chi Trần","gender":"female","age":25,"city":"Buôn Ma Thuột","primary_interest":"video_games","secondary_interest":"appliances","created_at":"2026-09-06T13:18:07Z"}
+{"user_id":"u_syn_0241","name":"Anh Tấn Trần","gender":"other","age":83,"city":"Buôn Ma Thuột","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-11T10:31:12Z"}
+{"user_id":"u_syn_0242","name":"Cô Dương Mai","gender":"female","age":56,"city":"Đà Lạt","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-20T08:33:15Z"}
+{"user_id":"u_syn_0243","name":"Quý cô Ngọc Phạm","gender":"female","age":67,"city":"Huế","primary_interest":"cameras_camcorders","secondary_interest":"computers_tablets","created_at":"2026-09-13T08:58:05Z"}
+{"user_id":"u_syn_0244","name":"Trọng Mai Bảo Dương","gender":"other","age":73,"city":"TP.HCM","primary_interest":"toys_games_drones","secondary_interest":"cameras_camcorders","created_at":"2026-09-05T10:17:04Z"}
+{"user_id":"u_syn_0245","name":"Trung Vũ","gender":"male","age":68,"city":"TP.HCM","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-19T02:09:54Z"}
+{"user_id":"u_syn_0246","name":"Bà Nhật Dương","gender":"other","age":20,"city":"Quy Nhơn","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-28T06:17:44Z"}
+{"user_id":"u_syn_0247","name":"Nam Hoàng","gender":"male","age":65,"city":"Huế","primary_interest":"wearable_technology","secondary_interest":"video_games","created_at":"2026-09-21T12:45:25Z"}
+{"user_id":"u_syn_0248","name":"Chị Thảo Mai","gender":"other","age":19,"city":"Hải Phòng","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-30T03:31:42Z"}
+{"user_id":"u_syn_0249","name":"Vân Bùi","gender":"other","age":77,"city":"Cần Thơ","primary_interest":"cell_phones","secondary_interest":"computers_tablets","created_at":"2026-09-08T12:16:25Z"}
+{"user_id":"u_syn_0250","name":"Quang Trần","gender":"male","age":57,"city":"Vũng Tàu","primary_interest":"appliances","secondary_interest":"toys_games_drones","created_at":"2026-09-18T20:14:22Z"}
+{"user_id":"u_syn_0251","name":"Ông Hoàng Dương","gender":"other","age":41,"city":"Nha Trang","primary_interest":"audio","secondary_interest":"tv_home_theater","created_at":"2026-09-28T05:34:20Z"}
+{"user_id":"u_syn_0252","name":"Minh Vũ","gender":"other","age":91,"city":"Biên Hòa","primary_interest":"video_games","secondary_interest":null,"created_at":"2026-09-28T00:38:55Z"}
+{"user_id":"u_syn_0253","name":"Nhật Mai Bảo Phạm","gender":"other","age":47,"city":"Hà Nội","primary_interest":"musical_instruments","secondary_interest":"video_games","created_at":"2026-09-09T18:11:59Z"}
+{"user_id":"u_syn_0254","name":"Chị Hồng Phạm","gender":"female","age":57,"city":"Hà Nội","primary_interest":"computers_tablets","secondary_interest":"connected_home","created_at":"2026-09-09T19:21:10Z"}
+{"user_id":"u_syn_0255","name":"Cô Hạnh Bùi","gender":"other","age":97,"city":"Nha Trang","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-04T09:04:22Z"}
+{"user_id":"u_syn_0256","name":"Phương Đức Nguyễn","gender":"male","age":24,"city":"Buôn Ma Thuột","primary_interest":"toys_games_drones","secondary_interest":"video_games","created_at":"2026-09-26T18:03:25Z"}
+{"user_id":"u_syn_0257","name":"Bà Khoa Hoàng","gender":"female","age":56,"city":"Đà Nẵng","primary_interest":"tv_home_theater","secondary_interest":"car_electronics_gps","created_at":"2026-09-18T23:08:35Z"}
+{"user_id":"u_syn_0258","name":"Anh Bảo Mai","gender":"other","age":89,"city":"TP.HCM","primary_interest":"connected_home","secondary_interest":"wearable_technology","created_at":"2026-09-03T13:17:37Z"}
+{"user_id":"u_syn_0259","name":"Bác Dũng Mai","gender":"male","age":99,"city":"TP.HCM","primary_interest":"wearable_technology","secondary_interest":"audio","created_at":"2026-09-14T05:01:22Z"}
+{"user_id":"u_syn_0260","name":"Quý cô Xuân Đặng","gender":"female","age":90,"city":"Đà Lạt","primary_interest":"car_electronics_gps","secondary_interest":"wearable_technology","created_at":"2026-09-21T02:33:32Z"}
+{"user_id":"u_syn_0261","name":"Quang Hữu Phạm","gender":"male","age":57,"city":"Nha Trang","primary_interest":"cell_phones","secondary_interest":"appliances","created_at":"2026-09-06T09:11:45Z"}
+{"user_id":"u_syn_0262","name":"An Tấn Dương","gender":"other","age":75,"city":"Vũng Tàu","primary_interest":"appliances","secondary_interest":"video_games","created_at":"2026-09-15T23:20:04Z"}
+{"user_id":"u_syn_0263","name":"Kim Trí Dương","gender":"other","age":20,"city":"Hà Nội","primary_interest":"audio","secondary_interest":"wearable_technology","created_at":"2026-09-10T22:10:12Z"}
+{"user_id":"u_syn_0264","name":"Hoàng Mai","gender":"male","age":45,"city":"Hải Phòng","primary_interest":"video_games","secondary_interest":"toys_games_drones","created_at":"2026-09-16T22:17:24Z"}
+{"user_id":"u_syn_0265","name":"Tú Mai Trần","gender":"other","age":68,"city":"Đà Nẵng","primary_interest":"musical_instruments","secondary_interest":"cell_phones","created_at":"2026-09-07T06:30:44Z"}
+{"user_id":"u_syn_0266","name":"Ông Hoàng Bùi","gender":"other","age":84,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-18T04:38:04Z"}
+{"user_id":"u_syn_0267","name":"Hà Dương","gender":"female","age":15,"city":"Đà Lạt","primary_interest":"cameras_camcorders","secondary_interest":"musical_instruments","created_at":"2026-09-04T18:42:59Z"}
+{"user_id":"u_syn_0268","name":"Dũng Hoàng","gender":"other","age":67,"city":"Quy Nhơn","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-20T15:11:12Z"}
+{"user_id":"u_syn_0269","name":"Cô Ánh Đặng","gender":"female","age":27,"city":"Nha Trang","primary_interest":"tv_home_theater","secondary_interest":"car_electronics_gps","created_at":"2026-09-02T00:17:58Z"}
+{"user_id":"u_syn_0270","name":"Bác Châu Mai","gender":"male","age":92,"city":"Đà Lạt","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-18T13:35:20Z"}
+{"user_id":"u_syn_0271","name":"Trọng Trần","gender":"male","age":68,"city":"Quy Nhơn","primary_interest":"wearable_technology","secondary_interest":"computers_tablets","created_at":"2026-09-20T10:33:28Z"}
+{"user_id":"u_syn_0272","name":"Hải Vũ","gender":"female","age":56,"city":"Cần Thơ","primary_interest":"car_electronics_gps","secondary_interest":"wearable_technology","created_at":"2026-09-17T04:03:11Z"}
+{"user_id":"u_syn_0273","name":"Cô Hồng Trần","gender":"other","age":94,"city":"TP.HCM","primary_interest":"cell_phones","secondary_interest":"computers_tablets","created_at":"2026-09-26T18:11:57Z"}
+{"user_id":"u_syn_0274","name":"Chi Lê","gender":"female","age":95,"city":"Đà Nẵng","primary_interest":"appliances","secondary_interest":"connected_home","created_at":"2026-09-12T11:16:23Z"}
+{"user_id":"u_syn_0275","name":"An Thị Đặng","gender":"male","age":35,"city":"Quy Nhơn","primary_interest":"audio","secondary_interest":"tv_home_theater","created_at":"2026-09-08T10:06:22Z"}
+{"user_id":"u_syn_0276","name":"Khoa Đặng","gender":"male","age":35,"city":"Biên Hòa","primary_interest":"video_games","secondary_interest":"audio","created_at":"2026-09-24T23:41:17Z"}
+{"user_id":"u_syn_0277","name":"Huy Trí Phạm","gender":"other","age":70,"city":"Biên Hòa","primary_interest":"musical_instruments","secondary_interest":"audio","created_at":"2026-09-28T09:40:50Z"}
+{"user_id":"u_syn_0278","name":"Chị Lan Lê","gender":"female","age":93,"city":"Huế","primary_interest":"computers_tablets","secondary_interest":"audio","created_at":"2026-09-08T07:52:41Z"}
+{"user_id":"u_syn_0279","name":"Duyên Bùi","gender":"female","age":93,"city":"Hải Phòng","primary_interest":"cameras_camcorders","secondary_interest":"cell_phones","created_at":"2026-09-14T08:01:04Z"}
+{"user_id":"u_syn_0280","name":"Quý cô Xuân Hoàng","gender":"other","age":22,"city":"Hải Phòng","primary_interest":"toys_games_drones","secondary_interest":"wearable_technology","created_at":"2026-09-23T09:58:08Z"}
+{"user_id":"u_syn_0281","name":"Lâm Dương","gender":"female","age":49,"city":"TP.HCM","primary_interest":"tv_home_theater","secondary_interest":"musical_instruments","created_at":"2026-09-05T09:12:10Z"}
+{"user_id":"u_syn_0282","name":"Quý cô Hạnh Nguyễn","gender":"female","age":72,"city":"Quy Nhơn","primary_interest":"connected_home","secondary_interest":"appliances","created_at":"2026-09-27T21:49:31Z"}
+{"user_id":"u_syn_0283","name":"Bác Tùng Lê","gender":"other","age":18,"city":"Đà Lạt","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-28T18:01:41Z"}
+{"user_id":"u_syn_0284","name":"Nhật Đặng","gender":"other","age":73,"city":"Vũng Tàu","primary_interest":"car_electronics_gps","secondary_interest":"connected_home","created_at":"2026-09-08T07:45:57Z"}
+{"user_id":"u_syn_0285","name":"Quý cô Nhật Vũ","gender":"female","age":26,"city":"Huế","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-05T02:15:02Z"}
+{"user_id":"u_syn_0286","name":"Bác Trung Bùi","gender":"male","age":44,"city":"Buôn Ma Thuột","primary_interest":"appliances","secondary_interest":"cameras_camcorders","created_at":"2026-09-22T06:01:31Z"}
+{"user_id":"u_syn_0287","name":"Ông Quang Bùi","gender":"other","age":79,"city":"Quy Nhơn","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-08T16:57:09Z"}
+{"user_id":"u_syn_0288","name":"Bà Nhật Vũ","gender":"female","age":65,"city":"Huế","primary_interest":"video_games","secondary_interest":"tv_home_theater","created_at":"2026-09-30T00:35:15Z"}
+{"user_id":"u_syn_0289","name":"Ánh Bùi","gender":"other","age":55,"city":"TP.HCM","primary_interest":"musical_instruments","secondary_interest":"video_games","created_at":"2026-09-17T00:07:03Z"}
+{"user_id":"u_syn_0290","name":"Cô Khoa Nguyễn","gender":"female","age":49,"city":"Hải Phòng","primary_interest":"computers_tablets","secondary_interest":"video_games","created_at":"2026-09-30T06:11:50Z"}
+{"user_id":"u_syn_0291","name":"Bà Vi Phạm","gender":"female","age":23,"city":"Quy Nhơn","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-07T20:46:33Z"}
+{"user_id":"u_syn_0292","name":"Chị Hải Phạm","gender":"female","age":96,"city":"Buôn Ma Thuột","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-20T00:39:50Z"}
+{"user_id":"u_syn_0293","name":"Chị Hải Trần","gender":"female","age":84,"city":"Nha Trang","primary_interest":"tv_home_theater","secondary_interest":"computers_tablets","created_at":"2026-09-16T22:42:10Z"}
+{"user_id":"u_syn_0294","name":"Thảo Dương","gender":"other","age":100,"city":"Vũng Tàu","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-05T12:52:50Z"}
+{"user_id":"u_syn_0295","name":"Duyên Đặng","gender":"other","age":59,"city":"Hà Nội","primary_interest":"wearable_technology","secondary_interest":"car_electronics_gps","created_at":"2026-09-18T14:27:24Z"}
+{"user_id":"u_syn_0296","name":"Hà Vũ","gender":"female","age":75,"city":"Cần Thơ","primary_interest":"car_electronics_gps","secondary_interest":"toys_games_drones","created_at":"2026-09-11T23:56:30Z"}
+{"user_id":"u_syn_0297","name":"Nhật Bảo Lê","gender":"male","age":22,"city":"Hải Phòng","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-05T21:50:15Z"}
+{"user_id":"u_syn_0298","name":"Chị Vi Mai","gender":"other","age":80,"city":"Hà Nội","primary_interest":"appliances","secondary_interest":"cell_phones","created_at":"2026-09-17T08:21:32Z"}
+{"user_id":"u_syn_0299","name":"Minh Đức Lê","gender":"other","age":29,"city":"Quy Nhơn","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-19T06:54:37Z"}
+{"user_id":"u_syn_0300","name":"Châu Vũ","gender":"other","age":92,"city":"Đà Nẵng","primary_interest":"video_games","secondary_interest":"cameras_camcorders","created_at":"2026-09-22T05:55:35Z"}
+{"user_id":"u_syn_0301","name":"Tú Mai Trần","gender":"other","age":43,"city":"Đà Lạt","primary_interest":"musical_instruments","secondary_interest":"wearable_technology","created_at":"2026-09-30T15:23:42Z"}
+{"user_id":"u_syn_0302","name":"Quang Hữu Mai","gender":"male","age":81,"city":"Cần Thơ","primary_interest":"computers_tablets","secondary_interest":"cell_phones","created_at":"2026-09-16T00:33:22Z"}
+{"user_id":"u_syn_0303","name":"Cô Kim Nguyễn","gender":"female","age":37,"city":"Huế","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-28T16:35:12Z"}
+{"user_id":"u_syn_0304","name":"Cô Nhật Đặng","gender":"female","age":49,"city":"Nha Trang","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-25T09:55:43Z"}
+{"user_id":"u_syn_0305","name":"Khoa Hữu Đặng","gender":"male","age":90,"city":"Đà Nẵng","primary_interest":"tv_home_theater","secondary_interest":"cameras_camcorders","created_at":"2026-09-13T03:16:29Z"}
+{"user_id":"u_syn_0306","name":"Dương Phạm","gender":"female","age":83,"city":"TP.HCM","primary_interest":"connected_home","secondary_interest":"cell_phones","created_at":"2026-09-26T01:04:40Z"}
+{"user_id":"u_syn_0307","name":"Cô Duyên Mai","gender":"female","age":23,"city":"Đà Nẵng","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-14T05:49:29Z"}
+{"user_id":"u_syn_0308","name":"Khoa Hải Trần","gender":"male","age":68,"city":"TP.HCM","primary_interest":"car_electronics_gps","secondary_interest":"appliances","created_at":"2026-09-11T18:41:34Z"}
+{"user_id":"u_syn_0309","name":"Bà Dương Bùi","gender":"female","age":16,"city":"Nha Trang","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-03T14:02:55Z"}
+{"user_id":"u_syn_0310","name":"Hoàng Nguyễn","gender":"male","age":62,"city":"TP.HCM","primary_interest":"appliances","secondary_interest":"connected_home","created_at":"2026-09-19T04:48:17Z"}
+{"user_id":"u_syn_0311","name":"Khoa Dương","gender":"male","age":96,"city":"Huế","primary_interest":"audio","secondary_interest":"connected_home","created_at":"2026-09-08T02:09:35Z"}
+{"user_id":"u_syn_0312","name":"Hương Phạm","gender":"female","age":30,"city":"Buôn Ma Thuột","primary_interest":"video_games","secondary_interest":"tv_home_theater","created_at":"2026-09-23T18:33:10Z"}
+{"user_id":"u_syn_0313","name":"Thành Mai Đặng","gender":"male","age":15,"city":"Hải Phòng","primary_interest":"musical_instruments","secondary_interest":"computers_tablets","created_at":"2026-09-11T11:15:21Z"}
+{"user_id":"u_syn_0314","name":"Khoa Trí Bùi","gender":"other","age":90,"city":"Vũng Tàu","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-21T13:07:39Z"}
+{"user_id":"u_syn_0315","name":"Châu Hoàng","gender":"male","age":51,"city":"TP.HCM","primary_interest":"cameras_camcorders","secondary_interest":"connected_home","created_at":"2026-09-03T07:37:55Z"}
+{"user_id":"u_syn_0316","name":"Hạnh Thị Đặng","gender":"other","age":71,"city":"TP.HCM","primary_interest":"toys_games_drones","secondary_interest":"video_games","created_at":"2026-09-06T09:09:31Z"}
+{"user_id":"u_syn_0317","name":"Nhật Dương","gender":"female","age":89,"city":"Vũng Tàu","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-01T19:08:54Z"}
+{"user_id":"u_syn_0318","name":"Quang Đức Đặng","gender":"male","age":31,"city":"Hải Phòng","primary_interest":"connected_home","secondary_interest":"audio","created_at":"2026-09-21T20:05:58Z"}
+{"user_id":"u_syn_0319","name":"An Hữu Vũ","gender":"male","age":86,"city":"Nha Trang","primary_interest":"wearable_technology","secondary_interest":"connected_home","created_at":"2026-09-10T02:14:11Z"}
+{"user_id":"u_syn_0320","name":"Cô Ánh Dương","gender":"other","age":59,"city":"TP.HCM","primary_interest":"car_electronics_gps","secondary_interest":"computers_tablets","created_at":"2026-09-26T12:54:13Z"}
+{"user_id":"u_syn_0321","name":"Hải Phạm","gender":"other","age":15,"city":"Nha Trang","primary_interest":"cell_phones","secondary_interest":"appliances","created_at":"2026-09-23T19:44:49Z"}
+{"user_id":"u_syn_0322","name":"Ngọc Đặng","gender":"female","age":45,"city":"Buôn Ma Thuột","primary_interest":"appliances","secondary_interest":"wearable_technology","created_at":"2026-09-01T18:55:24Z"}
+{"user_id":"u_syn_0323","name":"Bảo Hoàng","gender":"female","age":43,"city":"Buôn Ma Thuột","primary_interest":"audio","secondary_interest":"computers_tablets","created_at":"2026-09-06T00:46:37Z"}
+{"user_id":"u_syn_0324","name":"Vũ Hoàng Hoàng","gender":"male","age":18,"city":"Huế","primary_interest":"video_games","secondary_interest":"connected_home","created_at":"2026-09-27T12:09:07Z"}
+{"user_id":"u_syn_0325","name":"Quang Tấn Lê","gender":"male","age":100,"city":"Đà Lạt","primary_interest":"musical_instruments","secondary_interest":"video_games","created_at":"2026-09-24T05:31:45Z"}
+{"user_id":"u_syn_0326","name":"Anh Lê","gender":"male","age":71,"city":"Hà Nội","primary_interest":"computers_tablets","secondary_interest":"toys_games_drones","created_at":"2026-09-15T05:53:07Z"}
+{"user_id":"u_syn_0327","name":"Tùng Đức Lê","gender":"male","age":53,"city":"Hải Phòng","primary_interest":"cameras_camcorders","secondary_interest":"tv_home_theater","created_at":"2026-09-26T00:27:55Z"}
+{"user_id":"u_syn_0328","name":"Dương Nguyễn","gender":"female","age":45,"city":"Hà Nội","primary_interest":"toys_games_drones","secondary_interest":"appliances","created_at":"2026-09-10T06:39:05Z"}
+{"user_id":"u_syn_0329","name":"Cô Thành Phạm","gender":"other","age":55,"city":"Hải Phòng","primary_interest":"tv_home_theater","secondary_interest":"musical_instruments","created_at":"2026-09-07T01:01:26Z"}
+{"user_id":"u_syn_0330","name":"Cô Bảo Vũ","gender":"female","age":69,"city":"Nha Trang","primary_interest":"connected_home","secondary_interest":"car_electronics_gps","created_at":"2026-09-17T11:00:22Z"}
+{"user_id":"u_syn_0331","name":"Lan Bùi","gender":"female","age":76,"city":"Huế","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-26T05:00:00Z"}
+{"user_id":"u_syn_0332","name":"Nhật Trần","gender":"other","age":67,"city":"TP.HCM","primary_interest":"car_electronics_gps","secondary_interest":"computers_tablets","created_at":"2026-09-21T21:41:37Z"}
+{"user_id":"u_syn_0333","name":"Quý ông Quang Mai","gender":"other","age":50,"city":"Huế","primary_interest":"cell_phones","secondary_interest":"cameras_camcorders","created_at":"2026-09-05T23:32:06Z"}
+{"user_id":"u_syn_0334","name":"Chi Mai","gender":"female","age":52,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":"video_games","created_at":"2026-09-30T06:06:18Z"}
+{"user_id":"u_syn_0335","name":"Cô Yến Mai","gender":"other","age":69,"city":"Huế","primary_interest":"audio","secondary_interest":"cameras_camcorders","created_at":"2026-09-22T16:56:37Z"}
+{"user_id":"u_syn_0336","name":"Bảo Nguyễn","gender":"other","age":68,"city":"Hải Phòng","primary_interest":"video_games","secondary_interest":"connected_home","created_at":"2026-09-03T18:49:37Z"}
+{"user_id":"u_syn_0337","name":"Chi Bùi","gender":"female","age":59,"city":"Vũng Tàu","primary_interest":"musical_instruments","secondary_interest":"video_games","created_at":"2026-09-08T18:23:52Z"}
+{"user_id":"u_syn_0338","name":"Ông Châu Dương","gender":"male","age":90,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-22T06:30:30Z"}
+{"user_id":"u_syn_0339","name":"Vũ Đặng","gender":"male","age":95,"city":"Huế","primary_interest":"cameras_camcorders","secondary_interest":"computers_tablets","created_at":"2026-09-18T13:56:09Z"}
+{"user_id":"u_syn_0340","name":"Vũ Trí Vũ","gender":"male","age":90,"city":"Đà Nẵng","primary_interest":"toys_games_drones","secondary_interest":"audio","created_at":"2026-09-22T20:11:52Z"}
+{"user_id":"u_syn_0341","name":"Quý cô Khoa Mai","gender":"female","age":69,"city":"TP.HCM","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-28T20:40:02Z"}
+{"user_id":"u_syn_0342","name":"Quý cô Phương Hoàng","gender":"female","age":53,"city":"Biên Hòa","primary_interest":"connected_home","secondary_interest":"wearable_technology","created_at":"2026-09-14T12:41:49Z"}
+{"user_id":"u_syn_0343","name":"Ông Tú Mai","gender":"male","age":36,"city":"Đà Lạt","primary_interest":"wearable_technology","secondary_interest":"computers_tablets","created_at":"2026-09-26T03:13:01Z"}
+{"user_id":"u_syn_0344","name":"Huy Mai Phạm","gender":"male","age":46,"city":"Hải Phòng","primary_interest":"car_electronics_gps","secondary_interest":"appliances","created_at":"2026-09-22T15:56:45Z"}
+{"user_id":"u_syn_0345","name":"Bà Ánh Dương","gender":"female","age":75,"city":"Cần Thơ","primary_interest":"cell_phones","secondary_interest":"audio","created_at":"2026-09-06T22:52:58Z"}
+{"user_id":"u_syn_0346","name":"Quý cô Yến Trần","gender":"female","age":35,"city":"Buôn Ma Thuột","primary_interest":"appliances","secondary_interest":"computers_tablets","created_at":"2026-09-22T14:35:31Z"}
+{"user_id":"u_syn_0347","name":"Huy Tấn Vũ","gender":"other","age":53,"city":"Biên Hòa","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-17T20:46:47Z"}
+{"user_id":"u_syn_0348","name":"Hoàng Mai Bảo Trần","gender":"other","age":50,"city":"Hải Phòng","primary_interest":"video_games","secondary_interest":"cell_phones","created_at":"2026-09-08T15:30:24Z"}
+{"user_id":"u_syn_0349","name":"Vũ Trần","gender":"male","age":59,"city":"Vũng Tàu","primary_interest":"musical_instruments","secondary_interest":"video_games","created_at":"2026-09-11T21:15:37Z"}
+{"user_id":"u_syn_0350","name":"Ông Quang Lê","gender":"male","age":43,"city":"Đà Lạt","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-02T06:37:23Z"}
+{"user_id":"u_syn_0351","name":"Duyên Mai","gender":"female","age":72,"city":"Vũng Tàu","primary_interest":"cameras_camcorders","secondary_interest":"audio","created_at":"2026-09-07T07:11:39Z"}
+{"user_id":"u_syn_0352","name":"Hải Đức Bùi","gender":"male","age":52,"city":"Nha Trang","primary_interest":"toys_games_drones","secondary_interest":"computers_tablets","created_at":"2026-09-24T05:41:06Z"}
+{"user_id":"u_syn_0353","name":"Huy Thị Vũ","gender":"other","age":22,"city":"Đà Nẵng","primary_interest":"tv_home_theater","secondary_interest":"car_electronics_gps","created_at":"2026-09-16T09:21:50Z"}
+{"user_id":"u_syn_0354","name":"Bà Hà Hoàng","gender":"female","age":100,"city":"Vũng Tàu","primary_interest":"connected_home","secondary_interest":"cell_phones","created_at":"2026-09-17T17:23:19Z"}
+{"user_id":"u_syn_0355","name":"Chị Dương Dương","gender":"other","age":88,"city":"Đà Nẵng","primary_interest":"wearable_technology","secondary_interest":"appliances","created_at":"2026-09-07T06:20:03Z"}
+{"user_id":"u_syn_0356","name":"Tú Phú Mai","gender":"male","age":79,"city":"Đà Nẵng","primary_interest":"car_electronics_gps","secondary_interest":"musical_instruments","created_at":"2026-09-15T18:19:50Z"}
+{"user_id":"u_syn_0357","name":"Tú Đức Hoàng","gender":"other","age":41,"city":"Huế","primary_interest":"cell_phones","secondary_interest":"connected_home","created_at":"2026-09-26T04:33:35Z"}
+{"user_id":"u_syn_0358","name":"Huy Văn Hoàng","gender":"male","age":45,"city":"Cần Thơ","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-27T17:46:36Z"}
+{"user_id":"u_syn_0359","name":"Cô Bảo Vũ","gender":"female","age":91,"city":"Vũng Tàu","primary_interest":"audio","secondary_interest":"video_games","created_at":"2026-09-05T12:51:07Z"}
+{"user_id":"u_syn_0360","name":"Dũng Đặng","gender":"other","age":87,"city":"Đà Nẵng","primary_interest":"video_games","secondary_interest":"cameras_camcorders","created_at":"2026-09-09T07:27:47Z"}
+{"user_id":"u_syn_0361","name":"Lan Lê","gender":"female","age":85,"city":"Hà Nội","primary_interest":"musical_instruments","secondary_interest":"audio","created_at":"2026-09-02T09:03:27Z"}
+{"user_id":"u_syn_0362","name":"Hà Trí Nguyễn","gender":"other","age":46,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"video_games","created_at":"2026-09-11T05:36:34Z"}
+{"user_id":"u_syn_0363","name":"Nhật Mai","gender":"other","age":94,"city":"Hà Nội","primary_interest":"cameras_camcorders","secondary_interest":"car_electronics_gps","created_at":"2026-09-25T04:15:23Z"}
+{"user_id":"u_syn_0364","name":"Quý cô Hồng Dương","gender":"other","age":50,"city":"Biên Hòa","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-15T15:57:54Z"}
+{"user_id":"u_syn_0365","name":"Chị Thành Vũ","gender":"female","age":51,"city":"Đà Lạt","primary_interest":"tv_home_theater","secondary_interest":"video_games","created_at":"2026-09-04T13:01:11Z"}
+{"user_id":"u_syn_0366","name":"Cô An Lê","gender":"female","age":66,"city":"Đà Lạt","primary_interest":"connected_home","secondary_interest":"cameras_camcorders","created_at":"2026-09-23T13:06:51Z"}
+{"user_id":"u_syn_0367","name":"Trọng Thị Trần","gender":"male","age":53,"city":"Buôn Ma Thuột","primary_interest":"wearable_technology","secondary_interest":"audio","created_at":"2026-09-16T12:01:50Z"}
+{"user_id":"u_syn_0368","name":"Quý cô Hải Bùi","gender":"female","age":29,"city":"Huế","primary_interest":"car_electronics_gps","secondary_interest":"connected_home","created_at":"2026-09-25T23:59:43Z"}
+{"user_id":"u_syn_0369","name":"Quý ông Huy Vũ","gender":"male","age":72,"city":"TP.HCM","primary_interest":"cell_phones","secondary_interest":"connected_home","created_at":"2026-09-13T23:37:37Z"}
+{"user_id":"u_syn_0370","name":"Minh Đức Đặng","gender":"male","age":19,"city":"Hải Phòng","primary_interest":"appliances","secondary_interest":"cameras_camcorders","created_at":"2026-09-19T15:34:01Z"}
+{"user_id":"u_syn_0371","name":"Cô Thảo Hoàng","gender":"female","age":44,"city":"Đà Nẵng","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-16T21:29:25Z"}
+{"user_id":"u_syn_0372","name":"Bác Hưng Phạm","gender":"other","age":53,"city":"Cần Thơ","primary_interest":"video_games","secondary_interest":null,"created_at":"2026-09-08T17:38:50Z"}
+{"user_id":"u_syn_0373","name":"Cô Ngọc Phạm","gender":"female","age":76,"city":"Hải Phòng","primary_interest":"musical_instruments","secondary_interest":"appliances","created_at":"2026-09-25T03:28:42Z"}
+{"user_id":"u_syn_0374","name":"Trung Lê","gender":"other","age":71,"city":"Cần Thơ","primary_interest":"computers_tablets","secondary_interest":"car_electronics_gps","created_at":"2026-09-11T10:39:41Z"}
+{"user_id":"u_syn_0375","name":"Hạnh Tấn Trần","gender":"male","age":49,"city":"Đà Lạt","primary_interest":"cameras_camcorders","secondary_interest":"musical_instruments","created_at":"2026-09-30T00:09:35Z"}
+{"user_id":"u_syn_0376","name":"Chi Bùi","gender":"other","age":99,"city":"Đà Lạt","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-14T20:55:15Z"}
+{"user_id":"u_syn_0377","name":"Bảo Bùi","gender":"female","age":30,"city":"Hải Phòng","primary_interest":"tv_home_theater","secondary_interest":"computers_tablets","created_at":"2026-09-18T18:09:42Z"}
+{"user_id":"u_syn_0378","name":"Minh Phú Trần","gender":"male","age":64,"city":"Hà Nội","primary_interest":"connected_home","secondary_interest":"wearable_technology","created_at":"2026-09-28T16:25:34Z"}
+{"user_id":"u_syn_0379","name":"Nhật Thị Bùi","gender":"other","age":49,"city":"TP.HCM","primary_interest":"wearable_technology","secondary_interest":"connected_home","created_at":"2026-09-19T18:07:44Z"}
+{"user_id":"u_syn_0380","name":"Chi Trần","gender":"female","age":92,"city":"Biên Hòa","primary_interest":"car_electronics_gps","secondary_interest":"appliances","created_at":"2026-09-30T15:55:00Z"}
+{"user_id":"u_syn_0381","name":"Quý cô Khoa Bùi","gender":"female","age":60,"city":"Huế","primary_interest":"cell_phones","secondary_interest":"computers_tablets","created_at":"2026-09-28T01:55:16Z"}
+{"user_id":"u_syn_0382","name":"Bác Tú Bùi","gender":"male","age":38,"city":"Quy Nhơn","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-25T17:10:14Z"}
+{"user_id":"u_syn_0383","name":"Dũng Lê","gender":"male","age":17,"city":"Đà Nẵng","primary_interest":"audio","secondary_interest":"musical_instruments","created_at":"2026-09-17T04:01:13Z"}
+{"user_id":"u_syn_0384","name":"Bác Vũ Bùi","gender":"other","age":71,"city":"Đà Nẵng","primary_interest":"video_games","secondary_interest":null,"created_at":"2026-09-30T10:20:40Z"}
+{"user_id":"u_syn_0385","name":"Quang Bùi","gender":"male","age":54,"city":"Quy Nhơn","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-16T11:06:51Z"}
+{"user_id":"u_syn_0386","name":"Phương Quang Bùi","gender":"other","age":51,"city":"Quy Nhơn","primary_interest":"computers_tablets","secondary_interest":"audio","created_at":"2026-09-17T07:54:12Z"}
+{"user_id":"u_syn_0387","name":"Dũng Phạm","gender":"other","age":75,"city":"Buôn Ma Thuột","primary_interest":"cameras_camcorders","secondary_interest":"appliances","created_at":"2026-09-28T07:51:15Z"}
+{"user_id":"u_syn_0388","name":"Chị Hà Mai","gender":"female","age":55,"city":"Biên Hòa","primary_interest":"toys_games_drones","secondary_interest":"musical_instruments","created_at":"2026-09-06T07:41:54Z"}
+{"user_id":"u_syn_0389","name":"Phương Mai","gender":"other","age":52,"city":"Buôn Ma Thuột","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-02T07:02:46Z"}
+{"user_id":"u_syn_0390","name":"Bà Linh Lê","gender":"other","age":87,"city":"Quy Nhơn","primary_interest":"connected_home","secondary_interest":"tv_home_theater","created_at":"2026-09-12T01:06:25Z"}
+{"user_id":"u_syn_0391","name":"Hà Lê","gender":"female","age":34,"city":"Vũng Tàu","primary_interest":"wearable_technology","secondary_interest":"audio","created_at":"2026-09-19T10:57:13Z"}
+{"user_id":"u_syn_0392","name":"Lâm Xuân Hoàng","gender":"male","age":17,"city":"Quy Nhơn","primary_interest":"car_electronics_gps","secondary_interest":"video_games","created_at":"2026-09-06T08:02:15Z"}
+{"user_id":"u_syn_0393","name":"Hải Trần","gender":"female","age":66,"city":"Đà Nẵng","primary_interest":"cell_phones","secondary_interest":"car_electronics_gps","created_at":"2026-09-21T01:08:00Z"}
+{"user_id":"u_syn_0394","name":"Quý cô Nhật Hoàng","gender":"other","age":91,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":"wearable_technology","created_at":"2026-09-04T00:33:46Z"}
+{"user_id":"u_syn_0395","name":"Bác Dũng Lê","gender":"male","age":84,"city":"Huế","primary_interest":"audio","secondary_interest":"cell_phones","created_at":"2026-09-24T05:20:33Z"}
+{"user_id":"u_syn_0396","name":"Ông Châu Dương","gender":"male","age":71,"city":"Vũng Tàu","primary_interest":"video_games","secondary_interest":"connected_home","created_at":"2026-09-17T14:50:23Z"}
+{"user_id":"u_syn_0397","name":"Anh Hoàng","gender":"other","age":100,"city":"Biên Hòa","primary_interest":"musical_instruments","secondary_interest":"video_games","created_at":"2026-09-13T20:00:15Z"}
+{"user_id":"u_syn_0398","name":"Quang Mai","gender":"male","age":48,"city":"Vũng Tàu","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-15T11:46:36Z"}
+{"user_id":"u_syn_0399","name":"Thảo Dương","gender":"female","age":39,"city":"Buôn Ma Thuột","primary_interest":"cameras_camcorders","secondary_interest":"connected_home","created_at":"2026-09-24T17:43:47Z"}
+{"user_id":"u_syn_0400","name":"Ông Hưng Đặng","gender":"other","age":48,"city":"Hải Phòng","primary_interest":"toys_games_drones","secondary_interest":"wearable_technology","created_at":"2026-09-06T21:59:37Z"}
+{"user_id":"u_syn_0401","name":"Cô Hải Trần","gender":"female","age":63,"city":"Huế","primary_interest":"tv_home_theater","secondary_interest":"appliances","created_at":"2026-09-08T02:39:25Z"}
+{"user_id":"u_syn_0402","name":"Nhật Thị Dương","gender":"other","age":23,"city":"Huế","primary_interest":"connected_home","secondary_interest":"tv_home_theater","created_at":"2026-09-22T11:24:19Z"}
+{"user_id":"u_syn_0403","name":"Dũng Mai Bảo Mai","gender":"male","age":38,"city":"Vũng Tàu","primary_interest":"wearable_technology","secondary_interest":"cell_phones","created_at":"2026-09-14T03:53:33Z"}
+{"user_id":"u_syn_0404","name":"Cô Nhật Trần","gender":"other","age":47,"city":"Đà Nẵng","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-06T07:15:29Z"}
+{"user_id":"u_syn_0405","name":"Nhật Quang Mai","gender":"male","age":44,"city":"Hà Nội","primary_interest":"cell_phones","secondary_interest":"audio","created_at":"2026-09-26T18:42:29Z"}
+{"user_id":"u_syn_0406","name":"Hưng Hải Dương","gender":"male","age":25,"city":"Nha Trang","primary_interest":"appliances","secondary_interest":"toys_games_drones","created_at":"2026-09-17T00:49:11Z"}
+{"user_id":"u_syn_0407","name":"Anh Quang Đặng","gender":"other","age":30,"city":"Hà Nội","primary_interest":"audio","secondary_interest":"computers_tablets","created_at":"2026-09-27T17:12:25Z"}
+{"user_id":"u_syn_0408","name":"Kim Bảo Đặng","gender":"male","age":65,"city":"Biên Hòa","primary_interest":"video_games","secondary_interest":null,"created_at":"2026-09-24T02:13:48Z"}
+{"user_id":"u_syn_0409","name":"Vi Đặng","gender":"female","age":54,"city":"Hải Phòng","primary_interest":"musical_instruments","secondary_interest":"tv_home_theater","created_at":"2026-09-03T20:55:45Z"}
+{"user_id":"u_syn_0410","name":"Dũng Trần","gender":"male","age":96,"city":"Quy Nhơn","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-12T06:33:22Z"}
+{"user_id":"u_syn_0411","name":"Bác Anh Hoàng","gender":"male","age":66,"city":"Đà Nẵng","primary_interest":"cameras_camcorders","secondary_interest":"musical_instruments","created_at":"2026-09-02T18:20:20Z"}
+{"user_id":"u_syn_0412","name":"Thành Trần","gender":"female","age":76,"city":"Đà Nẵng","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-15T01:15:12Z"}
+{"user_id":"u_syn_0413","name":"Quang Thế Bùi","gender":"male","age":51,"city":"Quy Nhơn","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-30T06:17:35Z"}
+{"user_id":"u_syn_0414","name":"Khoa Trần","gender":"female","age":71,"city":"Biên Hòa","primary_interest":"connected_home","secondary_interest":"wearable_technology","created_at":"2026-09-27T08:59:27Z"}
+{"user_id":"u_syn_0415","name":"Tùng Bùi","gender":"other","age":72,"city":"Hải Phòng","primary_interest":"wearable_technology","secondary_interest":"cameras_camcorders","created_at":"2026-09-10T08:38:29Z"}
+{"user_id":"u_syn_0416","name":"Chị Hải Mai","gender":"female","age":33,"city":"Buôn Ma Thuột","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-23T06:40:26Z"}
+{"user_id":"u_syn_0417","name":"Huy Mai","gender":"male","age":56,"city":"Hải Phòng","primary_interest":"cell_phones","secondary_interest":"cameras_camcorders","created_at":"2026-09-28T13:30:47Z"}
+{"user_id":"u_syn_0418","name":"An Phú Vũ","gender":"male","age":91,"city":"Biên Hòa","primary_interest":"appliances","secondary_interest":"toys_games_drones","created_at":"2026-09-20T16:25:49Z"}
+{"user_id":"u_syn_0419","name":"Chị Thành Dương","gender":"other","age":54,"city":"TP.HCM","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-20T11:00:16Z"}
+{"user_id":"u_syn_0420","name":"Quang Trí Lê","gender":"male","age":74,"city":"Huế","primary_interest":"video_games","secondary_interest":"cameras_camcorders","created_at":"2026-09-13T00:59:44Z"}
+{"user_id":"u_syn_0421","name":"Khoa Trần","gender":"male","age":70,"city":"Hải Phòng","primary_interest":"musical_instruments","secondary_interest":"car_electronics_gps","created_at":"2026-09-17T00:02:28Z"}
+{"user_id":"u_syn_0422","name":"Dũng Hoàng","gender":"male","age":46,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"audio","created_at":"2026-09-18T10:54:30Z"}
+{"user_id":"u_syn_0423","name":"Quý cô Bảo Lê","gender":"other","age":28,"city":"Đà Lạt","primary_interest":"cameras_camcorders","secondary_interest":"musical_instruments","created_at":"2026-09-15T21:27:19Z"}
+{"user_id":"u_syn_0424","name":"Chị Nhật Dương","gender":"other","age":52,"city":"Buôn Ma Thuột","primary_interest":"toys_games_drones","secondary_interest":"video_games","created_at":"2026-09-06T16:47:57Z"}
+{"user_id":"u_syn_0425","name":"Hồng Đặng","gender":"female","age":91,"city":"Cần Thơ","primary_interest":"tv_home_theater","secondary_interest":"connected_home","created_at":"2026-09-11T15:18:11Z"}
+{"user_id":"u_syn_0426","name":"Nhật Hoàng","gender":"female","age":32,"city":"Đà Lạt","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-30T09:44:13Z"}
+{"user_id":"u_syn_0427","name":"Quý cô Lâm Mai","gender":"female","age":81,"city":"Biên Hòa","primary_interest":"wearable_technology","secondary_interest":"appliances","created_at":"2026-09-11T14:28:04Z"}
+{"user_id":"u_syn_0428","name":"Bà Vi Dương","gender":"other","age":23,"city":"Vũng Tàu","primary_interest":"car_electronics_gps","secondary_interest":"video_games","created_at":"2026-09-22T16:29:56Z"}
+{"user_id":"u_syn_0429","name":"Quang Mai Dương","gender":"male","age":85,"city":"TP.HCM","primary_interest":"cell_phones","secondary_interest":"connected_home","created_at":"2026-09-03T23:57:12Z"}
+{"user_id":"u_syn_0430","name":"Thành Mai","gender":"other","age":38,"city":"Quy Nhơn","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-27T01:15:15Z"}
+{"user_id":"u_syn_0431","name":"Bảo Hoàng Hoàng","gender":"other","age":69,"city":"TP.HCM","primary_interest":"audio","secondary_interest":"connected_home","created_at":"2026-09-10T23:18:36Z"}
+{"user_id":"u_syn_0432","name":"Anh Thị Dương","gender":"male","age":78,"city":"Đà Lạt","primary_interest":"video_games","secondary_interest":"car_electronics_gps","created_at":"2026-09-03T16:49:13Z"}
+{"user_id":"u_syn_0433","name":"Cô Nhật Mai","gender":"female","age":71,"city":"Quy Nhơn","primary_interest":"musical_instruments","secondary_interest":"appliances","created_at":"2026-09-03T19:16:05Z"}
+{"user_id":"u_syn_0434","name":"Thảo Trần","gender":"female","age":15,"city":"Nha Trang","primary_interest":"computers_tablets","secondary_interest":"video_games","created_at":"2026-09-13T08:27:50Z"}
+{"user_id":"u_syn_0435","name":"Bà Nhật Mai","gender":"other","age":40,"city":"Quy Nhơn","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-04T13:05:08Z"}
+{"user_id":"u_syn_0436","name":"Quý cô Hà Phạm","gender":"other","age":21,"city":"Vũng Tàu","primary_interest":"toys_games_drones","secondary_interest":"wearable_technology","created_at":"2026-09-03T22:12:10Z"}
+{"user_id":"u_syn_0437","name":"Bác Nam Bùi","gender":"male","age":73,"city":"Hà Nội","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-14T22:29:05Z"}
+{"user_id":"u_syn_0438","name":"Hồng Mai","gender":"other","age":95,"city":"Nha Trang","primary_interest":"connected_home","secondary_interest":"cameras_camcorders","created_at":"2026-09-19T04:16:42Z"}
+{"user_id":"u_syn_0439","name":"Chị Kim Trần","gender":"female","age":70,"city":"Nha Trang","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-19T05:39:31Z"}
+{"user_id":"u_syn_0440","name":"Quang Văn Đặng","gender":"other","age":30,"city":"Biên Hòa","primary_interest":"car_electronics_gps","secondary_interest":"video_games","created_at":"2026-09-17T21:10:52Z"}
+{"user_id":"u_syn_0441","name":"Ánh Đặng","gender":"female","age":80,"city":"Đà Nẵng","primary_interest":"cell_phones","secondary_interest":"appliances","created_at":"2026-09-11T19:27:10Z"}
+{"user_id":"u_syn_0442","name":"Hoàng Thị Vũ","gender":"male","age":51,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-27T10:19:29Z"}
+{"user_id":"u_syn_0443","name":"Anh Châu Dương","gender":"male","age":44,"city":"Đà Lạt","primary_interest":"audio","secondary_interest":"wearable_technology","created_at":"2026-09-17T19:18:19Z"}
+{"user_id":"u_syn_0444","name":"Xuân Trần","gender":"other","age":27,"city":"Hà Nội","primary_interest":"video_games","secondary_interest":"toys_games_drones","created_at":"2026-09-21T08:27:02Z"}
+{"user_id":"u_syn_0445","name":"Anh Phạm","gender":"male","age":39,"city":"TP.HCM","primary_interest":"musical_instruments","secondary_interest":"computers_tablets","created_at":"2026-09-05T21:33:11Z"}
+{"user_id":"u_syn_0446","name":"Quý cô Hà Vũ","gender":"other","age":99,"city":"Buôn Ma Thuột","primary_interest":"computers_tablets","secondary_interest":"cell_phones","created_at":"2026-09-03T08:42:43Z"}
+{"user_id":"u_syn_0447","name":"Hạnh Trần","gender":"female","age":69,"city":"Cần Thơ","primary_interest":"cameras_camcorders","secondary_interest":"musical_instruments","created_at":"2026-09-27T04:51:56Z"}
+{"user_id":"u_syn_0448","name":"Quang Bùi","gender":"male","age":77,"city":"Hải Phòng","primary_interest":"toys_games_drones","secondary_interest":"musical_instruments","created_at":"2026-09-12T08:49:04Z"}
+{"user_id":"u_syn_0449","name":"Ông Tú Dương","gender":"other","age":86,"city":"Huế","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-29T00:48:24Z"}
+{"user_id":"u_syn_0450","name":"Dương Mai","gender":"female","age":43,"city":"Hải Phòng","primary_interest":"connected_home","secondary_interest":"video_games","created_at":"2026-09-07T22:54:37Z"}
+{"user_id":"u_syn_0451","name":"Chị Thảo Bùi","gender":"other","age":41,"city":"Nha Trang","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-15T14:06:32Z"}
+{"user_id":"u_syn_0452","name":"Duyên Đặng","gender":"other","age":35,"city":"Biên Hòa","primary_interest":"car_electronics_gps","secondary_interest":"appliances","created_at":"2026-09-21T17:43:29Z"}
+{"user_id":"u_syn_0453","name":"Khoa Bùi","gender":"female","age":95,"city":"Biên Hòa","primary_interest":"cell_phones","secondary_interest":"musical_instruments","created_at":"2026-09-19T12:04:38Z"}
+{"user_id":"u_syn_0454","name":"Cô Phương Đặng","gender":"other","age":66,"city":"Nha Trang","primary_interest":"appliances","secondary_interest":"connected_home","created_at":"2026-09-08T05:51:04Z"}
+{"user_id":"u_syn_0455","name":"Phương Mai","gender":"other","age":73,"city":"Cần Thơ","primary_interest":"audio","secondary_interest":"cameras_camcorders","created_at":"2026-09-11T22:32:43Z"}
+{"user_id":"u_syn_0456","name":"Hồng Dương","gender":"female","age":20,"city":"Vũng Tàu","primary_interest":"video_games","secondary_interest":"cameras_camcorders","created_at":"2026-09-21T00:48:14Z"}
+{"user_id":"u_syn_0457","name":"Dương Bùi","gender":"other","age":80,"city":"Đà Nẵng","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-19T20:32:27Z"}
+{"user_id":"u_syn_0458","name":"Bà Nhật Nguyễn","gender":"female","age":95,"city":"TP.HCM","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-22T20:02:22Z"}
+{"user_id":"u_syn_0459","name":"Hà Phú Phạm","gender":"male","age":81,"city":"Buôn Ma Thuột","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-10T05:55:37Z"}
+{"user_id":"u_syn_0460","name":"Khoa Đặng","gender":"other","age":90,"city":"Quy Nhơn","primary_interest":"toys_games_drones","secondary_interest":"car_electronics_gps","created_at":"2026-09-02T22:04:34Z"}
+{"user_id":"u_syn_0461","name":"Hưng Phú Mai","gender":"male","age":88,"city":"Buôn Ma Thuột","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-28T03:06:28Z"}
+{"user_id":"u_syn_0462","name":"Chị Hải Dương","gender":"female","age":51,"city":"Hà Nội","primary_interest":"connected_home","secondary_interest":"toys_games_drones","created_at":"2026-09-11T06:46:26Z"}
+{"user_id":"u_syn_0463","name":"Anh Hoàng Trần","gender":"other","age":28,"city":"Buôn Ma Thuột","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-24T05:58:59Z"}
+{"user_id":"u_syn_0464","name":"Ông Khoa Phạm","gender":"other","age":90,"city":"Buôn Ma Thuột","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-10T22:16:30Z"}
+{"user_id":"u_syn_0465","name":"Vi Phạm","gender":"other","age":54,"city":"Hải Phòng","primary_interest":"cell_phones","secondary_interest":"toys_games_drones","created_at":"2026-09-19T11:30:11Z"}
+{"user_id":"u_syn_0466","name":"Linh Vũ","gender":"female","age":52,"city":"Hải Phòng","primary_interest":"appliances","secondary_interest":"video_games","created_at":"2026-09-18T11:00:58Z"}
+{"user_id":"u_syn_0467","name":"Quý cô Thảo Nguyễn","gender":"female","age":25,"city":"Buôn Ma Thuột","primary_interest":"audio","secondary_interest":"car_electronics_gps","created_at":"2026-09-23T18:59:45Z"}
+{"user_id":"u_syn_0468","name":"Khoa Phú Nguyễn","gender":"male","age":60,"city":"Huế","primary_interest":"video_games","secondary_interest":"connected_home","created_at":"2026-09-21T02:15:48Z"}
+{"user_id":"u_syn_0469","name":"Anh Đức Đặng","gender":"other","age":31,"city":"Hà Nội","primary_interest":"musical_instruments","secondary_interest":"tv_home_theater","created_at":"2026-09-13T15:49:25Z"}
+{"user_id":"u_syn_0470","name":"Kim Mai Bùi","gender":"other","age":66,"city":"Hải Phòng","primary_interest":"computers_tablets","secondary_interest":"audio","created_at":"2026-09-08T09:34:19Z"}
+{"user_id":"u_syn_0471","name":"Chị Nhật Dương","gender":"female","age":85,"city":"Cần Thơ","primary_interest":"cameras_camcorders","secondary_interest":"tv_home_theater","created_at":"2026-09-25T05:43:42Z"}
+{"user_id":"u_syn_0472","name":"Bà Hà Bùi","gender":"female","age":45,"city":"Đà Lạt","primary_interest":"toys_games_drones","secondary_interest":"video_games","created_at":"2026-09-24T19:35:07Z"}
+{"user_id":"u_syn_0473","name":"Huy Hoàng","gender":"male","age":30,"city":"Buôn Ma Thuột","primary_interest":"tv_home_theater","secondary_interest":"wearable_technology","created_at":"2026-09-27T12:46:21Z"}
+{"user_id":"u_syn_0474","name":"Bà Thành Trần","gender":"other","age":20,"city":"Vũng Tàu","primary_interest":"connected_home","secondary_interest":"appliances","created_at":"2026-09-02T15:24:27Z"}
+{"user_id":"u_syn_0475","name":"Dũng Vũ","gender":"male","age":98,"city":"Hà Nội","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-01T07:26:15Z"}
+{"user_id":"u_syn_0476","name":"Nhật Bảo Lê","gender":"male","age":21,"city":"Buôn Ma Thuột","primary_interest":"car_electronics_gps","secondary_interest":"video_games","created_at":"2026-09-08T07:57:44Z"}
+{"user_id":"u_syn_0477","name":"Bà Chi Nguyễn","gender":"female","age":60,"city":"Hà Nội","primary_interest":"cell_phones","secondary_interest":"appliances","created_at":"2026-09-30T23:49:48Z"}
+{"user_id":"u_syn_0478","name":"Quý cô Hạnh Nguyễn","gender":"female","age":97,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":"audio","created_at":"2026-09-01T18:19:43Z"}
+{"user_id":"u_syn_0479","name":"Dương Bùi","gender":"female","age":14,"city":"Hà Nội","primary_interest":"audio","secondary_interest":"cell_phones","created_at":"2026-09-26T16:48:58Z"}
+{"user_id":"u_syn_0480","name":"Chị An Lê","gender":"female","age":15,"city":"Vũng Tàu","primary_interest":"video_games","secondary_interest":"cell_phones","created_at":"2026-09-21T21:39:14Z"}
+{"user_id":"u_syn_0481","name":"Ông Hoàng Trần","gender":"male","age":26,"city":"TP.HCM","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-26T10:57:11Z"}
+{"user_id":"u_syn_0482","name":"Bà Linh Bùi","gender":"other","age":80,"city":"Hải Phòng","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-18T04:57:13Z"}
+{"user_id":"u_syn_0483","name":"Trọng Lê","gender":"male","age":60,"city":"Nha Trang","primary_interest":"cameras_camcorders","secondary_interest":"car_electronics_gps","created_at":"2026-09-23T06:46:16Z"}
+{"user_id":"u_syn_0484","name":"Bà Linh Dương","gender":"female","age":100,"city":"TP.HCM","primary_interest":"toys_games_drones","secondary_interest":"tv_home_theater","created_at":"2026-09-02T12:54:54Z"}
+{"user_id":"u_syn_0485","name":"Duyên Lê","gender":"female","age":83,"city":"Đà Lạt","primary_interest":"tv_home_theater","secondary_interest":"car_electronics_gps","created_at":"2026-09-03T17:22:43Z"}
+{"user_id":"u_syn_0486","name":"Kim Tấn Vũ","gender":"male","age":76,"city":"Nha Trang","primary_interest":"connected_home","secondary_interest":"cameras_camcorders","created_at":"2026-09-17T01:57:29Z"}
+{"user_id":"u_syn_0487","name":"Cô Ngọc Lê","gender":"other","age":18,"city":"Cần Thơ","primary_interest":"wearable_technology","secondary_interest":"computers_tablets","created_at":"2026-09-11T06:19:07Z"}
+{"user_id":"u_syn_0488","name":"Quý ông Tùng Trần","gender":"other","age":85,"city":"Đà Lạt","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-14T03:50:55Z"}
+{"user_id":"u_syn_0489","name":"Anh Dương","gender":"other","age":48,"city":"Vũng Tàu","primary_interest":"cell_phones","secondary_interest":"computers_tablets","created_at":"2026-09-28T08:32:11Z"}
+{"user_id":"u_syn_0490","name":"Khoa Vũ","gender":"female","age":15,"city":"Cần Thơ","primary_interest":"appliances","secondary_interest":"cameras_camcorders","created_at":"2026-09-29T11:56:47Z"}
+{"user_id":"u_syn_0491","name":"Anh Tú Lê","gender":"male","age":51,"city":"Đà Nẵng","primary_interest":"audio","secondary_interest":"wearable_technology","created_at":"2026-09-28T09:03:32Z"}
+{"user_id":"u_syn_0492","name":"Nhật Lê","gender":"other","age":82,"city":"Huế","primary_interest":"video_games","secondary_interest":"wearable_technology","created_at":"2026-09-19T15:12:47Z"}
+{"user_id":"u_syn_0493","name":"Ông Dũng Đặng","gender":"other","age":23,"city":"Vũng Tàu","primary_interest":"musical_instruments","secondary_interest":"toys_games_drones","created_at":"2026-09-17T18:57:19Z"}
+{"user_id":"u_syn_0494","name":"Tùng Mai","gender":"male","age":22,"city":"Huế","primary_interest":"computers_tablets","secondary_interest":"car_electronics_gps","created_at":"2026-09-30T09:04:21Z"}
+{"user_id":"u_syn_0495","name":"Bà Bảo Lê","gender":"female","age":54,"city":"Hà Nội","primary_interest":"cameras_camcorders","secondary_interest":"audio","created_at":"2026-09-14T06:26:56Z"}
+{"user_id":"u_syn_0496","name":"Chị Hà Phạm","gender":"female","age":42,"city":"Huế","primary_interest":"toys_games_drones","secondary_interest":"cell_phones","created_at":"2026-09-27T20:20:08Z"}
+{"user_id":"u_syn_0497","name":"Lâm Dương","gender":"female","age":36,"city":"Biên Hòa","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-29T10:35:38Z"}
+{"user_id":"u_syn_0498","name":"Linh Mai","gender":"other","age":50,"city":"Cần Thơ","primary_interest":"connected_home","secondary_interest":"computers_tablets","created_at":"2026-09-04T13:38:29Z"}
+{"user_id":"u_syn_0499","name":"Quý cô Phương Lê","gender":"female","age":94,"city":"Đà Nẵng","primary_interest":"wearable_technology","secondary_interest":"cameras_camcorders","created_at":"2026-09-19T21:56:33Z"}
+{"user_id":"u_syn_0500","name":"Vũ Vũ","gender":"male","age":13,"city":"Hải Phòng","primary_interest":"car_electronics_gps","secondary_interest":"computers_tablets","created_at":"2026-09-22T14:09:17Z"}
+{"user_id":"u_syn_0501","name":"Quý ông Minh Bùi","gender":"male","age":29,"city":"TP.HCM","primary_interest":"cell_phones","secondary_interest":"tv_home_theater","created_at":"2026-09-10T02:19:38Z"}
+{"user_id":"u_syn_0502","name":"Khoa Quang Lê","gender":"other","age":78,"city":"Nha Trang","primary_interest":"appliances","secondary_interest":"cell_phones","created_at":"2026-09-06T00:20:41Z"}
+{"user_id":"u_syn_0503","name":"Vũ Mai Dương","gender":"other","age":24,"city":"Quy Nhơn","primary_interest":"audio","secondary_interest":"connected_home","created_at":"2026-09-30T00:46:17Z"}
+{"user_id":"u_syn_0504","name":"Bảo Xuân Lê","gender":"male","age":50,"city":"Nha Trang","primary_interest":"video_games","secondary_interest":"wearable_technology","created_at":"2026-09-19T19:49:09Z"}
+{"user_id":"u_syn_0505","name":"Ông Tú Mai","gender":"male","age":86,"city":"Vũng Tàu","primary_interest":"musical_instruments","secondary_interest":"appliances","created_at":"2026-09-09T05:34:42Z"}
+{"user_id":"u_syn_0506","name":"Khoa Xuân Lê","gender":"male","age":47,"city":"Hải Phòng","primary_interest":"computers_tablets","secondary_interest":"toys_games_drones","created_at":"2026-09-14T00:42:59Z"}
+{"user_id":"u_syn_0507","name":"Nhật Hải Đặng","gender":"male","age":68,"city":"Hải Phòng","primary_interest":"cameras_camcorders","secondary_interest":"computers_tablets","created_at":"2026-09-21T10:37:11Z"}
+{"user_id":"u_syn_0508","name":"Cô Hạnh Phạm","gender":"female","age":45,"city":"Cần Thơ","primary_interest":"toys_games_drones","secondary_interest":"computers_tablets","created_at":"2026-09-25T01:39:06Z"}
+{"user_id":"u_syn_0509","name":"Chị Hải Vũ","gender":"female","age":26,"city":"Đà Nẵng","primary_interest":"tv_home_theater","secondary_interest":"toys_games_drones","created_at":"2026-09-15T18:57:08Z"}
+{"user_id":"u_syn_0510","name":"Vân Lê","gender":"female","age":92,"city":"Nha Trang","primary_interest":"connected_home","secondary_interest":"car_electronics_gps","created_at":"2026-09-16T23:56:38Z"}
+{"user_id":"u_syn_0511","name":"Chị Hải Hoàng","gender":"other","age":89,"city":"Đà Nẵng","primary_interest":"wearable_technology","secondary_interest":"car_electronics_gps","created_at":"2026-09-15T14:01:56Z"}
+{"user_id":"u_syn_0512","name":"Cô An Trần","gender":"female","age":53,"city":"Đà Nẵng","primary_interest":"car_electronics_gps","secondary_interest":"toys_games_drones","created_at":"2026-09-20T07:58:57Z"}
+{"user_id":"u_syn_0513","name":"Dương Hoàng","gender":"female","age":94,"city":"Đà Lạt","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-28T22:56:52Z"}
+{"user_id":"u_syn_0514","name":"Chị Khoa Bùi","gender":"female","age":48,"city":"Nha Trang","primary_interest":"appliances","secondary_interest":"connected_home","created_at":"2026-09-18T17:16:26Z"}
+{"user_id":"u_syn_0515","name":"Châu Mai","gender":"male","age":88,"city":"Vũng Tàu","primary_interest":"audio","secondary_interest":"appliances","created_at":"2026-09-09T17:37:49Z"}
+{"user_id":"u_syn_0516","name":"Hải Thế Dương","gender":"male","age":72,"city":"Buôn Ma Thuột","primary_interest":"video_games","secondary_interest":"cell_phones","created_at":"2026-09-11T04:15:29Z"}
+{"user_id":"u_syn_0517","name":"Quý cô Thảo Dương","gender":"other","age":21,"city":"Nha Trang","primary_interest":"musical_instruments","secondary_interest":"connected_home","created_at":"2026-09-25T05:43:49Z"}
+{"user_id":"u_syn_0518","name":"Hưng Lê","gender":"male","age":45,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"connected_home","created_at":"2026-09-08T11:35:23Z"}
+{"user_id":"u_syn_0519","name":"Quý ông Châu Dương","gender":"male","age":70,"city":"Quy Nhơn","primary_interest":"cameras_camcorders","secondary_interest":"car_electronics_gps","created_at":"2026-09-24T06:20:56Z"}
+{"user_id":"u_syn_0520","name":"Bà Duyên Lê","gender":"other","age":66,"city":"Vũng Tàu","primary_interest":"toys_games_drones","secondary_interest":"appliances","created_at":"2026-09-02T18:50:04Z"}
+{"user_id":"u_syn_0521","name":"Dũng Phú Bùi","gender":"other","age":81,"city":"Quy Nhơn","primary_interest":"tv_home_theater","secondary_interest":"wearable_technology","created_at":"2026-09-05T03:00:40Z"}
+{"user_id":"u_syn_0522","name":"Bà Phương Mai","gender":"other","age":98,"city":"Huế","primary_interest":"connected_home","secondary_interest":"toys_games_drones","created_at":"2026-09-09T01:47:54Z"}
+{"user_id":"u_syn_0523","name":"Thành Phạm","gender":"other","age":95,"city":"Biên Hòa","primary_interest":"wearable_technology","secondary_interest":"musical_instruments","created_at":"2026-09-20T09:35:18Z"}
+{"user_id":"u_syn_0524","name":"Cô Thảo Dương","gender":"female","age":68,"city":"TP.HCM","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-01T12:17:20Z"}
+{"user_id":"u_syn_0525","name":"Chị Hương Nguyễn","gender":"other","age":79,"city":"Vũng Tàu","primary_interest":"cell_phones","secondary_interest":"toys_games_drones","created_at":"2026-09-29T04:21:10Z"}
+{"user_id":"u_syn_0526","name":"Quý cô Khoa Bùi","gender":"female","age":60,"city":"Nha Trang","primary_interest":"appliances","secondary_interest":"toys_games_drones","created_at":"2026-09-23T11:30:27Z"}
+{"user_id":"u_syn_0527","name":"Chị Ánh Đặng","gender":"other","age":77,"city":"Đà Nẵng","primary_interest":"audio","secondary_interest":"appliances","created_at":"2026-09-17T17:54:58Z"}
+{"user_id":"u_syn_0528","name":"Chị Bảo Dương","gender":"female","age":26,"city":"Hải Phòng","primary_interest":"video_games","secondary_interest":null,"created_at":"2026-09-21T04:38:47Z"}
+{"user_id":"u_syn_0529","name":"Quý ông Khoa Dương","gender":"male","age":27,"city":"Buôn Ma Thuột","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-07T21:03:48Z"}
+{"user_id":"u_syn_0530","name":"Hương Bùi","gender":"female","age":39,"city":"Vũng Tàu","primary_interest":"computers_tablets","secondary_interest":"wearable_technology","created_at":"2026-09-24T10:38:58Z"}
+{"user_id":"u_syn_0531","name":"Chị Mai Hoàng","gender":"female","age":70,"city":"Huế","primary_interest":"cameras_camcorders","secondary_interest":"computers_tablets","created_at":"2026-09-04T06:15:49Z"}
+{"user_id":"u_syn_0532","name":"An Thị Vũ","gender":"male","age":56,"city":"Biên Hòa","primary_interest":"toys_games_drones","secondary_interest":"computers_tablets","created_at":"2026-09-06T07:25:00Z"}
+{"user_id":"u_syn_0533","name":"Quý ông Khoa Mai","gender":"other","age":44,"city":"Vũng Tàu","primary_interest":"tv_home_theater","secondary_interest":"cameras_camcorders","created_at":"2026-09-09T11:15:09Z"}
+{"user_id":"u_syn_0534","name":"Ánh Trần","gender":"other","age":67,"city":"Đà Lạt","primary_interest":"connected_home","secondary_interest":"wearable_technology","created_at":"2026-09-12T06:07:52Z"}
+{"user_id":"u_syn_0535","name":"Anh Anh Đặng","gender":"male","age":36,"city":"Biên Hòa","primary_interest":"wearable_technology","secondary_interest":"video_games","created_at":"2026-09-21T23:28:23Z"}
+{"user_id":"u_syn_0536","name":"Bác Hưng Bùi","gender":"male","age":70,"city":"Quy Nhơn","primary_interest":"car_electronics_gps","secondary_interest":"audio","created_at":"2026-09-21T20:27:55Z"}
+{"user_id":"u_syn_0537","name":"Nhiên Mai","gender":"male","age":48,"city":"Buôn Ma Thuột","primary_interest":"cell_phones","secondary_interest":"toys_games_drones","created_at":"2026-09-04T00:53:31Z"}
+{"user_id":"u_syn_0538","name":"Quang Thế Trần","gender":"male","age":59,"city":"Huế","primary_interest":"appliances","secondary_interest":"cell_phones","created_at":"2026-09-10T13:36:29Z"}
+{"user_id":"u_syn_0539","name":"Phương Mai Mai","gender":"other","age":75,"city":"Vũng Tàu","primary_interest":"audio","secondary_interest":"tv_home_theater","created_at":"2026-09-16T05:08:32Z"}
+{"user_id":"u_syn_0540","name":"Cô Bảo Trần","gender":"female","age":88,"city":"TP.HCM","primary_interest":"video_games","secondary_interest":"appliances","created_at":"2026-09-17T21:21:41Z"}
+{"user_id":"u_syn_0541","name":"Thành Tấn Mai","gender":"other","age":35,"city":"Biên Hòa","primary_interest":"musical_instruments","secondary_interest":"cell_phones","created_at":"2026-09-15T10:32:54Z"}
+{"user_id":"u_syn_0542","name":"Hoàng Hoàng Hoàng","gender":"other","age":23,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-07T12:03:37Z"}
+{"user_id":"u_syn_0543","name":"Cô Ngọc Nguyễn","gender":"female","age":27,"city":"Đà Nẵng","primary_interest":"cameras_camcorders","secondary_interest":"tv_home_theater","created_at":"2026-09-19T02:55:59Z"}
+{"user_id":"u_syn_0544","name":"Nhật Đặng","gender":"female","age":66,"city":"Quy Nhơn","primary_interest":"toys_games_drones","secondary_interest":"appliances","created_at":"2026-09-07T16:37:37Z"}
+{"user_id":"u_syn_0545","name":"Quý ông Hoàng Hoàng","gender":"male","age":75,"city":"Biên Hòa","primary_interest":"tv_home_theater","secondary_interest":"car_electronics_gps","created_at":"2026-09-27T02:05:32Z"}
+{"user_id":"u_syn_0546","name":"Dũng Tấn Lê","gender":"male","age":84,"city":"Đà Nẵng","primary_interest":"connected_home","secondary_interest":"video_games","created_at":"2026-09-24T18:28:27Z"}
+{"user_id":"u_syn_0547","name":"Bà Duyên Đặng","gender":"female","age":70,"city":"Quy Nhơn","primary_interest":"wearable_technology","secondary_interest":"cameras_camcorders","created_at":"2026-09-03T14:27:41Z"}
+{"user_id":"u_syn_0548","name":"Bác Châu Nguyễn","gender":"male","age":75,"city":"Đà Nẵng","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-10T11:20:28Z"}
+{"user_id":"u_syn_0549","name":"Dũng Đức Bùi","gender":"other","age":77,"city":"Biên Hòa","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-25T00:40:54Z"}
+{"user_id":"u_syn_0550","name":"Cô Khoa Dương","gender":"female","age":69,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":"car_electronics_gps","created_at":"2026-09-09T02:51:51Z"}
+{"user_id":"u_syn_0551","name":"Hải Hải Nguyễn","gender":"male","age":50,"city":"Hà Nội","primary_interest":"audio","secondary_interest":"musical_instruments","created_at":"2026-09-14T08:13:36Z"}
+{"user_id":"u_syn_0552","name":"Anh Minh Hoàng","gender":"male","age":71,"city":"Quy Nhơn","primary_interest":"video_games","secondary_interest":"tv_home_theater","created_at":"2026-09-25T01:04:54Z"}
+{"user_id":"u_syn_0553","name":"Bảo Hải Nguyễn","gender":"other","age":27,"city":"Hải Phòng","primary_interest":"musical_instruments","secondary_interest":"cameras_camcorders","created_at":"2026-09-27T08:45:52Z"}
+{"user_id":"u_syn_0554","name":"Mai Nguyễn","gender":"female","age":82,"city":"Hà Nội","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-22T10:13:45Z"}
+{"user_id":"u_syn_0555","name":"Bác Huy Lê","gender":"male","age":96,"city":"Cần Thơ","primary_interest":"cameras_camcorders","secondary_interest":"car_electronics_gps","created_at":"2026-09-15T10:51:21Z"}
+{"user_id":"u_syn_0556","name":"Anh Huy Mai","gender":"male","age":70,"city":"Hải Phòng","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-17T22:07:17Z"}
+{"user_id":"u_syn_0557","name":"Ông Hoàng Mai","gender":"male","age":69,"city":"TP.HCM","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-12T12:03:43Z"}
+{"user_id":"u_syn_0558","name":"Bà Dương Dương","gender":"other","age":57,"city":"Buôn Ma Thuột","primary_interest":"connected_home","secondary_interest":"audio","created_at":"2026-09-30T15:00:23Z"}
+{"user_id":"u_syn_0559","name":"Thành Xuân Dương","gender":"other","age":30,"city":"Cần Thơ","primary_interest":"wearable_technology","secondary_interest":"cameras_camcorders","created_at":"2026-09-11T01:06:20Z"}
+{"user_id":"u_syn_0560","name":"Tùng Phú Vũ","gender":"other","age":57,"city":"Vũng Tàu","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-14T15:29:16Z"}
+{"user_id":"u_syn_0561","name":"Chị Mai Vũ","gender":"female","age":50,"city":"Hải Phòng","primary_interest":"cell_phones","secondary_interest":"cameras_camcorders","created_at":"2026-09-28T19:17:07Z"}
+{"user_id":"u_syn_0562","name":"Quang Vũ","gender":"other","age":25,"city":"Đà Nẵng","primary_interest":"appliances","secondary_interest":"cell_phones","created_at":"2026-09-20T23:32:39Z"}
+{"user_id":"u_syn_0563","name":"Chị Nhật Dương","gender":"female","age":96,"city":"Đà Nẵng","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-07T10:35:45Z"}
+{"user_id":"u_syn_0564","name":"Nhật Phú Mai","gender":"male","age":99,"city":"Nha Trang","primary_interest":"video_games","secondary_interest":"connected_home","created_at":"2026-09-24T18:15:38Z"}
+{"user_id":"u_syn_0565","name":"Bà Hà Hoàng","gender":"female","age":93,"city":"Nha Trang","primary_interest":"musical_instruments","secondary_interest":"video_games","created_at":"2026-09-19T05:06:26Z"}
+{"user_id":"u_syn_0566","name":"Quý ông Quang Lê","gender":"male","age":64,"city":"Vũng Tàu","primary_interest":"computers_tablets","secondary_interest":"video_games","created_at":"2026-09-14T12:09:23Z"}
+{"user_id":"u_syn_0567","name":"Cô Hạnh Trần","gender":"female","age":75,"city":"Huế","primary_interest":"cameras_camcorders","secondary_interest":"wearable_technology","created_at":"2026-09-29T06:01:38Z"}
+{"user_id":"u_syn_0568","name":"Bảo Đức Dương","gender":"other","age":71,"city":"Biên Hòa","primary_interest":"toys_games_drones","secondary_interest":"computers_tablets","created_at":"2026-09-18T09:21:35Z"}
+{"user_id":"u_syn_0569","name":"Chị Ánh Mai","gender":"other","age":63,"city":"Cần Thơ","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-21T20:34:13Z"}
+{"user_id":"u_syn_0570","name":"Bà Bảo Trần","gender":"female","age":47,"city":"Huế","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-14T18:24:35Z"}
+{"user_id":"u_syn_0571","name":"Quang Thị Mai","gender":"male","age":85,"city":"Đà Lạt","primary_interest":"wearable_technology","secondary_interest":"audio","created_at":"2026-09-17T16:29:08Z"}
+{"user_id":"u_syn_0572","name":"Quang Thị Trần","gender":"male","age":18,"city":"TP.HCM","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-23T07:27:05Z"}
+{"user_id":"u_syn_0573","name":"Bà Yến Dương","gender":"female","age":71,"city":"Hà Nội","primary_interest":"cell_phones","secondary_interest":"cameras_camcorders","created_at":"2026-09-21T18:25:20Z"}
+{"user_id":"u_syn_0574","name":"Hải Lê","gender":"other","age":51,"city":"Đà Nẵng","primary_interest":"appliances","secondary_interest":"cameras_camcorders","created_at":"2026-09-14T07:15:20Z"}
+{"user_id":"u_syn_0575","name":"Vân Lê","gender":"female","age":23,"city":"Huế","primary_interest":"audio","secondary_interest":"connected_home","created_at":"2026-09-09T00:51:02Z"}
+{"user_id":"u_syn_0576","name":"Quý cô Chi Phạm","gender":"female","age":42,"city":"Nha Trang","primary_interest":"video_games","secondary_interest":"audio","created_at":"2026-09-05T10:15:17Z"}
+{"user_id":"u_syn_0577","name":"Thành Thế Nguyễn","gender":"male","age":74,"city":"TP.HCM","primary_interest":"musical_instruments","secondary_interest":"computers_tablets","created_at":"2026-09-07T10:36:23Z"}
+{"user_id":"u_syn_0578","name":"Hải Hoàng","gender":"other","age":69,"city":"Hà Nội","primary_interest":"computers_tablets","secondary_interest":"appliances","created_at":"2026-09-01T09:23:36Z"}
+{"user_id":"u_syn_0579","name":"Phương Nguyễn","gender":"female","age":29,"city":"Đà Lạt","primary_interest":"cameras_camcorders","secondary_interest":"computers_tablets","created_at":"2026-09-04T10:31:15Z"}
+{"user_id":"u_syn_0580","name":"Quý cô Bảo Nguyễn","gender":"other","age":26,"city":"TP.HCM","primary_interest":"toys_games_drones","secondary_interest":"computers_tablets","created_at":"2026-09-16T05:04:51Z"}
+{"user_id":"u_syn_0581","name":"Quý ông Phúc Vũ","gender":"male","age":61,"city":"Đà Nẵng","primary_interest":"tv_home_theater","secondary_interest":"connected_home","created_at":"2026-09-07T22:26:09Z"}
+{"user_id":"u_syn_0582","name":"Nam Vũ","gender":"male","age":91,"city":"Biên Hòa","primary_interest":"connected_home","secondary_interest":"audio","created_at":"2026-09-08T23:12:34Z"}
+{"user_id":"u_syn_0583","name":"Thành Vũ","gender":"other","age":32,"city":"Nha Trang","primary_interest":"wearable_technology","secondary_interest":"toys_games_drones","created_at":"2026-09-30T21:46:50Z"}
+{"user_id":"u_syn_0584","name":"Quý ông Hoàng Mai","gender":"male","age":25,"city":"Đà Nẵng","primary_interest":"car_electronics_gps","secondary_interest":"toys_games_drones","created_at":"2026-09-06T23:29:18Z"}
+{"user_id":"u_syn_0585","name":"Bà Mai Trần","gender":"female","age":67,"city":"Huế","primary_interest":"cell_phones","secondary_interest":"wearable_technology","created_at":"2026-09-07T18:54:50Z"}
+{"user_id":"u_syn_0586","name":"Bảo Mai Vũ","gender":"male","age":44,"city":"Vũng Tàu","primary_interest":"appliances","secondary_interest":"video_games","created_at":"2026-09-30T04:12:52Z"}
+{"user_id":"u_syn_0587","name":"An Đặng","gender":"female","age":16,"city":"Biên Hòa","primary_interest":"audio","secondary_interest":"appliances","created_at":"2026-09-15T15:26:49Z"}
+{"user_id":"u_syn_0588","name":"Nhiên Phạm","gender":"other","age":37,"city":"Buôn Ma Thuột","primary_interest":"video_games","secondary_interest":"appliances","created_at":"2026-09-20T00:25:22Z"}
+{"user_id":"u_syn_0589","name":"Trọng Hữu Bùi","gender":"male","age":76,"city":"Nha Trang","primary_interest":"musical_instruments","secondary_interest":"computers_tablets","created_at":"2026-09-06T11:21:21Z"}
+{"user_id":"u_syn_0590","name":"Vũ Hữu Trần","gender":"other","age":22,"city":"Vũng Tàu","primary_interest":"computers_tablets","secondary_interest":"video_games","created_at":"2026-09-01T14:03:32Z"}
+{"user_id":"u_syn_0591","name":"Bảo Dương","gender":"female","age":29,"city":"Nha Trang","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-28T14:12:40Z"}
+{"user_id":"u_syn_0592","name":"Quang Văn Vũ","gender":"other","age":35,"city":"Đà Lạt","primary_interest":"toys_games_drones","secondary_interest":"appliances","created_at":"2026-09-04T13:02:29Z"}
+{"user_id":"u_syn_0593","name":"Anh Bảo Vũ","gender":"male","age":46,"city":"Cần Thơ","primary_interest":"tv_home_theater","secondary_interest":"computers_tablets","created_at":"2026-09-02T22:24:05Z"}
+{"user_id":"u_syn_0594","name":"Bà Khoa Hoàng","gender":"female","age":77,"city":"Hải Phòng","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-25T07:45:51Z"}
+{"user_id":"u_syn_0595","name":"Thảo Đặng","gender":"other","age":64,"city":"TP.HCM","primary_interest":"wearable_technology","secondary_interest":"car_electronics_gps","created_at":"2026-09-27T01:08:35Z"}
+{"user_id":"u_syn_0596","name":"An Trần","gender":"female","age":23,"city":"Hải Phòng","primary_interest":"car_electronics_gps","secondary_interest":"cameras_camcorders","created_at":"2026-09-04T20:04:00Z"}
+{"user_id":"u_syn_0597","name":"Bác Phúc Bùi","gender":"male","age":81,"city":"Huế","primary_interest":"cell_phones","secondary_interest":"toys_games_drones","created_at":"2026-09-19T23:14:06Z"}
+{"user_id":"u_syn_0598","name":"Tú Vũ","gender":"other","age":95,"city":"TP.HCM","primary_interest":"appliances","secondary_interest":"video_games","created_at":"2026-09-16T01:22:25Z"}
+{"user_id":"u_syn_0599","name":"Khoa Hải Phạm","gender":"male","age":44,"city":"TP.HCM","primary_interest":"audio","secondary_interest":"toys_games_drones","created_at":"2026-09-22T02:12:36Z"}
+{"user_id":"u_syn_0600","name":"Quý cô Bảo Dương","gender":"other","age":20,"city":"Hải Phòng","primary_interest":"video_games","secondary_interest":"appliances","created_at":"2026-09-09T12:38:32Z"}
+{"user_id":"u_syn_0601","name":"Huy Mai Bảo Mai","gender":"other","age":14,"city":"Đà Nẵng","primary_interest":"musical_instruments","secondary_interest":"toys_games_drones","created_at":"2026-09-25T02:21:46Z"}
+{"user_id":"u_syn_0602","name":"Chị Dương Hoàng","gender":"other","age":79,"city":"Buôn Ma Thuột","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-13T14:02:40Z"}
+{"user_id":"u_syn_0603","name":"Phương Dương","gender":"other","age":47,"city":"Buôn Ma Thuột","primary_interest":"cameras_camcorders","secondary_interest":"toys_games_drones","created_at":"2026-09-06T17:32:45Z"}
+{"user_id":"u_syn_0604","name":"Cô Khoa Trần","gender":"female","age":67,"city":"Hải Phòng","primary_interest":"toys_games_drones","secondary_interest":"musical_instruments","created_at":"2026-09-26T10:20:03Z"}
+{"user_id":"u_syn_0605","name":"Ánh Mai","gender":"other","age":22,"city":"Đà Lạt","primary_interest":"tv_home_theater","secondary_interest":"audio","created_at":"2026-09-23T02:20:37Z"}
+{"user_id":"u_syn_0606","name":"Khoa Mai","gender":"female","age":85,"city":"Đà Nẵng","primary_interest":"connected_home","secondary_interest":"musical_instruments","created_at":"2026-09-18T20:23:14Z"}
+{"user_id":"u_syn_0607","name":"Chị Thành Mai","gender":"other","age":99,"city":"Buôn Ma Thuột","primary_interest":"wearable_technology","secondary_interest":"computers_tablets","created_at":"2026-09-06T14:22:24Z"}
+{"user_id":"u_syn_0608","name":"Ông Trung Hoàng","gender":"male","age":18,"city":"Hà Nội","primary_interest":"car_electronics_gps","secondary_interest":"appliances","created_at":"2026-09-12T20:55:23Z"}
+{"user_id":"u_syn_0609","name":"Cô Xuân Mai","gender":"female","age":32,"city":"Đà Nẵng","primary_interest":"cell_phones","secondary_interest":"connected_home","created_at":"2026-09-02T17:12:05Z"}
+{"user_id":"u_syn_0610","name":"Cô Chi Lê","gender":"female","age":41,"city":"Huế","primary_interest":"appliances","secondary_interest":"video_games","created_at":"2026-09-13T01:14:51Z"}
+{"user_id":"u_syn_0611","name":"Quý cô Duyên Nguyễn","gender":"female","age":22,"city":"Quy Nhơn","primary_interest":"audio","secondary_interest":"connected_home","created_at":"2026-09-19T02:21:10Z"}
+{"user_id":"u_syn_0612","name":"Bác Nam Bùi","gender":"male","age":35,"city":"Cần Thơ","primary_interest":"video_games","secondary_interest":"audio","created_at":"2026-09-26T00:55:13Z"}
+{"user_id":"u_syn_0613","name":"Cô Nhật Phạm","gender":"female","age":21,"city":"Đà Lạt","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-14T16:54:40Z"}
+{"user_id":"u_syn_0614","name":"Ngọc Bùi","gender":"female","age":24,"city":"Vũng Tàu","primary_interest":"computers_tablets","secondary_interest":"connected_home","created_at":"2026-09-23T04:08:52Z"}
+{"user_id":"u_syn_0615","name":"Cô Phương Nguyễn","gender":"female","age":85,"city":"Hải Phòng","primary_interest":"cameras_camcorders","secondary_interest":"tv_home_theater","created_at":"2026-09-12T18:37:51Z"}
+{"user_id":"u_syn_0616","name":"Xuân Dương","gender":"female","age":38,"city":"Buôn Ma Thuột","primary_interest":"toys_games_drones","secondary_interest":"audio","created_at":"2026-09-27T12:47:15Z"}
+{"user_id":"u_syn_0617","name":"Khoa Bùi","gender":"male","age":13,"city":"Nha Trang","primary_interest":"tv_home_theater","secondary_interest":"toys_games_drones","created_at":"2026-09-02T03:51:26Z"}
+{"user_id":"u_syn_0618","name":"Chị Hải Bùi","gender":"other","age":14,"city":"Huế","primary_interest":"connected_home","secondary_interest":"wearable_technology","created_at":"2026-09-01T01:42:12Z"}
+{"user_id":"u_syn_0619","name":"Thành Mai Bùi","gender":"other","age":52,"city":"TP.HCM","primary_interest":"wearable_technology","secondary_interest":"car_electronics_gps","created_at":"2026-09-10T23:04:07Z"}
+{"user_id":"u_syn_0620","name":"Cô Dương Mai","gender":"female","age":75,"city":"Hà Nội","primary_interest":"car_electronics_gps","secondary_interest":"toys_games_drones","created_at":"2026-09-07T21:52:37Z"}
+{"user_id":"u_syn_0621","name":"Quang Đức Lê","gender":"male","age":42,"city":"Vũng Tàu","primary_interest":"cell_phones","secondary_interest":"computers_tablets","created_at":"2026-09-21T01:14:45Z"}
+{"user_id":"u_syn_0622","name":"Chị Yến Phạm","gender":"female","age":23,"city":"Quy Nhơn","primary_interest":"appliances","secondary_interest":"connected_home","created_at":"2026-09-05T15:21:19Z"}
+{"user_id":"u_syn_0623","name":"Vi Nguyễn","gender":"female","age":22,"city":"Quy Nhơn","primary_interest":"audio","secondary_interest":"video_games","created_at":"2026-09-28T13:33:32Z"}
+{"user_id":"u_syn_0624","name":"Nhật Bảo Mai","gender":"male","age":43,"city":"Hải Phòng","primary_interest":"video_games","secondary_interest":"audio","created_at":"2026-09-13T16:04:35Z"}
+{"user_id":"u_syn_0625","name":"Chị Mai Dương","gender":"female","age":54,"city":"Huế","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-22T23:30:04Z"}
+{"user_id":"u_syn_0626","name":"Bảo Đức Phạm","gender":"male","age":30,"city":"Quy Nhơn","primary_interest":"computers_tablets","secondary_interest":"cameras_camcorders","created_at":"2026-09-06T06:57:45Z"}
+{"user_id":"u_syn_0627","name":"Ngọc Bùi","gender":"female","age":72,"city":"Huế","primary_interest":"cameras_camcorders","secondary_interest":"toys_games_drones","created_at":"2026-09-20T17:37:17Z"}
+{"user_id":"u_syn_0628","name":"Quang Phạm","gender":"male","age":70,"city":"Hải Phòng","primary_interest":"toys_games_drones","secondary_interest":"wearable_technology","created_at":"2026-09-23T11:50:16Z"}
+{"user_id":"u_syn_0629","name":"Tú Hoàng","gender":"male","age":33,"city":"Biên Hòa","primary_interest":"tv_home_theater","secondary_interest":"computers_tablets","created_at":"2026-09-15T18:26:10Z"}
+{"user_id":"u_syn_0630","name":"Chi Hoàng","gender":"other","age":90,"city":"Hà Nội","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-11T10:31:02Z"}
+{"user_id":"u_syn_0631","name":"Mai Nguyễn","gender":"female","age":31,"city":"TP.HCM","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-13T01:11:45Z"}
+{"user_id":"u_syn_0632","name":"Quý cô Mai Mai","gender":"female","age":78,"city":"Hà Nội","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-15T12:10:28Z"}
+{"user_id":"u_syn_0633","name":"Hưng Trí Mai","gender":"male","age":64,"city":"Đà Lạt","primary_interest":"cell_phones","secondary_interest":"cameras_camcorders","created_at":"2026-09-27T23:43:59Z"}
+{"user_id":"u_syn_0634","name":"Lâm Tấn Hoàng","gender":"male","age":72,"city":"TP.HCM","primary_interest":"appliances","secondary_interest":"toys_games_drones","created_at":"2026-09-07T18:52:14Z"}
+{"user_id":"u_syn_0635","name":"Lâm Thế Lê","gender":"male","age":29,"city":"Cần Thơ","primary_interest":"audio","secondary_interest":"musical_instruments","created_at":"2026-09-20T10:42:41Z"}
+{"user_id":"u_syn_0636","name":"Quý cô Thảo Vũ","gender":"other","age":23,"city":"Quy Nhơn","primary_interest":"video_games","secondary_interest":"audio","created_at":"2026-09-29T10:52:40Z"}
+{"user_id":"u_syn_0637","name":"Tùng Hoàng","gender":"male","age":21,"city":"Cần Thơ","primary_interest":"musical_instruments","secondary_interest":"cameras_camcorders","created_at":"2026-09-22T12:38:05Z"}
+{"user_id":"u_syn_0638","name":"Huy Mai Bảo Nguyễn","gender":"male","age":55,"city":"TP.HCM","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-03T01:44:41Z"}
+{"user_id":"u_syn_0639","name":"Hải Hữu Mai","gender":"male","age":34,"city":"Quy Nhơn","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-22T00:39:49Z"}
+{"user_id":"u_syn_0640","name":"Quý cô Kim Lê","gender":"female","age":76,"city":"Hà Nội","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-19T13:54:43Z"}
+{"user_id":"u_syn_0641","name":"Quý cô Bảo Mai","gender":"female","age":40,"city":"Đà Nẵng","primary_interest":"tv_home_theater","secondary_interest":"cameras_camcorders","created_at":"2026-09-14T08:22:37Z"}
+{"user_id":"u_syn_0642","name":"Anh Quang Vũ","gender":"male","age":91,"city":"Quy Nhơn","primary_interest":"connected_home","secondary_interest":"cameras_camcorders","created_at":"2026-09-30T22:49:49Z"}
+{"user_id":"u_syn_0643","name":"Nhật Nguyễn","gender":"female","age":65,"city":"Vũng Tàu","primary_interest":"wearable_technology","secondary_interest":"tv_home_theater","created_at":"2026-09-24T06:06:41Z"}
+{"user_id":"u_syn_0644","name":"Quý cô Vân Mai","gender":"female","age":30,"city":"Nha Trang","primary_interest":"car_electronics_gps","secondary_interest":"tv_home_theater","created_at":"2026-09-10T16:23:06Z"}
+{"user_id":"u_syn_0645","name":"Thành Hải Vũ","gender":"male","age":93,"city":"Vũng Tàu","primary_interest":"cell_phones","secondary_interest":"appliances","created_at":"2026-09-01T22:45:14Z"}
+{"user_id":"u_syn_0646","name":"Bà Dương Trần","gender":"other","age":58,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-27T10:24:33Z"}
+{"user_id":"u_syn_0647","name":"Bác Vũ Mai","gender":"other","age":77,"city":"Huế","primary_interest":"audio","secondary_interest":"connected_home","created_at":"2026-09-19T20:29:49Z"}
+{"user_id":"u_syn_0648","name":"An Vũ","gender":"female","age":89,"city":"Cần Thơ","primary_interest":"video_games","secondary_interest":"musical_instruments","created_at":"2026-09-02T10:08:27Z"}
+{"user_id":"u_syn_0649","name":"Cô Ánh Trần","gender":"female","age":20,"city":"Đà Lạt","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-26T16:49:59Z"}
+{"user_id":"u_syn_0650","name":"Nhiên Hoàng Dương","gender":"male","age":33,"city":"TP.HCM","primary_interest":"computers_tablets","secondary_interest":"audio","created_at":"2026-09-13T00:46:27Z"}
+{"user_id":"u_syn_0651","name":"Bà Thảo Nguyễn","gender":"other","age":20,"city":"Cần Thơ","primary_interest":"cameras_camcorders","secondary_interest":"connected_home","created_at":"2026-09-28T22:43:47Z"}
+{"user_id":"u_syn_0652","name":"Lâm Trần","gender":"female","age":58,"city":"Đà Nẵng","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-09T13:10:18Z"}
+{"user_id":"u_syn_0653","name":"Anh Trọng Phạm","gender":"other","age":58,"city":"Quy Nhơn","primary_interest":"tv_home_theater","secondary_interest":"wearable_technology","created_at":"2026-09-02T08:51:46Z"}
+{"user_id":"u_syn_0654","name":"Lâm Tấn Vũ","gender":"other","age":85,"city":"Đà Nẵng","primary_interest":"connected_home","secondary_interest":"wearable_technology","created_at":"2026-09-28T08:04:09Z"}
+{"user_id":"u_syn_0655","name":"Quý cô Vân Đặng","gender":"female","age":82,"city":"Hải Phòng","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-09T12:32:18Z"}
+{"user_id":"u_syn_0656","name":"Hạnh Phú Mai","gender":"male","age":42,"city":"Quy Nhơn","primary_interest":"car_electronics_gps","secondary_interest":"computers_tablets","created_at":"2026-09-11T14:55:51Z"}
+{"user_id":"u_syn_0657","name":"Quý ông Tú Dương","gender":"male","age":55,"city":"Quy Nhơn","primary_interest":"cell_phones","secondary_interest":"car_electronics_gps","created_at":"2026-09-10T18:43:22Z"}
+{"user_id":"u_syn_0658","name":"Chị Thành Đặng","gender":"female","age":35,"city":"Huế","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-03T21:23:15Z"}
+{"user_id":"u_syn_0659","name":"An Hải Lê","gender":"other","age":31,"city":"TP.HCM","primary_interest":"audio","secondary_interest":"appliances","created_at":"2026-09-26T13:10:40Z"}
+{"user_id":"u_syn_0660","name":"Anh Mai","gender":"male","age":60,"city":"Buôn Ma Thuột","primary_interest":"video_games","secondary_interest":null,"created_at":"2026-09-20T04:54:08Z"}
+{"user_id":"u_syn_0661","name":"Bà Lan Phạm","gender":"female","age":54,"city":"Đà Nẵng","primary_interest":"musical_instruments","secondary_interest":"wearable_technology","created_at":"2026-09-08T15:30:19Z"}
+{"user_id":"u_syn_0662","name":"Quang Hữu Hoàng","gender":"other","age":75,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"car_electronics_gps","created_at":"2026-09-16T09:39:43Z"}
+{"user_id":"u_syn_0663","name":"Quý cô Vân Đặng","gender":"other","age":91,"city":"Huế","primary_interest":"cameras_camcorders","secondary_interest":"appliances","created_at":"2026-09-11T20:05:24Z"}
+{"user_id":"u_syn_0664","name":"Quý cô Nhật Dương","gender":"female","age":52,"city":"Buôn Ma Thuột","primary_interest":"toys_games_drones","secondary_interest":"cameras_camcorders","created_at":"2026-09-15T07:08:14Z"}
+{"user_id":"u_syn_0665","name":"Anh Quang Lê","gender":"other","age":86,"city":"Nha Trang","primary_interest":"tv_home_theater","secondary_interest":"musical_instruments","created_at":"2026-09-28T13:09:55Z"}
+{"user_id":"u_syn_0666","name":"Nhật Mai","gender":"female","age":91,"city":"Cần Thơ","primary_interest":"connected_home","secondary_interest":"audio","created_at":"2026-09-28T10:54:49Z"}
+{"user_id":"u_syn_0667","name":"Anh Tùng Nguyễn","gender":"male","age":55,"city":"Buôn Ma Thuột","primary_interest":"wearable_technology","secondary_interest":"cell_phones","created_at":"2026-09-04T18:39:04Z"}
+{"user_id":"u_syn_0668","name":"Vũ Nguyễn","gender":"male","age":94,"city":"TP.HCM","primary_interest":"car_electronics_gps","secondary_interest":"connected_home","created_at":"2026-09-17T07:10:35Z"}
+{"user_id":"u_syn_0669","name":"Huy Lê","gender":"male","age":44,"city":"Buôn Ma Thuột","primary_interest":"cell_phones","secondary_interest":"tv_home_theater","created_at":"2026-09-04T06:59:11Z"}
+{"user_id":"u_syn_0670","name":"Cô Yến Lê","gender":"other","age":13,"city":"Hà Nội","primary_interest":"appliances","secondary_interest":"computers_tablets","created_at":"2026-09-19T17:38:57Z"}
+{"user_id":"u_syn_0671","name":"Trung Mai","gender":"male","age":65,"city":"Đà Lạt","primary_interest":"audio","secondary_interest":"wearable_technology","created_at":"2026-09-19T09:13:55Z"}
+{"user_id":"u_syn_0672","name":"Bác Hưng Hoàng","gender":"male","age":74,"city":"Quy Nhơn","primary_interest":"video_games","secondary_interest":"wearable_technology","created_at":"2026-09-11T22:49:22Z"}
+{"user_id":"u_syn_0673","name":"Quý ông Nam Nguyễn","gender":"male","age":50,"city":"Hà Nội","primary_interest":"musical_instruments","secondary_interest":"cameras_camcorders","created_at":"2026-09-16T11:19:55Z"}
+{"user_id":"u_syn_0674","name":"Ông Nam Mai","gender":"male","age":56,"city":"Đà Nẵng","primary_interest":"computers_tablets","secondary_interest":"cameras_camcorders","created_at":"2026-09-19T05:26:24Z"}
+{"user_id":"u_syn_0675","name":"Tùng Vũ","gender":"other","age":24,"city":"Huế","primary_interest":"cameras_camcorders","secondary_interest":"computers_tablets","created_at":"2026-09-29T20:05:44Z"}
+{"user_id":"u_syn_0676","name":"Vân Bùi","gender":"female","age":16,"city":"Nha Trang","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-09T00:14:08Z"}
+{"user_id":"u_syn_0677","name":"Tú Đức Mai","gender":"male","age":19,"city":"TP.HCM","primary_interest":"tv_home_theater","secondary_interest":"car_electronics_gps","created_at":"2026-09-17T01:45:11Z"}
+{"user_id":"u_syn_0678","name":"Lâm Phạm","gender":"female","age":83,"city":"Buôn Ma Thuột","primary_interest":"connected_home","secondary_interest":"toys_games_drones","created_at":"2026-09-27T05:17:30Z"}
+{"user_id":"u_syn_0679","name":"Bà Hạnh Bùi","gender":"female","age":43,"city":"TP.HCM","primary_interest":"wearable_technology","secondary_interest":"tv_home_theater","created_at":"2026-09-03T09:49:46Z"}
+{"user_id":"u_syn_0680","name":"Linh Bùi","gender":"female","age":32,"city":"Hà Nội","primary_interest":"car_electronics_gps","secondary_interest":"appliances","created_at":"2026-09-18T12:23:46Z"}
+{"user_id":"u_syn_0681","name":"Chị Yến Phạm","gender":"female","age":97,"city":"Biên Hòa","primary_interest":"cell_phones","secondary_interest":"computers_tablets","created_at":"2026-09-30T03:18:06Z"}
+{"user_id":"u_syn_0682","name":"Hải Quang Nguyễn","gender":"male","age":39,"city":"Đà Nẵng","primary_interest":"appliances","secondary_interest":"computers_tablets","created_at":"2026-09-15T03:59:05Z"}
+{"user_id":"u_syn_0683","name":"Hồng Bùi","gender":"female","age":27,"city":"Hải Phòng","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-20T07:04:58Z"}
+{"user_id":"u_syn_0684","name":"Quý cô Ngọc Nguyễn","gender":"female","age":24,"city":"Biên Hòa","primary_interest":"video_games","secondary_interest":"audio","created_at":"2026-09-27T09:57:09Z"}
+{"user_id":"u_syn_0685","name":"Hà Dương","gender":"female","age":60,"city":"Đà Nẵng","primary_interest":"musical_instruments","secondary_interest":"wearable_technology","created_at":"2026-09-22T15:21:57Z"}
+{"user_id":"u_syn_0686","name":"Bà Duyên Trần","gender":"female","age":46,"city":"Cần Thơ","primary_interest":"computers_tablets","secondary_interest":"cell_phones","created_at":"2026-09-14T00:53:50Z"}
+{"user_id":"u_syn_0687","name":"Mai Phạm","gender":"other","age":98,"city":"TP.HCM","primary_interest":"cameras_camcorders","secondary_interest":"toys_games_drones","created_at":"2026-09-05T03:51:22Z"}
+{"user_id":"u_syn_0688","name":"Bà Ngọc Trần","gender":"female","age":88,"city":"Cần Thơ","primary_interest":"toys_games_drones","secondary_interest":"appliances","created_at":"2026-09-27T20:59:34Z"}
+{"user_id":"u_syn_0689","name":"Tùng Hoàng","gender":"other","age":66,"city":"Vũng Tàu","primary_interest":"tv_home_theater","secondary_interest":"car_electronics_gps","created_at":"2026-09-24T01:12:37Z"}
+{"user_id":"u_syn_0690","name":"Lan Đặng","gender":"female","age":51,"city":"TP.HCM","primary_interest":"connected_home","secondary_interest":"toys_games_drones","created_at":"2026-09-20T03:58:49Z"}
+{"user_id":"u_syn_0691","name":"Mai Hoàng","gender":"other","age":17,"city":"Vũng Tàu","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-28T17:31:10Z"}
+{"user_id":"u_syn_0692","name":"Quý cô Hà Vũ","gender":"other","age":99,"city":"Quy Nhơn","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-08T03:47:20Z"}
+{"user_id":"u_syn_0693","name":"Nhiên Hải Hoàng","gender":"male","age":34,"city":"Cần Thơ","primary_interest":"cell_phones","secondary_interest":"car_electronics_gps","created_at":"2026-09-10T08:32:31Z"}
+{"user_id":"u_syn_0694","name":"Bác Thành Lê","gender":"male","age":100,"city":"Nha Trang","primary_interest":"appliances","secondary_interest":"wearable_technology","created_at":"2026-09-10T19:15:10Z"}
+{"user_id":"u_syn_0695","name":"Phương Đặng","gender":"other","age":31,"city":"Quy Nhơn","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-13T12:27:33Z"}
+{"user_id":"u_syn_0696","name":"Tú Bùi","gender":"male","age":62,"city":"Vũng Tàu","primary_interest":"video_games","secondary_interest":"computers_tablets","created_at":"2026-09-20T06:57:07Z"}
+{"user_id":"u_syn_0697","name":"Cô Linh Hoàng","gender":"other","age":71,"city":"Hà Nội","primary_interest":"musical_instruments","secondary_interest":"connected_home","created_at":"2026-09-29T12:34:32Z"}
+{"user_id":"u_syn_0698","name":"Bác Nam Vũ","gender":"male","age":66,"city":"Đà Nẵng","primary_interest":"computers_tablets","secondary_interest":"car_electronics_gps","created_at":"2026-09-08T04:39:54Z"}
+{"user_id":"u_syn_0699","name":"Quý ông Quang Đặng","gender":"male","age":26,"city":"Quy Nhơn","primary_interest":"cameras_camcorders","secondary_interest":"audio","created_at":"2026-09-05T21:39:44Z"}
+{"user_id":"u_syn_0700","name":"Quý cô Lan Hoàng","gender":"female","age":65,"city":"Hải Phòng","primary_interest":"toys_games_drones","secondary_interest":"appliances","created_at":"2026-09-19T14:16:40Z"}
+{"user_id":"u_syn_0701","name":"Hà Thế Phạm","gender":"other","age":73,"city":"Hà Nội","primary_interest":"tv_home_theater","secondary_interest":"audio","created_at":"2026-09-09T08:37:38Z"}
+{"user_id":"u_syn_0702","name":"Hà Vũ","gender":"other","age":90,"city":"Biên Hòa","primary_interest":"connected_home","secondary_interest":"cameras_camcorders","created_at":"2026-09-20T12:02:15Z"}
+{"user_id":"u_syn_0703","name":"Quý cô Nhật Lê","gender":"other","age":43,"city":"Hà Nội","primary_interest":"wearable_technology","secondary_interest":"connected_home","created_at":"2026-09-24T01:40:09Z"}
+{"user_id":"u_syn_0704","name":"Bà Linh Trần","gender":"female","age":15,"city":"Huế","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-15T17:05:04Z"}
+{"user_id":"u_syn_0705","name":"An Vũ","gender":"other","age":100,"city":"TP.HCM","primary_interest":"cell_phones","secondary_interest":"car_electronics_gps","created_at":"2026-09-12T01:35:22Z"}
+{"user_id":"u_syn_0706","name":"Bà Vi Vũ","gender":"female","age":47,"city":"Buôn Ma Thuột","primary_interest":"appliances","secondary_interest":"car_electronics_gps","created_at":"2026-09-21T05:34:31Z"}
+{"user_id":"u_syn_0707","name":"Hoàng Trần","gender":"male","age":69,"city":"Cần Thơ","primary_interest":"audio","secondary_interest":"computers_tablets","created_at":"2026-09-20T18:23:16Z"}
+{"user_id":"u_syn_0708","name":"Kim Dương","gender":"female","age":20,"city":"Vũng Tàu","primary_interest":"video_games","secondary_interest":"cell_phones","created_at":"2026-09-08T17:12:58Z"}
+{"user_id":"u_syn_0709","name":"Cô Ngọc Trần","gender":"female","age":30,"city":"Vũng Tàu","primary_interest":"musical_instruments","secondary_interest":"appliances","created_at":"2026-09-28T14:33:04Z"}
+{"user_id":"u_syn_0710","name":"Phương Quang Hoàng","gender":"male","age":20,"city":"Cần Thơ","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-02T14:31:50Z"}
+{"user_id":"u_syn_0711","name":"Thành Văn Vũ","gender":"other","age":38,"city":"Hải Phòng","primary_interest":"cameras_camcorders","secondary_interest":"wearable_technology","created_at":"2026-09-18T21:09:39Z"}
+{"user_id":"u_syn_0712","name":"Kim Quang Mai","gender":"other","age":63,"city":"Biên Hòa","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-07T00:19:20Z"}
+{"user_id":"u_syn_0713","name":"Khoa Mai","gender":"female","age":75,"city":"Quy Nhơn","primary_interest":"tv_home_theater","secondary_interest":"toys_games_drones","created_at":"2026-09-22T15:44:53Z"}
+{"user_id":"u_syn_0714","name":"Quý cô Bảo Lê","gender":"other","age":83,"city":"Huế","primary_interest":"connected_home","secondary_interest":"cell_phones","created_at":"2026-09-17T17:04:44Z"}
+{"user_id":"u_syn_0715","name":"Khoa Vũ","gender":"other","age":24,"city":"Hải Phòng","primary_interest":"wearable_technology","secondary_interest":"tv_home_theater","created_at":"2026-09-02T07:58:55Z"}
+{"user_id":"u_syn_0716","name":"Anh Vũ Lê","gender":"other","age":40,"city":"Cần Thơ","primary_interest":"car_electronics_gps","secondary_interest":"cameras_camcorders","created_at":"2026-09-11T22:16:28Z"}
+{"user_id":"u_syn_0717","name":"Hạnh Bảo Vũ","gender":"other","age":65,"city":"Vũng Tàu","primary_interest":"cell_phones","secondary_interest":"tv_home_theater","created_at":"2026-09-01T23:21:45Z"}
+{"user_id":"u_syn_0718","name":"Ông Quang Vũ","gender":"other","age":14,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-07T10:09:25Z"}
+{"user_id":"u_syn_0719","name":"Châu Hoàng Dương","gender":"male","age":41,"city":"Hải Phòng","primary_interest":"audio","secondary_interest":"appliances","created_at":"2026-09-30T12:46:19Z"}
+{"user_id":"u_syn_0720","name":"Lan Vũ","gender":"female","age":95,"city":"Hải Phòng","primary_interest":"video_games","secondary_interest":null,"created_at":"2026-09-21T13:46:14Z"}
+{"user_id":"u_syn_0721","name":"Hồng Đặng","gender":"female","age":71,"city":"Hải Phòng","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-11T14:13:55Z"}
+{"user_id":"u_syn_0722","name":"Thành Mai Đặng","gender":"other","age":92,"city":"Nha Trang","primary_interest":"computers_tablets","secondary_interest":"video_games","created_at":"2026-09-29T08:58:36Z"}
+{"user_id":"u_syn_0723","name":"Hải Trí Vũ","gender":"other","age":60,"city":"Vũng Tàu","primary_interest":"cameras_camcorders","secondary_interest":"appliances","created_at":"2026-09-29T19:47:42Z"}
+{"user_id":"u_syn_0724","name":"Trọng Hoàng Dương","gender":"other","age":26,"city":"Đà Lạt","primary_interest":"toys_games_drones","secondary_interest":"connected_home","created_at":"2026-09-04T02:22:32Z"}
+{"user_id":"u_syn_0725","name":"Phúc Hữu Đặng","gender":"other","age":54,"city":"Hải Phòng","primary_interest":"tv_home_theater","secondary_interest":"connected_home","created_at":"2026-09-13T16:15:29Z"}
+{"user_id":"u_syn_0726","name":"Quý cô Khoa Phạm","gender":"female","age":37,"city":"Đà Nẵng","primary_interest":"connected_home","secondary_interest":"video_games","created_at":"2026-09-26T02:41:26Z"}
+{"user_id":"u_syn_0727","name":"Thành Đức Bùi","gender":"other","age":64,"city":"Biên Hòa","primary_interest":"wearable_technology","secondary_interest":"musical_instruments","created_at":"2026-09-16T12:20:39Z"}
+{"user_id":"u_syn_0728","name":"Tú Hoàng Hoàng","gender":"other","age":76,"city":"Hải Phòng","primary_interest":"car_electronics_gps","secondary_interest":"musical_instruments","created_at":"2026-09-13T14:15:12Z"}
+{"user_id":"u_syn_0729","name":"Hải Mai","gender":"female","age":62,"city":"Buôn Ma Thuột","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-02T17:08:58Z"}
+{"user_id":"u_syn_0730","name":"Bảo Phạm","gender":"male","age":56,"city":"Buôn Ma Thuột","primary_interest":"appliances","secondary_interest":"audio","created_at":"2026-09-11T19:04:18Z"}
+{"user_id":"u_syn_0731","name":"Bà Ánh Trần","gender":"female","age":98,"city":"Huế","primary_interest":"audio","secondary_interest":"video_games","created_at":"2026-09-25T15:03:52Z"}
+{"user_id":"u_syn_0732","name":"Hải Mai Bảo Lê","gender":"other","age":84,"city":"Đà Nẵng","primary_interest":"video_games","secondary_interest":"cameras_camcorders","created_at":"2026-09-15T06:16:59Z"}
+{"user_id":"u_syn_0733","name":"Quang Vũ","gender":"other","age":46,"city":"Buôn Ma Thuột","primary_interest":"musical_instruments","secondary_interest":"toys_games_drones","created_at":"2026-09-28T03:19:08Z"}
+{"user_id":"u_syn_0734","name":"Quý cô Kim Trần","gender":"other","age":55,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"toys_games_drones","created_at":"2026-09-05T08:02:30Z"}
+{"user_id":"u_syn_0735","name":"Quý ông Nhiên Bùi","gender":"other","age":52,"city":"Nha Trang","primary_interest":"cameras_camcorders","secondary_interest":"tv_home_theater","created_at":"2026-09-17T02:00:44Z"}
+{"user_id":"u_syn_0736","name":"Cô Vi Đặng","gender":"female","age":72,"city":"TP.HCM","primary_interest":"toys_games_drones","secondary_interest":"audio","created_at":"2026-09-23T20:12:53Z"}
+{"user_id":"u_syn_0737","name":"Hà Phạm","gender":"other","age":87,"city":"Quy Nhơn","primary_interest":"tv_home_theater","secondary_interest":"video_games","created_at":"2026-09-04T10:58:20Z"}
+{"user_id":"u_syn_0738","name":"Phúc Thị Hoàng","gender":"other","age":28,"city":"Biên Hòa","primary_interest":"connected_home","secondary_interest":"toys_games_drones","created_at":"2026-09-19T12:40:36Z"}
+{"user_id":"u_syn_0739","name":"Bác Huy Trần","gender":"male","age":32,"city":"Đà Nẵng","primary_interest":"wearable_technology","secondary_interest":"car_electronics_gps","created_at":"2026-09-10T17:21:44Z"}
+{"user_id":"u_syn_0740","name":"Hương Vũ","gender":"female","age":31,"city":"Huế","primary_interest":"car_electronics_gps","secondary_interest":"audio","created_at":"2026-09-09T18:07:51Z"}
+{"user_id":"u_syn_0741","name":"Phương Mai","gender":"female","age":93,"city":"Đà Nẵng","primary_interest":"cell_phones","secondary_interest":"car_electronics_gps","created_at":"2026-09-16T05:09:13Z"}
+{"user_id":"u_syn_0742","name":"Nhật Đặng","gender":"female","age":48,"city":"Cần Thơ","primary_interest":"appliances","secondary_interest":"musical_instruments","created_at":"2026-09-09T04:26:23Z"}
+{"user_id":"u_syn_0743","name":"Quý cô Vi Hoàng","gender":"female","age":24,"city":"Đà Nẵng","primary_interest":"audio","secondary_interest":"cameras_camcorders","created_at":"2026-09-30T19:55:14Z"}
+{"user_id":"u_syn_0744","name":"Thành Nguyễn","gender":"female","age":67,"city":"Đà Lạt","primary_interest":"video_games","secondary_interest":"wearable_technology","created_at":"2026-09-19T14:35:45Z"}
+{"user_id":"u_syn_0745","name":"Ông Khoa Bùi","gender":"male","age":60,"city":"Hà Nội","primary_interest":"musical_instruments","secondary_interest":"appliances","created_at":"2026-09-16T15:24:19Z"}
+{"user_id":"u_syn_0746","name":"Tú Lê","gender":"male","age":15,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"appliances","created_at":"2026-09-01T04:48:16Z"}
+{"user_id":"u_syn_0747","name":"Hạnh Tấn Dương","gender":"male","age":57,"city":"Hải Phòng","primary_interest":"cameras_camcorders","secondary_interest":"tv_home_theater","created_at":"2026-09-07T06:12:54Z"}
+{"user_id":"u_syn_0748","name":"Quý cô Linh Dương","gender":"other","age":52,"city":"Đà Nẵng","primary_interest":"toys_games_drones","secondary_interest":"appliances","created_at":"2026-09-04T04:03:53Z"}
+{"user_id":"u_syn_0749","name":"Chi Dương","gender":"female","age":50,"city":"Đà Lạt","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-26T06:10:47Z"}
+{"user_id":"u_syn_0750","name":"Cô Hạnh Nguyễn","gender":"female","age":100,"city":"Đà Nẵng","primary_interest":"connected_home","secondary_interest":"wearable_technology","created_at":"2026-09-17T15:18:45Z"}
+{"user_id":"u_syn_0751","name":"Ngọc Đặng","gender":"female","age":58,"city":"Cần Thơ","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-09T00:06:11Z"}
+{"user_id":"u_syn_0752","name":"Dương Lê","gender":"female","age":15,"city":"Cần Thơ","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-11T21:21:11Z"}
+{"user_id":"u_syn_0753","name":"Minh Xuân Mai","gender":"male","age":15,"city":"Quy Nhơn","primary_interest":"cell_phones","secondary_interest":"cameras_camcorders","created_at":"2026-09-25T11:56:26Z"}
+{"user_id":"u_syn_0754","name":"Bà Phương Bùi","gender":"other","age":96,"city":"Hà Nội","primary_interest":"appliances","secondary_interest":"connected_home","created_at":"2026-09-19T05:07:51Z"}
+{"user_id":"u_syn_0755","name":"Chị Vi Bùi","gender":"female","age":81,"city":"Quy Nhơn","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-03T08:36:28Z"}
+{"user_id":"u_syn_0756","name":"Chị Hải Bùi","gender":"other","age":26,"city":"Biên Hòa","primary_interest":"video_games","secondary_interest":"musical_instruments","created_at":"2026-09-01T23:00:02Z"}
+{"user_id":"u_syn_0757","name":"Cô Yến Hoàng","gender":"female","age":69,"city":"Nha Trang","primary_interest":"musical_instruments","secondary_interest":"cameras_camcorders","created_at":"2026-09-06T23:59:55Z"}
+{"user_id":"u_syn_0758","name":"Quý cô Duyên Bùi","gender":"other","age":32,"city":"Cần Thơ","primary_interest":"computers_tablets","secondary_interest":"cell_phones","created_at":"2026-09-01T10:50:26Z"}
+{"user_id":"u_syn_0759","name":"Ông Trung Phạm","gender":"male","age":97,"city":"Vũng Tàu","primary_interest":"cameras_camcorders","secondary_interest":"video_games","created_at":"2026-09-14T02:32:46Z"}
+{"user_id":"u_syn_0760","name":"Cô Khoa Trần","gender":"female","age":26,"city":"Vũng Tàu","primary_interest":"toys_games_drones","secondary_interest":"cameras_camcorders","created_at":"2026-09-30T23:40:13Z"}
+{"user_id":"u_syn_0761","name":"Quang Tấn Phạm","gender":"male","age":76,"city":"Cần Thơ","primary_interest":"tv_home_theater","secondary_interest":"computers_tablets","created_at":"2026-09-30T13:32:18Z"}
+{"user_id":"u_syn_0762","name":"Ông Anh Dương","gender":"other","age":38,"city":"Huế","primary_interest":"connected_home","secondary_interest":"tv_home_theater","created_at":"2026-09-20T21:24:02Z"}
+{"user_id":"u_syn_0763","name":"Trọng Hữu Hoàng","gender":"other","age":76,"city":"Cần Thơ","primary_interest":"wearable_technology","secondary_interest":"musical_instruments","created_at":"2026-09-24T08:00:50Z"}
+{"user_id":"u_syn_0764","name":"Ông Quang Đặng","gender":"male","age":98,"city":"TP.HCM","primary_interest":"car_electronics_gps","secondary_interest":"musical_instruments","created_at":"2026-09-06T08:39:40Z"}
+{"user_id":"u_syn_0765","name":"Anh Khoa Hoàng","gender":"other","age":76,"city":"Đà Nẵng","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-05T08:57:14Z"}
+{"user_id":"u_syn_0766","name":"Hải Lê","gender":"other","age":25,"city":"Hải Phòng","primary_interest":"appliances","secondary_interest":"computers_tablets","created_at":"2026-09-12T05:19:16Z"}
+{"user_id":"u_syn_0767","name":"Cô Lâm Vũ","gender":"female","age":72,"city":"Hà Nội","primary_interest":"audio","secondary_interest":"tv_home_theater","created_at":"2026-09-05T20:17:08Z"}
+{"user_id":"u_syn_0768","name":"Phúc Đặng","gender":"male","age":50,"city":"Huế","primary_interest":"video_games","secondary_interest":null,"created_at":"2026-09-16T04:19:48Z"}
+{"user_id":"u_syn_0769","name":"Minh Hữu Bùi","gender":"male","age":18,"city":"Hà Nội","primary_interest":"musical_instruments","secondary_interest":"cameras_camcorders","created_at":"2026-09-07T17:14:28Z"}
+{"user_id":"u_syn_0770","name":"Khoa Bùi","gender":"female","age":58,"city":"Đà Lạt","primary_interest":"computers_tablets","secondary_interest":"toys_games_drones","created_at":"2026-09-14T00:36:11Z"}
+{"user_id":"u_syn_0771","name":"Anh Châu Mai","gender":"male","age":60,"city":"Huế","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-09T21:03:29Z"}
+{"user_id":"u_syn_0772","name":"Phương Lê","gender":"female","age":47,"city":"Nha Trang","primary_interest":"toys_games_drones","secondary_interest":"car_electronics_gps","created_at":"2026-09-24T05:11:44Z"}
+{"user_id":"u_syn_0773","name":"Bác Hoàng Lê","gender":"male","age":27,"city":"Đà Nẵng","primary_interest":"tv_home_theater","secondary_interest":"video_games","created_at":"2026-09-03T20:19:40Z"}
+{"user_id":"u_syn_0774","name":"Nhật Thị Đặng","gender":"male","age":26,"city":"Nha Trang","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-29T16:16:26Z"}
+{"user_id":"u_syn_0775","name":"Chi Lê","gender":"other","age":69,"city":"Đà Nẵng","primary_interest":"wearable_technology","secondary_interest":"audio","created_at":"2026-09-30T16:14:35Z"}
+{"user_id":"u_syn_0776","name":"Quý cô Vân Mai","gender":"other","age":16,"city":"Biên Hòa","primary_interest":"car_electronics_gps","secondary_interest":"connected_home","created_at":"2026-09-07T08:13:28Z"}
+{"user_id":"u_syn_0777","name":"Quý ông Châu Bùi","gender":"male","age":65,"city":"Đà Lạt","primary_interest":"cell_phones","secondary_interest":"car_electronics_gps","created_at":"2026-09-03T05:33:41Z"}
+{"user_id":"u_syn_0778","name":"Quý cô Lan Trần","gender":"female","age":14,"city":"Buôn Ma Thuột","primary_interest":"appliances","secondary_interest":"video_games","created_at":"2026-09-26T11:27:25Z"}
+{"user_id":"u_syn_0779","name":"Vi Phạm","gender":"other","age":85,"city":"Cần Thơ","primary_interest":"audio","secondary_interest":"appliances","created_at":"2026-09-17T10:08:55Z"}
+{"user_id":"u_syn_0780","name":"An Đức Phạm","gender":"male","age":68,"city":"Biên Hòa","primary_interest":"video_games","secondary_interest":"appliances","created_at":"2026-09-13T01:36:47Z"}
+{"user_id":"u_syn_0781","name":"Phúc Dương","gender":"other","age":95,"city":"Nha Trang","primary_interest":"musical_instruments","secondary_interest":"video_games","created_at":"2026-09-08T05:11:41Z"}
+{"user_id":"u_syn_0782","name":"Ông Nhiên Trần","gender":"other","age":91,"city":"Hà Nội","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-01T13:34:02Z"}
+{"user_id":"u_syn_0783","name":"Tùng Đặng","gender":"other","age":73,"city":"Đà Lạt","primary_interest":"cameras_camcorders","secondary_interest":"toys_games_drones","created_at":"2026-09-09T00:42:34Z"}
+{"user_id":"u_syn_0784","name":"Vi Dương","gender":"female","age":43,"city":"Huế","primary_interest":"toys_games_drones","secondary_interest":"cell_phones","created_at":"2026-09-14T12:04:35Z"}
+{"user_id":"u_syn_0785","name":"Quý cô Hương Phạm","gender":"other","age":95,"city":"Nha Trang","primary_interest":"tv_home_theater","secondary_interest":"toys_games_drones","created_at":"2026-09-20T13:51:06Z"}
+{"user_id":"u_syn_0786","name":"An Mai Vũ","gender":"male","age":71,"city":"Đà Lạt","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-28T19:38:02Z"}
+{"user_id":"u_syn_0787","name":"Cô Nhật Trần","gender":"female","age":53,"city":"TP.HCM","primary_interest":"wearable_technology","secondary_interest":"cell_phones","created_at":"2026-09-25T03:28:55Z"}
+{"user_id":"u_syn_0788","name":"Trung Phú Hoàng","gender":"male","age":64,"city":"Nha Trang","primary_interest":"car_electronics_gps","secondary_interest":"musical_instruments","created_at":"2026-09-02T17:44:50Z"}
+{"user_id":"u_syn_0789","name":"Anh Trọng Lê","gender":"male","age":90,"city":"Quy Nhơn","primary_interest":"cell_phones","secondary_interest":"musical_instruments","created_at":"2026-09-15T18:52:56Z"}
+{"user_id":"u_syn_0790","name":"Chị Vi Nguyễn","gender":"other","age":39,"city":"Biên Hòa","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-23T03:31:14Z"}
+{"user_id":"u_syn_0791","name":"Bà Khoa Mai","gender":"female","age":19,"city":"Cần Thơ","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-23T01:29:03Z"}
+{"user_id":"u_syn_0792","name":"Bà Nhật Vũ","gender":"other","age":73,"city":"Buôn Ma Thuột","primary_interest":"video_games","secondary_interest":"appliances","created_at":"2026-09-18T15:16:07Z"}
+{"user_id":"u_syn_0793","name":"Khoa Đức Mai","gender":"male","age":97,"city":"Cần Thơ","primary_interest":"musical_instruments","secondary_interest":"cameras_camcorders","created_at":"2026-09-01T02:33:34Z"}
+{"user_id":"u_syn_0794","name":"Lan Bùi","gender":"female","age":83,"city":"Vũng Tàu","primary_interest":"computers_tablets","secondary_interest":"video_games","created_at":"2026-09-19T03:36:49Z"}
+{"user_id":"u_syn_0795","name":"Anh Lê","gender":"male","age":76,"city":"Đà Nẵng","primary_interest":"cameras_camcorders","secondary_interest":"musical_instruments","created_at":"2026-09-20T20:45:54Z"}
+{"user_id":"u_syn_0796","name":"Quang Trí Đặng","gender":"male","age":37,"city":"TP.HCM","primary_interest":"toys_games_drones","secondary_interest":"audio","created_at":"2026-09-20T01:45:27Z"}
+{"user_id":"u_syn_0797","name":"Quý cô Chi Lê","gender":"other","age":56,"city":"TP.HCM","primary_interest":"tv_home_theater","secondary_interest":"toys_games_drones","created_at":"2026-09-21T02:53:34Z"}
+{"user_id":"u_syn_0798","name":"Huy Bùi","gender":"other","age":88,"city":"TP.HCM","primary_interest":"connected_home","secondary_interest":"video_games","created_at":"2026-09-22T20:52:33Z"}
+{"user_id":"u_syn_0799","name":"Ông Vũ Bùi","gender":"other","age":30,"city":"Đà Lạt","primary_interest":"wearable_technology","secondary_interest":"audio","created_at":"2026-09-01T05:03:13Z"}
+{"user_id":"u_syn_0800","name":"Quang Dương","gender":"other","age":68,"city":"Quy Nhơn","primary_interest":"car_electronics_gps","secondary_interest":"musical_instruments","created_at":"2026-09-24T10:39:23Z"}
+{"user_id":"u_syn_0801","name":"Bác Nhiên Nguyễn","gender":"male","age":87,"city":"Đà Nẵng","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-07T05:34:32Z"}
+{"user_id":"u_syn_0802","name":"Nhật Dương","gender":"other","age":90,"city":"Huế","primary_interest":"appliances","secondary_interest":"video_games","created_at":"2026-09-25T11:19:51Z"}
+{"user_id":"u_syn_0803","name":"Cô Phương Bùi","gender":"female","age":90,"city":"Buôn Ma Thuột","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-13T01:13:08Z"}
+{"user_id":"u_syn_0804","name":"Kim Phạm","gender":"female","age":70,"city":"Đà Nẵng","primary_interest":"video_games","secondary_interest":"connected_home","created_at":"2026-09-07T16:59:28Z"}
+{"user_id":"u_syn_0805","name":"Bà Linh Vũ","gender":"female","age":83,"city":"Huế","primary_interest":"musical_instruments","secondary_interest":"appliances","created_at":"2026-09-27T20:58:09Z"}
+{"user_id":"u_syn_0806","name":"Phương Trí Hoàng","gender":"male","age":92,"city":"Buôn Ma Thuột","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-15T02:32:58Z"}
+{"user_id":"u_syn_0807","name":"Bác Hưng Nguyễn","gender":"male","age":96,"city":"Đà Nẵng","primary_interest":"cameras_camcorders","secondary_interest":"video_games","created_at":"2026-09-25T11:04:42Z"}
+{"user_id":"u_syn_0808","name":"Dương Dương","gender":"female","age":27,"city":"Huế","primary_interest":"toys_games_drones","secondary_interest":"video_games","created_at":"2026-09-28T07:06:14Z"}
+{"user_id":"u_syn_0809","name":"Hương Lê","gender":"other","age":66,"city":"Biên Hòa","primary_interest":"tv_home_theater","secondary_interest":"audio","created_at":"2026-09-26T22:02:30Z"}
+{"user_id":"u_syn_0810","name":"Quý ông Nam Bùi","gender":"male","age":79,"city":"TP.HCM","primary_interest":"connected_home","secondary_interest":"car_electronics_gps","created_at":"2026-09-02T05:26:39Z"}
+{"user_id":"u_syn_0811","name":"Chị Xuân Vũ","gender":"other","age":20,"city":"Cần Thơ","primary_interest":"wearable_technology","secondary_interest":"musical_instruments","created_at":"2026-09-13T23:03:08Z"}
+{"user_id":"u_syn_0812","name":"Hạnh Trần","gender":"female","age":100,"city":"Hải Phòng","primary_interest":"car_electronics_gps","secondary_interest":"cameras_camcorders","created_at":"2026-09-08T02:36:05Z"}
+{"user_id":"u_syn_0813","name":"Anh Quang Đặng","gender":"other","age":50,"city":"Cần Thơ","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-27T06:30:40Z"}
+{"user_id":"u_syn_0814","name":"Hưng Hữu Vũ","gender":"male","age":91,"city":"Biên Hòa","primary_interest":"appliances","secondary_interest":"car_electronics_gps","created_at":"2026-09-28T06:38:36Z"}
+{"user_id":"u_syn_0815","name":"Quý cô Dương Trần","gender":"other","age":95,"city":"Vũng Tàu","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-19T21:05:08Z"}
+{"user_id":"u_syn_0816","name":"An Phạm","gender":"other","age":98,"city":"Hà Nội","primary_interest":"video_games","secondary_interest":"tv_home_theater","created_at":"2026-09-19T12:34:33Z"}
+{"user_id":"u_syn_0817","name":"Cô Lan Hoàng","gender":"female","age":83,"city":"Hà Nội","primary_interest":"musical_instruments","secondary_interest":"video_games","created_at":"2026-09-01T15:06:20Z"}
+{"user_id":"u_syn_0818","name":"Quý cô Ngọc Nguyễn","gender":"other","age":69,"city":"Cần Thơ","primary_interest":"computers_tablets","secondary_interest":"tv_home_theater","created_at":"2026-09-18T20:26:58Z"}
+{"user_id":"u_syn_0819","name":"Tú Bảo Lê","gender":"other","age":90,"city":"Cần Thơ","primary_interest":"cameras_camcorders","secondary_interest":"appliances","created_at":"2026-09-10T09:26:28Z"}
+{"user_id":"u_syn_0820","name":"Ông Quang Bùi","gender":"other","age":22,"city":"Đà Nẵng","primary_interest":"toys_games_drones","secondary_interest":"cameras_camcorders","created_at":"2026-09-09T10:29:09Z"}
+{"user_id":"u_syn_0821","name":"Yến Trần","gender":"female","age":18,"city":"Nha Trang","primary_interest":"tv_home_theater","secondary_interest":"computers_tablets","created_at":"2026-09-14T13:11:21Z"}
+{"user_id":"u_syn_0822","name":"Dũng Đặng","gender":"male","age":87,"city":"Hải Phòng","primary_interest":"connected_home","secondary_interest":"cameras_camcorders","created_at":"2026-09-01T06:34:37Z"}
+{"user_id":"u_syn_0823","name":"Bảo Hữu Lê","gender":"male","age":32,"city":"Huế","primary_interest":"wearable_technology","secondary_interest":"cameras_camcorders","created_at":"2026-09-29T23:24:57Z"}
+{"user_id":"u_syn_0824","name":"Cô Phương Hoàng","gender":"other","age":97,"city":"Hải Phòng","primary_interest":"car_electronics_gps","secondary_interest":"video_games","created_at":"2026-09-24T19:31:59Z"}
+{"user_id":"u_syn_0825","name":"Duyên Lê","gender":"female","age":22,"city":"Buôn Ma Thuột","primary_interest":"cell_phones","secondary_interest":"appliances","created_at":"2026-09-16T10:19:57Z"}
+{"user_id":"u_syn_0826","name":"Bác Trung Lê","gender":"other","age":21,"city":"Vũng Tàu","primary_interest":"appliances","secondary_interest":"cameras_camcorders","created_at":"2026-09-08T17:40:48Z"}
+{"user_id":"u_syn_0827","name":"Quý cô Ánh Phạm","gender":"female","age":24,"city":"Huế","primary_interest":"audio","secondary_interest":"cell_phones","created_at":"2026-09-11T17:42:51Z"}
+{"user_id":"u_syn_0828","name":"Hà Lê","gender":"other","age":55,"city":"Huế","primary_interest":"video_games","secondary_interest":null,"created_at":"2026-09-18T12:21:35Z"}
+{"user_id":"u_syn_0829","name":"Khoa Bùi","gender":"other","age":73,"city":"Vũng Tàu","primary_interest":"musical_instruments","secondary_interest":"audio","created_at":"2026-09-01T10:15:25Z"}
+{"user_id":"u_syn_0830","name":"Quý cô Thành Lê","gender":"female","age":43,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"wearable_technology","created_at":"2026-09-30T19:00:48Z"}
+{"user_id":"u_syn_0831","name":"Anh Quang Phạm","gender":"male","age":18,"city":"Biên Hòa","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-16T13:55:07Z"}
+{"user_id":"u_syn_0832","name":"Cô Hải Vũ","gender":"female","age":45,"city":"Vũng Tàu","primary_interest":"toys_games_drones","secondary_interest":"computers_tablets","created_at":"2026-09-14T17:31:10Z"}
+{"user_id":"u_syn_0833","name":"Phương Hoàng","gender":"female","age":78,"city":"Vũng Tàu","primary_interest":"tv_home_theater","secondary_interest":"appliances","created_at":"2026-09-22T15:06:41Z"}
+{"user_id":"u_syn_0834","name":"Quý cô Thảo Nguyễn","gender":"other","age":37,"city":"Huế","primary_interest":"connected_home","secondary_interest":"tv_home_theater","created_at":"2026-09-25T22:43:50Z"}
+{"user_id":"u_syn_0835","name":"Châu Hữu Trần","gender":"male","age":81,"city":"Vũng Tàu","primary_interest":"wearable_technology","secondary_interest":"computers_tablets","created_at":"2026-09-01T08:32:26Z"}
+{"user_id":"u_syn_0836","name":"Quý cô Dương Hoàng","gender":"other","age":93,"city":"Cần Thơ","primary_interest":"car_electronics_gps","secondary_interest":"toys_games_drones","created_at":"2026-09-21T14:14:23Z"}
+{"user_id":"u_syn_0837","name":"Minh Nguyễn","gender":"male","age":81,"city":"Buôn Ma Thuột","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-22T03:05:19Z"}
+{"user_id":"u_syn_0838","name":"Dũng Trí Bùi","gender":"other","age":100,"city":"Đà Nẵng","primary_interest":"appliances","secondary_interest":"computers_tablets","created_at":"2026-09-02T03:40:27Z"}
+{"user_id":"u_syn_0839","name":"Bác Tùng Lê","gender":"male","age":24,"city":"TP.HCM","primary_interest":"audio","secondary_interest":"connected_home","created_at":"2026-09-03T15:13:36Z"}
+{"user_id":"u_syn_0840","name":"Ông Nam Hoàng","gender":"other","age":22,"city":"Quy Nhơn","primary_interest":"video_games","secondary_interest":"tv_home_theater","created_at":"2026-09-12T01:13:34Z"}
+{"user_id":"u_syn_0841","name":"Ngọc Vũ","gender":"female","age":62,"city":"Đà Lạt","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-20T15:12:57Z"}
+{"user_id":"u_syn_0842","name":"An Nguyễn","gender":"female","age":99,"city":"TP.HCM","primary_interest":"computers_tablets","secondary_interest":"musical_instruments","created_at":"2026-09-26T23:07:37Z"}
+{"user_id":"u_syn_0843","name":"Bác Minh Bùi","gender":"male","age":87,"city":"Hà Nội","primary_interest":"cameras_camcorders","secondary_interest":"audio","created_at":"2026-09-04T12:34:22Z"}
+{"user_id":"u_syn_0844","name":"Quý ông Vũ Mai","gender":"male","age":50,"city":"Biên Hòa","primary_interest":"toys_games_drones","secondary_interest":"appliances","created_at":"2026-09-15T15:05:56Z"}
+{"user_id":"u_syn_0845","name":"Hạnh Trần","gender":"female","age":61,"city":"Nha Trang","primary_interest":"tv_home_theater","secondary_interest":"connected_home","created_at":"2026-09-02T11:54:24Z"}
+{"user_id":"u_syn_0846","name":"Hà Hoàng Lê","gender":"male","age":30,"city":"Buôn Ma Thuột","primary_interest":"connected_home","secondary_interest":"appliances","created_at":"2026-09-19T23:32:21Z"}
+{"user_id":"u_syn_0847","name":"Quý cô Khoa Trần","gender":"female","age":94,"city":"Đà Nẵng","primary_interest":"wearable_technology","secondary_interest":"appliances","created_at":"2026-09-15T11:15:39Z"}
+{"user_id":"u_syn_0848","name":"Quý cô Nhật Phạm","gender":"female","age":14,"city":"Vũng Tàu","primary_interest":"car_electronics_gps","secondary_interest":"video_games","created_at":"2026-09-27T22:42:11Z"}
+{"user_id":"u_syn_0849","name":"Quang Trần","gender":"male","age":86,"city":"Quy Nhơn","primary_interest":"cell_phones","secondary_interest":"musical_instruments","created_at":"2026-09-20T03:08:18Z"}
+{"user_id":"u_syn_0850","name":"Cô Chi Hoàng","gender":"female","age":39,"city":"Buôn Ma Thuột","primary_interest":"appliances","secondary_interest":"computers_tablets","created_at":"2026-09-17T16:36:58Z"}
+{"user_id":"u_syn_0851","name":"Thảo Lê","gender":"other","age":31,"city":"Đà Nẵng","primary_interest":"audio","secondary_interest":"video_games","created_at":"2026-09-09T22:22:01Z"}
+{"user_id":"u_syn_0852","name":"Nam Lê","gender":"male","age":27,"city":"Đà Nẵng","primary_interest":"video_games","secondary_interest":"tv_home_theater","created_at":"2026-09-28T12:56:37Z"}
+{"user_id":"u_syn_0853","name":"Lan Dương","gender":"other","age":72,"city":"Biên Hòa","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-27T16:24:20Z"}
+{"user_id":"u_syn_0854","name":"Phương Đức Lê","gender":"male","age":45,"city":"TP.HCM","primary_interest":"computers_tablets","secondary_interest":"video_games","created_at":"2026-09-10T14:00:29Z"}
+{"user_id":"u_syn_0855","name":"Chị Nhật Vũ","gender":"female","age":58,"city":"Đà Nẵng","primary_interest":"cameras_camcorders","secondary_interest":"cell_phones","created_at":"2026-09-12T09:15:02Z"}
+{"user_id":"u_syn_0856","name":"Nam Đặng","gender":"male","age":37,"city":"Huế","primary_interest":"toys_games_drones","secondary_interest":"audio","created_at":"2026-09-24T14:04:09Z"}
+{"user_id":"u_syn_0857","name":"Hạnh Quang Vũ","gender":"other","age":52,"city":"Buôn Ma Thuột","primary_interest":"tv_home_theater","secondary_interest":"audio","created_at":"2026-09-29T08:36:26Z"}
+{"user_id":"u_syn_0858","name":"Chi Dương","gender":"female","age":53,"city":"Nha Trang","primary_interest":"connected_home","secondary_interest":"audio","created_at":"2026-09-09T04:28:45Z"}
+{"user_id":"u_syn_0859","name":"An Mai Bảo Hoàng","gender":"male","age":95,"city":"Nha Trang","primary_interest":"wearable_technology","secondary_interest":"toys_games_drones","created_at":"2026-09-14T10:21:19Z"}
+{"user_id":"u_syn_0860","name":"Quang Xuân Vũ","gender":"male","age":99,"city":"Buôn Ma Thuột","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-17T02:17:55Z"}
+{"user_id":"u_syn_0861","name":"Xuân Hoàng","gender":"female","age":70,"city":"Huế","primary_interest":"cell_phones","secondary_interest":null,"created_at":"2026-09-15T19:54:01Z"}
+{"user_id":"u_syn_0862","name":"Quang Mai","gender":"male","age":95,"city":"Quy Nhơn","primary_interest":"appliances","secondary_interest":"computers_tablets","created_at":"2026-09-04T23:30:22Z"}
+{"user_id":"u_syn_0863","name":"Hưng Nguyễn","gender":"male","age":81,"city":"Cần Thơ","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-13T18:41:26Z"}
+{"user_id":"u_syn_0864","name":"Hưng Mai Bảo Đặng","gender":"male","age":22,"city":"Hà Nội","primary_interest":"video_games","secondary_interest":"audio","created_at":"2026-09-25T14:54:20Z"}
+{"user_id":"u_syn_0865","name":"Bảo Xuân Nguyễn","gender":"other","age":64,"city":"Quy Nhơn","primary_interest":"musical_instruments","secondary_interest":"audio","created_at":"2026-09-11T07:53:02Z"}
+{"user_id":"u_syn_0866","name":"Lâm Tấn Phạm","gender":"other","age":46,"city":"Vũng Tàu","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-27T04:46:09Z"}
+{"user_id":"u_syn_0867","name":"Bà Thảo Trần","gender":"female","age":63,"city":"Cần Thơ","primary_interest":"cameras_camcorders","secondary_interest":"toys_games_drones","created_at":"2026-09-29T14:56:04Z"}
+{"user_id":"u_syn_0868","name":"Hà Thị Lê","gender":"male","age":72,"city":"Vũng Tàu","primary_interest":"toys_games_drones","secondary_interest":"connected_home","created_at":"2026-09-25T18:40:23Z"}
+{"user_id":"u_syn_0869","name":"Cô Hồng Trần","gender":"other","age":14,"city":"Biên Hòa","primary_interest":"tv_home_theater","secondary_interest":"wearable_technology","created_at":"2026-09-12T14:18:58Z"}
+{"user_id":"u_syn_0870","name":"Bác Khoa Đặng","gender":"other","age":100,"city":"Đà Nẵng","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-25T23:00:45Z"}
+{"user_id":"u_syn_0871","name":"Tùng Dương","gender":"male","age":85,"city":"Quy Nhơn","primary_interest":"wearable_technology","secondary_interest":"cameras_camcorders","created_at":"2026-09-08T02:20:03Z"}
+{"user_id":"u_syn_0872","name":"Linh Phạm","gender":"female","age":18,"city":"Cần Thơ","primary_interest":"car_electronics_gps","secondary_interest":"cell_phones","created_at":"2026-09-24T16:08:39Z"}
+{"user_id":"u_syn_0873","name":"Bà Nhật Hoàng","gender":"female","age":42,"city":"Hà Nội","primary_interest":"cell_phones","secondary_interest":"tv_home_theater","created_at":"2026-09-11T00:54:33Z"}
+{"user_id":"u_syn_0874","name":"Nhật Đặng","gender":"female","age":73,"city":"Đà Lạt","primary_interest":"appliances","secondary_interest":"connected_home","created_at":"2026-09-03T06:06:12Z"}
+{"user_id":"u_syn_0875","name":"Chị Yến Mai","gender":"female","age":26,"city":"Buôn Ma Thuột","primary_interest":"audio","secondary_interest":"video_games","created_at":"2026-09-26T07:26:36Z"}
+{"user_id":"u_syn_0876","name":"Chị Ngọc Bùi","gender":"other","age":46,"city":"Quy Nhơn","primary_interest":"video_games","secondary_interest":"tv_home_theater","created_at":"2026-09-27T10:12:49Z"}
+{"user_id":"u_syn_0877","name":"Mai Mai","gender":"other","age":61,"city":"Huế","primary_interest":"musical_instruments","secondary_interest":"car_electronics_gps","created_at":"2026-09-29T12:41:43Z"}
+{"user_id":"u_syn_0878","name":"Nam Tấn Nguyễn","gender":"other","age":45,"city":"Nha Trang","primary_interest":"computers_tablets","secondary_interest":"cameras_camcorders","created_at":"2026-09-11T19:41:47Z"}
+{"user_id":"u_syn_0879","name":"Bà Hương Phạm","gender":"female","age":75,"city":"Đà Lạt","primary_interest":"cameras_camcorders","secondary_interest":"wearable_technology","created_at":"2026-09-30T07:57:24Z"}
+{"user_id":"u_syn_0880","name":"Kim Dương","gender":"female","age":34,"city":"Cần Thơ","primary_interest":"toys_games_drones","secondary_interest":"cameras_camcorders","created_at":"2026-09-04T17:48:51Z"}
+{"user_id":"u_syn_0881","name":"Hoàng Vũ","gender":"male","age":32,"city":"Đà Nẵng","primary_interest":"tv_home_theater","secondary_interest":"connected_home","created_at":"2026-09-08T15:20:04Z"}
+{"user_id":"u_syn_0882","name":"An Phạm","gender":"other","age":42,"city":"Nha Trang","primary_interest":"connected_home","secondary_interest":"computers_tablets","created_at":"2026-09-17T00:44:23Z"}
+{"user_id":"u_syn_0883","name":"Nhật Phú Dương","gender":"other","age":74,"city":"Đà Lạt","primary_interest":"wearable_technology","secondary_interest":"cell_phones","created_at":"2026-09-11T05:29:16Z"}
+{"user_id":"u_syn_0884","name":"Duyên Trần","gender":"female","age":15,"city":"Cần Thơ","primary_interest":"car_electronics_gps","secondary_interest":"video_games","created_at":"2026-09-03T02:16:00Z"}
+{"user_id":"u_syn_0885","name":"Thành Quang Hoàng","gender":"male","age":30,"city":"Biên Hòa","primary_interest":"cell_phones","secondary_interest":"audio","created_at":"2026-09-25T21:16:19Z"}
+{"user_id":"u_syn_0886","name":"Huy Lê","gender":"male","age":20,"city":"Đà Nẵng","primary_interest":"appliances","secondary_interest":"audio","created_at":"2026-09-13T12:53:39Z"}
+{"user_id":"u_syn_0887","name":"Bà Thảo Đặng","gender":"other","age":64,"city":"Quy Nhơn","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-28T08:38:49Z"}
+{"user_id":"u_syn_0888","name":"Bà Linh Dương","gender":"female","age":23,"city":"Cần Thơ","primary_interest":"video_games","secondary_interest":"audio","created_at":"2026-09-22T19:21:35Z"}
+{"user_id":"u_syn_0889","name":"Chị Hà Phạm","gender":"female","age":34,"city":"Cần Thơ","primary_interest":"musical_instruments","secondary_interest":"cell_phones","created_at":"2026-09-20T22:34:41Z"}
+{"user_id":"u_syn_0890","name":"Nhiên Đức Lê","gender":"male","age":92,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"audio","created_at":"2026-09-25T19:07:51Z"}
+{"user_id":"u_syn_0891","name":"Lan Dương","gender":"female","age":71,"city":"Quy Nhơn","primary_interest":"cameras_camcorders","secondary_interest":"video_games","created_at":"2026-09-29T16:05:39Z"}
+{"user_id":"u_syn_0892","name":"Bà Hồng Trần","gender":"female","age":29,"city":"TP.HCM","primary_interest":"toys_games_drones","secondary_interest":"car_electronics_gps","created_at":"2026-09-01T19:17:48Z"}
+{"user_id":"u_syn_0893","name":"Trung Mai Vũ","gender":"other","age":66,"city":"Đà Nẵng","primary_interest":"tv_home_theater","secondary_interest":"appliances","created_at":"2026-09-30T09:28:17Z"}
+{"user_id":"u_syn_0894","name":"Bác Tú Trần","gender":"other","age":89,"city":"Hà Nội","primary_interest":"connected_home","secondary_interest":"cell_phones","created_at":"2026-09-26T19:09:38Z"}
+{"user_id":"u_syn_0895","name":"Khoa Thị Phạm","gender":"male","age":74,"city":"Biên Hòa","primary_interest":"wearable_technology","secondary_interest":"computers_tablets","created_at":"2026-09-07T07:50:38Z"}
+{"user_id":"u_syn_0896","name":"Hoàng Quang Phạm","gender":"other","age":13,"city":"Biên Hòa","primary_interest":"car_electronics_gps","secondary_interest":null,"created_at":"2026-09-21T22:43:48Z"}
+{"user_id":"u_syn_0897","name":"Kim Thị Vũ","gender":"male","age":80,"city":"Nha Trang","primary_interest":"cell_phones","secondary_interest":"connected_home","created_at":"2026-09-12T03:22:15Z"}
+{"user_id":"u_syn_0898","name":"Chị An Bùi","gender":"female","age":61,"city":"Huế","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-29T14:17:26Z"}
+{"user_id":"u_syn_0899","name":"Anh Tú Dương","gender":"other","age":86,"city":"TP.HCM","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-21T15:43:51Z"}
+{"user_id":"u_syn_0900","name":"Hoàng Trần","gender":"male","age":23,"city":"Hải Phòng","primary_interest":"video_games","secondary_interest":"car_electronics_gps","created_at":"2026-09-30T01:03:39Z"}
+{"user_id":"u_syn_0901","name":"Ngọc Phạm","gender":"female","age":45,"city":"Cần Thơ","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-01T06:22:20Z"}
+{"user_id":"u_syn_0902","name":"Chị Kim Đặng","gender":"other","age":79,"city":"TP.HCM","primary_interest":"computers_tablets","secondary_interest":"musical_instruments","created_at":"2026-09-26T05:33:59Z"}
+{"user_id":"u_syn_0903","name":"Nhiên Hoàng","gender":"male","age":53,"city":"Nha Trang","primary_interest":"cameras_camcorders","secondary_interest":"video_games","created_at":"2026-09-18T14:04:29Z"}
+{"user_id":"u_syn_0904","name":"Vũ Nguyễn","gender":"other","age":87,"city":"Hải Phòng","primary_interest":"toys_games_drones","secondary_interest":"car_electronics_gps","created_at":"2026-09-13T16:26:23Z"}
+{"user_id":"u_syn_0905","name":"Mai Dương","gender":"female","age":85,"city":"Huế","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-30T16:53:33Z"}
+{"user_id":"u_syn_0906","name":"Hà Đặng","gender":"female","age":39,"city":"Nha Trang","primary_interest":"connected_home","secondary_interest":"video_games","created_at":"2026-09-27T19:14:55Z"}
+{"user_id":"u_syn_0907","name":"Hưng Dương","gender":"male","age":60,"city":"Vũng Tàu","primary_interest":"wearable_technology","secondary_interest":"cell_phones","created_at":"2026-09-27T22:31:06Z"}
+{"user_id":"u_syn_0908","name":"Lan Hoàng","gender":"other","age":57,"city":"Buôn Ma Thuột","primary_interest":"car_electronics_gps","secondary_interest":"tv_home_theater","created_at":"2026-09-20T07:51:17Z"}
+{"user_id":"u_syn_0909","name":"Quý ông Châu Nguyễn","gender":"male","age":42,"city":"Đà Lạt","primary_interest":"cell_phones","secondary_interest":"video_games","created_at":"2026-09-08T20:30:17Z"}
+{"user_id":"u_syn_0910","name":"Quý cô Lan Đặng","gender":"female","age":56,"city":"Vũng Tàu","primary_interest":"appliances","secondary_interest":"cell_phones","created_at":"2026-09-30T19:23:29Z"}
+{"user_id":"u_syn_0911","name":"Phúc Đức Vũ","gender":"male","age":62,"city":"Biên Hòa","primary_interest":"audio","secondary_interest":"musical_instruments","created_at":"2026-09-01T06:09:50Z"}
+{"user_id":"u_syn_0912","name":"Anh Hưng Hoàng","gender":"male","age":73,"city":"Quy Nhơn","primary_interest":"video_games","secondary_interest":null,"created_at":"2026-09-22T03:15:05Z"}
+{"user_id":"u_syn_0913","name":"Khoa Mai Bảo Bùi","gender":"male","age":60,"city":"TP.HCM","primary_interest":"musical_instruments","secondary_interest":"connected_home","created_at":"2026-09-30T13:34:12Z"}
+{"user_id":"u_syn_0914","name":"Cô Hương Vũ","gender":"female","age":91,"city":"Biên Hòa","primary_interest":"computers_tablets","secondary_interest":"car_electronics_gps","created_at":"2026-09-26T07:00:55Z"}
+{"user_id":"u_syn_0915","name":"Anh Huy Phạm","gender":"male","age":35,"city":"Biên Hòa","primary_interest":"cameras_camcorders","secondary_interest":"audio","created_at":"2026-09-24T23:58:51Z"}
+{"user_id":"u_syn_0916","name":"Cô Hồng Đặng","gender":"other","age":79,"city":"Hải Phòng","primary_interest":"toys_games_drones","secondary_interest":"tv_home_theater","created_at":"2026-09-10T10:53:46Z"}
+{"user_id":"u_syn_0917","name":"Quý ông Quang Hoàng","gender":"other","age":79,"city":"Buôn Ma Thuột","primary_interest":"tv_home_theater","secondary_interest":"audio","created_at":"2026-09-12T05:54:58Z"}
+{"user_id":"u_syn_0918","name":"Kim Đức Lê","gender":"male","age":59,"city":"Cần Thơ","primary_interest":"connected_home","secondary_interest":"video_games","created_at":"2026-09-01T00:20:04Z"}
+{"user_id":"u_syn_0919","name":"Dũng Hoàng","gender":"male","age":48,"city":"Nha Trang","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-18T03:25:24Z"}
+{"user_id":"u_syn_0920","name":"Cô Xuân Vũ","gender":"other","age":38,"city":"Vũng Tàu","primary_interest":"car_electronics_gps","secondary_interest":"wearable_technology","created_at":"2026-09-01T17:54:11Z"}
+{"user_id":"u_syn_0921","name":"Châu Mai","gender":"male","age":83,"city":"Hải Phòng","primary_interest":"cell_phones","secondary_interest":"computers_tablets","created_at":"2026-09-28T03:24:53Z"}
+{"user_id":"u_syn_0922","name":"Chị Bảo Trần","gender":"female","age":57,"city":"Hải Phòng","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-11T23:39:12Z"}
+{"user_id":"u_syn_0923","name":"Hải Phạm","gender":"female","age":64,"city":"Quy Nhơn","primary_interest":"audio","secondary_interest":"toys_games_drones","created_at":"2026-09-01T05:25:09Z"}
+{"user_id":"u_syn_0924","name":"Tùng Nguyễn","gender":"other","age":26,"city":"Vũng Tàu","primary_interest":"video_games","secondary_interest":"wearable_technology","created_at":"2026-09-04T12:20:08Z"}
+{"user_id":"u_syn_0925","name":"Nhiên Hữu Đặng","gender":"male","age":78,"city":"Hải Phòng","primary_interest":"musical_instruments","secondary_interest":"wearable_technology","created_at":"2026-09-27T02:42:10Z"}
+{"user_id":"u_syn_0926","name":"Chị Lâm Hoàng","gender":"other","age":45,"city":"Buôn Ma Thuột","primary_interest":"computers_tablets","secondary_interest":null,"created_at":"2026-09-22T11:51:46Z"}
+{"user_id":"u_syn_0927","name":"Quang Văn Đặng","gender":"other","age":74,"city":"Cần Thơ","primary_interest":"cameras_camcorders","secondary_interest":null,"created_at":"2026-09-17T11:44:00Z"}
+{"user_id":"u_syn_0928","name":"Khoa Phạm","gender":"female","age":100,"city":"Đà Lạt","primary_interest":"toys_games_drones","secondary_interest":null,"created_at":"2026-09-29T11:42:08Z"}
+{"user_id":"u_syn_0929","name":"Bà Lan Dương","gender":"female","age":27,"city":"Hải Phòng","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-04T06:42:23Z"}
+{"user_id":"u_syn_0930","name":"Hương Nguyễn","gender":"other","age":42,"city":"Huế","primary_interest":"connected_home","secondary_interest":"toys_games_drones","created_at":"2026-09-21T00:30:39Z"}
+{"user_id":"u_syn_0931","name":"Chị Ngọc Mai","gender":"other","age":81,"city":"Hà Nội","primary_interest":"wearable_technology","secondary_interest":null,"created_at":"2026-09-13T18:49:28Z"}
+{"user_id":"u_syn_0932","name":"Cô Linh Hoàng","gender":"female","age":99,"city":"Buôn Ma Thuột","primary_interest":"car_electronics_gps","secondary_interest":"computers_tablets","created_at":"2026-09-17T14:27:02Z"}
+{"user_id":"u_syn_0933","name":"Bảo Đặng","gender":"female","age":53,"city":"Huế","primary_interest":"cell_phones","secondary_interest":"cameras_camcorders","created_at":"2026-09-11T14:38:52Z"}
+{"user_id":"u_syn_0934","name":"Thành Nguyễn","gender":"female","age":36,"city":"Buôn Ma Thuột","primary_interest":"appliances","secondary_interest":null,"created_at":"2026-09-10T05:33:40Z"}
+{"user_id":"u_syn_0935","name":"Hoàng Hoàng","gender":"male","age":43,"city":"Hải Phòng","primary_interest":"audio","secondary_interest":"toys_games_drones","created_at":"2026-09-11T00:54:52Z"}
+{"user_id":"u_syn_0936","name":"Cô Phương Đặng","gender":"other","age":58,"city":"Đà Nẵng","primary_interest":"video_games","secondary_interest":"toys_games_drones","created_at":"2026-09-06T04:18:07Z"}
+{"user_id":"u_syn_0937","name":"Thành Bùi","gender":"other","age":97,"city":"Đà Lạt","primary_interest":"musical_instruments","secondary_interest":"cameras_camcorders","created_at":"2026-09-30T19:09:36Z"}
+{"user_id":"u_syn_0938","name":"Dũng Vũ","gender":"male","age":74,"city":"Huế","primary_interest":"computers_tablets","secondary_interest":"appliances","created_at":"2026-09-16T07:29:14Z"}
+{"user_id":"u_syn_0939","name":"Chị Bảo Bùi","gender":"female","age":75,"city":"Đà Nẵng","primary_interest":"cameras_camcorders","secondary_interest":"audio","created_at":"2026-09-25T19:30:49Z"}
+{"user_id":"u_syn_0940","name":"Bác Phúc Mai","gender":"other","age":29,"city":"Hà Nội","primary_interest":"toys_games_drones","secondary_interest":"tv_home_theater","created_at":"2026-09-26T12:31:34Z"}
+{"user_id":"u_syn_0941","name":"Quang Xuân Bùi","gender":"other","age":17,"city":"Vũng Tàu","primary_interest":"tv_home_theater","secondary_interest":"cell_phones","created_at":"2026-09-17T20:37:15Z"}
+{"user_id":"u_syn_0942","name":"Nhật Thế Lê","gender":"male","age":71,"city":"TP.HCM","primary_interest":"connected_home","secondary_interest":"video_games","created_at":"2026-09-26T03:45:09Z"}
+{"user_id":"u_syn_0943","name":"Nam Hữu Hoàng","gender":"male","age":99,"city":"Cần Thơ","primary_interest":"wearable_technology","secondary_interest":"musical_instruments","created_at":"2026-09-19T10:03:56Z"}
+{"user_id":"u_syn_0944","name":"Lan Hoàng","gender":"female","age":91,"city":"Hải Phòng","primary_interest":"car_electronics_gps","secondary_interest":"connected_home","created_at":"2026-09-10T02:02:54Z"}
+{"user_id":"u_syn_0945","name":"Chị Hải Hoàng","gender":"female","age":73,"city":"Quy Nhơn","primary_interest":"cell_phones","secondary_interest":"toys_games_drones","created_at":"2026-09-17T15:44:10Z"}
+{"user_id":"u_syn_0946","name":"Xuân Dương","gender":"female","age":39,"city":"Nha Trang","primary_interest":"appliances","secondary_interest":"car_electronics_gps","created_at":"2026-09-19T01:46:19Z"}
+{"user_id":"u_syn_0947","name":"Thành Trần","gender":"female","age":70,"city":"Đà Nẵng","primary_interest":"audio","secondary_interest":"wearable_technology","created_at":"2026-09-28T17:44:26Z"}
+{"user_id":"u_syn_0948","name":"Bà Linh Lê","gender":"other","age":42,"city":"TP.HCM","primary_interest":"video_games","secondary_interest":"appliances","created_at":"2026-09-14T02:30:48Z"}
+{"user_id":"u_syn_0949","name":"Nhật Đặng","gender":"other","age":68,"city":"Nha Trang","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-10T12:25:48Z"}
+{"user_id":"u_syn_0950","name":"Cô Thảo Phạm","gender":"female","age":14,"city":"Đà Nẵng","primary_interest":"computers_tablets","secondary_interest":"toys_games_drones","created_at":"2026-09-21T11:06:25Z"}
+{"user_id":"u_syn_0951","name":"Cô Linh Vũ","gender":"other","age":81,"city":"Buôn Ma Thuột","primary_interest":"cameras_camcorders","secondary_interest":"video_games","created_at":"2026-09-16T07:50:56Z"}
+{"user_id":"u_syn_0952","name":"Yến Nguyễn","gender":"female","age":84,"city":"Quy Nhơn","primary_interest":"toys_games_drones","secondary_interest":"connected_home","created_at":"2026-09-03T07:35:07Z"}
+{"user_id":"u_syn_0953","name":"Thành Dương","gender":"male","age":40,"city":"Hải Phòng","primary_interest":"tv_home_theater","secondary_interest":"cameras_camcorders","created_at":"2026-09-24T03:12:31Z"}
+{"user_id":"u_syn_0954","name":"Anh Huy Dương","gender":"male","age":70,"city":"Buôn Ma Thuột","primary_interest":"connected_home","secondary_interest":null,"created_at":"2026-09-17T05:54:11Z"}
+{"user_id":"u_syn_0955","name":"Thành Hữu Trần","gender":"other","age":84,"city":"Hải Phòng","primary_interest":"wearable_technology","secondary_interest":"connected_home","created_at":"2026-09-17T16:57:08Z"}
+{"user_id":"u_syn_0956","name":"Chị Lan Dương","gender":"female","age":99,"city":"Quy Nhơn","primary_interest":"car_electronics_gps","secondary_interest":"computers_tablets","created_at":"2026-09-10T15:48:10Z"}
+{"user_id":"u_syn_0957","name":"An Vũ","gender":"other","age":81,"city":"Đà Nẵng","primary_interest":"cell_phones","secondary_interest":"video_games","created_at":"2026-09-14T19:35:35Z"}
+{"user_id":"u_syn_0958","name":"Linh Vũ","gender":"other","age":75,"city":"Buôn Ma Thuột","primary_interest":"appliances","secondary_interest":"video_games","created_at":"2026-09-22T16:42:40Z"}
+{"user_id":"u_syn_0959","name":"Hương Đặng","gender":"female","age":91,"city":"Hải Phòng","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-23T12:18:37Z"}
+{"user_id":"u_syn_0960","name":"Thành Xuân Trần","gender":"male","age":94,"city":"Huế","primary_interest":"video_games","secondary_interest":"cameras_camcorders","created_at":"2026-09-21T11:27:06Z"}
+{"user_id":"u_syn_0961","name":"Linh Hoàng","gender":"female","age":22,"city":"TP.HCM","primary_interest":"musical_instruments","secondary_interest":"audio","created_at":"2026-09-08T20:44:35Z"}
+{"user_id":"u_syn_0962","name":"Cô Hồng Lê","gender":"female","age":96,"city":"Hải Phòng","primary_interest":"computers_tablets","secondary_interest":"wearable_technology","created_at":"2026-09-13T23:37:40Z"}
+{"user_id":"u_syn_0963","name":"Chị Ngọc Trần","gender":"female","age":69,"city":"Huế","primary_interest":"cameras_camcorders","secondary_interest":"car_electronics_gps","created_at":"2026-09-29T11:48:39Z"}
+{"user_id":"u_syn_0964","name":"Chị Lâm Bùi","gender":"female","age":34,"city":"Đà Nẵng","primary_interest":"toys_games_drones","secondary_interest":"cell_phones","created_at":"2026-09-02T02:54:53Z"}
+{"user_id":"u_syn_0965","name":"Khoa Vũ","gender":"other","age":45,"city":"Buôn Ma Thuột","primary_interest":"tv_home_theater","secondary_interest":"toys_games_drones","created_at":"2026-09-04T21:16:55Z"}
+{"user_id":"u_syn_0966","name":"Tú Thị Bùi","gender":"male","age":25,"city":"TP.HCM","primary_interest":"connected_home","secondary_interest":"car_electronics_gps","created_at":"2026-09-23T23:18:05Z"}
+{"user_id":"u_syn_0967","name":"Chị Ngọc Đặng","gender":"female","age":80,"city":"TP.HCM","primary_interest":"wearable_technology","secondary_interest":"musical_instruments","created_at":"2026-09-06T01:05:07Z"}
+{"user_id":"u_syn_0968","name":"Huy Trần","gender":"male","age":96,"city":"Nha Trang","primary_interest":"car_electronics_gps","secondary_interest":"cameras_camcorders","created_at":"2026-09-16T00:26:34Z"}
+{"user_id":"u_syn_0969","name":"Quý cô Lâm Trần","gender":"female","age":93,"city":"Đà Nẵng","primary_interest":"cell_phones","secondary_interest":"tv_home_theater","created_at":"2026-09-07T08:56:56Z"}
+{"user_id":"u_syn_0970","name":"Trung Lê","gender":"male","age":17,"city":"Biên Hòa","primary_interest":"appliances","secondary_interest":"cameras_camcorders","created_at":"2026-09-18T07:45:00Z"}
+{"user_id":"u_syn_0971","name":"Cô Nhật Trần","gender":"female","age":73,"city":"Đà Lạt","primary_interest":"audio","secondary_interest":null,"created_at":"2026-09-27T05:49:34Z"}
+{"user_id":"u_syn_0972","name":"Thành Dương","gender":"other","age":69,"city":"Đà Nẵng","primary_interest":"video_games","secondary_interest":null,"created_at":"2026-09-27T04:18:56Z"}
+{"user_id":"u_syn_0973","name":"Bà Hương Mai","gender":"female","age":93,"city":"Buôn Ma Thuột","primary_interest":"musical_instruments","secondary_interest":"audio","created_at":"2026-09-28T09:05:22Z"}
+{"user_id":"u_syn_0974","name":"Bảo Phú Bùi","gender":"other","age":81,"city":"Hải Phòng","primary_interest":"computers_tablets","secondary_interest":"video_games","created_at":"2026-09-17T20:28:49Z"}
+{"user_id":"u_syn_0975","name":"Bảo Mai Nguyễn","gender":"male","age":69,"city":"Hải Phòng","primary_interest":"cameras_camcorders","secondary_interest":"tv_home_theater","created_at":"2026-09-18T18:10:06Z"}
+{"user_id":"u_syn_0976","name":"Quý cô Nhật Vũ","gender":"female","age":14,"city":"Hà Nội","primary_interest":"toys_games_drones","secondary_interest":"cameras_camcorders","created_at":"2026-09-26T09:42:27Z"}
+{"user_id":"u_syn_0977","name":"Anh Thị Lê","gender":"male","age":57,"city":"Hải Phòng","primary_interest":"tv_home_theater","secondary_interest":null,"created_at":"2026-09-23T18:39:18Z"}
+{"user_id":"u_syn_0978","name":"Hương Đặng","gender":"female","age":51,"city":"Hà Nội","primary_interest":"connected_home","secondary_interest":"cell_phones","created_at":"2026-09-21T21:29:36Z"}
+{"user_id":"u_syn_0979","name":"Anh Tùng Nguyễn","gender":"male","age":13,"city":"Vũng Tàu","primary_interest":"wearable_technology","secondary_interest":"audio","created_at":"2026-09-19T03:19:36Z"}
+{"user_id":"u_syn_0980","name":"Quý cô Vân Dương","gender":"female","age":63,"city":"Cần Thơ","primary_interest":"car_electronics_gps","secondary_interest":"appliances","created_at":"2026-09-08T22:13:21Z"}
+{"user_id":"u_syn_0981","name":"Nhật Vũ","gender":"female","age":61,"city":"Cần Thơ","primary_interest":"cell_phones","secondary_interest":"video_games","created_at":"2026-09-13T18:23:39Z"}
+{"user_id":"u_syn_0982","name":"Thành Nguyễn","gender":"male","age":79,"city":"Quy Nhơn","primary_interest":"appliances","secondary_interest":"video_games","created_at":"2026-09-14T04:44:44Z"}
+{"user_id":"u_syn_0983","name":"Hà Dương","gender":"female","age":65,"city":"Cần Thơ","primary_interest":"audio","secondary_interest":"cell_phones","created_at":"2026-09-04T07:45:58Z"}
+{"user_id":"u_syn_0984","name":"Phúc Hoàng Phạm","gender":"male","age":94,"city":"Đà Lạt","primary_interest":"video_games","secondary_interest":"tv_home_theater","created_at":"2026-09-30T23:42:24Z"}
+{"user_id":"u_syn_0985","name":"An Bùi","gender":"female","age":37,"city":"Huế","primary_interest":"musical_instruments","secondary_interest":"audio","created_at":"2026-09-01T22:35:50Z"}
+{"user_id":"u_syn_0986","name":"Huy Phạm","gender":"male","age":36,"city":"TP.HCM","primary_interest":"computers_tablets","secondary_interest":"appliances","created_at":"2026-09-14T16:41:14Z"}
+{"user_id":"u_syn_0987","name":"Bà Thành Trần","gender":"other","age":14,"city":"Cần Thơ","primary_interest":"cameras_camcorders","secondary_interest":"cell_phones","created_at":"2026-09-05T09:05:13Z"}
+{"user_id":"u_syn_0988","name":"Thành Mai","gender":"male","age":56,"city":"Nha Trang","primary_interest":"toys_games_drones","secondary_interest":"cell_phones","created_at":"2026-09-16T03:00:47Z"}
+{"user_id":"u_syn_0989","name":"Bà Ánh Vũ","gender":"female","age":72,"city":"Buôn Ma Thuột","primary_interest":"tv_home_theater","secondary_interest":"cell_phones","created_at":"2026-09-02T12:58:35Z"}
+{"user_id":"u_syn_0990","name":"Ông Trọng Hoàng","gender":"male","age":47,"city":"Nha Trang","primary_interest":"connected_home","secondary_interest":"cameras_camcorders","created_at":"2026-09-04T11:10:09Z"}
+{"user_id":"u_syn_0991","name":"Ông Huy Lê","gender":"male","age":45,"city":"Nha Trang","primary_interest":"wearable_technology","secondary_interest":"cameras_camcorders","created_at":"2026-09-01T14:41:53Z"}
+{"user_id":"u_syn_0992","name":"Khoa Hoàng","gender":"female","age":69,"city":"Cần Thơ","primary_interest":"car_electronics_gps","secondary_interest":"toys_games_drones","created_at":"2026-09-02T15:02:32Z"}
+{"user_id":"u_syn_0993","name":"Hà Hoàng","gender":"other","age":98,"city":"Cần Thơ","primary_interest":"cell_phones","secondary_interest":"computers_tablets","created_at":"2026-09-23T22:52:54Z"}
+{"user_id":"u_syn_0994","name":"Vi Vũ","gender":"female","age":33,"city":"Biên Hòa","primary_interest":"appliances","secondary_interest":"tv_home_theater","created_at":"2026-09-03T01:09:00Z"}
+{"user_id":"u_syn_0995","name":"Huy Đức Bùi","gender":"other","age":28,"city":"Hải Phòng","primary_interest":"audio","secondary_interest":"cell_phones","created_at":"2026-09-24T08:40:23Z"}
+{"user_id":"u_syn_0996","name":"Quý cô Ngọc Lê","gender":"female","age":19,"city":"Biên Hòa","primary_interest":"video_games","secondary_interest":"toys_games_drones","created_at":"2026-09-11T13:44:30Z"}
+{"user_id":"u_syn_0997","name":"Kim Trí Hoàng","gender":"male","age":94,"city":"Nha Trang","primary_interest":"musical_instruments","secondary_interest":null,"created_at":"2026-09-16T18:05:08Z"}
+{"user_id":"u_syn_0998","name":"An Hữu Đặng","gender":"other","age":28,"city":"Nha Trang","primary_interest":"computers_tablets","secondary_interest":"connected_home","created_at":"2026-09-12T19:13:10Z"}
+{"user_id":"u_syn_0999","name":"Cô Yến Dương","gender":"other","age":73,"city":"Buôn Ma Thuột","primary_interest":"cameras_camcorders","secondary_interest":"musical_instruments","created_at":"2026-09-29T22:38:15Z"}
+{"user_id":"u_syn_1000","name":"Thành Văn Đặng","gender":"male","age":33,"city":"Đà Lạt","primary_interest":"toys_games_drones","secondary_interest":"computers_tablets","created_at":"2026-09-05T10:29:25Z"}
