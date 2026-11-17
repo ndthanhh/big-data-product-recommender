@@ -28,3 +28,7 @@ dist/
 /derby.log
 *.log
 .stream_pids
+
+# OS and tooling artifacts
+.DS_Store
+repomix-output.xml
