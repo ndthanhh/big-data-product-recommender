@@ -27,3 +27,4 @@ dist/
 /metastore_db/
 /derby.log
 *.log
+.stream_pids
