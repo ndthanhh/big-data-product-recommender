@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 import pytest
+from conftest import publish_bronze
 
 from recommender.pipeline.etl import (
     ConflictError,
@@ -48,6 +49,7 @@ def _append(lake, table: str, lines: list[str]) -> None:
     with path.open("a", encoding="utf-8") as stream:
         for line in lines:
             stream.write(line + "\n")
+    publish_bronze(path.parent)
 
 
 def test_row_validators_classify_reasons() -> None:
@@ -263,6 +265,7 @@ def test_gold_base_weights_baskets_and_seen(spark, lake) -> None:
 def test_empty_inputs_and_unfinished_batch(spark, lake) -> None:
     events_file = lake.root / "bronze/events/events.jsonl"
     events_file.write_text("", encoding="utf-8")
+    publish_bronze(events_file.parent)
     result = run_etl(spark, lake)
     assert result.manifest["counts"]["events"] == 0
     assert result.manifest["event_time_min"] is None
@@ -273,9 +276,10 @@ def test_empty_inputs_and_unfinished_batch(spark, lake) -> None:
     events_file.write_text(
         (FIXTURES / "events.jsonl").read_text(encoding="utf-8"), encoding="utf-8"
     )
+    publish_bronze(events_file.parent)
     from recommender.pipeline.etl import bronze_inputs, dataset_version_for
 
-    version = dataset_version_for(bronze_inputs(lake))
+    version = dataset_version_for(bronze_inputs(lake)[0])
     stale = lake.root / "silver" / "events" / version
     stale.mkdir(parents=True)
     (stale / "part-stale.parquet").write_bytes(b"not parquet")
@@ -292,3 +296,34 @@ def test_empty_inputs_and_unfinished_batch(spark, lake) -> None:
     )
     with pytest.raises(FileNotFoundError):
         run_etl(spark, lake)
+
+
+def test_only_published_bronze_files_are_read(spark, lake) -> None:
+    """Kafka micro-batches count only once their manifest and checksum match."""
+    events_dir = lake.root / "bronze" / "events"
+    ok = events_dir / "streaming" / "batch_ok"
+    ok.mkdir(parents=True)
+    (ok / "events.jsonl").write_text(json.dumps(_event(401)) + "\n", encoding="utf-8")
+    publish_bronze(ok)
+    pending = events_dir / "streaming" / "batch_pending"
+    pending.mkdir()
+    (pending / "events.jsonl").write_text(
+        json.dumps(_event(402)) + "\n", encoding="utf-8"
+    )
+    tampered = events_dir / "streaming" / "batch_tampered"
+    tampered.mkdir()
+    (tampered / "events.jsonl").write_text(
+        json.dumps(_event(403)) + "\n", encoding="utf-8"
+    )
+    publish_bronze(tampered)
+    with (tampered / "events.jsonl").open("a", encoding="utf-8") as stream:
+        stream.write(json.dumps(_event(404)) + "\n")
+
+    result = run_etl(spark, lake)
+    assert result.report["events"]["accepted"] == 51  # fixture 50 + batch_ok
+    skipped = {s["path"]: s["reason"] for s in result.report["bronze_files_skipped"]}
+    assert skipped == {
+        "events/streaming/batch_pending/events.jsonl": "no_manifest",
+        "events/streaming/batch_tampered/events.jsonl": "checksum_mismatch",
+    }
+    assert result.report["bronze_files_read"] == 3

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 import os
 from collections.abc import Iterator
 from pathlib import Path
@@ -34,6 +36,24 @@ def spark() -> Iterator[object]:
     session.stop()
 
 
+def publish_bronze(folder: Path) -> None:
+    """Write the manifest that publishes every JSONL file in ``folder``."""
+    files = []
+    for path in sorted(folder.glob("*.jsonl")):
+        data = path.read_bytes()
+        files.append(
+            {
+                "path": path.name,
+                "format": "jsonl",
+                "rows": data.count(b"\n"),
+                "bytes": len(data),
+                "sha256": hashlib.sha256(data).hexdigest(),
+            }
+        )
+    manifest = {"schema_version": 1, "files": files}
+    (folder / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+
 @pytest.fixture()
 def lake(tmp_path: Path):
     """Empty local lake with fixture catalog/events copied into Bronze."""
@@ -44,4 +64,5 @@ def lake(tmp_path: Path):
         target = tmp_path / "data" / "bronze" / table
         target.mkdir(parents=True)
         (target / name).write_bytes((FIXTURES / name).read_bytes())
+        publish_bronze(target)
     return store

@@ -46,7 +46,7 @@ from recommender.schemas import SCHEMA_VERSION, Event, Product
 if TYPE_CHECKING:
     from pyspark.sql import DataFrame, SparkSession
 
-ETL_VERSION = "1.0.0"
+ETL_VERSION = "1.1.0"
 REJECT_REASONS = (
     "invalid_json",
     "invalid_schema",
@@ -241,18 +241,13 @@ def quarantine_schema():
 # --------------------------------------------------------------------------- #
 
 
-def read_bronze_lines(spark: SparkSession, uri: str) -> DataFrame:
-    """Read every ``*.jsonl`` line below ``uri`` with its file name."""
+def read_bronze_lines(spark: SparkSession, uris: list[str]) -> DataFrame:
+    """Read the lines of exactly these published JSONL files, with file names."""
     from pyspark.sql import functions as F
 
-    return (
-        spark.read.option("recursiveFileLookup", "true")
-        .option("pathGlobFilter", "*.jsonl")
-        .text(uri)
-        .select(
-            F.col("value").alias("raw"),
-            F.regexp_extract(F.input_file_name(), r"([^/]+)$", 1).alias("source_file"),
-        )
+    return spark.read.text(uris).select(
+        F.col("value").alias("raw"),
+        F.regexp_extract(F.input_file_name(), r"([^/]+)$", 1).alias("source_file"),
     )
 
 
@@ -394,20 +389,58 @@ def transform_events(
 # --------------------------------------------------------------------------- #
 
 
-def bronze_inputs(store: LakeStore) -> list[dict[str, Any]]:
-    """Checksums of every Bronze JSONL file, sorted for a stable identity."""
-    inputs = []
+def bronze_inputs(
+    store: LakeStore,
+) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
+    """Published Bronze JSONL files and the files skipped, with reasons.
+
+    A file is an input only when a ``manifest.json`` in its directory lists it
+    and the stored bytes match the listed SHA-256 and size (DATA_CONTRACTS.md
+    2.3; Kafka micro-batches publish their manifest last). JSONL without a
+    manifest is still being written or was never published; a mismatch means
+    the file changed after publication. Both are skipped and reported.
+    """
+    inputs: list[dict[str, Any]] = []
+    skipped: list[dict[str, str]] = []
     for table in ("products", "events"):
-        for item in store.list_files("bronze", table):
-            if item.path.endswith(".jsonl"):
-                inputs.append(
-                    {
-                        "path": f"{table}/{item.path}",
-                        "bytes": item.size,
-                        "sha256": store.sha256("bronze", table, item.path),
-                    }
+        listed = {item.path: item for item in store.list_files("bronze", table)}
+        covered: set[str] = set()
+        for name in sorted(listed):
+            if name.rsplit("/", 1)[-1] != "manifest.json":
+                continue
+            folder = name.rsplit("/", 1)[0] if "/" in name else ""
+            try:
+                manifest = store.read_json("bronze", table, name)
+                entries = [
+                    f for f in manifest.get("files", []) if f.get("format") == "jsonl"
+                ]
+            except (ValueError, AttributeError, TypeError):
+                skipped.append(
+                    {"path": f"{table}/{name}", "reason": "invalid_manifest"}
                 )
-    return inputs
+                continue
+            for entry in entries:
+                rel = "/".join(
+                    part for part in (folder, str(entry.get("path", ""))) if part
+                )
+                covered.add(rel)
+                item = listed.get(rel)
+                if item is None or ".." in rel.split("/"):
+                    skipped.append({"path": f"{table}/{rel}", "reason": "missing_file"})
+                    continue
+                digest = store.sha256("bronze", table, rel)
+                if digest != entry.get("sha256") or item.size != entry.get("bytes"):
+                    skipped.append(
+                        {"path": f"{table}/{rel}", "reason": "checksum_mismatch"}
+                    )
+                    continue
+                inputs.append(
+                    {"path": f"{table}/{rel}", "bytes": item.size, "sha256": digest}
+                )
+        for name in sorted(listed):
+            if name.endswith(".jsonl") and name not in covered:
+                skipped.append({"path": f"{table}/{name}", "reason": "no_manifest"})
+    return sorted(inputs, key=lambda i: i["path"]), skipped
 
 
 def dataset_version_for(inputs: list[dict[str, Any]]) -> str:
@@ -446,23 +479,32 @@ def run_etl(
     from pyspark import StorageLevel
     from pyspark.sql import functions as F
 
-    inputs = bronze_inputs(store)
-    if not any(item["path"].startswith("products/") for item in inputs):
-        raise FileNotFoundError("No Bronze product JSONL under bronze/products/")
+    inputs, skipped = bronze_inputs(store)
+    product_uris = [
+        store.uri("bronze", i["path"])
+        for i in inputs
+        if i["path"].startswith("products/")
+    ]
+    event_uris = [
+        store.uri("bronze", i["path"])
+        for i in inputs
+        if i["path"].startswith("events/")
+    ]
+    if not product_uris:
+        raise FileNotFoundError(
+            "No published Bronze product JSONL (with manifest) under bronze/products/"
+        )
     version = dataset_version_for(inputs)
     if store.exists("silver", manifest_name(version)):
         manifest = store.read_json("silver", manifest_name(version))
         return SilverDataset(version, manifest, reused=True)
 
-    products, product_q = transform_products(
-        read_bronze_lines(spark, store.uri("bronze", "products"))
-    )
+    products, product_q = transform_products(read_bronze_lines(spark, product_uris))
     products = products.persist(StorageLevel.MEMORY_AND_DISK)
     product_q = product_q.persist(StorageLevel.MEMORY_AND_DISK)
-    has_events = any(item["path"].startswith("events/") for item in inputs)
-    if has_events:
+    if event_uris:
         events, event_q = transform_events(
-            read_bronze_lines(spark, store.uri("bronze", "events")),
+            read_bronze_lines(spark, event_uris),
             products.select("product_id").distinct(),
         )
     else:
@@ -525,6 +567,8 @@ def run_etl(
         "created_at": utc_now(),
         "etl_version": ETL_VERSION,
         "publishable": conflicts == 0,
+        "bronze_files_read": len(inputs),
+        "bronze_files_skipped": skipped,
         "products": table_report(
             n_products + sum(product_reasons.values()), n_products, product_reasons
         ),
