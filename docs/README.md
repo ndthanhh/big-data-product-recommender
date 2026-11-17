@@ -178,16 +178,18 @@ Chạy từ gốc repo sau bước 3.1. `DATA_LAKE_STORAGE=local` ghi vào `DATA
 
 TF-IDF fit bằng Spark ML trên catalog as-of cutoff; ma trận vector (1.000 × ~5.000) được chuẩn hóa L2 ở driver bằng NumPy vì chiều sản phẩm nhỏ, còn chiều sự kiện (interactions, split, ALS, FP-Growth) chạy trên Spark. ALS xuất top-200 ứng viên/user sau lọc seen và catalog; MMR tái xếp trên 200 ứng viên đó, thứ tự hạng là thứ tự chọn.
 
-**Kết quả đo 16/11/2026** (dataset `ds-13b649c6ecec4d976cb2fcb9`: 1.000 sản phẩm, 100.000 events, seed 42; Spark `local[2]`, driver 2 GB; toàn bộ benchmark 8 ALS × 4 lambda × 4 FP-Growth + snapshot mất 1 phút 31 giây trên Linux VM 4 vCPU/3 GB, JDK 11; chạy lại trên JDK 21 x86 cho cùng số liệu tới 4 chữ số thập phân. Run `run_20261108T000000Z_alsmmr_42_21a74b3c`). Split: train 62.151 / validation 18.668 / test 19.175 events, purge 2 giỏ (6 events), bốn bất biến đều đạt. Cấu hình chọn trên validation: ALS `rank=16, regParam=0.1, alpha=1, maxIter=10`; MMR `lambda=1.0`; FP-Growth `minSupport=0.001, minConfidence=0.2`.
+**Kết quả đo 17/11/2026** trên dữ liệu chung của nhóm: catalog `data/bronze/products/` và 1.000 profiles `data/bronze/users/` từ `main`, cộng 100.000 events sinh theo profile với seed 42, theo lệnh ở mục 3.2 (`--output data/bronze/events/profile-demo`). Silver `ds-146a72bc3421240b42c94a87`. Run `run_20261108T000000Z_alsmmr_42_26faa7fc` được tạo từ commit sạch. Cấu hình máy: Spark `local[2]`, driver 2 GB, Linux VM 4 vCPU/3 GB, JDK 11; benchmark đủ grid cộng snapshot mất 1 phút 35 giây. Split: train 62.151 / validation 18.671 / test 19.175 events, purge 1 giỏ (3 events), bốn bất biến đều đạt. Cấu hình chọn trên validation: ALS `rank=16, regParam=0.1, alpha=1, maxIter=10`; MMR `lambda=1.0`; FP-Growth `minSupport=0.001, minConfidence=0.5`.
 
-| Test (502 user, 1.629 nhãn) | Recall@10 | NDCG@10 | ILD | Coverage | Fallback |
+| Test (508 user, 1.782 nhãn) | Recall@10 | NDCG@10 | ILD | Coverage | Fallback |
 | --- | --- | --- | --- | --- | --- |
-| Popularity | 0,0738 | 0,0424 | 0,9891 | 0,0210 | 100% |
-| TF-IDF cá nhân hóa | 0,0796 | 0,0472 | 0,7555 | 0,2960 | 0% |
-| Implicit ALS | 0,3434 | 0,2541 | 0,9362 | 0,3280 | 0% |
-| ALS + MMR (`lambda=1.0`) | 0,3434 | 0,2541 | 0,9362 | 0,3280 | 0% |
+| Popularity | 0,0838 | 0,0552 | 0,9898 | 0,0240 | 100% |
+| TF-IDF cá nhân hóa | 0,0531 | 0,0358 | 0,7507 | 0,2870 | 0% |
+| Implicit ALS | 0,2764 | 0,2124 | 0,9518 | 0,2890 | 0% |
+| ALS + MMR (`lambda=1.0`) | 0,2764 | 0,2124 | 0,9518 | 0,2890 | 0% |
 
-Trên validation, MMR đổi độ phù hợp lấy đa dạng: `lambda` 0,3 / 0,5 / 0,7 / 1,0 cho NDCG@10 0,2280 / 0,2372 / 0,2411 / 0,2458 và ILD 0,972 / 0,962 / 0,952 / 0,937. Tiêu chí chọn theo NDCG nên `lambda=1.0` thắng, khiến ALS + MMR trùng ALS ở test. Mua kèm FP-Growth: Hit@10 của item giữ lại = 0,811 trên 935 giỏ test, 582 luật. Con số này cao vì bộ sinh T03 cố ý lặp giỏ hai món phổ biến theo danh mục; không suy rộng sang người mua thật. Tất cả user đánh giá đều có lịch sử train, nên cohort `new_user` ở trạng thái `not_evaluable`.
+Trên validation, MMR đổi độ phù hợp lấy đa dạng: `lambda` 0,3 / 0,5 / 0,7 / 1,0 cho NDCG@10 0,2036 / 0,2082 / 0,2116 / 0,2140 và ILD 0,976 / 0,969 / 0,962 / 0,952. Tiêu chí chọn theo NDCG nên `lambda=1.0` thắng, ALS + MMR trùng ALS ở test. TF-IDF cá nhân hóa thấp hơn popularity ở dữ liệu theo profile: người dùng có thêm sở thích phụ (25% lựa chọn), trong khi hồ sơ nội dung kéo gợi ý về danh mục đã xem nhiều nhất. Mua kèm FP-Growth: Hit@10 của item giữ lại = 0,806 trên 935 giỏ test, 485 luật. Con số này cao vì bộ sinh cố ý lặp giỏ hai món theo danh mục; không suy rộng sang người mua thật. Tất cả user đánh giá đều có lịch sử train, nên cohort `new_user` ở trạng thái `not_evaluable`.
+
+ETL chỉ đọc file JSONL được `manifest.json` cùng thư mục liệt kê, với SHA-256 và kích thước khớp. Điều này áp dụng cho cả micro-batch Kafka trong `bronze/events/streaming/batch_<uuid>/`. File chưa có manifest hoặc bị sửa sau khi công bố được bỏ qua và ghi vào `bronze_files_skipped` của quality report. Event live của producer mang giờ UTC thực, nên nằm ngoài cửa sổ split 01/10–08/11 của thực nghiệm và được đếm vào `events_outside_window`; snapshot phục vụ vẫn dùng chúng vì cửa sổ train mặc định lấy từ min đến max `event_at`.
 
 ## 4. Kịch bản nghiệm thu demo
 

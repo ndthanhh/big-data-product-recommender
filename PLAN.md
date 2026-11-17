@@ -174,7 +174,7 @@ flowchart TD
 ---
 
 ### [T04] [COMPLETED] Pipeline ETL PySpark: Bronze $\rightarrow$ Silver $\rightarrow$ Gold Base
-- **Bằng chứng thực thi 16/11/2026**: `python -m recommender.pipeline.etl` công bố Silver `ds-13b649c6ecec4d976cb2fcb9` (1.000 sản phẩm, 100.000 events, 0 bản ghi bị loại) trong ~30 giây; dữ liệu Bronze tái lập trùng SHA-256 trên hai máy. Validation từng dòng dùng chính `Product`/`Event` Pydantic (UDF), dedup/FK/chủ sở hữu session–cart chạy native Spark; conflict chặn phát hành. Gold base ở `pipeline/gold.py`. `tests/test_etl.py`: 7 pass (kể cả đầu vào rỗng và batch dở dang).
+- **Bằng chứng thực thi 16/11/2026**: `python -m recommender.pipeline.etl` công bố Silver `ds-146a72bc3421240b42c94a87` (1.000 sản phẩm, 100.000 events sinh theo 1.000 profiles của `main`, 0 bản ghi bị loại) trong ~25 giây. Chỉ đọc JSONL đã có manifest và checksum khớp, gồm cả micro-batch Kafka. Validation từng dòng dùng chính `Product`/`Event` Pydantic (UDF), dedup/FK/chủ sở hữu session–cart chạy native Spark; conflict chặn phát hành. Gold base ở `pipeline/gold.py`. `tests/test_etl.py`: 8 pass (kể cả đầu vào rỗng, batch dở dang và batch Kafka chưa công bố/bị sửa).
 - **Người phụ trách**: Phan Văn Pháp
 - **Người review**: Nguyễn Đức Thành
 - **Đầu vào**: Dữ liệu Bronze từ T02/T03.
@@ -232,7 +232,7 @@ flowchart TD
 ---
 
 ### [T06] [COMPLETED] Mô hình Xếp hạng 2: Implicit ALS, FP-Growth (Complements) & MMR Re-ranking
-- **Bằng chứng thực thi 16/11/2026**: ALS `rank=16, regParam=0.1, alpha=1` sinh 200.000 dòng personalized cho 1.000 user, 0 dòng trùng `seen_products`; model tải lại được cùng ánh xạ ID. FP-Growth fit 4.960 giỏ ≥2 món (loại 14 giỏ một món), xuất 759 luật đã tính lại support/confidence/lift theo từng consequent. `tests/test_ranking_advanced.py`: 9 pass (kể cả tải lại ALS cho cùng top-K).
+- **Bằng chứng thực thi 16/11/2026**: ALS `rank=16, regParam=0.1, alpha=1` sinh 200.000 dòng personalized cho 1.000 user, 0 dòng trùng `seen_products`; model tải lại được cùng ánh xạ ID. FP-Growth fit 4.960 giỏ ≥2 món (loại 14 giỏ một món), xuất 655 luật đã tính lại support/confidence/lift theo từng consequent. `tests/test_ranking_advanced.py`: 9 pass (kể cả tải lại ALS cho cùng top-K).
 - **Người phụ trách**: Phan Văn Pháp *(Implicit ALS, MMR & FP-Growth Complements — thống nhất với Vai trò B trong `docs/PROJECT_CHECKLIST.md`)*
 - **Người review**: Nguyễn Đức Thành
 - **Đầu vào**: Ma trận tương tác Gold và danh sách giỏ hàng từ T04.
@@ -262,7 +262,7 @@ flowchart TD
 ---
 
 ### [T07] [COMPLETED] Phân chia Đánh giá theo Thời gian & Tính toán Metric Đánh giá
-- **Bằng chứng thực thi 16/11/2026**: Split train/validation/test = 62.151/18.668/19.175 events, purge 2 giỏ qua biên, bốn bất biến chống rò rỉ đạt. Test (502 user): Recall@10 Popularity 0,0738, TF-IDF 0,0796, ALS 0,3434, ALS+MMR 0,3434 (`lambda=1.0` được chọn trên validation); FP-Growth Hit@10 0,811. Kết quả ở `data/gold/<run_id>/evaluation/` và [docs/README.md](docs/README.md#33-etl-mô-hình-đánh-giá-và-gold-snapshot-t04t07). `tests/test_evaluation.py` (khớp fixture tính tay 0,919720789 và ILD 2/3) + `tests/test_snapshot.py`: 7 pass; `tests/`: 357 pass; Ruff check/format pass.
+- **Bằng chứng thực thi 16/11/2026**: Split train/validation/test = 62.151/18.671/19.175 events, purge 1 giỏ qua biên, bốn bất biến chống rò rỉ đạt. Test (508 user): Recall@10 Popularity 0,0838, TF-IDF 0,0531, ALS 0,2764, ALS+MMR 0,2764 (`lambda=1.0` được chọn trên validation); FP-Growth Hit@10 0,806. Kết quả ở `data/gold/<run_id>/evaluation/` và [docs/README.md](docs/README.md#33-etl-mô-hình-đánh-giá-và-gold-snapshot-t04t07). `tests/test_evaluation.py` (khớp fixture tính tay 0,919720789 và ILD 2/3) + `tests/test_snapshot.py`: 7 pass; `tests/`: 406 pass (gồm test users/streaming của `main`); Ruff check/format pass.
 - **Người phụ trách**: Phan Văn Pháp
 - **Người review**: Nguyễn Đức Thành
 - **Đầu vào**: Dữ liệu Silver và các mô hình ranking từ T05, T06.
