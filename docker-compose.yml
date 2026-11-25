@@ -32,6 +32,7 @@ services:
       - recommender
 
   minio-init:
+    profiles: ["legacy-mc-init"]
     image: minio/mc:latest
     depends_on:
       minio:

@@ -12,7 +12,7 @@ Tiểu luận Dữ liệu lớn của **Nhóm 1 — Nguyễn Đức Thành và P
 
 Mô hình dài hạn được cập nhật theo batch. Trong một phiên, API kết hợp kết quả batch với các tương tác vừa commit để thay đổi thứ tự gợi ý mà không train lại ALS. Trọng số v1 cố định: `view=1`, `click=2`, `add_to_cart=4`.
 
-**Trạng thái sau T01:** repo có khung package, cấu hình dependency và bộ tài liệu kỹ thuật. Các thư mục module hiện chứa `__init__.py`; chưa có bộ sinh, pipeline, migration, API app hay UI app chạy được. T02–T12 trong [kế hoạch triển khai](PLAN.md) xây dựng các phần đó. Các schema và endpoint trong tài liệu là đặc tả triển khai, không phải xác nhận tính năng đã chạy. Chưa có số đo thực nghiệm hoặc nguồn catalog được nghiệm thu.
+**Trạng thái cập nhật 25/11/2026.** Đã có schemas, catalog Best Buy 1.000 sản phẩm, bộ sinh hồ sơ/hành vi, Kafka producer/consumer và công cụ bàn giao Bronze có checksum qua MinIO. Luồng streaming và công cụ đồng bộ đã được kiểm tra. ETL, mô hình, migration, API và UI tiếp tục theo [kế hoạch phần Thành](docs/superpowers/plans/2026-11-25-thanh-remaining-work.md) và [kế hoạch chung](PLAN.md).
 
 ## Kiến trúc tổng thể
 

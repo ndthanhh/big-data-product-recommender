@@ -206,3 +206,23 @@ powershell -ExecutionPolicy Bypass -File scripts/stop_continuous_stream.ps1
 Worker chạy producer và consumer cùng một tiến trình. Script stop kiểm tra PID, executable và thời điểm tạo, gửi tín hiệu qua file local rồi chờ consumer ghi nốt batch. Nếu worker lỗi, tiến trình trả mã lỗi và ghi vào stream_error.log. Log stream.log và file PID ở thư mục gốc được bỏ qua bởi Git.
 
 Image minio/mc của service khởi tạo hiện không tải được trên máy kiểm tra. Lệnh trên bật ba service chính, consumer tự tạo bucket bronze khi ghi batch đầu tiên. Thư viện MinIO của dự án thực hiện các thao tác đồng bộ dữ liệu.
+
+## Công bố và tải batch Bronze có kiểm tra toàn vẹn
+
+Máy sinh dữ liệu chạy lệnh dưới đây để công bố các batch có manifest. Chỉ các file được liệt kê trong manifest được đưa lên kho dùng chung.
+
+```powershell
+.\.venv\Scripts\python.exe -m recommender.ingestion.sync_minio
+```
+
+Lệnh in ra prefix của từng batch, dạng datasets/<dataset_version>/<manifest_hash>. Prefix được cố định theo nội dung để các lần xuất catalog khác nhau có thể cùng tồn tại. Manifest chỉ được upload sau tất cả data file.
+
+Trên máy train, đặt MINIO_ENDPOINT thành địa chỉ máy chủ mà máy đó truy cập được, cùng access key và secret key được cấp. Chạy lệnh sau với prefix đã nhận.
+
+```powershell
+.\.venv\Scripts\python.exe -m recommender.ingestion.sync_minio --download-prefix "datasets/<dataset_version>/<manifest_hash>" --output-dir data/bronze/shared/catalog-v1
+```
+
+File được tải vào thư mục tạm, kiểm tra kích thước, SHA-256 và số dòng JSONL rồi mới chuyển sang thư mục đích. Lần tải lại cùng batch dùng bản local đã kiểm tra. Thư mục đang chứa phiên bản khác sẽ báo lỗi để người chạy chọn đích mới. Với luồng Kafka, có thể công bố lại các batch local để khôi phục bản copy remote khi MinIO từng ngắt kết nối.
+
+Luồng upload/download đã được kiểm tra bằng hai client trên máy phát triển. Việc kết nối từ máy Pháp cần kiểm tra bằng địa chỉ LAN/VPN thực tế của nhóm.

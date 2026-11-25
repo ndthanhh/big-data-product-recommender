@@ -14,3 +14,7 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 
 - A00 hoàn thành. Producer/consumer hỗ trợ cooperative stop, worker truyền lỗi, script xác minh PID và xử lý PID cũ đã hết. Kiểm tra Kafka→MinIO 8/8 sự kiện, 2 batch; start/stop thực tế thành công. Toàn bộ suite 383 tests.
 - Ruling A00. Image minio/mc hiện không tải được, nghiệm thu dùng docker compose up -d postgres kafka minio. Client Python tạo bucket khi ghi, hướng dẫn đã cập nhật.
+
+- A00 đã push: d470ec877c65b835a4faf58c8463b4572170b63f (SHA remote khớp).
+- A01 code hoàn thành: 387 tests pass, Ruff pass. MinIO roundtrip catalog/users 1.000 dòng và 2 batch/8 events đúng hash. Chờ endpoint LAN và tài khoản thực trên máy Pháp.
+- Ruling A01: sync trả danh sách prefix thay vì None để hỗ trợ tải chính xác batch; prefix chứa fingerprint manifest, manifest upload cuối. minio-init chuyển profile tùy chọn do image mc không tải được; Python tạo bucket. Chi phí: máy thứ hai vẫn cần xác minh mạng/quyền riêng.

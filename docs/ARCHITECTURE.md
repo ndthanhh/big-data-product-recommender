@@ -63,7 +63,7 @@ Silver lưu Parquet tại `s3a://silver/products/<dataset_version>/` và `s3a://
 5. Kiểm tra event tham chiếu catalog, quan hệ user–session–cart và ghi số dòng nhận, trùng, hợp lệ, bị loại theo lý do. Không tự tạo sản phẩm để che lỗi khóa ngoại.
 6. Ghi Parquet và báo cáo chất lượng vào vị trí tạm; kiểm tra lại số dòng/checksum rồi công bố phiên bản bất biến.
 
-`dataset_version` nhận diện đầu vào sạch, khác `run_id` nhận diện lần train. Gói chia sẻ tối thiểu gồm products/events Silver, manifest và báo cáo chất lượng. Cơ chế chia sẻ giữ nguyên phiên bản và checksum; lựa chọn dịch vụ lưu trữ thuộc P0-07/P5, chưa được coi là đã triển khai.
+`dataset_version` nhận diện đầu vào sạch, khác `run_id` nhận diện lần train. Gói chia sẻ tối thiểu gồm products/events Silver, manifest và báo cáo chất lượng. Cơ chế chia sẻ giữ nguyên phiên bản và checksum; Bronze đã có công cụ công bố và tải batch bất biến qua MinIO ở A01, kèm checksum và kích hoạt bản local sau kiểm tra. Công cụ nằm trong ingestion/sync_minio.py.
 
 ### 3.3. Gold: tổng hợp sau chia tập và đầu ra theo batch
 

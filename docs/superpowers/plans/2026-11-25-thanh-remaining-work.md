@@ -97,13 +97,16 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** Cung cấp `sync_bronze_to_minio() -> None` dùng settings hiện có, tham số CLI `--download-prefix` và `--output-dir` cho chiều tải về khi cần. Khi công bố batch, data file được upload trước manifest. Bản tải chỉ được đưa vào thư mục đích sau khi checksum đạt.
 
-- [ ] Test batch hợp lệ, thiếu manifest, sai checksum, lỗi upload giữa chừng và tải lại cùng dữ liệu. Khẳng định batch chưa đủ file chưa được coi là hoàn tất.
-- [ ] Hoàn thiện đồng bộ hai chiều cần cho bàn giao, tái sử dụng manifest và cấu trúc object của BronzeSink.
+- [x] Test batch hợp lệ, thiếu manifest, sai checksum, lỗi upload giữa chừng và tải lại cùng dữ liệu. Khẳng định batch chưa đủ file chưa được coi là hoàn tất.
+- [x] Hoàn thiện đồng bộ hai chiều cần cho bàn giao, tái sử dụng manifest và cấu trúc object của BronzeSink.
 - [ ] Ghi host MinIO dùng chung, cách cấu hình từng máy và quyền đọc/ghi qua biến môi trường. Xác minh máy Pháp truy cập được endpoint và đọc một batch bằng tài khoản của mình.
-- [ ] Chạy fixture qua sync/download rồi kiểm tra file nhận được giữ nguyên ID và SHA-256. Ghi hướng dẫn chạy và giới hạn cần máy chủ MinIO hoạt động.
-- [ ] Commit `feat(data): verify and document shared Bronze delivery`, push và xác nhận SHA.
+- [x] Chạy fixture qua sync/download rồi kiểm tra file nhận được giữ nguyên ID và SHA-256. Ghi hướng dẫn chạy và giới hạn cần máy chủ MinIO hoạt động.
+- [x] Commit `feat(data): verify and document shared Bronze delivery`, push và xác nhận SHA.
 
 **Nghiệm thu.** Test sync pass, catalog và users 1.000 dòng kiểm tra đúng manifest, một batch events tải được từ kho chung. Khử trùng sự kiện theo ID thuộc bước ETL của Pháp.
+
+
+**Đã kiểm tra local:** 387 tests pass; tải catalog/users 1.000 dòng và 2 batch 8 events giữ nguyên SHA. Endpoint LAN/tài khoản máy Pháp chưa có, cần nghiệm thu trên máy thứ hai.
 
 ## A02. PostgreSQL, kết nối và migration
 
@@ -281,7 +284,7 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 | Task | Trạng thái | Commit | Kiểm tra và SHA remote |
 | --- | --- | --- | --- |
 | A00 | Hoàn thành kiểm tra | Xem git log | 383 tests; Kafka→MinIO 8/8; start/stop thật |
-| A01 | Chưa thực hiện theo kế hoạch này | | |
+| A01 | Code và kiểm tra local xong; chờ máy Pháp | Xem git log | 387 tests; MinIO roundtrip đủ catalog/users/events |
 | A02 | Chưa thực hiện | | |
 | A03 | Chưa thực hiện | | |
 | A04 | Chưa thực hiện | | |
