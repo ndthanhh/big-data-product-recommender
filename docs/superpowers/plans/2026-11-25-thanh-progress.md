@@ -22,3 +22,7 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 - A01 push be950dcfb0483e91f29066aaad47e9463c3f6737, SHA remote khớp.
 - A02 hoàn thành: 9 tests DB thật, migration lặp và packaged SQL resource đúng; Ruff pass.
 - Ruling A02: POSTGRES_PORT cấu hình mapping Docker, local .env dùng 5433 do postgres Windows chiếm 5432; defaults vẫn 5432. Test chỉ truncate database *_test đã chọn tường minh. Chi phí: teammate cần chọn đúng cổng local.
+
+- A02 push 6974f41e0935c8a66108a003a85bc33d41d7d951, SHA remote khớp.
+- A03 hoàn thành: 13 tests importer (22 gồm DB), checksums/Parquet/keys/as-of/empty rules; rollback giữ catalog, cạnh tranh cùng/khác run, retry ready no-op.
+- Ruling A03: importer nạp bốn bảng serving và kiểm tra byte mọi artifact liệt kê; validation nội dung model/vocabulary/ALS mappings thuộc publisher Gold của Pháp. Fixture không đại diện kết quả train. Chi phí: nghiệm thu artifact model thật cần A10. PyArrow thêm app dependency.

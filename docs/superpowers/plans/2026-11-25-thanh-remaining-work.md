@@ -132,12 +132,12 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** `validate_snapshot(path: Path) -> ValidatedSnapshot` trả object chứa manifest đã kiểm tra, fingerprint và đường dẫn bốn bảng. Định nghĩa `ValidatedSnapshot` trong snapshot.py. `import_snapshot(path: Path, database_url: str) -> str` trả `run_id` sau import hoặc retry hợp lệ. `activate_run(run_id: str, database_url: str) -> None` dùng cho rollback tường minh. CLI importer nhận thư mục snapshot local đã tải từ MinIO.
 
-- [ ] Tạo helper `make_gold_fixture(output: Path, run_id: str) -> Path` trong test, ghi Parquet và checksum thật, chứa đủ bốn bảng, cả trường hợp association_rules rỗng có schema.
-- [ ] Test thiếu bảng, sai checksum, đường dẫn file vượt thư mục snapshot, ID/rank trùng, run_id khác manifest, antecedent ngoài catalog và timestamp sau cutoff.
-- [ ] Viết validator và importer theo thuật toán khóa singleton, kiểm tra fingerprint và phát hành transaction trong ARCHITECTURE mục 5.
-- [ ] Test lỗi sau khi đã nạp một bảng, cùng run khác fingerprint, retry run ready, hai importer cạnh tranh và rollback cả metadata catalog.
-- [ ] Chạy test bằng PostgreSQL thật, đọc lại số dòng, con trỏ và fingerprint.
-- [ ] Commit `feat(serving): validate and atomically import Gold snapshots`, push và xác nhận SHA.
+- [x] Tạo helper `make_gold_fixture(output: Path, run_id: str) -> Path` trong test, ghi Parquet và checksum thật, chứa đủ bốn bảng, cả trường hợp association_rules rỗng có schema.
+- [x] Test thiếu bảng, sai checksum, đường dẫn file vượt thư mục snapshot, ID/rank trùng, run_id khác manifest, antecedent ngoài catalog và timestamp sau cutoff.
+- [x] Viết validator và importer theo thuật toán khóa singleton, kiểm tra fingerprint và phát hành transaction trong ARCHITECTURE mục 5.
+- [x] Test lỗi sau khi đã nạp một bảng, cùng run khác fingerprint, retry run ready, hai importer cạnh tranh và rollback cả metadata catalog.
+- [x] Chạy test bằng PostgreSQL thật, đọc lại số dòng, con trỏ và fingerprint.
+- [x] Commit `feat(serving): validate and atomically import Gold snapshots`, push và xác nhận SHA.
 
 **Nghiệm thu.** `.venv/Scripts/python.exe -m pytest tests/test_importer.py -q` pass. Snapshot cũ vẫn đọc được sau khi lần import kế tiếp thất bại.
 
@@ -286,7 +286,7 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 | A00 | Hoàn thành kiểm tra | Xem git log | 383 tests; Kafka→MinIO 8/8; start/stop thật |
 | A01 | Code và kiểm tra local xong; chờ máy Pháp | Xem git log | 387 tests; MinIO roundtrip đủ catalog/users/events |
 | A02 | Hoàn thành | Xem git log | 9 tests PostgreSQL thật; migration lặp, UTC, constraints |
-| A03 | Chưa thực hiện | | |
+| A03 | Hoàn thành serving importer | Xem git log | 13 tests; Parquet/checksum/rollback/concurrency |
 | A04 | Chưa thực hiện | | |
 | A05 | Chưa thực hiện | | |
 | A06 | Chưa thực hiện | | |
