@@ -83,3 +83,66 @@ def test_app_shows_api_error(monkeypatch):
     app = AppTest.from_file(str(Path("src/recommender/ui/app.py").resolve())).run()
     assert not app.exception
     assert any("snapshot" in element.value for element in app.error)
+
+
+def test_permanent_rejection_does_not_block_other_events():
+    state = StoreState("u1")
+    state.open_product("fixture:removed")
+    rejected = set(state.pending)
+    state.change_user("u2")
+    state.open_product("fixture:valid")
+    valid = set(state.pending) - rejected
+
+    class Client:
+        def request(self, method, path, json):
+            if json["event_id"] in rejected:
+                raise ApiError(
+                    "Product no longer exists",
+                    status_code=404,
+                    code="PRODUCT_NOT_FOUND",
+                )
+            return {"event_id": json["event_id"]}
+
+    state.flush(Client())
+    assert not state.pending
+    assert set(state.failed_events) == rejected
+    assert valid.isdisjoint(state.failed_events)
+
+
+def test_clear_cart_starts_new_basket_preserving_queued_ids():
+    state = StoreState("u1")
+    state.open_product("fixture:a")
+    state.add_to_cart()
+    old_cart, session = state.cart_id, state.session_id
+    state.clear_cart()
+    state.open_product("fixture:b")
+    state.add_to_cart()
+    baskets = [
+        row["cart_id"]
+        for row in state.pending.values()
+        if row["event_type"] == "add_to_cart"
+    ]
+    assert baskets == [old_cart, state.cart_id]
+    assert old_cart != state.cart_id and state.session_id == session
+
+
+def test_recommendation_metadata_reloads_group_after_snapshot_change(monkeypatch):
+    from recommender.ui.client import SnapshotChanged
+
+    client = ApiClient("http://example.test")
+    loaded = []
+
+    def fetch():
+        run = "old" if not loaded else "new"
+        loaded.append(run)
+        return {"run_id": run, "items": [{"product_id": "fixture:a"}]}
+
+    def product(product_id, *, run_id=None):
+        if run_id == "old":
+            raise SnapshotChanged("Changed snapshot")
+        return {"product_id": product_id, "name": "New metadata"}
+
+    monkeypatch.setattr(client, "product", product)
+    response, products = client.recommendation_products(fetch)
+    assert loaded == ["old", "new"] and response["run_id"] == "new"
+    assert products[0][1]["name"] == "New metadata"

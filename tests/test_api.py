@@ -149,3 +149,40 @@ def test_commit_failure_is_503_and_retriable(client, monkeypatch, db_url):
     assert (r.status_code, r.json()["detail"]["code"]) == (503, "DATABASE_UNAVAILABLE")
     with connect(db_url) as c:
         assert c.execute("SELECT count(*) FROM events").fetchone()[0] == 0
+
+
+def test_slash_product_id_and_conditional_metadata_run(db_url, tmp_path):
+    from gold_fixture import rewrite_table
+
+    root = make_gold_fixture(tmp_path)
+    rewrite_table(
+        root, "products", lambda rows: rows[4].update(product_id="fixture:e/slash")
+    )
+    rewrite_table(
+        root,
+        "recommendation_items",
+        lambda rows: [
+            row.update(product_id="fixture:e/slash")
+            for row in rows
+            if row["product_id"] == "fixture:e"
+        ],
+    )
+    import_snapshot(root, db_url)
+    c = TestClient(create_app(db_url))
+    r = c.get("/api/v1/products/fixture%3Ae%2Fslash")
+    assert r.status_code == 200 and r.json()["product_id"] == "fixture:e/slash"
+
+
+def test_conditional_metadata_rejects_surviving_id_from_new_run(
+    client, db_url, tmp_path
+):
+    from gold_fixture import rewrite_table
+
+    c = client
+    second = make_gold_fixture(tmp_path, "next")
+    rewrite_table(second, "products", lambda rows: rows[0].update(name="New name"))
+    import_snapshot(second, db_url)
+    r = c.get(
+        "/api/v1/products/fixture:a", headers={"X-Expected-Run-ID": "fixture_run"}
+    )
+    assert r.status_code == 503 and r.headers["X-Active-Run-ID"] == "next"

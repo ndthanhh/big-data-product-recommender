@@ -5,6 +5,7 @@ from pathlib import Path
 
 import uvicorn
 
+from recommender.api.db import connect
 from recommender.api.main import create_app
 from recommender.api.migrate import migrate
 from recommender.config import get_settings
@@ -13,7 +14,16 @@ from recommender.pipeline.importer import import_snapshot
 
 def prepare(snapshot_dir: Path, database_url: str) -> str:
     migrate(database_url)
-    return import_snapshot(snapshot_dir, database_url)
+    requested = import_snapshot(snapshot_dir, database_url)
+    with connect(database_url) as conn:
+        active = conn.execute(
+            "SELECT active_run_id FROM serving_state WHERE singleton_id=1"
+        ).fetchone()[0]
+    if active != requested:
+        raise ValueError(
+            f"Requested run {requested} is ready but active run is {active}. Activate explicitly: python -m recommender.pipeline.importer --activate-run {requested}"
+        )
+    return requested
 
 
 def main():

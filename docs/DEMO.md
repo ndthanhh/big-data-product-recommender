@@ -39,7 +39,7 @@ Mở [website demo](http://127.0.0.1:8501) và [OpenAPI](http://127.0.0.1:8000/d
 3. Chọn tab Đang xem: Product A, ảnh fallback và Sản phẩm thay thế C.
 4. Thêm A vào giỏ, sang Giỏ hàng: có A và Thường thêm cùng D. Xem [ảnh browser thật](demo/cart-fixture.jpg).
 5. Đổi user thành mã mới: tạo session/cart mới, nhận popularity. Đổi toggle/tab hoặc rerun không sinh thêm event.
-6. Khi API ngắt, event chưa nhận được giữ trong state; bấm Gửi lại sự kiện với cùng UUID. Session/cart của payload cũ vẫn được giữ kể cả sau đổi user.
+6. Khi API ngắt, event chưa nhận được giữ trong state; bấm Gửi lại sự kiện với cùng UUID. Session/cart của payload cũ vẫn được giữ kể cả sau đổi user. Event bị từ chối vĩnh viễn (404/409/422) được giữ riêng kèm lý do và không chặn các thao tác mới. Xóa giỏ tạo cart_id mới trong cùng session, giữ nguyên ID của payload đã xếp hàng.
 
 API không có xác thực người dùng ở phạm vi demo. User ID là mã mô phỏng tự chọn. UI chỉ gọi HTTP; không train hay đọc DB trực tiếp.
 
@@ -55,6 +55,8 @@ Pháp bàn giao thư mục `<run_id>/manifest.json` cùng toàn bộ file đư�
 ```
 
 Importer kiểm tra byte/checksum mọi file và nội dung bốn bảng serving. Pháp kiểm tra model/vocabulary/ALS mappings ở bước phát hành Gold. Cùng run ID khác fingerprint bị từ chối. Retry run ready không tự kích hoạt lại run cũ. Request đang đọc tiếp tục dùng một run nhất quán.
+
+Nếu chạy runner với run ready cũ trong khi run khác active, runner dừng và chỉ rõ lệnh `--activate-run` cần dùng; runner không tự rollback. UI lấy metadata gợi ý với `X-Expected-Run-ID`, tải lại nhóm khi snapshot đổi và không ghép tên/danh mục của run khác.
 
 Luật FP-Growth của Thành nhận baskets cùng run, loại giỏ dưới hai item khỏi fit. Đưa các file rules cùng checksum vào manifest Gold do Pháp phát hành:
 

@@ -4,7 +4,7 @@
 
 ## 1. Trạng thái có thể chạy ngày 25/11/2026
 
-Repo chạy được ingestion/Kafka/MinIO, migration, importer, FP-Growth, FastAPI, session/export và Streamlit với fixture Gold. Xem [DEMO.md](DEMO.md) để chạy ứng dụng, [DATABASE.md](DATABASE.md) cho ERD và [THANH_REPORT.md](THANH_REPORT.md) cho kết quả. 442 tests pass, benchmark HTTP 400 request không lỗi trên fixture 5 sản phẩm. ETL, model TF-IDF/ALS/MMR, đánh giá thật của Pháp và nghiệm thu hai máy chưa hoàn tất.
+Repo chạy được ingestion/Kafka/MinIO, migration, importer, FP-Growth, FastAPI, session/export và Streamlit với fixture Gold. Xem [DEMO.md](DEMO.md) để chạy ứng dụng, [DATABASE.md](DATABASE.md) cho ERD và [THANH_REPORT.md](THANH_REPORT.md) cho kết quả. 450 tests pass, benchmark HTTP 400 request không lỗi trên fixture 5 sản phẩm. ETL, model TF-IDF/ALS/MMR, đánh giá thật của Pháp và nghiệm thu hai máy chưa hoàn tất.
 
 [README gốc](../README.md) là điểm bắt đầu cài môi trường và chỉ mục tài liệu. [PLAN.md](../PLAN.md) định nghĩa T01–T12; [PROJECT_CHECKLIST.md](PROJECT_CHECKLIST.md) theo dõi nguồn catalog, chia sẻ dataset, thực nghiệm và báo cáo P0–P15. T01 không tự đánh dấu hoàn tất kiểm tra triển khai hoặc review nhóm.
 
@@ -173,7 +173,7 @@ Từ T02, chạy test liên quan theo PLAN. Khi đã có test, các lệnh chung
 .\.venv\Scripts\python.exe -m pytest
 ```
 
-Suite hiện có 442 tests pass khi TEST_DATABASE_URL trỏ DB kiểm thử riêng. Nếu thiếu biến này, các test DB sẽ skip. End-to-end fixture đã chạy local; Gold thật và máy Pháp còn chờ nghiệm thu. Lưu lệnh thực chạy, cấu hình không có secret, output kiểm tra và run/dataset dùng. [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md) quy định raw output, công thức, warm-up, số lượt và percentile.
+Suite hiện có 450 tests pass khi TEST_DATABASE_URL trỏ DB kiểm thử riêng. Nếu thiếu biến này, các test DB sẽ skip. End-to-end fixture đã chạy local; Gold thật và máy Pháp còn chờ nghiệm thu. Lưu lệnh thực chạy, cấu hình không có secret, output kiểm tra và run/dataset dùng. [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md) quy định raw output, công thức, warm-up, số lượt và percentile.
 
 ## 6. Xử lý lỗi vận hành
 

@@ -16,13 +16,13 @@ from recommender.schemas import PathId
 from recommender.streaming.consumer import create_minio_client
 
 
-def validate_manifest(folder: Path) -> dict:
-    """Verify confined paths, byte counts and hashes before publishing or activation."""
-    manifest = json.loads((folder / "manifest.json").read_text("utf-8"))
+def _manifest_files(folder: Path, manifest: dict) -> list[tuple[dict, Path]]:
+    """Resolve confined file paths before copying or reading any data."""
     if manifest.get("schema_version") != 1 or not manifest.get("files"):
         raise ValueError("Invalid manifest")
     TypeAdapter(PathId).validate_python(manifest["dataset_version"])
     seen = set()
+    result = []
     for entry in manifest["files"]:
         relative = PurePosixPath(entry["path"])
         if (
@@ -38,6 +38,15 @@ def validate_manifest(folder: Path) -> dict:
         path = folder / relative
         if not path.resolve().is_relative_to(folder.resolve()):
             raise ValueError("File path escapes batch")
+        result.append((entry, path))
+    return result
+
+
+def validate_manifest(folder: Path) -> dict:
+    """Verify confined paths, byte counts and hashes before publishing or activation."""
+    manifest = json.loads((folder / "manifest.json").read_bytes())
+    for entry, path in _manifest_files(folder, manifest):
+        relative = entry["path"]
         data = path.read_bytes()
         if len(data) != entry["bytes"]:
             raise ValueError(f"Invalid file size: {relative}")
@@ -80,20 +89,37 @@ def sync_bronze_to_minio(
         ):
             continue
         folder = manifest_path.parent
-        manifest = validate_manifest(folder)
+        content = manifest_path.read_bytes()
+        manifest = json.loads(content)
         # The manifest digest also separates consumer batches whose dataset ID
         # alone may describe the same event payload.
-        content = manifest_path.read_bytes()
         digest = hashlib.sha256(content).hexdigest()[:16]
         prefix = f"datasets/{manifest['dataset_version']}/{digest}"
         existing = _read_object(client, f"{prefix}/manifest.json")
         if existing is not None and existing != content:
             raise ValueError("Immutable remote manifest conflict")
-        for entry in manifest["files"]:
-            client.fput_object(
-                "bronze", f"{prefix}/{entry['path']}", str(folder / entry["path"])
-            )
-        client.fput_object("bronze", f"{prefix}/manifest.json", str(manifest_path))
+        if existing is None:
+            # Capture a private copy. Hash that copy, then upload only that copy:
+            # changing a source file during publication cannot alter verified bytes.
+            with tempfile.TemporaryDirectory(prefix="recommender-publish-") as name:
+                staged = Path(name)
+                for entry, path in _manifest_files(folder, manifest):
+                    target = staged / entry["path"]
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(path, target)
+                (staged / "manifest.json").write_bytes(content)
+                validate_manifest(staged)
+                for entry in manifest["files"]:
+                    client.fput_object(
+                        "bronze",
+                        f"{prefix}/{entry['path']}",
+                        str(staged / entry["path"]),
+                    )
+                client.fput_object(
+                    "bronze", f"{prefix}/manifest.json", str(staged / "manifest.json")
+                )
+        # An identical published manifest is a no-op. Never reopen its data
+        # objects for writing, even if the local source has since changed.
         published.append(prefix)
         print(prefix)
     return published

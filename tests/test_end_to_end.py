@@ -68,3 +68,16 @@ def test_benchmark_measures_all_routes_and_writes_result(db_url, tmp_path):
     output = tmp_path / "result.json"
     module.write_result(output, result)
     assert json.loads(output.read_text("utf-8"))["run_id"] == "fixture_run"
+
+
+def test_runner_does_not_announce_inactive_ready_snapshot(db_url, tmp_path):
+    import pytest
+
+    from recommender.pipeline.importer import import_snapshot
+
+    runner = load_script("run_demo")
+    old = make_gold_fixture(tmp_path, "old")
+    import_snapshot(old, db_url)
+    import_snapshot(make_gold_fixture(tmp_path, "new"), db_url)
+    with pytest.raises(ValueError, match="activate-run"):
+        runner.prepare(old, db_url)

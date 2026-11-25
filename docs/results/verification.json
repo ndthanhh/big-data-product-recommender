@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-25",
+  "tests": 450,
+  "failures": 0,
+  "skipped": 0,
+  "duration_seconds": 140.14,
+  "warning": "Starlette TestClient HTTPX deprecation",
+  "ruff": "passed",
+  "format_files": 58,
+  "regression_tests_added_after_review": 8,
+  "review_issues_fixed": 7,
+  "real_minio_roundtrip_users": 1000,
+  "snapshot_scope": "fixture; real Gold and teammate machine pending"
+}

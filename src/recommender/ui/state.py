@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 from uuid import uuid4
 
 from recommender.schemas import EventCreate
+from recommender.ui.client import ApiError
 
 
 @dataclass
@@ -16,6 +17,7 @@ class StoreState:
     selected: str | None = None
     page: int = 0
     pending: dict[str, dict] = field(default_factory=dict)
+    failed_events: dict[str, dict] = field(default_factory=dict)
 
     def change_user(self, user_id: str):
         if user_id != self.user_id:
@@ -50,9 +52,24 @@ class StoreState:
             self._queue(self.selected, "add_to_cart")
             self.cart.add(self.selected)
 
+    def clear_cart(self):
+        self.cart.clear()
+        self.cart_id = uuid4().hex
+
     def flush(self, client):
         for event_id, payload in list(self.pending.items()):
-            result = client.request("POST", "/api/v1/events", json=payload)
+            try:
+                result = client.request("POST", "/api/v1/events", json=payload)
+            except ApiError as exc:
+                if exc.retryable:
+                    raise
+                self.failed_events[event_id] = {
+                    "payload": payload,
+                    "code": exc.code,
+                    "message": str(exc),
+                }
+                del self.pending[event_id]
+                continue
             if result.get("event_id") != event_id:
                 raise ValueError("API returned a different event ID")
             del self.pending[event_id]

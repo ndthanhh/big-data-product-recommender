@@ -69,6 +69,11 @@ if state.pending:
         flush()
         st.rerun()
 
+if state.failed_events:
+    st.sidebar.warning(
+        f"{len(state.failed_events)} thao tác không thể lưu do sản phẩm hoặc phiên không còn hợp lệ. Các thao tác mới vẫn được gửi."
+    )
+
 
 def open_product(product_id):
     state.open_product(product_id)
@@ -76,18 +81,14 @@ def open_product(product_id):
     st.rerun()
 
 
-def suggestions(title, response, key):
+def suggestions(title, fetch, key):
+    response, resolved = client.recommendation_products(fetch)
     st.subheader(title)
     if not response["items"]:
         st.info("Chưa có gợi ý phù hợp trong ngữ cảnh này.")
         return
     st.caption(f"Phiên bản gợi ý: {response['run_id']}")
-    for row in response["items"]:
-        try:
-            product = client.product(row["product_id"])
-        except ApiError:
-            st.info("Danh mục vừa thay đổi. Tải lại gợi ý để tiếp tục.")
-            continue
+    for row, product in resolved:
         if st.button(
             product["name"], key=f"{key}-{row['product_id']}", width="stretch"
         ):
@@ -115,7 +116,7 @@ try:
             st.rerun()
         suggestions(
             "Dành cho bạn",
-            client.personalized(
+            lambda: client.personalized(
                 state.user_id, state.session_id if use_session else None
             ),
             "personalized",
@@ -135,7 +136,9 @@ try:
                 flush()
                 st.rerun()
             suggestions(
-                "Sản phẩm thay thế", client.substitutes(state.selected), "substitute"
+                "Sản phẩm thay thế",
+                lambda: client.substitutes(state.selected),
+                "substitute",
             )
         else:
             st.info(
@@ -149,11 +152,13 @@ try:
                 except ApiError:
                     st.write(product_id + " — sản phẩm đã đổi phiên bản")
             if st.button("Xóa giỏ hàng"):
-                state.cart.clear()
+                state.clear_cart()
                 st.rerun()
         else:
             st.info("Giỏ hàng đang trống.")
-        suggestions("Thường thêm cùng", client.complements(state.cart), "complement")
+        suggestions(
+            "Thường thêm cùng", lambda: client.complements(state.cart), "complement"
+        )
         st.caption("Các gợi ý dựa trên sản phẩm thường xuất hiện cùng giỏ.")
 except ApiError as exc:
     st.error(str(exc))

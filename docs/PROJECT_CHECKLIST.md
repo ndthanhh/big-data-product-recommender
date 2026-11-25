@@ -6,7 +6,7 @@ Cập nhật ngày 25/11/2026. Áp dụng cho dự án hai người theo đề c
 
 ## Cách dùng và trạng thái hiện tại
 
-**Bằng chứng phần Thành:** 442 tests pass; migration/importer/API/session/export và UI đã kiểm tra với fixture Gold, browser thật và [benchmark](results/api-fixture-benchmark.json). Checkbox triển khai không xác nhận chất lượng model/Gold thật. [Danh sách chờ phối hợp](DEMO.md#7-các-bước-còn-chờ-phối-hợp). P10-02/11-05/11-06 và benchmark dữ liệu thật giữ mở cho nghiệm thu với model của Pháp.
+**Bằng chứng phần Thành:** 450 tests pass; migration/importer/API/session/export và UI đã kiểm tra với fixture Gold, browser thật và [benchmark](results/api-fixture-benchmark.json). Checkbox triển khai không xác nhận chất lượng model/Gold thật. [Danh sách chờ phối hợp](DEMO.md#7-các-bước-còn-chờ-phối-hợp). P10-02/11-05/11-06 và benchmark dữ liệu thật giữ mở cho nghiệm thu với model của Pháp.
 
 
 Đánh dấu `[x]` khi đã có đầu ra kiểm tra được. Một việc đang làm vẫn để `[ ]` và có thể ghi issue hoặc PR bên cạnh. Các đường dẫn đầu ra trong checklist là vị trí dự kiến trong repo. Lệnh chạy cụ thể được điền vào tài liệu khi entry point tương ứng đã hoạt động.

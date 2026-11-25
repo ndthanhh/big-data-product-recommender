@@ -319,6 +319,8 @@ Không có body/query. Trả `200` và chính xác `{"status":"ok"}` khi tiến 
 
 Chỉ đọc products của active run. Ví dụ danh sách rỗng hợp lệ sau offset lớn là `{"items":[]}`. Khi UI đã giữ kết quả từ run cũ mà catalog vừa đổi, UI tải lại danh sách gợi ý; không coi 404 metadata là sản phẩm tương thích mới.
 
+Detail route hỗ trợ raw ID chứa `/` khi client URL-encode toàn bộ ID. Client lấy metadata cho một nhóm gợi ý có thể gửi header `X-Expected-Run-ID`. Nếu khác run active trong transaction đọc, API trả 503 `SNAPSHOT_UNAVAILABLE` và header `X-Active-Run-ID` chỉ run hiện tại; body sản phẩm vẫn theo Product v1 khi thành công. UI tải lại cả nhóm gợi ý một lần, chỉ render khi metadata khớp run của nhóm; nếu snapshot tiếp tục đổi thì yêu cầu tải lại.
+
 ### 6.4. `POST /api/v1/events`: idempotency
 
 Body đúng schema event mục 2.2, bắt buộc `source="demo"`. Không tự sinh UUID nếu client thiếu. Response tạo mới `201`, retry tương đương `200`; cả hai có cùng body:

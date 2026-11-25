@@ -274,8 +274,8 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 - [x] Báo cáo phần Thành trong docs/THANH_REPORT.md.
 - [ ] Đối chiếu bảng kết quả của Pháp với dataset/run đã dùng. Ghi giới hạn dữ liệu mô phỏng và phạm vi đã kiểm chứng.
 - [x] Fixture CLI và kịch bản user cũ/mới, substitutes/complements/session/rollback đã có; batch train tiếp theo chờ Pháp.
-- [x] 442 tests pass, Ruff/check format pass, 149 local doc links đúng; wheel có SQL, clean-source CLI đã chạy.
-- [ ] Đánh dấu các task đã đạt, ghi commit/SHA push tương ứng, commit `docs(delivery): finalize Thanh implementation and demo guide`, push và xác nhận SHA.
+- [x] 450 tests pass sau review, Ruff/check format pass, 149 local doc links đúng; wheel có SQL, clean-source CLI đã chạy.
+- [x] Task đạt và commit tương ứng đã ghi; docs(delivery) push 63df300, bản sửa review có commit riêng.
 
 **Nghiệm thu.** Teammate có thể chạy phần ứng dụng bằng tài liệu và output mô hình đã bàn giao. Báo cáo cùng demo sử dụng cùng phiên bản dữ liệu và kết quả thực nghiệm.
 
@@ -285,15 +285,15 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 
 | Task | Trạng thái | Commit | Kiểm tra và SHA remote |
 | --- | --- | --- | --- |
-| A00 | Hoàn thành kiểm tra | Xem git log | 383 tests; Kafka→MinIO 8/8; start/stop thật |
-| A01 | Code và kiểm tra local xong; chờ máy Pháp | Xem git log | 387 tests; MinIO roundtrip đủ catalog/users/events |
-| A02 | Hoàn thành | Xem git log | 9 tests PostgreSQL thật; migration lặp, UTC, constraints |
-| A03 | Hoàn thành serving importer | Xem git log | 13 tests; Parquet/checksum/rollback/concurrency |
-| A04 | Code và Spark fixture hoàn thành | Xem git log | 5 tests; rules thật chờ Gold publisher |
-| A05 | Hoàn thành | Xem git log | 9 tests; HTTP Uvicorn; UUID/identity/commit |
-| A06 | Hoàn thành | Xem git log | 13 tests API; giữ run và MMR rank |
-| A07 | Hoàn thành | Xem git log | 9 tests; click đổi thứ tự cùng run, tách session |
-| A08 | Hoàn thành | Xem git log | 8 tests exporter/sync; replay và late commit |
-| A09 | Hoàn thành | Xem git log | 4 tests; browser thật catalog→detail→cart; ảnh docs/demo |
-| A10 | Runner/E2E fixture/benchmark xong; chờ Gold thật | Xem git log | 400 HTTP mẫu, 0 lỗi; 2 E2E tests |
-| A11 | Tài liệu local xong; chờ review cuối và bàn giao hai máy | Xem git log | 442 tests; 149 links; packaged SQL; clean source |
+| A00 | Hoàn thành kiểm tra | d470ec8 | 383 tests; Kafka→MinIO 8/8; start/stop thật |
+| A01 | Code và kiểm tra local xong; chờ máy Pháp | be950dc | 387 tests; MinIO roundtrip đủ catalog/users/events |
+| A02 | Hoàn thành | 6974f41 | 9 tests PostgreSQL thật; migration lặp, UTC, constraints |
+| A03 | Hoàn thành serving importer | 3c8c183 | 13 tests; Parquet/checksum/rollback/concurrency |
+| A04 | Code và Spark fixture hoàn thành | 0913db5 | 5 tests; rules thật chờ Gold publisher |
+| A05 | Hoàn thành | 8529991 | 9 tests; HTTP Uvicorn; UUID/identity/commit |
+| A06 | Hoàn thành | 9ebe486 | 13 tests API; giữ run và MMR rank |
+| A07 | Hoàn thành | 28c76b9 | 9 tests; click đổi thứ tự cùng run, tách session |
+| A08 | Hoàn thành | 6924104 | 8 tests exporter/sync; replay và late commit |
+| A09 | Hoàn thành | 78aad25 | 4 tests; browser thật catalog→detail→cart; ảnh docs/demo |
+| A10 | Runner/E2E fixture/benchmark xong; chờ Gold thật | f99e4d0 | 400 HTTP mẫu, 0 lỗi; 2 E2E tests |
+| A11 | Tài liệu và review local xong; chờ Gold thật/hai máy | 63df300 | 450 tests; review sửa 7 lỗi; packaged SQL; clean source |

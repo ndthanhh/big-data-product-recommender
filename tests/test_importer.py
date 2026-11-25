@@ -153,3 +153,28 @@ def test_competing_import_does_not_overwrite_new_active(tmp_path, db_url, monkey
             c.execute("SELECT active_run_id FROM serving_state").fetchone()[0]
             == "second"
         )
+
+
+def test_parquet_parse_uses_the_bytes_that_passed_checksum(tmp_path, monkeypatch):
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    from recommender.pipeline import snapshot
+
+    root = make_gold_fixture(tmp_path)
+    products = root / "products.parquet"
+    original = pq.read_table(products)
+    changed = original.set_column(
+        original.schema.get_field_index("name"),
+        "name",
+        pa.array(["Unverified replacement"] * 5),
+    )
+    read = pq.read_table
+
+    def replace_before_parse(source, *args, **kwargs):
+        pq.write_table(changed, products)
+        return read(source, *args, **kwargs)
+
+    monkeypatch.setattr(snapshot.pq, "read_table", replace_before_parse)
+    validated = snapshot.validate_snapshot(root)
+    assert validated.tables["products"][0]["name"] == "Product a"

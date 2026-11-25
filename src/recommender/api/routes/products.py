@@ -41,9 +41,16 @@ def list_products(
         }
 
 
-@router.get("/{product_id}", response_model=Product)
+@router.get("/{product_id:path}", response_model=Product)
 def get_product(request: Request, product_id: ProductId):
     with read_snapshot(request.app.state.database_url) as (conn, run):
+        expected = request.headers.get("X-Expected-Run-ID")
+        if expected and expected != run:
+            failure = error(
+                503, "SNAPSHOT_UNAVAILABLE", "Snapshot đã thay đổi; tải lại nhóm gợi ý"
+            )
+            failure.headers = {"X-Active-Run-ID": run}
+            raise failure
         with conn.cursor(row_factory=dict_row) as cur:
             row = cur.execute(
                 "SELECT * FROM products WHERE run_id=%s AND product_id=%s",

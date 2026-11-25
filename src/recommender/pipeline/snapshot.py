@@ -132,7 +132,7 @@ def validate_snapshot(path: Path) -> ValidatedSnapshot:
             continue
         if entry["format"] != "parquet":
             raise ValueError("Serving tables require Parquet")
-        table = pq.read_table(target)
+        table = pq.read_table(pa.BufferReader(data))
         _check_schema(table, TABLE_MODELS[name])
         if type(entry["rows"]) is not int or table.num_rows != entry["rows"]:
             raise ValueError("File row count mismatch")

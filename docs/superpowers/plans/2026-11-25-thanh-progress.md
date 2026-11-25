@@ -53,3 +53,18 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 - A10 push f99e4d0032afdeb5201f66f34e5c35e6528f53fe, SHA remote khớp.
 - A11: 442 tests pass (74.12s), Ruff + 58 files format pass, pip check đúng, wheel build/install chứa SQL migration, 149 link tài liệu local đúng. Bản git archive sạch dùng source riêng tạo fixture_clean → migrate/import vào database recommender_cleancheck thành công. README/PLAN/checklist/ERD/demo/báo cáo đã đồng bộ. Máy Pháp và Gold thật vẫn chờ.
 - Ruling execution: dùng ledger bền vững dưới docs và lệnh PowerShell thay helper shell SDD; kế thừa checkout/nhánh codex đang thực thi. Chi phí: kiểm tra tiến độ thủ công bằng SHA/ledger, không có task-done automation.
+
+- A11 push 63df300d01fc7d2be6a4a3319cc1d895327d2cb3, SHA remote khớp.
+- Final review: reviewer độc lập đọc b59dc55..63df300, 2 Critical + 5 Important được chấp nhận; chi tiết docs/REVIEW.md.
+- Final: fixed MinIO source race/ready overwrite — test_publication_uses_verified_copy_and_never_rewrites_ready_batch RED→GREEN, suite 450/450; MinIO thật cũng đúng 1.000 dòng.
+- Final: fixed Gold checksum/parse race — test_parquet_parse_uses_the_bytes_that_passed_checksum RED→GREEN, suite 450/450.
+- Final: fixed queue permanent rejection — test_permanent_rejection_does_not_block_other_events RED→GREEN, suite 450/450; payload lỗi giữ riêng, mạng/5xx giữ UUID retry.
+- Final: fixed cart basket identity — test_clear_cart_starts_new_basket_preserving_queued_ids RED→GREEN, suite 450/450.
+- Final: fixed mixed-run metadata — test_recommendation_metadata_reloads_group_after_snapshot_change và test_conditional_metadata_rejects_surviving_id_from_new_run RED→GREEN, suite 450/450.
+- Final: fixed slash product route — test_slash_product_id_and_conditional_metadata_run RED→GREEN, suite 450/450.
+- Final: fixed runner announces inactive snapshot — test_runner_does_not_announce_inactive_ready_snapshot RED→GREEN, suite 450/450.
+- Final: minor (deferred): validator quét fallback theo từng user O(U×R); group một pass để tối ưu snapshot lớn sau, tính đúng không đổi.
+- Final: Ruling: MinIO trên máy Pháp chưa có quyền truy cập để thử — giữ nghiệm thu hai máy mở — chi phí: chưa bảo đảm LAN/tài khoản trên máy đó hoạt động.
+- Final: Ruling: Silver/Gold/model thật của Pháp chưa được bàn giao — fixture chỉ chứng minh serving, chờ nghiệm thu model/vòng retrain — chi phí: chưa có kết luận chất lượng hoặc tải lớn.
+- Final: Ruling: reviewer chỉ đọc và tái hiện riêng, không chạy lại full suite — implementer chạy 450/450 sau sửa + browser/MinIO thật — chi phí: suite cuối không có một lượt chạy độc lập thứ hai.
+- Final verification: 450 tests pass/140.14s, Ruff pass, format58 files pass. Browser sau restart API/UI vẫn có A→substitute C→cart→complement D. Không có re-review; một fix pass đúng quy trình. Giữ nhánh theo yêu cầu push từng task, chưa merge main.

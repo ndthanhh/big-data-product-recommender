@@ -115,3 +115,28 @@ def test_staging_directory_is_not_published(tmp_path):
     store = Store()
     assert sync_minio.sync_bronze_to_minio(tmp_path / "bronze", client=store) == []
     assert store.objects == {}
+
+
+def test_publication_uses_verified_copy_and_never_rewrites_ready_batch(
+    tmp_path, monkeypatch
+):
+    source = batch(tmp_path / "bronze")
+    original = (source / "products.jsonl").read_bytes()
+    validate = sync_minio.validate_manifest
+
+    def mutate_after_validation(folder):
+        result = validate(folder)
+        (source / "products.jsonl").write_bytes(b"changed after validation\n")
+        return result
+
+    monkeypatch.setattr(sync_minio, "validate_manifest", mutate_after_validation)
+    store = Store()
+    prefix = sync_minio.sync_bronze_to_minio(tmp_path / "bronze", client=store)[0]
+    assert store.objects[prefix + "/products.jsonl"] == original
+    (source / "products.jsonl").write_bytes(original)
+
+    def must_not_upload(*args, **kwargs):
+        raise AssertionError("Published batches must never be rewritten")
+
+    store.fput_object = must_not_upload
+    sync_minio.sync_bronze_to_minio(tmp_path / "bronze", client=store)

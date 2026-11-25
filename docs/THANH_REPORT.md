@@ -38,3 +38,5 @@ Uvicorn HTTP local, PostgreSQL Docker, Windows/Python 3.11.9, 16 logical CPU. Da
 ## Giới hạn và bàn giao tiếp
 
 Pháp chưa bàn giao ETL, output popularity/TF-IDF/ALS/MMR, split và bảng metric thật trong checkout này. Vì vậy chưa có kết luận Recall/NDCG/diversity hoặc vòng export→retrain→Gold thật. Việc chọn ngưỡng FP-Growth, benchmark catalog 1.000 sản phẩm và chạy từ tài khoản teammate cần nghiệm thu tiếp. [Hướng dẫn demo](DEMO.md) có các lệnh tái lập, importer/rollback và checklist bàn giao.
+
+Kiểm tra cuối sau [review độc lập](REVIEW.md): 450 tests pass, Ruff/format pass; đã sửa bảy vấn đề toàn vẹn/lifecycle và thêm tám regression tests. Tối ưu quét fallback theo user còn để sau, có thể ảnh hưởng thời gian validate snapshot lớn.
