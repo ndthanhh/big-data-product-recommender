@@ -1,95 +1,112 @@
-"""Unified Background Streaming Worker: Producer + Consumer in one process."""
+"""Run producer and consumer with cooperative shutdown and failure propagation."""
 
 import argparse
 import logging
-import sys
+import math
 import threading
-import time
+from collections.abc import Callable
 from pathlib import Path
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO_ROOT / "src"))
+from queue import Queue
 
 from recommender.config import get_settings
-from recommender.streaming.consumer import BronzeSink, consume_events, create_kafka_consumer
+from recommender.streaming.consumer import (
+    BronzeSink,
+    consume_events,
+    create_kafka_consumer,
+)
 from recommender.streaming.producer import run_producer
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(threadName)s: %(message)s",
-)
-LOGGER = logging.getLogger("stream_worker")
+
+def run_workers(
+    producer: Callable[[], None],
+    consumer: Callable[[], None],
+    stopped: threading.Event,
+) -> None:
+    """Stop both workers on completion, failure or interrupt, then report failures."""
+    failures: Queue[Exception] = Queue()
+
+    def invoke(action: Callable[[], None]) -> None:
+        try:
+            action()
+        except Exception as exc:  # noqa: BLE001 -- propagate worker failures to main
+            failures.put(exc)
+        finally:
+            stopped.set()
+
+    threads = [
+        threading.Thread(target=invoke, args=(action,), name=name)
+        for name, action in (("consumer", consumer), ("producer", producer))
+    ]
+    for thread in threads:
+        thread.start()
+    try:
+        while any(thread.is_alive() for thread in threads):
+            for thread in threads:
+                thread.join(0.2)
+    except KeyboardInterrupt:
+        stopped.set()
+    finally:
+        for thread in threads:
+            thread.join()
+    if not failures.empty():
+        error = failures.get()
+        raise RuntimeError(f"Streaming worker failed: {error}") from error
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--rate", type=float, default=10.0, help="Events per second")
-    parser.add_argument("--batch-size", type=int, default=100, help="Flush batch size")
-    parser.add_argument(
-        "--flush-interval", type=float, default=5.0, help="Flush interval in seconds"
-    )
+    parser.add_argument("--rate", type=float, default=10)
+    parser.add_argument("--batch-size", type=int, default=100)
+    parser.add_argument("--flush-interval", type=float, default=5)
+    parser.add_argument("--stop-file", type=Path)
     args = parser.parse_args()
-
+    if (
+        not math.isfinite(args.rate)
+        or args.rate <= 0
+        or args.batch_size <= 0
+        or not math.isfinite(args.flush_interval)
+        or args.flush_interval <= 0
+    ):
+        parser.error("rate, batch-size and flush-interval must be finite and positive")
     settings = get_settings()
-    catalog_path = settings.data_lake_dir / "bronze/products/products.jsonl"
-    users_path = settings.data_lake_dir / "bronze/users/users.jsonl"
+    catalog = settings.data_lake_dir / "bronze/products/products.jsonl"
+    users = settings.data_lake_dir / "bronze/users/users.jsonl"
+    if not catalog.is_file() or not users.is_file():
+        parser.error("Catalog and user files are required")
+    stopped = threading.Event()
 
-    if not catalog_path.exists() or not users_path.exists():
-        LOGGER.error("Catalog or users not found. Run publish_catalog first.")
-        sys.exit(1)
+    def should_stop() -> bool:
+        return stopped.is_set() or bool(args.stop_file and args.stop_file.exists())
 
-    stop_event = threading.Event()
-
-    def consumer_thread():
-        LOGGER.info("Starting Consumer thread...")
+    def consume() -> None:
         client = create_kafka_consumer(
             settings.kafka_bootstrap_servers,
             settings.kafka_topic_events,
             group_id="bronze-continuous-worker",
         )
-        sink = BronzeSink(
-            settings.data_lake_dir / "bronze/events/streaming",
+        consume_events(
+            client,
+            BronzeSink(
+                settings.data_lake_dir / "bronze/events/streaming",
+                topic=settings.kafka_topic_events,
+            ),
+            batch_size=args.batch_size,
+            flush_interval=args.flush_interval,
+            should_stop=should_stop,
+        )
+
+    def produce() -> None:
+        run_producer(
+            catalog,
+            users,
+            rate=args.rate,
+            should_stop=should_stop,
+            bootstrap_servers=settings.kafka_bootstrap_servers,
             topic=settings.kafka_topic_events,
         )
-        try:
-            consume_events(
-                client,
-                sink,
-                batch_size=args.batch_size,
-                flush_interval=args.flush_interval,
-            )
-        except Exception as e:
-            LOGGER.error("Consumer stopped with error: %s", e)
 
-    def producer_thread():
-        LOGGER.info("Starting Producer thread (rate=%.1f events/s)...", args.rate)
-        try:
-            run_producer(
-                catalog_path,
-                users_path,
-                bootstrap_servers=settings.kafka_bootstrap_servers,
-                topic=settings.kafka_topic_events,
-                rate=args.rate,
-            )
-        except Exception as e:
-            LOGGER.error("Producer stopped with error: %s", e)
-
-    t_cons = threading.Thread(target=consumer_thread, name="ConsumerThread", daemon=True)
-    t_prod = threading.Thread(target=producer_thread, name="ProducerThread", daemon=True)
-
-    t_cons.start()
-    time.sleep(1)
-    t_prod.start()
-
-    LOGGER.info("Continuous Streaming Worker is ACTIVE!")
-    LOGGER.info("Streaming to MinIO S3: s3a://bronze/events/streaming/")
-    LOGGER.info("Press Ctrl+C to stop.")
-
-    try:
-        while True:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        LOGGER.info("Stopping worker...")
+    logging.basicConfig(level=logging.INFO)
+    run_workers(produce, consume, stopped)
 
 
 if __name__ == "__main__":

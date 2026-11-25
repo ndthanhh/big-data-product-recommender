@@ -28,3 +28,4 @@ dist/
 /derby.log
 *.log
 .stream_pids
+.stream_stop

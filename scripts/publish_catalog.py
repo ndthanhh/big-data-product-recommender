@@ -11,7 +11,9 @@ PYTHON = sys.executable
 
 def run_cmd(cmd: list[str], desc: str) -> None:
     print(f"\n--> {desc}...")
-    result = subprocess.run(cmd, cwd=REPO_ROOT, text=True, capture_output=True)
+    result = subprocess.run(
+        cmd, cwd=REPO_ROOT, text=True, capture_output=True, check=False
+    )
     if result.returncode != 0:
         print(f"[LỖI] {desc} thất bại:")
         print(result.stderr)
@@ -78,6 +80,7 @@ def main() -> None:
         cwd=REPO_ROOT,
         text=True,
         capture_output=True,
+        check=True,
     ).stdout.strip()
     if status:
         run_cmd(

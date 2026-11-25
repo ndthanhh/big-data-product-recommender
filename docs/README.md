@@ -192,3 +192,17 @@ Pytest chưa có test trả exit code 5, không phải pass. End-to-end được
 | Click chưa ảnh hưởng session | Kiểm tra user/session, commit, cửa sổ 30 phút, substitute và run chưa đổi. |
 
 Nguồn catalog/kho chia sẻ được nghiệm thu ở P0/P2/P5. Giữ bản local đã xác minh để demo khi mất mạng; báo cáo luôn phân biệt dữ liệu mô phỏng và demo.
+
+## Streaming worker có thể dừng an toàn
+
+Sau khi cài package vào .venv, bật các dịch vụ bằng lệnh sau từ thư mục gốc.
+
+```powershell
+docker compose up -d postgres kafka minio
+powershell -ExecutionPolicy Bypass -File scripts/start_continuous_stream.ps1 -Rate 15
+powershell -ExecutionPolicy Bypass -File scripts/stop_continuous_stream.ps1
+```
+
+Worker chạy producer và consumer cùng một tiến trình. Script stop kiểm tra PID, executable và thời điểm tạo, gửi tín hiệu qua file local rồi chờ consumer ghi nốt batch. Nếu worker lỗi, tiến trình trả mã lỗi và ghi vào stream_error.log. Log stream.log và file PID ở thư mục gốc được bỏ qua bởi Git.
+
+Image minio/mc của service khởi tạo hiện không tải được trên máy kiểm tra. Lệnh trên bật ba service chính, consumer tự tạo bucket bronze khi ghi batch đầu tiên. Thư viện MinIO của dự án thực hiện các thao tác đồng bộ dữ liệu.

@@ -1,6 +1,5 @@
 """Sync local Bronze files to MinIO S3 Object Storage."""
 
-from pathlib import Path
 from minio import Minio
 
 from recommender.config import get_settings
@@ -53,4 +52,3 @@ def sync_bronze_to_minio() -> None:
 
 if __name__ == "__main__":
     sync_bronze_to_minio()
-

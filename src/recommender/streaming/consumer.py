@@ -116,6 +116,7 @@ def consume_events(
     flush_interval: float = 5,
     max_events: int | None = None,
     monotonic: Callable[[], float] = time.monotonic,
+    should_stop: Callable[[], bool] | None = None,
 ) -> int:
     """Flush by size/time and on Ctrl+C; commit only successfully stored offsets.
 
@@ -150,6 +151,8 @@ def consume_events(
 
     try:
         while max_events is None or processed < max_events:
+            if should_stop is not None and should_stop():
+                break
             until_flush = flush_interval - (monotonic() - last_flush)
             timeout_ms = max(1, min(1000, int(until_flush * 1000))) if batch else 1000
             remaining = batch_size - len(batch)
@@ -177,7 +180,10 @@ def consume_events(
     else:
         flush()
     finally:
-        kafka_consumer.close(autocommit=False)
+        try:
+            kafka_consumer.close(autocommit=False)
+        except OSError:
+            pass
     return processed
 
 

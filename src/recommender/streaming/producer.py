@@ -111,6 +111,7 @@ def run_producer(
     kafka_producer: Any = None,
     monotonic: Callable[[], float] = time.monotonic,
     sleep: Callable[[float], None] = time.sleep,
+    should_stop: Callable[[], bool] | None = None,
 ) -> int:
     """Publish at most max_events with monotonic pacing; dry-run prints JSONL."""
     if (
@@ -138,9 +139,19 @@ def run_producer(
     try:
         events = generate_stream(products, users, seed)
         while max_events is None or sent < max_events:
+            if should_stop is not None and should_stop():
+                break
             delay = started + sent / rate - monotonic()
             if delay > 0:
-                sleep(delay)
+                if should_stop is None:
+                    sleep(delay)
+                else:
+                    while delay > 0 and not should_stop():
+                        interval = min(delay, 0.1)
+                        sleep(interval)
+                        delay -= interval
+                    if should_stop():
+                        break
             event = next(events)
             if dry_run:
                 print(event.model_dump_json(), flush=True)

@@ -81,11 +81,11 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** Bổ sung tham số tùy chọn `should_stop: Callable[[], bool] | None = None` vào `consume_events` và `run_producer`, giữ các tham số hiện có. Worker truyền callback từ stop event vào hai vòng lặp. Script start/stop dùng PID cùng thông tin nhận diện tiến trình do chính script tạo.
 
-- [ ] Test shutdown có batch chưa đầy, worker có một luồng lỗi và producer bị dừng. Khẳng định consumer flush dữ liệu đã nhận trước khi đóng và lỗi worker tạo exit code khác 0.
-- [ ] Kiểm tra dừng bằng PID đã hết hạn hoặc PID của tiến trình khác, tránh dừng nhầm tiến trình. Kiểm tra input rate/batch/flush không hợp lệ.
-- [ ] Hoàn thiện worker và script, đối chiếu thay đổi `close()` đang có với cách thư viện đóng consumer, sửa 8 lỗi Ruff thuộc các file trong phạm vi.
-- [ ] Chạy test streaming và worker. Khi Docker đã sẵn sàng, chạy producer/consumer có giới hạn sự kiện, kiểm tra batch local/MinIO và thử dừng có kiểm soát.
-- [ ] Cập nhật trạng thái, commit `fix(streaming): finalize worker lifecycle and shutdown`, push và xác nhận SHA.
+- [x] Test shutdown có batch chưa đầy, worker có một luồng lỗi và producer bị dừng. Khẳng định consumer flush dữ liệu đã nhận trước khi đóng và lỗi worker tạo exit code khác 0.
+- [x] Kiểm tra dừng bằng PID đã hết hạn hoặc PID của tiến trình khác, tránh dừng nhầm tiến trình. Kiểm tra input rate/batch/flush không hợp lệ.
+- [x] Hoàn thiện worker và script, đối chiếu thay đổi `close()` đang có với cách thư viện đóng consumer, sửa 8 lỗi Ruff thuộc các file trong phạm vi.
+- [x] Chạy test streaming và worker. Khi Docker đã sẵn sàng, chạy producer/consumer có giới hạn sự kiện, kiểm tra batch local/MinIO và thử dừng có kiểm soát.
+- [x] Cập nhật trạng thái, commit `fix(streaming): finalize worker lifecycle and shutdown`, push và xác nhận SHA.
 
 **Nghiệm thu.** `.venv/Scripts/python.exe -m pytest tests/test_streaming.py tests/test_stream_worker.py -q`, Ruff các file đã sửa và một lượt kiểm tra Kafka/MinIO thực tế.
 
@@ -280,7 +280,7 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 
 | Task | Trạng thái | Commit | Kiểm tra và SHA remote |
 | --- | --- | --- | --- |
-| A00 | Chưa thực hiện theo kế hoạch này | | |
+| A00 | Hoàn thành kiểm tra | Xem git log | 383 tests; Kafka→MinIO 8/8; start/stop thật |
 | A01 | Chưa thực hiện theo kế hoạch này | | |
 | A02 | Chưa thực hiện | | |
 | A03 | Chưa thực hiện | | |

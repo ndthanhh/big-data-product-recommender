@@ -1,0 +1,16 @@
+# Nhật ký thực thi kế hoạch phần việc Thành
+
+Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ commit b59dc55.
+
+## Quyết định triển khai
+
+- Làm trên nhánh codex/thanh-remaining-work trong checkout hiện có để tiếp tục các thay đổi streaming người dùng đang làm dở. Push nhánh sau mỗi task theo yêu cầu.
+- Fixture Gold dùng schemas hiện tại, đọc Parquet bằng PyArrow. A10 nghiệm thu snapshot thật phụ thuộc bàn giao của Pháp.
+- Snapshot validator, complements và session dùng cùng kiểu Pydantic, API đọc connection với run cố định. A08 xuất lại toàn bộ log demo theo đặc tả để tránh bỏ sót transaction commit muộn.
+
+## Tiến độ
+
+- A00 đang thực hiện. Baseline gần nhất 376 test pass, 8 lỗi lint đã xác định.
+
+- A00 hoàn thành. Producer/consumer hỗ trợ cooperative stop, worker truyền lỗi, script xác minh PID và xử lý PID cũ đã hết. Kiểm tra Kafka→MinIO 8/8 sự kiện, 2 batch; start/stop thực tế thành công. Toàn bộ suite 383 tests.
+- Ruling A00. Image minio/mc hiện không tải được, nghiệm thu dùng docker compose up -d postgres kafka minio. Client Python tạo bucket khi ghi, hướng dẫn đã cập nhật.
