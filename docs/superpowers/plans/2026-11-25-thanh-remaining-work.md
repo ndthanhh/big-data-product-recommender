@@ -268,12 +268,13 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **File.** Cập nhật `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/DATA_CONTRACTS.md`, `docs/PROJECT_CHECKLIST.md`, `PLAN.md` và bản tóm tắt root README khi thay đổi vận hành cần phản ánh. Thêm `docs/DEMO.md` với kịch bản đã chạy.
 
-- [ ] Ghi các lệnh thật để lấy dữ liệu, migrate, import, chạy API/UI, xuất log và rollback. Chạy trên checkout sạch bằng tài khoản của teammate.
-- [ ] Cập nhật ERD theo migration thật và sơ đồ Kafka/MinIO/DB/serving, lưu hình dưới `docs/`.
-- [ ] Viết phần báo cáo thuộc Thành về sinh dữ liệu, Kafka/MinIO, PostgreSQL, FP-Growth, API, session, UI và số đo ứng dụng.
+- [x] Ghi lệnh thật trong docs/DEMO.md; clean tracked source → fixture → migrate/import trên máy Thành đã chạy.
+- [ ] Teammate chạy lại từ tài khoản và máy của mình.
+- [x] ERD migration trong docs/DATABASE.md, sơ đồ Kafka/MinIO/DB/serving trong docs/ARCHITECTURE.md; ảnh browser docs/demo.
+- [x] Báo cáo phần Thành trong docs/THANH_REPORT.md.
 - [ ] Đối chiếu bảng kết quả của Pháp với dataset/run đã dùng. Ghi giới hạn dữ liệu mô phỏng và phạm vi đã kiểm chứng.
-- [ ] Chuẩn bị demo user cũ/user mới, thay thế, mua kèm, đổi sở thích phiên và batch tiếp theo. Lưu fixture demo để có thể chạy lại.
-- [ ] Chạy toàn bộ pytest, Ruff, kiểm tra link tài liệu và hướng dẫn từ đầu đến cuối.
+- [x] Fixture CLI và kịch bản user cũ/mới, substitutes/complements/session/rollback đã có; batch train tiếp theo chờ Pháp.
+- [x] 442 tests pass, Ruff/check format pass, 149 local doc links đúng; wheel có SQL, clean-source CLI đã chạy.
 - [ ] Đánh dấu các task đã đạt, ghi commit/SHA push tương ứng, commit `docs(delivery): finalize Thanh implementation and demo guide`, push và xác nhận SHA.
 
 **Nghiệm thu.** Teammate có thể chạy phần ứng dụng bằng tài liệu và output mô hình đã bàn giao. Báo cáo cùng demo sử dụng cùng phiên bản dữ liệu và kết quả thực nghiệm.
@@ -295,4 +296,4 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 | A08 | Hoàn thành | Xem git log | 8 tests exporter/sync; replay và late commit |
 | A09 | Hoàn thành | Xem git log | 4 tests; browser thật catalog→detail→cart; ảnh docs/demo |
 | A10 | Runner/E2E fixture/benchmark xong; chờ Gold thật | Xem git log | 400 HTTP mẫu, 0 lỗi; 2 E2E tests |
-| A11 | Chưa thực hiện | | |
+| A11 | Tài liệu local xong; chờ review cuối và bàn giao hai máy | Xem git log | 442 tests; 149 links; packaged SQL; clean source |

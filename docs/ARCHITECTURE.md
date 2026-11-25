@@ -6,19 +6,22 @@
 
 Hệ thống chạy local cho tiểu luận Nhóm 1. Pipeline batch xử lý dữ liệu lớn hơn log demo, tạo model và snapshot có thể tái lập. FastAPI phục vụ kết quả đã tính sẵn và xử lý tín hiệu phiên; Streamlit chỉ gọi API, không truy cập trực tiếp Spark hoặc database. Ba đầu ra bắt buộc là Dành cho bạn, Sản phẩm thay thế và Thường thêm cùng.
 
-T01 đặc tả kiến trúc cho T02–T12 trong [PLAN.md](../PLAN.md). Nhánh ingestion đã có CLI và một luồng Kafka mô phỏng tùy chọn; các migration/API/model tiếp tục theo kế hoạch. V1 không yêu cầu Spark Structured Streaming, cluster phân tán hoặc train lại model khi có click. “Cập nhật theo phiên” là tính lại điểm trong request sau khi event được lưu, còn học dài hạn diễn ra theo batch.
+T01 đặc tả kiến trúc cho T02–T12 trong [PLAN.md](../PLAN.md). Đã triển khai ingestion/Kafka/MinIO, migration/importer, FP-Growth, API/session/export và Streamlit. Serving đã kiểm tra với fixture Gold; ETL/model/metric thật của Pháp còn chờ tích hợp. Xem [demo](DEMO.md) và [ERD migration](DATABASE.md). V1 không yêu cầu Spark Structured Streaming, cluster phân tán hoặc train lại model khi có click. “Cập nhật theo phiên” là tính lại điểm trong request sau khi event được lưu, còn học dài hạn diễn ra theo batch.
 
 ## 2. Thành phần và trách nhiệm
 
 ```mermaid
 flowchart TB
-    C[Catalog được phép] --> B[Bronze JSONL bất biến]
+    C[Catalog được phép] --> B[MinIO Bronze: JSONL bất biến]
     G[Bộ sinh Faker / NumPy theo seed] --> B
+    G --> K[Kafka product-events]
+    K --> Consumer[Python consumer micro-batch]
+    Consumer --> B
     B --> E[ETL PySpark: schema / UTC / dedup / quarantine]
-    E --> S[Silver Parquet theo dataset_version]
+    E --> S[MinIO Silver: Parquet theo dataset_version]
     S --> Split[Chia thời gian và chọn catalog as-of]
     Split --> Train[Popularity / TF-IDF / ALS / FP-Growth / MMR]
-    Train --> Gold[Gold theo run_id: kết quả / model / manifest]
+    Train --> Gold[MinIO Gold: kết quả / model / manifest theo run_id]
     Gold --> I[Importer: kiểm tra rồi transaction]
     I --> P[(PostgreSQL: snapshot phục vụ)]
     U[Streamlit] -->|HTTP| A[FastAPI]

@@ -49,3 +49,7 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 - A09 push 78aad25ebba738e9b54828fadf6d329b9618899e, SHA remote khớp.
 - A10 phần độc lập hoàn thành: 2 E2E tests pass; runner và fixture CLI; HTTP benchmark Uvicorn 400 mẫu, concurrency4, warmup3, 0 lỗi, DB recommender_benchmark riêng. P95 personalized59.83ms/substitutes62.17ms/complements72.54ms/events85.93ms, chỉ 5 sản phẩm fixture.
 - Ruling A10: Silver/Gold model thật của Pháp chưa có; giữ các bước nghiệm thu model/vòng retrain ở trạng thái chờ. Không tạo ETL/ALS thay teammate hoặc coi fixture là model đã train. Chi phí: chưa kết luận chất lượng và hiệu năng với 1.000 sản phẩm/120k events.
+
+- A10 push f99e4d0032afdeb5201f66f34e5c35e6528f53fe, SHA remote khớp.
+- A11: 442 tests pass (74.12s), Ruff + 58 files format pass, pip check đúng, wheel build/install chứa SQL migration, 149 link tài liệu local đúng. Bản git archive sạch dùng source riêng tạo fixture_clean → migrate/import vào database recommender_cleancheck thành công. README/PLAN/checklist/ERD/demo/báo cáo đã đồng bộ. Máy Pháp và Gold thật vẫn chờ.
+- Ruling execution: dùng ledger bền vững dưới docs và lệnh PowerShell thay helper shell SDD; kế thừa checkout/nhánh codex đang thực thi. Chi phí: kiểm tra tiến độ thủ công bằng SHA/ledger, không có task-done automation.

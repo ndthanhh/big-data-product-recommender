@@ -1,10 +1,13 @@
 # Checklist hoàn thành dự án gợi ý sản phẩm
 
-Cập nhật ngày 13/11/2026. Áp dụng cho dự án hai người theo đề cương Nhóm 1, gồm thu thập catalog, sinh hành vi, Data Lake, ETL PySpark, ba nhóm gợi ý, API, website demo và báo cáo thực nghiệm. Bổ sung luồng gợi ý theo phiên và chia sẻ dataset tự động từ các trao đổi sau đề cương.
+Cập nhật ngày 25/11/2026. Áp dụng cho dự án hai người theo đề cương Nhóm 1, gồm thu thập catalog, sinh hành vi, Data Lake, ETL PySpark, ba nhóm gợi ý, API, website demo và báo cáo thực nghiệm. Bổ sung luồng gợi ý theo phiên và chia sẻ dataset tự động từ các trao đổi sau đề cương.
 
 [Trang chủ repo](../README.md) · [Tech Stack](TECH_STACK.md) · [Quy ước đồng nhất](CONVENTIONS.md) · [Vận hành](README.md) · [Kiến trúc](ARCHITECTURE.md) · [Hợp đồng v1](DATA_CONTRACTS.md) · [Thực nghiệm](EXPERIMENT_PLAN.md) · [Kế hoạch & Phân công](../PLAN.md)
 
 ## Cách dùng và trạng thái hiện tại
+
+**Bằng chứng phần Thành:** 442 tests pass; migration/importer/API/session/export và UI đã kiểm tra với fixture Gold, browser thật và [benchmark](results/api-fixture-benchmark.json). Checkbox triển khai không xác nhận chất lượng model/Gold thật. [Danh sách chờ phối hợp](DEMO.md#7-các-bước-còn-chờ-phối-hợp). P10-02/11-05/11-06 và benchmark dữ liệu thật giữ mở cho nghiệm thu với model của Pháp.
+
 
 Đánh dấu `[x]` khi đã có đầu ra kiểm tra được. Một việc đang làm vẫn để `[ ]` và có thể ghi issue hoặc PR bên cạnh. Các đường dẫn đầu ra trong checklist là vị trí dự kiến trong repo. Lệnh chạy cụ thể được điền vào tài liệu khi entry point tương ứng đã hoạt động.
 
@@ -21,7 +24,7 @@ Cập nhật ngày 13/11/2026. Áp dụng cho dự án hai người theo đề c
 | Vai trò | Người phụ trách trong tài liệu | Phạm vi |
 | --- | --- | --- |
 | A | Nguyễn Đức Thành | Thu thập catalog, bộ sinh, xuất log, công bố dataset, PostgreSQL, importer, API và UI. |
-| B | Phan Văn Pháp | ETL PySpark, tải dataset, chia tập, toàn bộ mô hình kể cả FP-Growth, đánh giá và xuất snapshot phục vụ. |
+| B | Phan Văn Pháp | ETL PySpark, tải dataset, chia tập, popularity/TF-IDF/ALS/MMR, đánh giá và xuất Gold; Thành phụ trách FP-Growth. |
 | A + B | Cả hai | Chốt hợp đồng, kiểm tra dữ liệu, tích hợp snapshot, gợi ý theo phiên, demo và báo cáo. |
 
 Ánh xạ A/B thống nhất với [PLAN.md](../PLAN.md); hai người review hoặc điều chỉnh ở P0-04. T01 hoàn thiện đặc tả, không xác nhận nhóm đã duyệt phân công hay các chức năng đã chạy. Các mức 10 nghìn, 100 nghìn, 1 triệu sự kiện và giao thức đo nằm trong [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md).
@@ -44,7 +47,7 @@ Phụ trách A + B. Làm trước các phần triển khai.
 - [ ] **P0-04** Review phân công theo tên A/B, chủ sở hữu module và người review đã được viết trong [PLAN.md](../PLAN.md).
 - [ ] **P0-05** Review và duyệt schema v1 trong [DATA_CONTRACTS.md](DATA_CONTRACTS.md): sản phẩm/sự kiện, ID chuỗi, UTC, source, trọng số và cart bắt buộc.
 - [ ] **P0-06** Chốt người thực hiện Bronze → Silver và Silver → Gold, định nghĩa rõ bộ dữ liệu bàn giao cho người train.
-- [ ] **P0-07** Chốt kho chia sẻ dữ liệu và cách xác thực. Phương án đang đề xuất là tự động công bố và tải dataset qua GitHub Releases API. Ghi quyết định cuối trong tài liệu.
+- [ ] **P0-07** Chốt kho chia sẻ dữ liệu và cách xác thực. Đã triển khai MinIO publish/download có checksum local; còn kiểm tra LAN/VPN và quyền của tài khoản Pháp.
 - [ ] **P0-08** Review hợp đồng personalized có `session_id` tùy chọn, fallback user mới/phiên rỗng và tham số phiên đã viết trong [DATA_CONTRACTS.md](DATA_CONTRACTS.md).
 - [ ] **P0-09** Chốt ngân sách tài nguyên, hạn nộp, các mốc nghiệm thu và tạo issue tương ứng từ checklist.
 
@@ -114,7 +117,7 @@ Phụ trách A viết bước công bố, B viết bước tải và tích hợp
 
 - [ ] **P5-01** Chốt gói dữ liệu có catalog, events Silver và manifest. Tách định danh `dataset_version` của đầu vào với `run_id` của từng lần train.
 - [ ] **P5-02** Viết bước đóng gói và upload tự động sau khi sinh, ETL và kiểm tra dữ liệu thành công.
-- [ ] **P5-03** Nếu chọn GitHub Releases, dùng bản nháp khi upload, xử lý kích thước từng file theo giới hạn dịch vụ và chỉ publish khi mọi thành phần đã đầy đủ.
+- [x] **P5-03** MinIO upload data trước manifest, tải vào staging rồi kiểm tra checksum và kích hoạt thư mục.
 - [ ] **P5-04** Viết bước tải theo phiên bản cụ thể bằng tài khoản có quyền đọc, tải vào vị trí tạm và kiểm tra manifest, checksum trước khi kích hoạt bản local.
 - [ ] **P5-05** Cache dataset đã tải để các lần thử model dùng lại. Cho phép retry download sau lỗi mạng và từ chối dùng file thiếu hoặc sai checksum.
 - [ ] **P5-06** Tích hợp chọn phiên bản và tải vào entry point train. Mỗi lượt train cố định phiên bản đầu vào từ đầu đến cuối.
@@ -181,14 +184,14 @@ Phụ trách B. Phụ thuộc P6. Làm popularity trước để tích hợp web
 
 Phụ trách A, B review dữ liệu đầu ra. Bắt đầu với schema và fixture, tích hợp với popularity ngay khi P7-03 xong.
 
-- [ ] **P8-01** Viết migration SQL cho `products`, `events`, `batch_runs`, `serving_state`, `recommendation_items`, `seen_products` và `association_rules`.
-- [ ] **P8-02** Triển khai khóa/FK/nullable/CHECK theo [DATA_CONTRACTS.md](DATA_CONTRACTS.md), gồm products theo run, event tham chiếu catalog_run_id, rank/score và singleton.
-- [ ] **P8-03** Giữ event bất biến theo `event_id`, thêm thời điểm server nhận dữ liệu để hỗ trợ xuất log ổn định và đối chiếu các sự kiện đến trễ.
-- [ ] **P8-04** Tạo index phục vụ truy vấn các sự kiện gần nhất theo user và session, tra catalog, top K theo context và lịch sử item đã tương tác.
-- [ ] **P8-05** Viết importer từ Gold, kiểm tra schema, ID, rank, bản ghi trùng, điểm không hữu hạn và sự đầy đủ của các bảng cùng `run_id`.
-- [ ] **P8-06** Nạp catalog/kết quả và đổi active run trong một transaction, khóa singleton và kiểm tra cạnh tranh. Request đọc cùng run bằng REPEATABLE READ theo [ARCHITECTURE.md](ARCHITECTURE.md).
-- [ ] **P8-07** Kiểm tra batch lỗi giữa chừng, import lại cùng batch, hai người phát hành đồng thời và khả năng quay về batch thành công trước đó.
-- [ ] **P8-08** Viết exporter v1 quét lại đầy đủ events demo đã commit, giữ UUID, ghi mốc received_at để chẩn đoán; không bỏ sót commit muộn. File/manifest hoàn chỉnh trước công bố theo [ARCHITECTURE.md](ARCHITECTURE.md).
+- [x] **P8-01** Viết migration SQL cho `products`, `events`, `batch_runs`, `serving_state`, `recommendation_items`, `seen_products` và `association_rules`.
+- [x] **P8-02** Triển khai khóa/FK/nullable/CHECK theo [DATA_CONTRACTS.md](DATA_CONTRACTS.md), gồm products theo run, event tham chiếu catalog_run_id, rank/score và singleton.
+- [x] **P8-03** Giữ event bất biến theo `event_id`, thêm thời điểm server nhận dữ liệu để hỗ trợ xuất log ổn định và đối chiếu các sự kiện đến trễ.
+- [x] **P8-04** Tạo index phục vụ truy vấn các sự kiện gần nhất theo user và session, tra catalog, top K theo context và lịch sử item đã tương tác.
+- [x] **P8-05** Viết importer từ Gold, kiểm tra schema, ID, rank, bản ghi trùng, điểm không hữu hạn và sự đầy đủ của các bảng cùng `run_id`.
+- [x] **P8-06** Nạp catalog/kết quả và đổi active run trong một transaction, khóa singleton và kiểm tra cạnh tranh. Request đọc cùng run bằng REPEATABLE READ theo [ARCHITECTURE.md](ARCHITECTURE.md).
+- [x] **P8-07** Kiểm tra batch lỗi giữa chừng, import lại cùng batch, hai người phát hành đồng thời và khả năng quay về batch thành công trước đó.
+- [x] **P8-08** Viết exporter v1 quét lại đầy đủ events demo đã commit, giữ UUID, ghi mốc received_at để chẩn đoán; không bỏ sót commit muộn. File/manifest hoàn chỉnh trước công bố theo [ARCHITECTURE.md](ARCHITECTURE.md).
 - [ ] **P8-09** Chốt thời gian giữ log và snapshot trong PostgreSQL theo nhu cầu replay, lọc lịch sử và dung lượng đo được. Kiểm tra bản lưu Data Lake trước khi dọn dữ liệu cũ.
 
 Đầu ra là schema tạo lại được từ migration, importer có thể retry và fixture snapshot nhỏ. Bộ dữ liệu mô phỏng lớn đi vào Bronze để thực nghiệm pipeline.
@@ -197,13 +200,13 @@ Phụ trách A, B review dữ liệu đầu ra. Bắt đầu với schema và fi
 
 Phụ trách A. Có thể viết bằng fixture song song P7 và P8.
 
-- [ ] **P9-01** Tạo FastAPI app, cấu hình kết nối PostgreSQL, timeout và xử lý lỗi có thể chẩn đoán qua log.
-- [ ] **P9-02** Làm `GET /health`, danh sách sản phẩm phân trang và chi tiết sản phẩm theo hợp đồng.
-- [ ] **P9-03** Làm `POST /api/v1/events`, kiểm tra schema, user, session, sản phẩm và cart. Chỉ xác nhận lưu thành công sau khi transaction commit.
-- [ ] **P9-04** Trả đúng mã khi gửi lại cùng event và nội dung, hoặc cùng ID nhưng khác nội dung. Kiểm tra cả trường hợp request đồng thời.
-- [ ] **P9-05** Làm API personalized với baseline fallback, substitutes cùng danh mục và complements từ tập giỏ gửi lên.
-- [ ] **P9-06** Chốt giới hạn tham số, số lượng ứng viên và quy tắc tie-break. Trả đúng ID, rank, score, method và `run_id`.
-- [ ] **P9-07** Xử lý chưa có snapshot, user mới, item mới, item không tồn tại, giỏ rỗng và danh sách ứng viên không đủ.
+- [x] **P9-01** Tạo FastAPI app, cấu hình kết nối PostgreSQL, timeout và xử lý lỗi có thể chẩn đoán qua log.
+- [x] **P9-02** Làm `GET /health`, danh sách sản phẩm phân trang và chi tiết sản phẩm theo hợp đồng.
+- [x] **P9-03** Làm `POST /api/v1/events`, kiểm tra schema, user, session, sản phẩm và cart. Chỉ xác nhận lưu thành công sau khi transaction commit.
+- [x] **P9-04** Trả đúng mã khi gửi lại cùng event và nội dung, hoặc cùng ID nhưng khác nội dung. Kiểm tra cả trường hợp request đồng thời.
+- [x] **P9-05** Làm API personalized với baseline fallback, substitutes cùng danh mục và complements từ tập giỏ gửi lên.
+- [x] **P9-06** Chốt giới hạn tham số, số lượng ứng viên và quy tắc tie-break. Trả đúng ID, rank, score, method và `run_id`.
+- [x] **P9-07** Xử lý chưa có snapshot, user mới, item mới, item không tồn tại, giỏ rỗng và danh sách ứng viên không đủ.
 - [ ] **P9-08** Xuất hoặc kiểm tra OpenAPI và bổ sung ví dụ request, response chạy được vào [hướng dẫn vận hành](README.md).
 
 Đầu ra là API đọc được snapshot thật và ghi được event thật. Cả hai người gọi cùng request trên cùng snapshot phải nhận cùng danh sách theo quy tắc đã chốt.
@@ -212,12 +215,12 @@ Phụ trách A. Có thể viết bằng fixture song song P7 và P8.
 
 Phụ trách A. Phụ thuộc API fixture P9.
 
-- [ ] **P10-01** Làm trang danh mục, chi tiết sản phẩm và giỏ hàng, có ảnh, tên, danh mục và trạng thái khi dữ liệu đang tải hoặc thiếu.
+- [x] **P10-01** Làm trang danh mục, chi tiết sản phẩm và giỏ hàng, có ảnh, tên, danh mục và trạng thái khi dữ liệu đang tải hoặc thiếu.
 - [ ] **P10-02** Giữ user ID, session ID và cart ID trong state theo quy ước. Cho chọn một user demo có lịch sử để trình diễn ALS và tạo phiên mới để thử cold-start.
-- [ ] **P10-03** Ghi view, click và add_to_cart tại đúng thao tác. Giữ nguyên event ID khi retry và kiểm tra rerun giao diện để tránh ghi thêm event ngoài ý muốn.
-- [ ] **P10-04** Hiển thị Dành cho bạn ở trang chủ, Sản phẩm thay thế ở trang chi tiết và Thường thêm cùng ở giỏ hàng.
-- [ ] **P10-05** Đồng bộ giỏ đang hiển thị với body gửi API complements, xử lý thêm sản phẩm trùng và tạo giỏ mới.
-- [ ] **P10-06** Hiển thị trạng thái lỗi API, giỏ rỗng, ảnh lỗi và thiếu ứng viên theo cách người dùng demo hiểu được.
+- [x] **P10-03** Ghi view, click và add_to_cart tại đúng thao tác. Giữ nguyên event ID khi retry và kiểm tra rerun giao diện để tránh ghi thêm event ngoài ý muốn.
+- [x] **P10-04** Hiển thị Dành cho bạn ở trang chủ, Sản phẩm thay thế ở trang chi tiết và Thường thêm cùng ở giỏ hàng.
+- [x] **P10-05** Đồng bộ giỏ đang hiển thị với body gửi API complements, xử lý thêm sản phẩm trùng và tạo giỏ mới.
+- [x] **P10-06** Hiển thị trạng thái lỗi API, giỏ rỗng, ảnh lỗi và thiếu ứng viên theo cách người dùng demo hiểu được.
 
 Đầu ra là website thao tác được bằng dữ liệu thật từ API, tạo log có thể đưa trở lại pipeline.
 
@@ -225,10 +228,10 @@ Phụ trách A. Phụ thuộc API fixture P9.
 
 Phụ trách A + B. B xác định cách lấy ứng viên và tính điểm, A tích hợp API và UI. Phụ thuộc P7-07, P9 và P10.
 
-- [ ] **P11-01** Triển khai cửa sổ 30 phút/tối đa 20 event, trọng số 1/2/4, half-life 10 phút và kết hợp 0.7 batch + 0.3 session; xử lý late event theo [DATA_CONTRACTS.md](DATA_CONTRACTS.md).
-- [ ] **P11-02** API chỉ đọc lịch sử của đúng user và session, lấy ứng viên từ danh sách tương tự đã tính sẵn rồi kết hợp ứng viên cá nhân hóa hoặc popularity từ batch.
-- [ ] **P11-03** Chuẩn hóa và kết hợp điểm, khử trùng, lọc item đã tương tác và dùng fallback khi phiên thiếu tín hiệu hoặc thiếu ứng viên.
-- [ ] **P11-04** Sau khi API xác nhận lưu sự kiện, UI yêu cầu gợi ý mới. Xử lý cache để kết quả có thể sử dụng sự kiện vừa commit.
+- [x] **P11-01** Triển khai cửa sổ 30 phút/tối đa 20 event, trọng số 1/2/4, half-life 10 phút và kết hợp 0.7 batch + 0.3 session; xử lý late event theo [DATA_CONTRACTS.md](DATA_CONTRACTS.md).
+- [x] **P11-02** API chỉ đọc lịch sử của đúng user và session, lấy ứng viên từ danh sách tương tự đã tính sẵn rồi kết hợp ứng viên cá nhân hóa hoặc popularity từ batch.
+- [x] **P11-03** Chuẩn hóa và kết hợp điểm, khử trùng, lọc item đã tương tác và dùng fallback khi phiên thiếu tín hiệu hoặc thiếu ứng viên.
+- [x] **P11-04** Sau khi API xác nhận lưu sự kiện, UI yêu cầu gợi ý mới. Xử lý cache để kết quả có thể sử dụng sự kiện vừa commit.
 - [ ] **P11-05** Trình diễn hai danh sách từ cùng snapshot, một theo batch và một có tín hiệu phiên. Hiển thị `run_id` và thời điểm lấy kết quả ở chế độ kiểm tra demo.
 - [ ] **P11-06** Dùng kịch bản đổi từ danh mục A sang B để quan sát top 10 thay đổi khi giữ nguyên batch. Kiểm tra hai phiên hoạt động đồng thời được tách lịch sử.
 - [ ] **P11-07** Đo từ lúc thao tác UI đến lúc danh sách mới hiển thị, ghi p50/p95 và chốt mục tiêu độ trễ từ số đo ban đầu.

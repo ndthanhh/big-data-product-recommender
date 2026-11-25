@@ -1,5 +1,8 @@
 # Kế hoạch triển khai dự án Hệ thống Gợi ý Sản phẩm (PLAN.md)
 
+**Cập nhật triển khai 25/11/2026:** Thành đã hoàn thành code T08–T11 và phần FP-Growth T06, kiểm tra serving bằng fixture. Runner/E2E fixture/benchmark có ở T12. T04–T07 của Pháp, Gold thật, metric chất lượng và nghiệm thu hai máy còn chờ. Xem [demo](docs/DEMO.md), [nhật ký A00–A11](docs/superpowers/plans/2026-11-25-thanh-progress.md) và [báo cáo phần Thành](docs/THANH_REPORT.md).
+
+
 Tài liệu này chi tiết hóa toàn bộ các bước triển khai kỹ thuật cho hệ thống gợi ý sản phẩm dựa trên hành vi người dùng, bám sát các tài liệu đặc tả `docs/CONVENTIONS.md`, `docs/DATA_CONTRACTS.md`, `docs/PROJECT_CHECKLIST.md` và `docs/README.md`.
 
 Kế hoạch thực hiện phần còn lại của Nguyễn Đức Thành được cập nhật ngày 25/11/2026 trong [kế hoạch A00–A11](docs/superpowers/plans/2026-11-25-thanh-remaining-work.md). Mỗi task có tiêu chí kiểm tra, commit riêng và push GitHub theo yêu cầu mới. Nhật ký hoàn thành của các task này nằm cuối tài liệu đó.
@@ -110,7 +113,7 @@ flowchart TD
   - Toàn bộ liên kết relative markdown đều hợp lệ (112/112 links).
 - **Lệnh kiểm tra**:
   ```powershell
-  python -c "import os, sys; files=['README.md', 'docs/ARCHITECTURE.md', 'docs/DATA_CONTRACTS.md', 'docs/EXPERIMENT_PLAN.md', 'docs/TEAMWORK.md', 'docs/PROJECT_CHECKLIST.md']; missing=[f for f in files if not os.path.isfile(f)]; sys.exit(f'Missing: {missing}') if missing else print('All markdown files exist!')"
+  python -c "import os, sys; files=['README.md', 'docs/ARCHITECTURE.md', 'docs/DATA_CONTRACTS.md', 'docs/EXPERIMENT_PLAN.md', 'docs/CONVENTIONS.md', 'docs/PROJECT_CHECKLIST.md']; missing=[f for f in files if not os.path.isfile(f)]; sys.exit(f'Missing: {missing}') if missing else print('All markdown files exist!')"
   ```
 
 ---

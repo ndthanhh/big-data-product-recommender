@@ -2,9 +2,9 @@
 
 [Trang chủ repo](../README.md) · [Tech Stack](TECH_STACK.md) · [Quy ước đồng nhất](CONVENTIONS.md) · [Kiến trúc](ARCHITECTURE.md) · [Hợp đồng v1](DATA_CONTRACTS.md) · [Thực nghiệm](EXPERIMENT_PLAN.md) · [Kế hoạch & Phân công](../PLAN.md) · [Checklist](PROJECT_CHECKLIST.md)
 
-## 1. Trạng thái có thể chạy sau T03
+## 1. Trạng thái có thể chạy ngày 25/11/2026
 
-Repo đã có cấu hình, schema Pydantic và fixture/test hợp đồng T02, cùng CLI thu thập catalog Best Buy và sinh sự kiện T03. Chưa có entry point ETL, train, importer, FastAPI hoặc Streamlit. Cài package thành công chưa phải bằng chứng hệ thống chạy end-to-end.
+Repo chạy được ingestion/Kafka/MinIO, migration, importer, FP-Growth, FastAPI, session/export và Streamlit với fixture Gold. Xem [DEMO.md](DEMO.md) để chạy ứng dụng, [DATABASE.md](DATABASE.md) cho ERD và [THANH_REPORT.md](THANH_REPORT.md) cho kết quả. 442 tests pass, benchmark HTTP 400 request không lỗi trên fixture 5 sản phẩm. ETL, model TF-IDF/ALS/MMR, đánh giá thật của Pháp và nghiệm thu hai máy chưa hoàn tất.
 
 [README gốc](../README.md) là điểm bắt đầu cài môi trường và chỉ mục tài liệu. [PLAN.md](../PLAN.md) định nghĩa T01–T12; [PROJECT_CHECKLIST.md](PROJECT_CHECKLIST.md) theo dõi nguồn catalog, chia sẻ dataset, thực nghiệm và báo cáo P0–P15. T01 không tự đánh dấu hoàn tất kiểm tra triển khai hoặc review nhóm.
 
@@ -25,7 +25,7 @@ Module đọc `.env` thuộc T02, ưu tiên môi trường tiến trình. Chép 
 
 ## 3. Thứ tự tích hợp các task
 
-Đây là quy trình bàn giao cho task sau. Đường dẫn code bằng backtick là vị trí dự kiến theo kế hoạch. Khi task hoàn tất, PR bổ sung vào tài liệu này lệnh thực chạy đã kiểm chứng; không hướng dẫn gọi module chưa tồn tại như một tính năng sẵn có.
+Bảng sau mô tả cả luồng mục tiêu. Entry point ETL/train của Pháp còn chờ; các lệnh serving đang hoạt động nằm trong DEMO.md.
 
 | Bước | Task / thành phần | Đầu vào → đầu ra và điều kiện chuyển bước |
 | --- | --- | --- |
@@ -120,9 +120,7 @@ docker compose ps
 ```
 
 PostgreSQL dùng `recommender/change-me`, database `recommender`, cổng 5432.
-MinIO API/Console ở cổng 9000/9001, `minioadmin/minioadmin`; `minio-init` đợi dịch
-vụ và tạo ba bucket bronze/silver/gold theo cách idempotent với
-[`mc mb --ignore-existing`](https://docs.min.io/aistor/reference/cli/mc-mb/).
+MinIO API/Console ở cổng 9000/9001, `minioadmin/minioadmin`. Python consumer/sync tạo bucket khi cần. Service minio-init nằm trong profile tùy chọn legacy-mc-init; không cần image mc để khởi động mặc định.
 Kafka dùng [cấu hình KRaft của image Apache 3.8.0](https://github.com/apache/kafka/blob/3.8.0/docker/examples/docker-compose-files/single-node/plaintext/docker-compose.yml),
 client trên host kết nối `localhost:9092`, trong network Docker dùng
 `kafka:19092`. Healthcheck tạo sẵn topic `product-events`; auto-create cũng bật.
@@ -140,7 +138,7 @@ Consumer hỗ trợ `--bootstrap-servers`, `--topic`, `--group-id`, `--output-di
 `data/bronze/events/streaming/batch_<uuid>/` và được upload đến
 `bronze/events/streaming/batch_<uuid>/`. Consumer luôn lưu local trước; MinIO lỗi
 thì giữ batch local và ghi cảnh báo. Khi MinIO hoạt động lại, có thể đồng bộ các
-thư mục batch còn thiếu bằng `mc mirror data/bronze/events/streaming local/bronze/events/streaming`.
+thư mục batch còn thiếu bằng `python -m recommender.ingestion.sync_minio --source-dir data/bronze/events/streaming`, công bố data trước manifest.
 Manifest là dấu hiệu batch hoàn chỉnh, chỉ đọc các batch có manifest và checksum đúng.
 Offset Kafka được commit sau khi lưu, chỉ tới record thực sự đã xử lý; replay
 at-least-once nên ETL vẫn phải dedup event_id. `group-id` mới đọc lại từ đầu topic.
@@ -175,7 +173,7 @@ Từ T02, chạy test liên quan theo PLAN. Khi đã có test, các lệnh chung
 .\.venv\Scripts\python.exe -m pytest
 ```
 
-Pytest chưa có test trả exit code 5, không phải pass. End-to-end được nghiệm thu sau T12 trên cả hai máy từ checkout sạch. Lưu lệnh thực chạy, cấu hình không có secret, output kiểm tra và run/dataset dùng. [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md) quy định raw output, công thức, warm-up, số lượt và percentile.
+Suite hiện có 442 tests pass khi TEST_DATABASE_URL trỏ DB kiểm thử riêng. Nếu thiếu biến này, các test DB sẽ skip. End-to-end fixture đã chạy local; Gold thật và máy Pháp còn chờ nghiệm thu. Lưu lệnh thực chạy, cấu hình không có secret, output kiểm tra và run/dataset dùng. [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md) quy định raw output, công thức, warm-up, số lượt và percentile.
 
 ## 6. Xử lý lỗi vận hành
 
