@@ -2,6 +2,8 @@
 
 Tài liệu này chi tiết hóa toàn bộ các bước triển khai kỹ thuật cho hệ thống gợi ý sản phẩm dựa trên hành vi người dùng, bám sát các tài liệu đặc tả `docs/CONVENTIONS.md`, `docs/DATA_CONTRACTS.md`, `docs/PROJECT_CHECKLIST.md` và `docs/README.md`.
 
+Kế hoạch thực hiện phần còn lại của Nguyễn Đức Thành được cập nhật ngày 25/11/2026 trong [kế hoạch A00–A11](docs/superpowers/plans/2026-11-25-thanh-remaining-work.md). Mỗi task có tiêu chí kiểm tra, commit riêng và push GitHub theo yêu cầu mới. Nhật ký hoàn thành của các task này nằm cuối tài liệu đó.
+
 ---
 
 ## 1. Nguyên tắc làm việc & Phân vai
