@@ -29,3 +29,6 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 
 - A03 push 3c8c1837f315710a2646cdc54e5d21dec4b35972, SHA remote khớp.
 - A04: 5 tests pass (Spark thật 35.73s). Support/confidence 2/3, lift 1.0; giỏ một item loại khỏi mẫu số; lọc compatibility và dedup consequent. Runner lưu model/rules/config, cần nối Gold publisher của Pháp. Tham khảo https://spark.apache.org/docs/3.5.7/ml-frequent-pattern-mining.html (Spark chỉ phát luật một consequent).
+
+- A04 push 0913db5f2499b51d13c537080837f14b231f8718, SHA remote khớp.
+- A05 hoàn thành 9 tests DB/API và Uvicorn HTTP thật: health/catalog 200; UUID retry/conflict; ownership locks concurrent; commit failure 503 không lưu event. Ruff pass.

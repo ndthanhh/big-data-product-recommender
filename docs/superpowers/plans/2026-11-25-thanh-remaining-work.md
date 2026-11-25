@@ -166,12 +166,12 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** `create_app(database_url: str | None = None) -> FastAPI` nhận URL test hoặc lấy từ settings. App có `GET /health`, hai route catalog và `POST /api/v1/events` đúng hợp đồng. Dùng EventCreate và các kiểu response hiện có.
 
-- [ ] Test liveness khi DB ngắt, chưa có snapshot, phân trang, ID không có, schema lỗi và envelope lỗi thống nhất.
-- [ ] Triển khai catalog bằng transaction đọc REPEATABLE READ, thứ tự ID theo collation C.
-- [ ] Triển khai ghi event với khóa UUID rồi session/cart, so sánh tám trường payload chuẩn hóa và trả sau commit.
-- [ ] Test hai request cùng UUID, hai UUID tranh cùng session/cart, retry sau đổi snapshot và DB commit lỗi.
-- [ ] Chạy TestClient với PostgreSQL test và gọi HTTP thật một lượt sau khi bật Uvicorn.
-- [ ] Commit `feat(api): serve catalog and persist idempotent events`, push và xác nhận SHA.
+- [x] Test liveness khi DB ngắt, chưa có snapshot, phân trang, ID không có, schema lỗi và envelope lỗi thống nhất.
+- [x] Triển khai catalog bằng transaction đọc REPEATABLE READ, thứ tự ID theo collation C.
+- [x] Triển khai ghi event với khóa UUID rồi session/cart, so sánh tám trường payload chuẩn hóa và trả sau commit.
+- [x] Test hai request cùng UUID, hai UUID tranh cùng session/cart, retry sau đổi snapshot và DB commit lỗi.
+- [x] Chạy TestClient với PostgreSQL test và gọi HTTP thật một lượt sau khi bật Uvicorn.
+- [x] Commit `feat(api): serve catalog and persist idempotent events`, push và xác nhận SHA.
 
 **Nghiệm thu.** `.venv/Scripts/python.exe -m pytest tests/test_api.py -q` pass. Các mã 200/201/404/409/422/503 được đối chiếu envelope trong hợp đồng.
 
@@ -288,7 +288,7 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 | A02 | Hoàn thành | Xem git log | 9 tests PostgreSQL thật; migration lặp, UTC, constraints |
 | A03 | Hoàn thành serving importer | Xem git log | 13 tests; Parquet/checksum/rollback/concurrency |
 | A04 | Code và Spark fixture hoàn thành | Xem git log | 5 tests; rules thật chờ Gold publisher |
-| A05 | Chưa thực hiện | | |
+| A05 | Hoàn thành | Xem git log | 9 tests; HTTP Uvicorn; UUID/identity/commit |
 | A06 | Chưa thực hiện | | |
 | A07 | Chưa thực hiện | | |
 | A08 | Chưa thực hiện | | |
