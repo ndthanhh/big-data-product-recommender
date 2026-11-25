@@ -183,12 +183,12 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** Hàm lấy gợi ý nhận connection, `run_id` và kiểu query tương ứng. API xuất RecommendationResponse. Complements tái sử dụng recommend_complements của A04.
 
-- [ ] Test user mới nhận popularity, seen bị lọc, candidates được bù đúng thứ tự và rank được đánh lại liên tiếp.
-- [ ] Test substitutes cùng category, loại sản phẩm gốc, trường hợp thiếu ứng viên và sản phẩm không có.
-- [ ] Test complements giỏ rỗng, ID trùng, có một ID không có, nhiều antecedent và ràng buộc tương thích.
-- [ ] Triển khai ba route với cùng active run trong request. Giữ thứ tự MMR từ Gold, tách fallback popularity khỏi thang điểm model.
-- [ ] Test một request đang đọc khi importer đổi snapshot, khẳng định metadata và kết quả cùng run.
-- [ ] Commit `feat(api): serve personalized substitute and complement recommendations`, push và xác nhận SHA.
+- [x] Test user mới nhận popularity, seen bị lọc, candidates được bù đúng thứ tự và rank được đánh lại liên tiếp.
+- [x] Test substitutes cùng category, loại sản phẩm gốc, trường hợp thiếu ứng viên và sản phẩm không có.
+- [x] Test complements giỏ rỗng, ID trùng, có một ID không có, nhiều antecedent và ràng buộc tương thích.
+- [x] Triển khai ba route với cùng active run trong request. Giữ thứ tự MMR từ Gold, tách fallback popularity khỏi thang điểm model.
+- [x] Test một request đang đọc khi importer đổi snapshot, khẳng định metadata và kết quả cùng run.
+- [x] Commit `feat(api): serve personalized substitute and complement recommendations`, push và xác nhận SHA.
 
 **Nghiệm thu.** `.venv/Scripts/python.exe -m pytest tests/test_recommendation_api.py tests/test_api.py -q` pass. Ba nhóm chạy được bằng fixture Gold.
 
@@ -289,7 +289,7 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 | A03 | Hoàn thành serving importer | Xem git log | 13 tests; Parquet/checksum/rollback/concurrency |
 | A04 | Code và Spark fixture hoàn thành | Xem git log | 5 tests; rules thật chờ Gold publisher |
 | A05 | Hoàn thành | Xem git log | 9 tests; HTTP Uvicorn; UUID/identity/commit |
-| A06 | Chưa thực hiện | | |
+| A06 | Hoàn thành | Xem git log | 13 tests API; giữ run và MMR rank |
 | A07 | Chưa thực hiện | | |
 | A08 | Chưa thực hiện | | |
 | A09 | Chưa thực hiện | | |

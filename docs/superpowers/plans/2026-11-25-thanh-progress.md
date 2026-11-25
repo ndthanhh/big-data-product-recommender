@@ -32,3 +32,6 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 
 - A04 push 0913db5f2499b51d13c537080837f14b231f8718, SHA remote khớp.
 - A05 hoàn thành 9 tests DB/API và Uvicorn HTTP thật: health/catalog 200; UUID retry/conflict; ownership locks concurrent; commit failure 503 không lưu event. Ruff pass.
+
+- A05 push 85299918b9123845dfc245394e143993e167a6f1, SHA remote khớp.
+- A06: 13 tests API pass. Personalized lọc seen/bù popularity, substitute cùng category, complements subset/rỗng/ID lỗi; request giữ run cũ khi con trỏ đổi, thứ tự MMR giữ nguyên. Ruff pass.
