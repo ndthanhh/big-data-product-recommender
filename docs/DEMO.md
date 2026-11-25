@@ -64,7 +64,7 @@ Luật FP-Growth của Thành nhận baskets cùng run, loại giỏ dưới hai
 .\.venv\Scripts\python.exe -m recommender.ranking.fpgrowth --baskets data/gold/<run_id>/baskets --output data/models/<run_id>-fpgrowth --min-support 0.01 --min-confidence 0.1
 ```
 
-Các ngưỡng trên là mặc định runner, chưa phải cấu hình được chọn qua validation. Compatibility là mapping tường minh cặp category → thuộc tính; mặc định API chỉ diễn giải mua kèm là đồng xuất hiện trong giỏ. Có thể gắn mapping vào `app.state.compatibility` trước khi serve.
+Các ngưỡng trên là mặc định runner, chưa phải cấu hình được chọn qua validation. Đã kiểm tra Spark fit → ghi Parquet bằng PyArrow → Gold validator với 4 luật. Native Spark model save và toàn bộ CLI I/O chưa được nghiệm thu trên Windows; log Spark máy Thành hiện báo thiếu winutils/HADOOP_HOME, cần kiểm tra trong môi trường train trước khi dùng lệnh trên cho báo cáo. Compatibility là mapping tường minh cặp category → thuộc tính; mặc định API chỉ diễn giải mua kèm là đồng xuất hiện trong giỏ. Có thể gắn mapping vào `app.state.compatibility` trước khi serve.
 
 ## 5. Xuất event và chia sẻ MinIO
 

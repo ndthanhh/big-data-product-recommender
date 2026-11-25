@@ -153,7 +153,8 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 - [x] Fit PySpark FP-Growth, giữ đúng mẫu số giỏ có từ hai item và metric của luật một consequent. Lưu model cùng cấu hình.
 - [x] Test antecedent nhiều item là tập con, một consequent được nhiều luật gợi ý và tie-break theo confidence, lift, ID.
 - [x] Test loại item đã ở trong giỏ, thuộc tính tương thích thiếu hoặc sai và cặp ngoài quy tắc.
-- [ ] Xuất rules Parquet bằng runner và nối manifest Gold thật của Pháp; Spark fixture đã chạy 5 tests pass.
+- [x] Rules từ Spark thật đã ghi Parquet và Gold validator chấp nhận 4 luật trên fixture.
+- [ ] Nối manifest Gold thật và nghiệm thu lưu native Spark model trong môi trường train của Pháp.
 - [x] Commit `feat(ranking): add FP-Growth complement rules`, push và xác nhận SHA.
 
 **Nghiệm thu.** Rules phù hợp AssociationRule hiện có, có trường hợp mua kèm tính tay khớp kết quả. Bàn giao cho Pháp interface baskets đầu vào và rules đầu ra để nối vào Gold thật.

@@ -68,3 +68,5 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 - Final: Ruling: Silver/Gold/model thật của Pháp chưa được bàn giao — fixture chỉ chứng minh serving, chờ nghiệm thu model/vòng retrain — chi phí: chưa có kết luận chất lượng hoặc tải lớn.
 - Final: Ruling: reviewer chỉ đọc và tái hiện riêng, không chạy lại full suite — implementer chạy 450/450 sau sửa + browser/MinIO thật — chi phí: suite cuối không có một lượt chạy độc lập thứ hai.
 - Final verification: 450 tests pass/140.14s, Ruff pass, format58 files pass. Browser sau restart API/UI vẫn có A→substitute C→cart→complement D. Không có re-review; một fix pass đúng quy trình. Giữ nhánh theo yêu cầu push từng task, chưa merge main.
+
+- Final review fixes push fe57d96b4d2ab7f0d449d7d83fbe172adcc519a8; SHA remote khớp, tree sạch. A04 bổ sung nghiệm thu Spark thật → Parquet PyArrow → Gold validator: 4 luật hợp lệ. Native Spark model save/CLI I/O còn cần kiểm tra môi trường train (Windows hiện thiếu winutils/HADOOP_HOME); đã ghi rõ trong DEMO.md.
