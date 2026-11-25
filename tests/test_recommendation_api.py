@@ -112,3 +112,27 @@ def test_mmr_order_is_preserved(db_url, tmp_path):
         .json()["items"]
     )
     assert [r["score"] for r in rows] == [-2.0, 3.0]
+
+
+def test_click_affects_only_selected_session(db_url, tmp_path):
+    from datetime import UTC, datetime
+
+    from test_api import event
+
+    c = client_for(db_url, tmp_path)
+    url = "/api/v1/recommendations/personalized?user_id=u1&limit=2&session_id=s1"
+    before = c.get(url).json()
+    assert before["items"][0]["product_id"] == "fixture:b"
+    assert (
+        c.post(
+            "/api/v1/events", json=event(event_at=datetime.now(UTC).isoformat())
+        ).status_code
+        == 201
+    )
+    after = c.get(url).json()
+    assert after["run_id"] == before["run_id"]
+    assert after["items"][0]["product_id"] == "fixture:c"
+    assert (
+        c.get(url.replace("s1", "s2")).json()["items"][0]["product_id"] == "fixture:b"
+    )
+    assert c.get(url.replace("user_id=u1", "user_id=u2")).status_code == 409

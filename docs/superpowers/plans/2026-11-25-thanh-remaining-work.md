@@ -200,12 +200,12 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** `rerank_session(batch_items: Sequence[RecommendationItem], popularity_items: Sequence[RecommendationItem], session_events: Sequence[Event], similarities: Sequence[RecommendationItem], seen_ids: set[str], catalog_ids: set[str], request_time: datetime, limit: int) -> list[Recommendation]`. DB chọn đúng user/session và thứ tự event trước khi gọi hàm.
 
-- [ ] Test cutoff 30 phút, giới hạn 20 event, future event và cùng session dưới user khác.
-- [ ] Test trọng số 1/2/4, half-life 10 phút, chuẩn hóa nguồn riêng, toàn điểm bằng nhau hoặc bằng 0 và fallback khi tín hiệu rỗng.
-- [ ] Triển khai công thức mục 7.3 của DATA_CONTRACTS, loại seen và không chuẩn hóa lẫn điểm popularity đã bù với ALS.
-- [ ] Test POST click thành công rồi GET personalized cùng run, xác nhận thứ tự đổi theo fixture. Hai phiên đồng thời giữ lịch sử riêng.
-- [ ] Đối chiếu giới hạn tối đa 200 ứng viên và rank sau lọc.
-- [ ] Commit `feat(session): rerank recommendations from recent interactions`, push và xác nhận SHA.
+- [x] Test cutoff 30 phút, giới hạn 20 event, future event và cùng session dưới user khác.
+- [x] Test trọng số 1/2/4, half-life 10 phút, chuẩn hóa nguồn riêng, toàn điểm bằng nhau hoặc bằng 0 và fallback khi tín hiệu rỗng.
+- [x] Triển khai công thức mục 7.3 của DATA_CONTRACTS, loại seen và không chuẩn hóa lẫn điểm popularity đã bù với ALS.
+- [x] Test POST click thành công rồi GET personalized cùng run, xác nhận thứ tự đổi theo fixture. Hai phiên đồng thời giữ lịch sử riêng.
+- [x] Đối chiếu giới hạn tối đa 200 ứng viên và rank sau lọc.
+- [x] Commit `feat(session): rerank recommendations from recent interactions`, push và xác nhận SHA.
 
 **Nghiệm thu.** `.venv/Scripts/python.exe -m pytest tests/test_session.py tests/test_recommendation_api.py -q` pass, một ca trước/sau click có cùng run_id và thứ tự khác.
 
@@ -290,7 +290,7 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 | A04 | Code và Spark fixture hoàn thành | Xem git log | 5 tests; rules thật chờ Gold publisher |
 | A05 | Hoàn thành | Xem git log | 9 tests; HTTP Uvicorn; UUID/identity/commit |
 | A06 | Hoàn thành | Xem git log | 13 tests API; giữ run và MMR rank |
-| A07 | Chưa thực hiện | | |
+| A07 | Hoàn thành | Xem git log | 9 tests; click đổi thứ tự cùng run, tách session |
 | A08 | Chưa thực hiện | | |
 | A09 | Chưa thực hiện | | |
 | A10 | Chờ output Gold thật để nghiệm thu toàn bộ | | |

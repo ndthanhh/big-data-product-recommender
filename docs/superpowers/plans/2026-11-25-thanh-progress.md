@@ -35,3 +35,6 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 
 - A05 push 85299918b9123845dfc245394e143993e167a6f1, SHA remote khớp.
 - A06: 13 tests API pass. Personalized lọc seen/bù popularity, substitute cùng category, complements subset/rỗng/ID lỗi; request giữ run cũ khi con trỏ đổi, thứ tự MMR giữ nguyên. Ruff pass.
+
+- A06 push 9ebe48609a3065c543c1b8f5416b8cb0229b70a7, SHA remote khớp.
+- A07: 9 tests session/API pass; weights 1/2/4, half-life 10m, 30m/future/20event, normalizations riêng, before/after click cùng run đổi b→c, session khác không đổi và user khác 409. Ruff pass.

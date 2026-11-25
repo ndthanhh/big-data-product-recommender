@@ -1,11 +1,19 @@
 """Serving queries always receive an already pinned run and connection."""
 
+from datetime import UTC, datetime, timedelta
+
 from psycopg.rows import dict_row
 
 from recommender.api.errors import error
 from recommender.api.routes.products import product_rows
 from recommender.ranking.complements import recommend_complements
-from recommender.schemas import AssociationRule, Recommendation, RecommendationItem
+from recommender.ranking.session import rerank_session
+from recommender.schemas import (
+    AssociationRule,
+    Event,
+    Recommendation,
+    RecommendationItem,
+)
 
 
 def items(conn, run, kind, context):
@@ -56,6 +64,32 @@ def personalized(conn, run, query):
         raise error(409, "IDENTITY_CONFLICT", "Session đã thuộc user khác")
     batch = items(conn, run, "personalized", query.user_id)
     popular = items(conn, run, "popular", "global")
+    if query.session_id:
+        now = datetime.now(UTC)
+        args = (query.user_id, query.session_id, now - timedelta(minutes=30), now)
+        # Exclude every product in the window, even when only 20 events score.
+        seen.update(
+            row[0]
+            for row in conn.execute(
+                "SELECT DISTINCT product_id FROM events WHERE user_id=%s AND session_id=%s AND event_at BETWEEN %s AND %s",
+                args,
+            )
+        )
+        with conn.cursor(row_factory=dict_row) as cur:
+            rows = cur.execute(
+                "SELECT event_id,user_id,session_id,product_id,event_type,event_at,source,cart_id FROM events WHERE user_id=%s AND session_id=%s AND event_at BETWEEN %s AND %s ORDER BY event_at DESC,received_at DESC,event_id ASC LIMIT 20",
+                args,
+            ).fetchall()
+        recent = [
+            Event.model_validate(dict(row, event_id=str(row["event_id"])))
+            for row in rows
+        ]
+        similarities = []
+        for product in sorted({event.product_id for event in recent}):
+            similarities.extend(items(conn, run, "substitute", product))
+        return rerank_session(
+            batch, popular, recent, similarities, seen, set(catalog), now, query.limit
+        )
     return ranked(batch + popular, seen, catalog, query.limit)
 
 
