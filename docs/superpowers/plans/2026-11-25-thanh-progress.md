@@ -41,3 +41,7 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 
 - A07 push 28c76b9466f69a5fb947494c85a655b4eef8d705, SHA remote khớp.
 - A08: 8 tests exporter/sync pass; full consistent export tám trường, late commit xuất lần sau, UUID nguyên, previous batch và DB giữ nguyên khi lỗi ghi. Hidden staging được publisher bỏ qua (test RED→GREEN). Ruff pass.
+
+- A08 push 69241044edc5ee1d3746fd2660dfd87b2b2a8ced, SHA remote khớp.
+- A09: 4 tests state/client/AppTest pass; rerun không nhân events, đổi user/giỏ/UUID ổn định, timeout giữ pending. Browser thật với fixture_demo: Product a → substitute c → thêm giỏ → complement d; ảnh docs/demo/cart-fixture.jpg. API/UI chạy local cổng 8000/8501.
+- Ruling A09: ảnh catalogue dùng biểu tượng, ảnh chi tiết chỉ hiển thị sau kiểm tra HTTP/định dạng và có fallback. Nâng minimum Streamlit 1.54 cho widget width, thêm HTTPX vào app dependency. Chi phí: tải metadata từng gợi ý làm UI chậm hơn, benchmark API tách riêng.

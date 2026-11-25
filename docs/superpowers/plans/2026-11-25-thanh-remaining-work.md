@@ -233,13 +233,13 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** Client nhận `API_BASE_URL`, timeout và gọi bảy route đã có. State giữ user/session/cart, sản phẩm đang xem và event đang chờ retry. Entry point `streamlit run src/recommender/ui/app.py`.
 
-- [ ] Viết test State tạo phiên mới khi đổi user, cart ổn định theo phiên, tạo UUID một lần cho thao tác và giữ UUID khi retry.
-- [ ] Làm trang danh mục, chi tiết và giỏ với ảnh fallback khi URL ảnh lỗi.
-- [ ] Gắn Dành cho bạn, Sản phẩm thay thế và Thường thêm cùng vào đúng ngữ cảnh, có so sánh batch với phiên cho demo.
-- [ ] Ghi view khi mở trang chi tiết, click khi người dùng chọn sản phẩm, add_to_cart khi thêm giỏ. Streamlit rerun do thao tác khác giữ nguyên số event.
-- [ ] Dùng Streamlit AppTest kiểm tra điều hướng và state, thêm một lượt thao tác trên trình duyệt với API và DB thật.
-- [ ] Kiểm tra timeout, lỗi API, thiếu snapshot, giỏ rỗng và đổi snapshot giữa các lần lấy metadata. Lưu ảnh demo trong `docs/demo/`.
-- [ ] Commit `feat(ui): add storefront and three recommendation sections`, push và xác nhận SHA.
+- [x] Viết test State tạo phiên mới khi đổi user, cart ổn định theo phiên, tạo UUID một lần cho thao tác và giữ UUID khi retry.
+- [x] Làm trang danh mục, chi tiết và giỏ với ảnh fallback khi URL ảnh lỗi.
+- [x] Gắn Dành cho bạn, Sản phẩm thay thế và Thường thêm cùng vào đúng ngữ cảnh, có so sánh batch với phiên cho demo.
+- [x] Ghi view khi mở trang chi tiết, click khi người dùng chọn sản phẩm, add_to_cart khi thêm giỏ. Streamlit rerun do thao tác khác giữ nguyên số event.
+- [x] Dùng Streamlit AppTest kiểm tra điều hướng và state, thêm một lượt thao tác trên trình duyệt với API và DB thật.
+- [x] Kiểm tra timeout, lỗi API, thiếu snapshot, giỏ rỗng và đổi snapshot giữa các lần lấy metadata. Lưu ảnh demo trong `docs/demo/`.
+- [x] Commit `feat(ui): add storefront and three recommendation sections`, push và xác nhận SHA.
 
 **Nghiệm thu.** `.venv/Scripts/python.exe -m pytest tests/test_ui.py -q` pass, UI ghi được event demo và phản ánh gợi ý theo phiên.
 
@@ -292,6 +292,6 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 | A06 | Hoàn thành | Xem git log | 13 tests API; giữ run và MMR rank |
 | A07 | Hoàn thành | Xem git log | 9 tests; click đổi thứ tự cùng run, tách session |
 | A08 | Hoàn thành | Xem git log | 8 tests exporter/sync; replay và late commit |
-| A09 | Chưa thực hiện | | |
+| A09 | Hoàn thành | Xem git log | 4 tests; browser thật catalog→detail→cart; ảnh docs/demo |
 | A10 | Chờ output Gold thật để nghiệm thu toàn bộ | | |
 | A11 | Chưa thực hiện | | |
