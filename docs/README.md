@@ -230,3 +230,7 @@ Luồng upload/download đã được kiểm tra bằng hai client trên máy ph
 ### PostgreSQL migration
 
 `python -m recommender.api.migrate` áp dụng SQL một lần theo schema_migrations. Nếu Windows đã dùng 5432, đặt `POSTGRES_PORT=5433` và DATABASE_URL cổng 5433 trong .env, chạy lại `docker compose up -d postgres`. Test DB dùng biến TEST_DATABASE_URL trỏ database riêng có tên kết thúc `_test`; tuyệt đối không dùng database demo.
+
+### FP-Growth của Thành
+
+`python -m recommender.ranking.fpgrowth --baskets data/gold/<run>/baskets --output data/models/<run>-fpgrowth` lưu model, association_rules Parquet và parameters.json. Baskets phải cùng run; chỉ giỏ có ít nhất hai item sau dedup được fit. Pháp đưa các file rules vào manifest Gold cùng catalog/run và checksum. [Spark 3.5.7](https://spark.apache.org/docs/3.5.7/ml-frequent-pattern-mining.html) phát luật một consequent. Không có rules hợp lệ thì API mua kèm trả rỗng.

@@ -26,3 +26,6 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 - A02 push 6974f41e0935c8a66108a003a85bc33d41d7d951, SHA remote khớp.
 - A03 hoàn thành: 13 tests importer (22 gồm DB), checksums/Parquet/keys/as-of/empty rules; rollback giữ catalog, cạnh tranh cùng/khác run, retry ready no-op.
 - Ruling A03: importer nạp bốn bảng serving và kiểm tra byte mọi artifact liệt kê; validation nội dung model/vocabulary/ALS mappings thuộc publisher Gold của Pháp. Fixture không đại diện kết quả train. Chi phí: nghiệm thu artifact model thật cần A10. PyArrow thêm app dependency.
+
+- A03 push 3c8c1837f315710a2646cdc54e5d21dec4b35972, SHA remote khớp.
+- A04: 5 tests pass (Spark thật 35.73s). Support/confidence 2/3, lift 1.0; giỏ một item loại khỏi mẫu số; lọc compatibility và dedup consequent. Runner lưu model/rules/config, cần nối Gold publisher của Pháp. Tham khảo https://spark.apache.org/docs/3.5.7/ml-frequent-pattern-mining.html (Spark chỉ phát luật một consequent).

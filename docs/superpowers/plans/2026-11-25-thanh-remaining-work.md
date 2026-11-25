@@ -149,12 +149,12 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** `fit_rules(baskets: DataFrame, *, min_support: float, min_confidence: float) -> DataFrame` nhận baskets theo Gold và xuất association_rules một consequent đúng hợp đồng. `recommend_complements(cart_ids: set[str], rules: Sequence[AssociationRule], products: Mapping[str, Product], limit: int) -> list[Recommendation]` là hàm thuần cho API. Cấu hình cặp danh mục và thuộc tính tương thích được truyền tường minh khi cần.
 
-- [ ] Tạo fixture giỏ có support/confidence/lift tính tay và test khử trùng sản phẩm trong giỏ, giỏ một item và tập giỏ rỗng.
-- [ ] Fit PySpark FP-Growth, giữ đúng mẫu số giỏ có từ hai item và metric của luật một consequent. Lưu model cùng cấu hình.
-- [ ] Test antecedent nhiều item là tập con, một consequent được nhiều luật gợi ý và tie-break theo confidence, lift, ID.
-- [ ] Test loại item đã ở trong giỏ, thuộc tính tương thích thiếu hoặc sai và cặp ngoài quy tắc.
-- [ ] Chạy test Spark nhỏ, xuất bảng rules Parquet để kiểm tra với validator A03.
-- [ ] Commit `feat(ranking): add FP-Growth complement rules`, push và xác nhận SHA.
+- [x] Tạo fixture giỏ có support/confidence/lift tính tay và test khử trùng sản phẩm trong giỏ, giỏ một item và tập giỏ rỗng.
+- [x] Fit PySpark FP-Growth, giữ đúng mẫu số giỏ có từ hai item và metric của luật một consequent. Lưu model cùng cấu hình.
+- [x] Test antecedent nhiều item là tập con, một consequent được nhiều luật gợi ý và tie-break theo confidence, lift, ID.
+- [x] Test loại item đã ở trong giỏ, thuộc tính tương thích thiếu hoặc sai và cặp ngoài quy tắc.
+- [ ] Xuất rules Parquet bằng runner và nối manifest Gold thật của Pháp; Spark fixture đã chạy 5 tests pass.
+- [x] Commit `feat(ranking): add FP-Growth complement rules`, push và xác nhận SHA.
 
 **Nghiệm thu.** Rules phù hợp AssociationRule hiện có, có trường hợp mua kèm tính tay khớp kết quả. Bàn giao cho Pháp interface baskets đầu vào và rules đầu ra để nối vào Gold thật.
 
@@ -287,7 +287,7 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 | A01 | Code và kiểm tra local xong; chờ máy Pháp | Xem git log | 387 tests; MinIO roundtrip đủ catalog/users/events |
 | A02 | Hoàn thành | Xem git log | 9 tests PostgreSQL thật; migration lặp, UTC, constraints |
 | A03 | Hoàn thành serving importer | Xem git log | 13 tests; Parquet/checksum/rollback/concurrency |
-| A04 | Chưa thực hiện | | |
+| A04 | Code và Spark fixture hoàn thành | Xem git log | 5 tests; rules thật chờ Gold publisher |
 | A05 | Chưa thực hiện | | |
 | A06 | Chưa thực hiện | | |
 | A07 | Chưa thực hiện | | |
