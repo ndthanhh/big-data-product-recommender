@@ -18,3 +18,7 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 - A00 đã push: d470ec877c65b835a4faf58c8463b4572170b63f (SHA remote khớp).
 - A01 code hoàn thành: 387 tests pass, Ruff pass. MinIO roundtrip catalog/users 1.000 dòng và 2 batch/8 events đúng hash. Chờ endpoint LAN và tài khoản thực trên máy Pháp.
 - Ruling A01: sync trả danh sách prefix thay vì None để hỗ trợ tải chính xác batch; prefix chứa fingerprint manifest, manifest upload cuối. minio-init chuyển profile tùy chọn do image mc không tải được; Python tạo bucket. Chi phí: máy thứ hai vẫn cần xác minh mạng/quyền riêng.
+
+- A01 push be950dcfb0483e91f29066aaad47e9463c3f6737, SHA remote khớp.
+- A02 hoàn thành: 9 tests DB thật, migration lặp và packaged SQL resource đúng; Ruff pass.
+- Ruling A02: POSTGRES_PORT cấu hình mapping Docker, local .env dùng 5433 do postgres Windows chiếm 5432; defaults vẫn 5432. Test chỉ truncate database *_test đã chọn tường minh. Chi phí: teammate cần chọn đúng cổng local.

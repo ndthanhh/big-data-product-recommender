@@ -116,11 +116,11 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** `connect(database_url: str) -> psycopg.Connection` tạo connection UTC. `migrate(database_url: str) -> None` có CLI `python -m recommender.api.migrate` lấy URL từ settings và chạy lại an toàn.
 
-- [ ] Viết test DB thật cho bảy bảng, singleton ban đầu, FK kép catalog, rank trùng, NaN/infinity và array antecedent không hợp lệ.
-- [ ] Viết migration đúng mục 5 của DATA_CONTRACTS, quản lý phiên bản migration và chỉ áp dụng file chưa chạy.
-- [ ] Kiểm tra chạy migration hai lần, connection timezone và load được file SQL từ package đã cài.
-- [ ] Chạy `.venv/Scripts/python.exe -m pytest tests/test_database.py -q` với `TEST_DATABASE_URL` trỏ database kiểm thử riêng.
-- [ ] Commit `feat(db): add versioned PostgreSQL schema and migrations`, push và xác nhận SHA.
+- [x] Viết test DB thật cho bảy bảng, singleton ban đầu, FK kép catalog, rank trùng, NaN/infinity và array antecedent không hợp lệ.
+- [x] Viết migration đúng mục 5 của DATA_CONTRACTS, quản lý phiên bản migration và chỉ áp dụng file chưa chạy.
+- [x] Kiểm tra chạy migration hai lần, connection timezone và load được file SQL từ package đã cài.
+- [x] Chạy `.venv/Scripts/python.exe -m pytest tests/test_database.py -q` với `TEST_DATABASE_URL` trỏ database kiểm thử riêng.
+- [x] Commit `feat(db): add versioned PostgreSQL schema and migrations`, push và xác nhận SHA.
 
 **Nghiệm thu.** Database mới tạo được từ migration, constraints có test bằng INSERT thật và singleton tồn tại ngay trước lần import đầu.
 
@@ -285,7 +285,7 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 | --- | --- | --- | --- |
 | A00 | Hoàn thành kiểm tra | Xem git log | 383 tests; Kafka→MinIO 8/8; start/stop thật |
 | A01 | Code và kiểm tra local xong; chờ máy Pháp | Xem git log | 387 tests; MinIO roundtrip đủ catalog/users/events |
-| A02 | Chưa thực hiện | | |
+| A02 | Hoàn thành | Xem git log | 9 tests PostgreSQL thật; migration lặp, UTC, constraints |
 | A03 | Chưa thực hiện | | |
 | A04 | Chưa thực hiện | | |
 | A05 | Chưa thực hiện | | |

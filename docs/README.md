@@ -226,3 +226,7 @@ Trên máy train, đặt MINIO_ENDPOINT thành địa chỉ máy chủ mà máy 
 File được tải vào thư mục tạm, kiểm tra kích thước, SHA-256 và số dòng JSONL rồi mới chuyển sang thư mục đích. Lần tải lại cùng batch dùng bản local đã kiểm tra. Thư mục đang chứa phiên bản khác sẽ báo lỗi để người chạy chọn đích mới. Với luồng Kafka, có thể công bố lại các batch local để khôi phục bản copy remote khi MinIO từng ngắt kết nối.
 
 Luồng upload/download đã được kiểm tra bằng hai client trên máy phát triển. Việc kết nối từ máy Pháp cần kiểm tra bằng địa chỉ LAN/VPN thực tế của nhóm.
+
+### PostgreSQL migration
+
+`python -m recommender.api.migrate` áp dụng SQL một lần theo schema_migrations. Nếu Windows đã dùng 5432, đặt `POSTGRES_PORT=5433` và DATABASE_URL cổng 5433 trong .env, chạy lại `docker compose up -d postgres`. Test DB dùng biến TEST_DATABASE_URL trỏ database riêng có tên kết thúc `_test`; tuyệt đối không dùng database demo.
