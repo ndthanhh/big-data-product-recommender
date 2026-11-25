@@ -254,10 +254,11 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 - [ ] Kiểm tra dataset_version, cutoff và schema bốn bảng Gold thật, nối output rules của Thành vào đúng quá trình công bố run của Pháp.
 - [ ] Chạy nhập snapshot thật, kiểm tra ba nhóm gợi ý trên cùng user/catalog và fallback.
 - [ ] Ghi event từ UI, xuất Bronze, nhờ ETL của Pháp xử lý rồi import batch mới, đối chiếu vòng lặp dữ liệu.
-- [ ] Test E2E với fixture cho luồng click → DB → session → export. Chạy thêm vòng E2E thật và ghi dataset/run thực tế.
-- [ ] Đo API personalized/substitutes/complements và nhận event sau warm-up, tách phép đo thay đổi phiên khỏi thời gian train.
-- [ ] Ghi benchmark và ảnh bằng chứng trong `docs/results/`, giữ các số đo thực tế cùng cấu hình máy.
-- [ ] Commit `feat(integration): connect model snapshots and benchmark serving`, push và xác nhận SHA.
+- [x] Test E2E fixture click → DB → session → export.
+- [ ] Vòng E2E Gold thật sau khi Pháp bàn giao.
+- [x] Đo API personalized/substitutes/complements/events trên fixture sau warm-up, tách thời gian train.
+- [x] Benchmark + 400 mẫu thô trong docs/results; ảnh browser trong docs/demo.
+- [x] Commit `feat(integration): connect model snapshots and benchmark serving`, push và xác nhận SHA.
 
 **Nghiệm thu.** Vòng E2E thật hoàn tất và có số đo phục vụ, dữ liệu test được tách khỏi log demo dùng để báo cáo.
 
@@ -293,5 +294,5 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 | A07 | Hoàn thành | Xem git log | 9 tests; click đổi thứ tự cùng run, tách session |
 | A08 | Hoàn thành | Xem git log | 8 tests exporter/sync; replay và late commit |
 | A09 | Hoàn thành | Xem git log | 4 tests; browser thật catalog→detail→cart; ảnh docs/demo |
-| A10 | Chờ output Gold thật để nghiệm thu toàn bộ | | |
+| A10 | Runner/E2E fixture/benchmark xong; chờ Gold thật | Xem git log | 400 HTTP mẫu, 0 lỗi; 2 E2E tests |
 | A11 | Chưa thực hiện | | |

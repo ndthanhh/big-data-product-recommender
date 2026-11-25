@@ -45,3 +45,7 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 - A08 push 69241044edc5ee1d3746fd2660dfd87b2b2a8ced, SHA remote khớp.
 - A09: 4 tests state/client/AppTest pass; rerun không nhân events, đổi user/giỏ/UUID ổn định, timeout giữ pending. Browser thật với fixture_demo: Product a → substitute c → thêm giỏ → complement d; ảnh docs/demo/cart-fixture.jpg. API/UI chạy local cổng 8000/8501.
 - Ruling A09: ảnh catalogue dùng biểu tượng, ảnh chi tiết chỉ hiển thị sau kiểm tra HTTP/định dạng và có fallback. Nâng minimum Streamlit 1.54 cho widget width, thêm HTTPX vào app dependency. Chi phí: tải metadata từng gợi ý làm UI chậm hơn, benchmark API tách riêng.
+
+- A09 push 78aad25ebba738e9b54828fadf6d329b9618899e, SHA remote khớp.
+- A10 phần độc lập hoàn thành: 2 E2E tests pass; runner và fixture CLI; HTTP benchmark Uvicorn 400 mẫu, concurrency4, warmup3, 0 lỗi, DB recommender_benchmark riêng. P95 personalized59.83ms/substitutes62.17ms/complements72.54ms/events85.93ms, chỉ 5 sản phẩm fixture.
+- Ruling A10: Silver/Gold model thật của Pháp chưa có; giữ các bước nghiệm thu model/vòng retrain ở trạng thái chờ. Không tạo ETL/ALS thay teammate hoặc coi fixture là model đã train. Chi phí: chưa kết luận chất lượng và hiệu năng với 1.000 sản phẩm/120k events.

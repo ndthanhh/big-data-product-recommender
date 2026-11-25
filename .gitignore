@@ -29,3 +29,4 @@ dist/
 *.log
 .stream_pids
 .stream_stop
+data/demo-processes.json
