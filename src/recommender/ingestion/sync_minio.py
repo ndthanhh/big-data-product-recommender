@@ -75,6 +75,10 @@ def sync_bronze_to_minio(
             client.make_bucket(bucket)
     published = []
     for manifest_path in sorted(source.rglob("manifest.json")):
+        if any(
+            part.startswith(".") for part in manifest_path.relative_to(source).parts
+        ):
+            continue
         folder = manifest_path.parent
         manifest = validate_manifest(folder)
         # The manifest digest also separates consumer batches whose dataset ID

@@ -108,3 +108,10 @@ def test_manifest_cannot_escape_batch_directory(tmp_path):
     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
     with pytest.raises(ValueError, match="path"):
         sync_minio.sync_bronze_to_minio(tmp_path / "bronze", client=Store())
+
+
+def test_staging_directory_is_not_published(tmp_path):
+    batch(tmp_path / "bronze" / ".export-staging")
+    store = Store()
+    assert sync_minio.sync_bronze_to_minio(tmp_path / "bronze", client=store) == []
+    assert store.objects == {}

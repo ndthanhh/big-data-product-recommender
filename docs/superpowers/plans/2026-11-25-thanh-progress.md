@@ -38,3 +38,6 @@ Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ 
 
 - A06 push 9ebe48609a3065c543c1b8f5416b8cb0229b70a7, SHA remote khớp.
 - A07: 9 tests session/API pass; weights 1/2/4, half-life 10m, 30m/future/20event, normalizations riêng, before/after click cùng run đổi b→c, session khác không đổi và user khác 409. Ruff pass.
+
+- A07 push 28c76b9466f69a5fb947494c85a655b4eef8d705, SHA remote khớp.
+- A08: 8 tests exporter/sync pass; full consistent export tám trường, late commit xuất lần sau, UUID nguyên, previous batch và DB giữ nguyên khi lỗi ghi. Hidden staging được publisher bỏ qua (test RED→GREEN). Ruff pass.

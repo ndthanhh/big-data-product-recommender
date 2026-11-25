@@ -217,11 +217,11 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** `export_demo_events(database_url: str, output_dir: Path) -> Path` trả đường dẫn manifest sau khi xuất hoàn chỉnh, CLI `python -m recommender.pipeline.export_events`. Quét các event demo trong một snapshot đọc nhất quán.
 
-- [ ] Test không có event, timestamp tương lai hoặc quá cũ, UUID bất biến và chỉ tám trường nghiệp vụ trong JSONL.
-- [ ] Xuất đầy đủ các event demo nhìn thấy trong lượt chạy vào batch mới, ghi file tạm, checksum và manifest cuối cùng.
-- [ ] Test export hai lần và một transaction commit muộn giữa hai lượt, xác nhận lượt sau có event mới và các dòng lặp giữ nguyên UUID.
-- [ ] Test lỗi ghi local hoặc upload MinIO giữ được dữ liệu để retry, đối chiếu payload với DB trước khi lập kế hoạch dọn log.
-- [ ] Commit `feat(pipeline): export committed demo events to Bronze`, push và xác nhận SHA.
+- [x] Test không có event, timestamp tương lai hoặc quá cũ, UUID bất biến và chỉ tám trường nghiệp vụ trong JSONL.
+- [x] Xuất đầy đủ các event demo nhìn thấy trong lượt chạy vào batch mới, ghi file tạm, checksum và manifest cuối cùng.
+- [x] Test export hai lần và một transaction commit muộn giữa hai lượt, xác nhận lượt sau có event mới và các dòng lặp giữ nguyên UUID.
+- [x] Test lỗi ghi local hoặc upload MinIO giữ được dữ liệu để retry, đối chiếu payload với DB trước khi lập kế hoạch dọn log.
+- [x] Commit `feat(pipeline): export committed demo events to Bronze`, push và xác nhận SHA.
 
 **Nghiệm thu.** JSONL được Event.model_validate_json chấp nhận, manifest đúng byte thực tế và pipeline ETL của Pháp có thể dedup theo event_id.
 
@@ -291,7 +291,7 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 | A05 | Hoàn thành | Xem git log | 9 tests; HTTP Uvicorn; UUID/identity/commit |
 | A06 | Hoàn thành | Xem git log | 13 tests API; giữ run và MMR rank |
 | A07 | Hoàn thành | Xem git log | 9 tests; click đổi thứ tự cùng run, tách session |
-| A08 | Chưa thực hiện | | |
+| A08 | Hoàn thành | Xem git log | 8 tests exporter/sync; replay và late commit |
 | A09 | Chưa thực hiện | | |
 | A10 | Chờ output Gold thật để nghiệm thu toàn bộ | | |
 | A11 | Chưa thực hiện | | |
