@@ -3,6 +3,7 @@
 import os
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Literal
 
 from dotenv import dotenv_values
 
@@ -17,6 +18,8 @@ DEFAULT_MINIO_SECRET_KEY = "minioadmin"
 DEFAULT_MINIO_SECURE = False
 DEFAULT_KAFKA_BOOTSTRAP_SERVERS = "127.0.0.1:9092"
 DEFAULT_KAFKA_TOPIC_EVENTS = "product-events"
+DEFAULT_DATA_LAKE_STORAGE = "local"
+DataLakeStorage = Literal["local", "minio"]
 
 
 @dataclass(frozen=True, slots=True)
@@ -34,6 +37,7 @@ class Settings:
     minio_secure: bool = DEFAULT_MINIO_SECURE
     kafka_bootstrap_servers: str = DEFAULT_KAFKA_BOOTSTRAP_SERVERS
     kafka_topic_events: str = DEFAULT_KAFKA_TOPIC_EVENTS
+    data_lake_storage: DataLakeStorage = DEFAULT_DATA_LAKE_STORAGE
 
 
 def get_settings(env_file: str | Path | None = PROJECT_ROOT / ".env") -> Settings:
@@ -63,6 +67,10 @@ def get_settings(env_file: str | Path | None = PROJECT_ROOT / ".env") -> Setting
     minio_secure_str = read("MINIO_SECURE", "false").lower()
     minio_secure = minio_secure_str in ("true", "1", "yes")
 
+    data_lake_storage = read("DATA_LAKE_STORAGE", DEFAULT_DATA_LAKE_STORAGE).lower()
+    if data_lake_storage not in ("local", "minio"):
+        raise ValueError("DATA_LAKE_STORAGE must be 'local' or 'minio'")
+
     return Settings(
         data_lake_dir=data_lake_dir.resolve(),
         database_url=read("DATABASE_URL", DEFAULT_DATABASE_URL),
@@ -77,4 +85,5 @@ def get_settings(env_file: str | Path | None = PROJECT_ROOT / ".env") -> Setting
             "KAFKA_BOOTSTRAP_SERVERS", DEFAULT_KAFKA_BOOTSTRAP_SERVERS
         ),
         kafka_topic_events=read("KAFKA_TOPIC_EVENTS", DEFAULT_KAFKA_TOPIC_EVENTS),
+        data_lake_storage=data_lake_storage,  # type: ignore[arg-type]
     )
