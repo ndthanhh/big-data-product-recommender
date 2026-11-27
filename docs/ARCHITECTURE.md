@@ -6,7 +6,7 @@
 
 Hệ thống chạy local cho tiểu luận Nhóm 1. Pipeline batch xử lý dữ liệu lớn hơn log demo, tạo model và snapshot có thể tái lập. FastAPI phục vụ kết quả đã tính sẵn và xử lý tín hiệu phiên; Streamlit chỉ gọi API, không truy cập trực tiếp Spark hoặc database. Ba đầu ra bắt buộc là Dành cho bạn, Sản phẩm thay thế và Thường thêm cùng.
 
-T01 đặc tả kiến trúc cho T02–T12 trong [PLAN.md](../PLAN.md). Đã triển khai ingestion/Kafka/MinIO, migration/importer, FP-Growth, API/session/export và Streamlit. Serving đã kiểm tra với fixture Gold; ETL/model/metric thật của Pháp còn chờ tích hợp. Xem [demo](DEMO.md) và [ERD migration](DATABASE.md). V1 không yêu cầu Spark Structured Streaming, cluster phân tán hoặc train lại model khi có click. “Cập nhật theo phiên” là tính lại điểm trong request sau khi event được lưu, còn học dài hạn diễn ra theo batch.
+T01 đặc tả kiến trúc cho T02–T12 trong [PLAN.md](../PLAN.md). Đã triển khai ingestion/Kafka/MinIO, migration/importer, FP-Growth, API/session/export và Streamlit. ETL/model/publisher của Pháp đã được ghép trên nhánh tích hợp và kiểm tra với 1.000 sản phẩm/100.000 sự kiện; kết quả, lệnh chạy và giới hạn ở [INTEGRATION.md](INTEGRATION.md). Xem [demo](DEMO.md) và [ERD migration](DATABASE.md). V1 không yêu cầu Spark Structured Streaming, cluster phân tán hoặc train lại model khi có click. “Cập nhật theo phiên” là tính lại điểm trong request sau khi event được lưu, còn học dài hạn diễn ra theo batch.
 
 ## 2. Thành phần và trách nhiệm
 

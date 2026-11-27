@@ -12,7 +12,9 @@ Tiểu luận Dữ liệu lớn của **Nhóm 1 — Nguyễn Đức Thành và P
 
 Mô hình dài hạn được cập nhật theo batch. Trong một phiên, API kết hợp kết quả batch với các tương tác vừa commit để thay đổi thứ tự gợi ý mà không train lại ALS. Trọng số v1 cố định: `view=1`, `click=2`, `add_to_cart=4`.
 
-**Trạng thái 25/11/2026.** Phần ứng dụng của Thành đã có migration PostgreSQL, importer Gold nguyên tử, FP-Growth, đủ 7 route FastAPI, gợi ý phiên, exporter và Streamlit. Toàn bộ 450 tests pass với PostgreSQL/Spark thật; browser demo và benchmark 400 request đã chạy bằng fixture 5 sản phẩm. Catalog/Bronze có 1.000 sản phẩm và khoảng 120 nghìn events; ETL/Gold/model/metric thật của Pháp và nghiệm thu trên máy thứ hai còn chờ. [Chạy demo ngay](docs/DEMO.md) · [Báo cáo phần Thành](docs/THANH_REPORT.md) · [ERD](docs/DATABASE.md).
+**Trạng thái trước tích hợp 25/11/2026.** Phần ứng dụng của Thành đã có migration PostgreSQL, importer Gold nguyên tử, FP-Growth, đủ 7 route FastAPI, gợi ý phiên, exporter và Streamlit. Toàn bộ 450 tests pass với PostgreSQL/Spark thật; browser demo và benchmark 400 request đã chạy bằng fixture 5 sản phẩm. Catalog/Bronze có 1.000 sản phẩm và khoảng 120 nghìn events; ETL/Gold/model/metric thật của Pháp và nghiệm thu trên máy thứ hai còn chờ. [Chạy demo ngay](docs/DEMO.md) · [Báo cáo phần Thành](docs/THANH_REPORT.md) · [ERD](docs/DATABASE.md).
+
+**Tích hợp PR #1 ngày 27/11/2026:** nhánh `codex/integrate-ml-pipeline` nối ETL/model/publisher của Pháp với validator/importer/API/UI của Thành. Hướng dẫn và phạm vi kiểm tra ở [INTEGRATION.md](docs/INTEGRATION.md). Publisher chạy bằng `python -m recommender.pipeline.publish_snapshot`; module snapshot giữ validator.
 
 ## Kiến trúc tổng thể
 

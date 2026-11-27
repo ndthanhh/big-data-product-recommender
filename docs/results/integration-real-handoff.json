@@ -1,0 +1,93 @@
+{
+  "run_id": "merge_20261108T000000Z_alsmmr_42_62b0aa1d",
+  "dataset_version": "ds-de5473c78974b177e18d136b",
+  "snapshot_counts": {
+    "products": 1000,
+    "interactions": 23484,
+    "baskets": 4974,
+    "seen_products": 23484,
+    "recommendation_items": 282536,
+    "association_rules": 746,
+    "recommendation_items_by_kind_method": {
+      "popular/popularity": 200,
+      "substitute/tfidf": 82336,
+      "personalized/als_mmr": 200000
+    },
+    "personalized_users": 1000,
+    "substitute_contexts": 1000,
+    "baskets_total": 4974,
+    "baskets_fit": 4960,
+    "baskets_single_item_excluded": 14,
+    "mmr_candidates": 200000,
+    "mmr_missing_vectors": 0,
+    "tfidf_zero_vectors": 0,
+    "tfidf_vocabulary": 4985
+  },
+  "manifest_sha256": "0f77d5ee2a30415acd4a463a306500e639c5f749a69aaacefca5743554f9c581",
+  "environment": {
+    "python": "3.11.9",
+    "java": "17.0.12",
+    "spark": "3.5.7",
+    "os": "Linux 6.18.33.2-microsoft-standard-WSL2 x86_64",
+    "spark_conf": {
+      "spark.master": "local[2]",
+      "spark.driver.memory": "1g",
+      "spark.sql.shuffle.partitions": "4",
+      "spark.sql.session.timeZone": "UTC"
+    }
+  },
+  "selection": {
+    "als": {
+      "rank": 16,
+      "max_iter": 5,
+      "reg_param": 0.1,
+      "alpha": 1.0,
+      "seed": 42
+    },
+    "mmr_lambda": 0.7,
+    "fpgrowth": {
+      "min_support": 0.001,
+      "min_confidence": 0.5
+    },
+    "personalized_method": "als_mmr"
+  },
+  "validation_scope": "Integration smoke, not hyperparameter selection or new quality benchmark",
+  "code_commit": "767c97a8fd02a1f6f5557f77787e299dfe2f199f",
+  "code_dirty": true,
+  "pipeline_seconds": 445.12107273100264,
+  "import_seconds": 100.59778384100355,
+  "checks": {
+    "old_user": {
+      "status": 200,
+      "items": 10
+    },
+    "new_user": {
+      "status": 200,
+      "items": 10
+    },
+    "substitutes": {
+      "status": 200,
+      "items": 10
+    },
+    "complements": {
+      "status": 200,
+      "items": 1
+    },
+    "event": {
+      "created": 201,
+      "retry": 200
+    },
+    "session": {
+      "status": 200,
+      "items": 10
+    },
+    "export": {
+      "rows": 1
+    }
+  },
+  "native_fpgrowth_model_files": 5,
+  "input_commits": {
+    "serving": "767c97a8fd02a1f6f5557f77787e299dfe2f199f",
+    "pipeline": "543b00112f9a13fbbe5042aa2422329128748af4"
+  }
+}

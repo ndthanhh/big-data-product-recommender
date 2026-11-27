@@ -1,26 +1,8 @@
-import os
-import sys
-
 import pytest
-from pyspark.sql import SparkSession
 
 from recommender.ranking.fpgrowth import fit_rules
 
-
-@pytest.fixture(scope="module")
-def spark():
-    os.environ["PYSPARK_PYTHON"] = sys.executable
-    os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
-    session = (
-        SparkSession.builder.master("local[2]")
-        .appName("fpgrowth-tests")
-        .config("spark.ui.enabled", "false")
-        .config("spark.sql.shuffle.partitions", "2")
-        .getOrCreate()
-    )
-    session.sparkContext.setLogLevel("ERROR")
-    yield session
-    session.stop()
+pytestmark = pytest.mark.spark
 
 
 def test_support_uses_only_multi_item_baskets(spark, tmp_path):

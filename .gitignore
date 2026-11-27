@@ -30,3 +30,7 @@ dist/
 .stream_pids
 .stream_stop
 data/demo-processes.json
+
+# OS and tooling artifacts
+.DS_Store
+repomix-output.xml

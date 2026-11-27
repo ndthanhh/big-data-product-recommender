@@ -65,6 +65,7 @@ def test_normal_worker_completion_stops_other_worker():
     assert stopped.is_set()
 
 
+@pytest.mark.skipif(os.name != "nt", reason="Windows PowerShell process lifecycle")
 def test_stop_script_rejects_pid_reuse(tmp_path):
     script_dir = tmp_path / "scripts"
     script_dir.mkdir()
@@ -96,6 +97,7 @@ def test_stop_script_rejects_pid_reuse(tmp_path):
     assert not (tmp_path / ".stream_stop").exists()
 
 
+@pytest.mark.skipif(os.name != "nt", reason="Windows PowerShell process lifecycle")
 def test_stop_script_without_worker_is_safe(tmp_path):
     script_dir = tmp_path / "scripts"
     script_dir.mkdir()
@@ -117,6 +119,7 @@ def test_stop_script_without_worker_is_safe(tmp_path):
     assert result.returncode == 0
 
 
+@pytest.mark.skipif(os.name != "nt", reason="Windows PowerShell process lifecycle")
 def test_stop_script_clears_stale_legacy_pid_file(tmp_path):
     script_dir = tmp_path / "scripts"
     script_dir.mkdir()

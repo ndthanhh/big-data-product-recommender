@@ -2,6 +2,8 @@
 
 Cập nhật 25/11/2026. Chạy từ gốc repo bằng Python 3.11. Phần serving đã chạy với fixture; ETL, TF-IDF/ALS/MMR và đánh giá trên dữ liệu thật của Pháp chưa được tích hợp.
 
+**Cập nhật tích hợp 27/11:** code ETL/model/publisher của Pháp đã được ghép trên nhánh tích hợp; dùng `pipeline.publish_snapshot` để xuất Gold. Các giới hạn nghiệm thu ngày 25/11 bên dưới là lịch sử trước merge; trạng thái và cách chạy Linux hiện tại ở [INTEGRATION.md](INTEGRATION.md).
+
 ## 1. Chuẩn bị
 
 ```powershell
@@ -64,7 +66,7 @@ Luật FP-Growth của Thành nhận baskets cùng run, loại giỏ dưới hai
 .\.venv\Scripts\python.exe -m recommender.ranking.fpgrowth --baskets data/gold/<run_id>/baskets --output data/models/<run_id>-fpgrowth --min-support 0.01 --min-confidence 0.1
 ```
 
-Các ngưỡng trên là mặc định runner, chưa phải cấu hình được chọn qua validation. Đã kiểm tra Spark fit → ghi Parquet bằng PyArrow → Gold validator với 4 luật. Native Spark model save và toàn bộ CLI I/O chưa được nghiệm thu trên Windows; log Spark máy Thành hiện báo thiếu winutils/HADOOP_HOME, cần kiểm tra trong môi trường train trước khi dùng lệnh trên cho báo cáo. Compatibility là mapping tường minh cặp category → thuộc tính; mặc định API chỉ diễn giải mua kèm là đồng xuất hiện trong giỏ. Có thể gắn mapping vào `app.state.compatibility` trước khi serve.
+Các ngưỡng trên là mặc định runner, chưa phải cấu hình được chọn qua validation. Đã kiểm tra Spark fit → ghi Parquet bằng PyArrow → Gold validator với 4 luật. Ngày 27/11, native Parquet và model save/reload đã được kiểm tra bằng Linux runtime ở INTEGRATION.md; Windows native vẫn cần Hadoop/winutils phù hợp. Compatibility là mapping tường minh cặp category → thuộc tính; mặc định API chỉ diễn giải mua kèm là đồng xuất hiện trong giỏ. Có thể gắn mapping vào `app.state.compatibility` trước khi serve.
 
 ## 5. Xuất event và chia sẻ MinIO
 
