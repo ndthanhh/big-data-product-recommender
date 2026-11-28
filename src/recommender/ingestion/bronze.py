@@ -1,4 +1,4 @@
-"""Publish streamed Bronze JSONL with byte checksums and contract v1 metadata."""
+"""Ghi luồng JSONL Bronze kèm mã kiểm tra byte và thông tin hợp đồng dữ liệu v1."""
 
 import hashlib
 import json
@@ -16,7 +16,7 @@ from recommender.schemas import SCHEMA_VERSION, Event, Product, UserProfile
 
 
 def catalog_version(products: Sequence[Product]) -> str:
-    """Identify normalized catalog contents independently of input line order."""
+    """Định danh nội dung danh mục đã chuẩn hóa, không phụ thuộc thứ tự dòng đầu vào."""
     digest = hashlib.sha256()
     for product in sorted(products, key=lambda item: item.product_id):
         digest.update(
@@ -27,7 +27,7 @@ def catalog_version(products: Sequence[Product]) -> str:
 
 
 def write_json(path: Path, value: object) -> None:
-    """Atomically replace a UTF-8/LF JSON document after writing it completely."""
+    """Thay thế nguyên tử tài liệu JSON UTF-8/LF sau khi ghi hoàn chỉnh."""
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = None
     try:
@@ -78,10 +78,10 @@ def write_bronze(
     products: Sequence[Product],
     generator_version: str | None = None,
 ) -> Path:
-    """Write bounded-memory JSONL, then publish its manifest as the last step.
+    """Ghi JSONL với bộ nhớ giới hạn, rồi công bố manifest ở bước cuối.
 
-    Statistics retain catalog/user/session/cart IDs, never individual events.
-    A generator failure leaves the previous published data and manifest intact.
+    Thống kê chỉ giữ ID danh mục/người dùng/phiên/giỏ, không giữ từng sự kiện.
+    Nếu bộ sinh lỗi, dữ liệu và manifest đã công bố trước đó vẫn được giữ nguyên.
     """
     output.parent.mkdir(parents=True, exist_ok=True)
     digest = hashlib.sha256()
@@ -169,7 +169,7 @@ def write_bronze(
                 }
             ],
         }
-        # Include publication metadata so a version never identifies a different package.
+        # Đưa thông tin công bố vào định danh để mỗi phiên bản luôn ứng với đúng một gói.
         identity = hashlib.sha256(
             json.dumps(manifest, sort_keys=True).encode("utf-8")
         ).hexdigest()

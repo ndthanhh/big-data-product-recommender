@@ -28,7 +28,7 @@ flowchart TB
         PySpark["Apache Spark 3.5.7 (PySpark)<br>(Catalyst Optimizer & Tungsten Engine)"]
         ALS["Implicit ALS (Spark MLlib)<br>(Collaborative Filtering)"]
         FPGrowth["FP-Growth (Spark MLlib)<br>(Market Basket Association Rules)"]
-        TFIDF["TF-IDF & Cosine (Scikit-Learn / Spark)<br>(Content-Based Substitutes)"]
+        TFIDF["TF-IDF & Cosine (Spark MLlib)<br>(Content-Based Substitutes)"]
         MMR["Maximal Marginal Relevance (MMR)<br>(Diversity Re-ranking)"]
     end
 

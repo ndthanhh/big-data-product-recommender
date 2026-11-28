@@ -1,4 +1,4 @@
-"""Simulate realtime user funnels and publish contract-v1 JSON events to Kafka."""
+"""Mô phỏng chuỗi hành vi thời gian thực, gửi sự kiện JSON theo hợp đồng v1 lên Kafka."""
 
 import argparse
 import hashlib
@@ -26,11 +26,11 @@ def generate_stream(
     *,
     start_at: datetime | None = None,
 ) -> Iterator[Event]:
-    """Yield view → click → cart funnels within a user's session indefinitely.
+    """Sinh liên tục chuỗi xem → nhấp → thêm giỏ trong phiên người dùng.
 
-    Prefer primary/secondary interests in 85% of product choices (75/25 split).
-    The remaining choices explore the catalog. Fixed start_at enables exact
-    replay; live runs use wall-clock event times and a distinct run namespace.
+    Ưu tiên sở thích chính/phụ ở 85% lượt chọn sản phẩm (chia theo tỷ lệ 75/25).
+    Các lượt còn lại khám phá danh mục. Cố định start_at cho phép tái lập chính
+    xác; chạy trực tiếp dùng giờ thực tế và không gian định danh lần chạy riêng.
     """
     if (
         seed < 0
@@ -85,7 +85,7 @@ def generate_stream(
 
 
 def create_kafka_producer(bootstrap_servers: str) -> Any:
-    """Import the optional Kafka dependency only when publishing to a broker."""
+    """Chỉ import thư viện Kafka tùy chọn khi gửi dữ liệu đến broker."""
     from kafka import KafkaProducer
 
     return KafkaProducer(
@@ -111,8 +111,9 @@ def run_producer(
     kafka_producer: Any = None,
     monotonic: Callable[[], float] = time.monotonic,
     sleep: Callable[[float], None] = time.sleep,
+    should_stop: Callable[[], bool] | None = None,
 ) -> int:
-    """Publish at most max_events with monotonic pacing; dry-run prints JSONL."""
+    """Gửi tối đa max_events, điều tiết bằng đồng hồ đơn điệu; dry-run in JSONL."""
     if (
         not math.isfinite(rate)
         or rate <= 0
@@ -138,9 +139,19 @@ def run_producer(
     try:
         events = generate_stream(products, users, seed)
         while max_events is None or sent < max_events:
+            if should_stop is not None and should_stop():
+                break
             delay = started + sent / rate - monotonic()
             if delay > 0:
-                sleep(delay)
+                if should_stop is None:
+                    sleep(delay)
+                else:
+                    while delay > 0 and not should_stop():
+                        interval = min(delay, 0.1)
+                        sleep(interval)
+                        delay -= interval
+                    if should_stop():
+                        break
             event = next(events)
             if dry_run:
                 print(event.model_dump_json(), flush=True)
@@ -163,7 +174,7 @@ def run_producer(
 
 
 def main(argv: list[str] | None = None) -> None:
-    """Run python -m recommender.streaming.producer (Ctrl+C stops cleanly)."""
+    """Chạy python -m recommender.streaming.producer; Ctrl+C dừng có dọn dẹp."""
     settings = get_settings()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(

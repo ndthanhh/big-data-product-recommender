@@ -6,19 +6,22 @@
 
 Hệ thống chạy local cho tiểu luận Nhóm 1. Pipeline batch xử lý dữ liệu lớn hơn log demo, tạo model và snapshot có thể tái lập. FastAPI phục vụ kết quả đã tính sẵn và xử lý tín hiệu phiên; Streamlit chỉ gọi API, không truy cập trực tiếp Spark hoặc database. Ba đầu ra bắt buộc là Dành cho bạn, Sản phẩm thay thế và Thường thêm cùng.
 
-T01 đặc tả kiến trúc cho T02–T12 trong [PLAN.md](../PLAN.md). Nhánh ingestion đã có CLI và một luồng Kafka mô phỏng tùy chọn; các migration/API/model tiếp tục theo kế hoạch. V1 không yêu cầu Spark Structured Streaming, cluster phân tán hoặc train lại model khi có click. “Cập nhật theo phiên” là tính lại điểm trong request sau khi event được lưu, còn học dài hạn diễn ra theo batch.
+T01 đặc tả kiến trúc cho T02–T12 trong [PLAN.md](../PLAN.md). Đã triển khai ingestion/Kafka/MinIO, migration/importer, FP-Growth, API/session/export và Streamlit. ETL/model/publisher của Pháp đã được ghép trên nhánh tích hợp và kiểm tra với 1.000 sản phẩm/100.000 sự kiện; kết quả, lệnh chạy và giới hạn ở [INTEGRATION.md](INTEGRATION.md). Xem [demo](DEMO.md) và [ERD migration](DATABASE.md). V1 không yêu cầu Spark Structured Streaming, cluster phân tán hoặc train lại model khi có click. “Cập nhật theo phiên” là tính lại điểm trong request sau khi event được lưu, còn học dài hạn diễn ra theo batch.
 
 ## 2. Thành phần và trách nhiệm
 
 ```mermaid
 flowchart TB
-    C[Catalog được phép] --> B[Bronze JSONL bất biến]
+    C[Catalog được phép] --> B[MinIO Bronze: JSONL bất biến]
     G[Bộ sinh Faker / NumPy theo seed] --> B
+    G --> K[Kafka product-events]
+    K --> Consumer[Python consumer micro-batch]
+    Consumer --> B
     B --> E[ETL PySpark: schema / UTC / dedup / quarantine]
-    E --> S[Silver Parquet theo dataset_version]
+    E --> S[MinIO Silver: Parquet theo dataset_version]
     S --> Split[Chia thời gian và chọn catalog as-of]
     Split --> Train[Popularity / TF-IDF / ALS / FP-Growth / MMR]
-    Train --> Gold[Gold theo run_id: kết quả / model / manifest]
+    Train --> Gold[MinIO Gold: kết quả / model / manifest theo run_id]
     Gold --> I[Importer: kiểm tra rồi transaction]
     I --> P[(PostgreSQL: snapshot phục vụ)]
     U[Streamlit] -->|HTTP| A[FastAPI]
@@ -63,7 +66,7 @@ Silver lưu Parquet tại `s3a://silver/products/<dataset_version>/` và `s3a://
 5. Kiểm tra event tham chiếu catalog, quan hệ user–session–cart và ghi số dòng nhận, trùng, hợp lệ, bị loại theo lý do. Không tự tạo sản phẩm để che lỗi khóa ngoại.
 6. Ghi Parquet và báo cáo chất lượng vào vị trí tạm; kiểm tra lại số dòng/checksum rồi công bố phiên bản bất biến.
 
-`dataset_version` nhận diện đầu vào sạch, khác `run_id` nhận diện lần train. Gói chia sẻ tối thiểu gồm products/events Silver, manifest và báo cáo chất lượng. Cơ chế chia sẻ giữ nguyên phiên bản và checksum; lựa chọn dịch vụ lưu trữ thuộc P0-07/P5, chưa được coi là đã triển khai.
+`dataset_version` nhận diện đầu vào sạch, khác `run_id` nhận diện lần train. Gói chia sẻ tối thiểu gồm products/events Silver, manifest và báo cáo chất lượng. Cơ chế chia sẻ giữ nguyên phiên bản và checksum; Bronze đã có công cụ công bố và tải batch bất biến qua MinIO ở A01, kèm checksum và kích hoạt bản local sau kiểm tra. Công cụ nằm trong ingestion/sync_minio.py.
 
 ### 3.3. Gold: tổng hợp sau chia tập và đầu ra theo batch
 

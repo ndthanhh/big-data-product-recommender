@@ -1,0 +1,25 @@
+# Ảnh nền Linux đã lưu đệm có Python 3.11 và JDK 17; pip cài Spark 3.5.7.
+ARG BASE_IMAGE=public.ecr.aws/bitnami/spark:3.5.1
+FROM ${BASE_IMAGE}
+USER root
+WORKDIR /tmp/recommender
+COPY pyproject.toml .
+COPY docs/README.md docs/README.md
+COPY src src
+RUN python3 -m pip install --no-cache-dir ".[pipeline,app,dev]"
+RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+ENV SPARK_HOME=/opt/bitnami/python/lib/python3.11/site-packages/pyspark \
+    PYTHONPATH=/workspace/src \
+    PYSPARK_PYTHON=/opt/bitnami/python/bin/python3 \
+    PYSPARK_DRIVER_PYTHON=/opt/bitnami/python/bin/python3 \
+    SPARK_LOCAL_IP=127.0.0.1 \
+    DATA_LAKE_STORAGE=local \
+    GIT_CONFIG_COUNT=1 \
+    GIT_CONFIG_KEY_0=safe.directory \
+    GIT_CONFIG_VALUE_0=/workspace \
+    GIT_OPTIONAL_LOCKS=0 \
+    OPENBLAS_NUM_THREADS=1 \
+    OMP_NUM_THREADS=1 \
+    MKL_NUM_THREADS=1
+WORKDIR /workspace
+CMD ["python3", "-m", "pytest", "-q", "--tb=short", "-p", "no:cacheprovider"]

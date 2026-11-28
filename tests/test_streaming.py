@@ -1,4 +1,4 @@
-"""Streaming contracts and Kafka/S3 boundaries run entirely offline."""
+"""Kiểm tra hợp đồng streaming và ranh giới Kafka/S3 hoàn toàn ngoại tuyến."""
 
 import json
 from datetime import UTC, datetime, timedelta

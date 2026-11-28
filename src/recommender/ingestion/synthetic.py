@@ -1,4 +1,4 @@
-"""Stream reproducible category/Zipf/session/basket behavior from a real catalog."""
+"""Sinh luồng hành vi có thể tái lập theo danh mục/Zipf/phiên/giỏ từ sản phẩm thật."""
 
 import argparse
 import hashlib
@@ -25,7 +25,7 @@ FUNNEL_PROBABILITIES = (0.55, 0.30, 0.15)
 
 
 def load_catalog(path: str | Path) -> list[Product]:
-    """Load strict Product JSONL; reject empty catalogs and ambiguous IDs."""
+    """Nạp JSONL theo mô hình Product nghiêm ngặt; từ chối danh mục rỗng và ID nhập nhằng."""
     products = []
     seen = set()
     with Path(path).open(encoding="utf-8") as stream:
@@ -48,7 +48,7 @@ def load_catalog(path: str | Path) -> list[Product]:
 def _event_start(
     products: Sequence[Product], users: Sequence[UserProfile] | None
 ) -> datetime:
-    """Share the effective creation/collection cutoff with manifest metadata."""
+    """Đồng bộ mốc tạo hoặc thu thập có hiệu lực với thông tin trong manifest."""
     start = max(EVENT_START, max(p.collected_at for p in products) + timedelta(days=1))
     if users:
         start = max(start, max(u.created_at for u in users) + timedelta(days=1))
@@ -64,14 +64,14 @@ def generate_events(
     *,
     users: Sequence[UserProfile] | None = None,
 ) -> Iterator[Event]:
-    """Yield exactly n_events without retaining events in memory.
+    """Sinh đúng n_events mà không giữ các sự kiện trong bộ nhớ.
 
-    Every user owns at least one session and every session contains an event.
-    Products are ranked with a seeded permutation and sampled with Zipf weights.
-    Users favor a persistent category; exploration adds cross-category noise.
-    Sessions with >=6 events begin with a recurring two-item basket, giving
-    FP-Growth repeated co-occurrences. Other funnels stop after view or click,
-    or proceed to add_to_cart. A final partial funnel still starts with view.
+    Mỗi người dùng có ít nhất một phiên và mỗi phiên có ít nhất một sự kiện.
+    Sản phẩm được hoán vị theo seed, rồi lấy mẫu với trọng số Zipf.
+    Người dùng có nhóm sản phẩm ưa thích cố định; khám phá thêm nhóm khác tạo nhiễu.
+    Phiên có >=6 sự kiện bắt đầu bằng giỏ hai sản phẩm lặp lại, giúp FP-Growth
+    có các mẫu đồng xuất hiện. Chuỗi hành vi khác dừng sau view hoặc click,
+    hoặc tiếp tục đến add_to_cart. Chuỗi cuối chưa đủ bước vẫn bắt đầu bằng view.
     """
     if users is not None:
         validate_user_interests(users, {p.category_id for p in products})
@@ -91,8 +91,8 @@ def generate_events(
     fake = Faker("en_US")
     fake.seed_instance(seed)
     if users is not None:
-        # Profile mode can coexist with legacy Bronze data. Include every input
-        # that can change payloads so distinct runs do not reuse event UUIDs.
+        # Chế độ dùng hồ sơ có thể cùng tồn tại với Bronze cũ. Đưa mọi đầu vào
+        # làm đổi nội dung vào định danh để các lần chạy khác nhau không dùng lại UUID sự kiện.
         identity = hashlib.sha256(
             f"profiles:{GENERATOR_VERSION}:{seed}:{n_events}:{n_sessions}:{catalog_version(products)}".encode()
         )
@@ -143,8 +143,8 @@ def generate_events(
         )
         max_step_us = max(1, min(45_000_000, 1_800_000_000 // budget))
         emitted = 0
-        # The two popular products form a recurring category bundle, not an
-        # assertion of technical compatibility. One-item catalogs remain valid.
+        # Hai sản phẩm phổ biến tạo thành bộ cùng nhóm xuất hiện lặp lại, không
+        # khẳng định tương thích kỹ thuật. Danh mục chỉ có một sản phẩm vẫn hợp lệ.
         bundle = groups[preferred][:2] if budget >= 6 else []
         for product_id in bundle:
             for event_type in ("view", "click", "add_to_cart"):
@@ -207,7 +207,7 @@ def ingest_synthetic(
     seed: int = 42,
     users_file: str | Path | None = None,
 ) -> Path:
-    """Validate a catalog and publish streamed events to a file or directory."""
+    """Kiểm tra danh mục và ghi luồng sự kiện ra file hoặc thư mục."""
     catalog_path = Path(catalog_path)
     products = load_catalog(catalog_path)
     profiles = (
@@ -228,8 +228,8 @@ def ingest_synthetic(
         raise ValueError("Event output must differ from its catalog input")
     if users_file is not None and destination.resolve() == Path(users_file).resolve():
         raise ValueError("Event output must differ from its users input")
-    # Record the exact runtime versions because RNG sequences may change across
-    # library releases even when a seed and generator version stay the same.
+    # Ghi đúng phiên bản môi trường vì chuỗi số ngẫu nhiên có thể thay đổi
+    # giữa các bản thư viện, dù seed và phiên bản bộ sinh không đổi.
     return write_bronze(
         generate_events(products, n_events, n_users, n_sessions, seed, users=profiles),
         destination,
@@ -266,7 +266,7 @@ def ingest_synthetic(
 
 
 def main(argv: list[str] | None = None) -> None:
-    """Run python -m recommender.ingestion.synthetic."""
+    """Chạy python -m recommender.ingestion.synthetic."""
     settings = get_settings()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(

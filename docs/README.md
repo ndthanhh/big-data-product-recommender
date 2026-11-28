@@ -2,9 +2,9 @@
 
 [Trang chủ repo](../README.md) · [Tech Stack](TECH_STACK.md) · [Quy ước đồng nhất](CONVENTIONS.md) · [Kiến trúc](ARCHITECTURE.md) · [Hợp đồng v1](DATA_CONTRACTS.md) · [Thực nghiệm](EXPERIMENT_PLAN.md) · [Kế hoạch & Phân công](../PLAN.md) · [Checklist](PROJECT_CHECKLIST.md)
 
-## 1. Trạng thái có thể chạy sau T03
+## 1. Trạng thái tích hợp ngày 27/11/2026
 
-Repo đã có cấu hình, schema Pydantic và fixture/test hợp đồng T02, cùng CLI thu thập catalog Best Buy và sinh sự kiện T03. Chưa có entry point ETL, train, importer, FastAPI hoặc Streamlit. Cài package thành công chưa phải bằng chứng hệ thống chạy end-to-end.
+Nhánh tích hợp giữ ingestion/Kafka/MinIO, ETL PySpark, popularity/TF-IDF/ALS/MMR/FP-Growth, publisher Gold, validator/importer, FastAPI, session/export và Streamlit. Publisher chạy bằng `python -m recommender.pipeline.publish_snapshot`; `pipeline.snapshot` giữ validator mà importer dùng. Kết quả kiểm tra tích hợp được ghi ở docs/superpowers/plans/2026-11-27-integrate-ml-pipeline.md. Các số đo 17/11 của Pháp và 25/11 của Thành bên dưới là bằng chứng trước merge, cần phân biệt với lượt tích hợp hiện tại.
 
 [README gốc](../README.md) là điểm bắt đầu cài môi trường và chỉ mục tài liệu. [PLAN.md](../PLAN.md) định nghĩa T01–T12; [PROJECT_CHECKLIST.md](PROJECT_CHECKLIST.md) theo dõi nguồn catalog, chia sẻ dataset, thực nghiệm và báo cáo P0–P15. T01 không tự đánh dấu hoàn tất kiểm tra triển khai hoặc review nhóm.
 
@@ -25,7 +25,7 @@ Module đọc `.env` thuộc T02, ưu tiên môi trường tiến trình. Chép 
 
 ## 3. Thứ tự tích hợp các task
 
-Đây là quy trình bàn giao cho task sau. Đường dẫn code bằng backtick là vị trí dự kiến theo kế hoạch. Khi task hoàn tất, PR bổ sung vào tài liệu này lệnh thực chạy đã kiểm chứng; không hướng dẫn gọi module chưa tồn tại như một tính năng sẵn có.
+Bảng sau mô tả cả luồng mục tiêu. Entry point ETL/train của Pháp còn chờ; các lệnh serving đang hoạt động nằm trong DEMO.md.
 
 | Bước | Task / thành phần | Đầu vào → đầu ra và điều kiện chuyển bước |
 | --- | --- | --- |
@@ -120,9 +120,7 @@ docker compose ps
 ```
 
 PostgreSQL dùng `recommender/change-me`, database `recommender`, cổng 5432.
-MinIO API/Console ở cổng 9000/9001, `minioadmin/minioadmin`; `minio-init` đợi dịch
-vụ và tạo ba bucket bronze/silver/gold theo cách idempotent với
-[`mc mb --ignore-existing`](https://docs.min.io/aistor/reference/cli/mc-mb/).
+MinIO API/Console ở cổng 9000/9001, `minioadmin/minioadmin`. Python consumer/sync tạo bucket khi cần. Service minio-init nằm trong profile tùy chọn legacy-mc-init; không cần image mc để khởi động mặc định.
 Kafka dùng [cấu hình KRaft của image Apache 3.8.0](https://github.com/apache/kafka/blob/3.8.0/docker/examples/docker-compose-files/single-node/plaintext/docker-compose.yml),
 client trên host kết nối `localhost:9092`, trong network Docker dùng
 `kafka:19092`. Healthcheck tạo sẵn topic `product-events`; auto-create cũng bật.
@@ -140,7 +138,7 @@ Consumer hỗ trợ `--bootstrap-servers`, `--topic`, `--group-id`, `--output-di
 `data/bronze/events/streaming/batch_<uuid>/` và được upload đến
 `bronze/events/streaming/batch_<uuid>/`. Consumer luôn lưu local trước; MinIO lỗi
 thì giữ batch local và ghi cảnh báo. Khi MinIO hoạt động lại, có thể đồng bộ các
-thư mục batch còn thiếu bằng `mc mirror data/bronze/events/streaming local/bronze/events/streaming`.
+thư mục batch còn thiếu bằng `python -m recommender.ingestion.sync_minio --source-dir data/bronze/events/streaming`, công bố data trước manifest.
 Manifest là dấu hiệu batch hoàn chỉnh, chỉ đọc các batch có manifest và checksum đúng.
 Offset Kafka được commit sau khi lưu, chỉ tới record thực sự đã xử lý; replay
 at-least-once nên ETL vẫn phải dedup event_id. `group-id` mới đọc lại từ đầu topic.
@@ -150,6 +148,46 @@ Kiểm thử users, dry-run, mock Kafka producer/consumer và MinIO hoàn toàn 
 ```powershell
 .\.venv\Scripts\python -m pytest tests/test_users.py tests/test_streaming.py -v
 ```
+
+### 3.3. ETL, mô hình, đánh giá và Gold snapshot (T04–T07)
+
+Chạy từ gốc repo sau bước 3.1. `DATA_LAKE_STORAGE=local` ghi vào `DATA_LAKE_DIR` (mặc định `data/`); `minio` ghi `s3a://bronze|silver|gold/...` qua `hadoop-aws` (Spark tự tải package, cần MinIO đang chạy). Khi `.env` chép từ `.env.example` (giá trị `minio`) mà chưa có MinIO, đặt `DATA_LAKE_STORAGE=local` trong `.env`.
+
+```powershell
+# T04: Bronze JSONL -> Silver Parquet + quarantine + quality report (no-op nếu đã có cùng dataset_version)
+.\.venv\Scripts\python -m recommender.pipeline.etl
+# T07 + Gold: chọn cấu hình trên validation, chấm test một lần, rồi fit lại và xuất snapshot phục vụ
+.\.venv\Scripts\python -m recommender.pipeline.publish_snapshot
+# Biến thể: chỉ benchmark | grid rút gọn để thử nhanh | bỏ benchmark, dùng cấu hình mặc định
+.\.venv\Scripts\python -m recommender.evaluation.benchmark
+.\.venv\Scripts\python -m recommender.pipeline.publish_snapshot --quick
+.\.venv\Scripts\python -m recommender.pipeline.publish_snapshot --skip-evaluation
+.\.venv\Scripts\python -m pytest tests/test_etl.py tests/test_ranking_tfidf.py tests/test_ranking_advanced.py tests/test_evaluation.py tests/test_snapshot.py -v
+```
+
+| Bước | Module | Đầu ra |
+| --- | --- | --- |
+| ETL | `pipeline/etl.py` | `silver/products/<v>/`, `silver/events/<v>/`, `silver/quarantine/<v>/`, `silver/quality/<v>.json`, `silver/<v>.manifest.json` (ghi sau cùng). `<v>` = `ds-` + SHA-256 của checksum file Bronze và `ETL_VERSION`. Conflict cùng ID khác payload chặn phát hành (exit code 3, không có manifest). |
+| Gold base | `pipeline/gold.py` | `catalog_as_of`, `interactions` (1/2/4), `baskets` (chỉ `add_to_cart`), `seen_products` cho từng cửa sổ `[start, end)`. |
+| Split | `evaluation/split.py` | Hai cutoff `2026-10-25`, `2026-11-01` UTC; purge giỏ đi qua cutoff; kiểm tra bất biến chống rò rỉ. |
+| Mô hình | `ranking/` | `popularity`, `tfidf` (CountVectorizer + IDF), `substitutes`, `als` (`implicitPrefs=True`), `mmr`, `fpgrowth` (metric tính lại theo từng consequent). |
+| Benchmark | `evaluation/benchmark.py` | `gold/<run_id>/evaluation/`: `config.json`, `split_summary.json`, `selection.json`, `quality.csv`, `complements.csv`, `batch_timings.csv`. |
+| Snapshot | `pipeline/publish_snapshot.py` | `gold/<run_id>/` gồm `products`, `interactions`, `baskets`, `seen_products`, `recommendation_items`, `association_rules`, `models/*` và `manifest.json` (fingerprint = SHA-256 của manifest; run đã có thì không ghi đè). |
+
+TF-IDF fit bằng Spark ML trên catalog as-of cutoff; ma trận vector (1.000 × ~5.000) được chuẩn hóa L2 ở driver bằng NumPy vì chiều sản phẩm nhỏ, còn chiều sự kiện (interactions, split, ALS, FP-Growth) chạy trên Spark. ALS xuất top-200 ứng viên/user sau lọc seen và catalog; MMR tái xếp trên 200 ứng viên đó, thứ tự hạng là thứ tự chọn.
+
+**Kết quả đo 17/11/2026** trên dữ liệu chung của nhóm: catalog `data/bronze/products/` và 1.000 profiles `data/bronze/users/` từ `main`, cộng 100.000 events sinh theo profile với seed 42, theo lệnh ở mục 3.2 (`--output data/bronze/events/profile-demo`). Silver `ds-146a72bc3421240b42c94a87`. Run `run_20261108T000000Z_alsmmr_42_26faa7fc` được tạo từ commit sạch. Cấu hình máy: Spark `local[2]`, driver 2 GB, Linux VM 4 vCPU/3 GB, JDK 11; benchmark đủ grid cộng snapshot mất 1 phút 35 giây. Split: train 62.151 / validation 18.671 / test 19.175 events, purge 1 giỏ (3 events), bốn bất biến đều đạt. Cấu hình chọn trên validation: ALS `rank=16, regParam=0.1, alpha=1, maxIter=10`; MMR `lambda=1.0`; FP-Growth `minSupport=0.001, minConfidence=0.5`.
+
+| Test (508 user, 1.782 nhãn) | Recall@10 | NDCG@10 | ILD | Coverage | Fallback |
+| --- | --- | --- | --- | --- | --- |
+| Popularity | 0,0838 | 0,0552 | 0,9898 | 0,0240 | 100% |
+| TF-IDF cá nhân hóa | 0,0531 | 0,0358 | 0,7507 | 0,2870 | 0% |
+| Implicit ALS | 0,2764 | 0,2124 | 0,9518 | 0,2890 | 0% |
+| ALS + MMR (`lambda=1.0`) | 0,2764 | 0,2124 | 0,9518 | 0,2890 | 0% |
+
+Trên validation, MMR đổi độ phù hợp lấy đa dạng: `lambda` 0,3 / 0,5 / 0,7 / 1,0 cho NDCG@10 0,2036 / 0,2082 / 0,2116 / 0,2140 và ILD 0,976 / 0,969 / 0,962 / 0,952. Tiêu chí chọn theo NDCG nên `lambda=1.0` thắng, ALS + MMR trùng ALS ở test. TF-IDF cá nhân hóa thấp hơn popularity ở dữ liệu theo profile: người dùng có thêm sở thích phụ (25% lựa chọn), trong khi hồ sơ nội dung kéo gợi ý về danh mục đã xem nhiều nhất. Mua kèm FP-Growth: Hit@10 của item giữ lại = 0,806 trên 935 giỏ test, 485 luật. Con số này cao vì bộ sinh cố ý lặp giỏ hai món theo danh mục; không suy rộng sang người mua thật. Tất cả user đánh giá đều có lịch sử train, nên cohort `new_user` ở trạng thái `not_evaluable`.
+
+ETL chỉ đọc file JSONL được `manifest.json` cùng thư mục liệt kê, với SHA-256 và kích thước khớp. Điều này áp dụng cho cả micro-batch Kafka trong `bronze/events/streaming/batch_<uuid>/`. File chưa có manifest hoặc bị sửa sau khi công bố được bỏ qua và ghi vào `bronze_files_skipped` của quality report. Event live của producer mang giờ UTC thực, nên nằm ngoài cửa sổ split 01/10–08/11 của thực nghiệm và được đếm vào `events_outside_window`; snapshot phục vụ vẫn dùng chúng vì cửa sổ train mặc định lấy từ min đến max `event_at`.
 
 ## 4. Kịch bản nghiệm thu demo
 
@@ -175,7 +213,7 @@ Từ T02, chạy test liên quan theo PLAN. Khi đã có test, các lệnh chung
 .\.venv\Scripts\python.exe -m pytest
 ```
 
-Pytest chưa có test trả exit code 5, không phải pass. End-to-end được nghiệm thu sau T12 trên cả hai máy từ checkout sạch. Lưu lệnh thực chạy, cấu hình không có secret, output kiểm tra và run/dataset dùng. [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md) quy định raw output, công thức, warm-up, số lượt và percentile.
+Suite hiện có 450 tests pass khi TEST_DATABASE_URL trỏ DB kiểm thử riêng. Nếu thiếu biến này, các test DB sẽ skip. End-to-end fixture đã chạy local; Gold thật và máy Pháp còn chờ nghiệm thu. Lưu lệnh thực chạy, cấu hình không có secret, output kiểm tra và run/dataset dùng. [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md) quy định raw output, công thức, warm-up, số lượt và percentile.
 
 ## 6. Xử lý lỗi vận hành
 
@@ -192,3 +230,45 @@ Pytest chưa có test trả exit code 5, không phải pass. End-to-end được
 | Click chưa ảnh hưởng session | Kiểm tra user/session, commit, cửa sổ 30 phút, substitute và run chưa đổi. |
 
 Nguồn catalog/kho chia sẻ được nghiệm thu ở P0/P2/P5. Giữ bản local đã xác minh để demo khi mất mạng; báo cáo luôn phân biệt dữ liệu mô phỏng và demo.
+
+## Streaming worker có thể dừng an toàn
+
+Sau khi cài package vào .venv, bật các dịch vụ bằng lệnh sau từ thư mục gốc.
+
+```powershell
+docker compose up -d postgres kafka minio
+powershell -ExecutionPolicy Bypass -File scripts/start_continuous_stream.ps1 -Rate 15
+powershell -ExecutionPolicy Bypass -File scripts/stop_continuous_stream.ps1
+```
+
+Worker chạy producer và consumer cùng một tiến trình. Script stop kiểm tra PID, executable và thời điểm tạo, gửi tín hiệu qua file local rồi chờ consumer ghi nốt batch. Nếu worker lỗi, tiến trình trả mã lỗi và ghi vào stream_error.log. Log stream.log và file PID ở thư mục gốc được bỏ qua bởi Git.
+
+Image minio/mc của service khởi tạo hiện không tải được trên máy kiểm tra. Lệnh trên bật ba service chính, consumer tự tạo bucket bronze khi ghi batch đầu tiên. Thư viện MinIO của dự án thực hiện các thao tác đồng bộ dữ liệu.
+
+## Công bố và tải batch Bronze có kiểm tra toàn vẹn
+
+Máy sinh dữ liệu chạy lệnh dưới đây để công bố các batch có manifest. Chỉ các file được liệt kê trong manifest được đưa lên kho dùng chung.
+
+```powershell
+.\.venv\Scripts\python.exe -m recommender.ingestion.sync_minio
+```
+
+Lệnh in ra prefix của từng batch, dạng datasets/<dataset_version>/<manifest_hash>. Prefix được cố định theo nội dung để các lần xuất catalog khác nhau có thể cùng tồn tại. Manifest chỉ được upload sau tất cả data file.
+
+Trên máy train, đặt MINIO_ENDPOINT thành địa chỉ máy chủ mà máy đó truy cập được, cùng access key và secret key được cấp. Chạy lệnh sau với prefix đã nhận.
+
+```powershell
+.\.venv\Scripts\python.exe -m recommender.ingestion.sync_minio --download-prefix "datasets/<dataset_version>/<manifest_hash>" --output-dir data/bronze/products/shared/catalog-v1
+```
+
+File được tải vào thư mục tạm, kiểm tra kích thước, SHA-256 và số dòng JSONL rồi mới chuyển sang thư mục đích. Lần tải lại cùng batch dùng bản local đã kiểm tra. Thư mục đang chứa phiên bản khác sẽ báo lỗi để người chạy chọn đích mới. Với luồng Kafka, có thể công bố lại các batch local để khôi phục bản copy remote khi MinIO từng ngắt kết nối.
+
+Luồng upload/download đã được kiểm tra bằng hai client trên máy phát triển. Việc kết nối từ máy Pháp cần kiểm tra bằng địa chỉ LAN/VPN thực tế của nhóm.
+
+### PostgreSQL migration
+
+`python -m recommender.api.migrate` áp dụng SQL một lần theo schema_migrations. Nếu Windows đã dùng 5432, đặt `POSTGRES_PORT=5433` và DATABASE_URL cổng 5433 trong .env, chạy lại `docker compose up -d postgres`. Test DB dùng biến TEST_DATABASE_URL trỏ database riêng có tên kết thúc `_test`; tuyệt đối không dùng database demo.
+
+### FP-Growth của Thành
+
+`python -m recommender.ranking.fpgrowth --baskets data/gold/<run>/baskets --output data/models/<run>-fpgrowth` lưu model, association_rules Parquet và parameters.json. Baskets phải cùng run; chỉ giỏ có ít nhất hai item sau dedup được fit. Pháp đưa các file rules vào manifest Gold cùng catalog/run và checksum. [Spark 3.5.7](https://spark.apache.org/docs/3.5.7/ml-frequent-pattern-mining.html) phát luật một consequent. Không có rules hợp lệ thì API mua kèm trả rỗng.

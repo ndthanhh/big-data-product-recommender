@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:17-alpine
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     environment:
       POSTGRES_USER: recommender
       POSTGRES_DB: recommender
@@ -32,6 +32,7 @@ services:
       - recommender
 
   minio-init:
+    profiles: ["legacy-mc-init"]
     image: minio/mc:latest
     depends_on:
       minio:
@@ -74,7 +75,7 @@ services:
     networks:
       - recommender
     healthcheck:
-      # Idempotently initialize the topic before marking this broker healthy.
+      # Tạo topic nếu chưa có trước khi đánh dấu broker hoạt động tốt.
       test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:19092 --create --if-not-exists --topic product-events --partitions 1 --replication-factor 1"]
       interval: 10s
       timeout: 10s

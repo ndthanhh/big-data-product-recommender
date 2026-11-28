@@ -1,1 +1,1 @@
-"""Preference-aware Kafka simulation and durable Bronze micro-batches."""
+"""Mô phỏng Kafka theo sở thích và lưu bền vững các lô Bronze nhỏ."""

@@ -81,11 +81,11 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** Bổ sung tham số tùy chọn `should_stop: Callable[[], bool] | None = None` vào `consume_events` và `run_producer`, giữ các tham số hiện có. Worker truyền callback từ stop event vào hai vòng lặp. Script start/stop dùng PID cùng thông tin nhận diện tiến trình do chính script tạo.
 
-- [ ] Test shutdown có batch chưa đầy, worker có một luồng lỗi và producer bị dừng. Khẳng định consumer flush dữ liệu đã nhận trước khi đóng và lỗi worker tạo exit code khác 0.
-- [ ] Kiểm tra dừng bằng PID đã hết hạn hoặc PID của tiến trình khác, tránh dừng nhầm tiến trình. Kiểm tra input rate/batch/flush không hợp lệ.
-- [ ] Hoàn thiện worker và script, đối chiếu thay đổi `close()` đang có với cách thư viện đóng consumer, sửa 8 lỗi Ruff thuộc các file trong phạm vi.
-- [ ] Chạy test streaming và worker. Khi Docker đã sẵn sàng, chạy producer/consumer có giới hạn sự kiện, kiểm tra batch local/MinIO và thử dừng có kiểm soát.
-- [ ] Cập nhật trạng thái, commit `fix(streaming): finalize worker lifecycle and shutdown`, push và xác nhận SHA.
+- [x] Test shutdown có batch chưa đầy, worker có một luồng lỗi và producer bị dừng. Khẳng định consumer flush dữ liệu đã nhận trước khi đóng và lỗi worker tạo exit code khác 0.
+- [x] Kiểm tra dừng bằng PID đã hết hạn hoặc PID của tiến trình khác, tránh dừng nhầm tiến trình. Kiểm tra input rate/batch/flush không hợp lệ.
+- [x] Hoàn thiện worker và script, đối chiếu thay đổi `close()` đang có với cách thư viện đóng consumer, sửa 8 lỗi Ruff thuộc các file trong phạm vi.
+- [x] Chạy test streaming và worker. Khi Docker đã sẵn sàng, chạy producer/consumer có giới hạn sự kiện, kiểm tra batch local/MinIO và thử dừng có kiểm soát.
+- [x] Cập nhật trạng thái, commit `fix(streaming): finalize worker lifecycle and shutdown`, push và xác nhận SHA.
 
 **Nghiệm thu.** `.venv/Scripts/python.exe -m pytest tests/test_streaming.py tests/test_stream_worker.py -q`, Ruff các file đã sửa và một lượt kiểm tra Kafka/MinIO thực tế.
 
@@ -97,13 +97,16 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** Cung cấp `sync_bronze_to_minio() -> None` dùng settings hiện có, tham số CLI `--download-prefix` và `--output-dir` cho chiều tải về khi cần. Khi công bố batch, data file được upload trước manifest. Bản tải chỉ được đưa vào thư mục đích sau khi checksum đạt.
 
-- [ ] Test batch hợp lệ, thiếu manifest, sai checksum, lỗi upload giữa chừng và tải lại cùng dữ liệu. Khẳng định batch chưa đủ file chưa được coi là hoàn tất.
-- [ ] Hoàn thiện đồng bộ hai chiều cần cho bàn giao, tái sử dụng manifest và cấu trúc object của BronzeSink.
+- [x] Test batch hợp lệ, thiếu manifest, sai checksum, lỗi upload giữa chừng và tải lại cùng dữ liệu. Khẳng định batch chưa đủ file chưa được coi là hoàn tất.
+- [x] Hoàn thiện đồng bộ hai chiều cần cho bàn giao, tái sử dụng manifest và cấu trúc object của BronzeSink.
 - [ ] Ghi host MinIO dùng chung, cách cấu hình từng máy và quyền đọc/ghi qua biến môi trường. Xác minh máy Pháp truy cập được endpoint và đọc một batch bằng tài khoản của mình.
-- [ ] Chạy fixture qua sync/download rồi kiểm tra file nhận được giữ nguyên ID và SHA-256. Ghi hướng dẫn chạy và giới hạn cần máy chủ MinIO hoạt động.
-- [ ] Commit `feat(data): verify and document shared Bronze delivery`, push và xác nhận SHA.
+- [x] Chạy fixture qua sync/download rồi kiểm tra file nhận được giữ nguyên ID và SHA-256. Ghi hướng dẫn chạy và giới hạn cần máy chủ MinIO hoạt động.
+- [x] Commit `feat(data): verify and document shared Bronze delivery`, push và xác nhận SHA.
 
 **Nghiệm thu.** Test sync pass, catalog và users 1.000 dòng kiểm tra đúng manifest, một batch events tải được từ kho chung. Khử trùng sự kiện theo ID thuộc bước ETL của Pháp.
+
+
+**Đã kiểm tra local:** 387 tests pass; tải catalog/users 1.000 dòng và 2 batch 8 events giữ nguyên SHA. Endpoint LAN/tài khoản máy Pháp chưa có, cần nghiệm thu trên máy thứ hai.
 
 ## A02. PostgreSQL, kết nối và migration
 
@@ -113,11 +116,11 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** `connect(database_url: str) -> psycopg.Connection` tạo connection UTC. `migrate(database_url: str) -> None` có CLI `python -m recommender.api.migrate` lấy URL từ settings và chạy lại an toàn.
 
-- [ ] Viết test DB thật cho bảy bảng, singleton ban đầu, FK kép catalog, rank trùng, NaN/infinity và array antecedent không hợp lệ.
-- [ ] Viết migration đúng mục 5 của DATA_CONTRACTS, quản lý phiên bản migration và chỉ áp dụng file chưa chạy.
-- [ ] Kiểm tra chạy migration hai lần, connection timezone và load được file SQL từ package đã cài.
-- [ ] Chạy `.venv/Scripts/python.exe -m pytest tests/test_database.py -q` với `TEST_DATABASE_URL` trỏ database kiểm thử riêng.
-- [ ] Commit `feat(db): add versioned PostgreSQL schema and migrations`, push và xác nhận SHA.
+- [x] Viết test DB thật cho bảy bảng, singleton ban đầu, FK kép catalog, rank trùng, NaN/infinity và array antecedent không hợp lệ.
+- [x] Viết migration đúng mục 5 của DATA_CONTRACTS, quản lý phiên bản migration và chỉ áp dụng file chưa chạy.
+- [x] Kiểm tra chạy migration hai lần, connection timezone và load được file SQL từ package đã cài.
+- [x] Chạy `.venv/Scripts/python.exe -m pytest tests/test_database.py -q` với `TEST_DATABASE_URL` trỏ database kiểm thử riêng.
+- [x] Commit `feat(db): add versioned PostgreSQL schema and migrations`, push và xác nhận SHA.
 
 **Nghiệm thu.** Database mới tạo được từ migration, constraints có test bằng INSERT thật và singleton tồn tại ngay trước lần import đầu.
 
@@ -129,12 +132,12 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** `validate_snapshot(path: Path) -> ValidatedSnapshot` trả object chứa manifest đã kiểm tra, fingerprint và đường dẫn bốn bảng. Định nghĩa `ValidatedSnapshot` trong snapshot.py. `import_snapshot(path: Path, database_url: str) -> str` trả `run_id` sau import hoặc retry hợp lệ. `activate_run(run_id: str, database_url: str) -> None` dùng cho rollback tường minh. CLI importer nhận thư mục snapshot local đã tải từ MinIO.
 
-- [ ] Tạo helper `make_gold_fixture(output: Path, run_id: str) -> Path` trong test, ghi Parquet và checksum thật, chứa đủ bốn bảng, cả trường hợp association_rules rỗng có schema.
-- [ ] Test thiếu bảng, sai checksum, đường dẫn file vượt thư mục snapshot, ID/rank trùng, run_id khác manifest, antecedent ngoài catalog và timestamp sau cutoff.
-- [ ] Viết validator và importer theo thuật toán khóa singleton, kiểm tra fingerprint và phát hành transaction trong ARCHITECTURE mục 5.
-- [ ] Test lỗi sau khi đã nạp một bảng, cùng run khác fingerprint, retry run ready, hai importer cạnh tranh và rollback cả metadata catalog.
-- [ ] Chạy test bằng PostgreSQL thật, đọc lại số dòng, con trỏ và fingerprint.
-- [ ] Commit `feat(serving): validate and atomically import Gold snapshots`, push và xác nhận SHA.
+- [x] Tạo helper `make_gold_fixture(output: Path, run_id: str) -> Path` trong test, ghi Parquet và checksum thật, chứa đủ bốn bảng, cả trường hợp association_rules rỗng có schema.
+- [x] Test thiếu bảng, sai checksum, đường dẫn file vượt thư mục snapshot, ID/rank trùng, run_id khác manifest, antecedent ngoài catalog và timestamp sau cutoff.
+- [x] Viết validator và importer theo thuật toán khóa singleton, kiểm tra fingerprint và phát hành transaction trong ARCHITECTURE mục 5.
+- [x] Test lỗi sau khi đã nạp một bảng, cùng run khác fingerprint, retry run ready, hai importer cạnh tranh và rollback cả metadata catalog.
+- [x] Chạy test bằng PostgreSQL thật, đọc lại số dòng, con trỏ và fingerprint.
+- [x] Commit `feat(serving): validate and atomically import Gold snapshots`, push và xác nhận SHA.
 
 **Nghiệm thu.** `.venv/Scripts/python.exe -m pytest tests/test_importer.py -q` pass. Snapshot cũ vẫn đọc được sau khi lần import kế tiếp thất bại.
 
@@ -146,12 +149,13 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** `fit_rules(baskets: DataFrame, *, min_support: float, min_confidence: float) -> DataFrame` nhận baskets theo Gold và xuất association_rules một consequent đúng hợp đồng. `recommend_complements(cart_ids: set[str], rules: Sequence[AssociationRule], products: Mapping[str, Product], limit: int) -> list[Recommendation]` là hàm thuần cho API. Cấu hình cặp danh mục và thuộc tính tương thích được truyền tường minh khi cần.
 
-- [ ] Tạo fixture giỏ có support/confidence/lift tính tay và test khử trùng sản phẩm trong giỏ, giỏ một item và tập giỏ rỗng.
-- [ ] Fit PySpark FP-Growth, giữ đúng mẫu số giỏ có từ hai item và metric của luật một consequent. Lưu model cùng cấu hình.
-- [ ] Test antecedent nhiều item là tập con, một consequent được nhiều luật gợi ý và tie-break theo confidence, lift, ID.
-- [ ] Test loại item đã ở trong giỏ, thuộc tính tương thích thiếu hoặc sai và cặp ngoài quy tắc.
-- [ ] Chạy test Spark nhỏ, xuất bảng rules Parquet để kiểm tra với validator A03.
-- [ ] Commit `feat(ranking): add FP-Growth complement rules`, push và xác nhận SHA.
+- [x] Tạo fixture giỏ có support/confidence/lift tính tay và test khử trùng sản phẩm trong giỏ, giỏ một item và tập giỏ rỗng.
+- [x] Fit PySpark FP-Growth, giữ đúng mẫu số giỏ có từ hai item và metric của luật một consequent. Lưu model cùng cấu hình.
+- [x] Test antecedent nhiều item là tập con, một consequent được nhiều luật gợi ý và tie-break theo confidence, lift, ID.
+- [x] Test loại item đã ở trong giỏ, thuộc tính tương thích thiếu hoặc sai và cặp ngoài quy tắc.
+- [x] Rules từ Spark thật đã ghi Parquet và Gold validator chấp nhận 4 luật trên fixture.
+- [ ] Nối manifest Gold thật và nghiệm thu lưu native Spark model trong môi trường train của Pháp.
+- [x] Commit `feat(ranking): add FP-Growth complement rules`, push và xác nhận SHA.
 
 **Nghiệm thu.** Rules phù hợp AssociationRule hiện có, có trường hợp mua kèm tính tay khớp kết quả. Bàn giao cho Pháp interface baskets đầu vào và rules đầu ra để nối vào Gold thật.
 
@@ -163,12 +167,12 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** `create_app(database_url: str | None = None) -> FastAPI` nhận URL test hoặc lấy từ settings. App có `GET /health`, hai route catalog và `POST /api/v1/events` đúng hợp đồng. Dùng EventCreate và các kiểu response hiện có.
 
-- [ ] Test liveness khi DB ngắt, chưa có snapshot, phân trang, ID không có, schema lỗi và envelope lỗi thống nhất.
-- [ ] Triển khai catalog bằng transaction đọc REPEATABLE READ, thứ tự ID theo collation C.
-- [ ] Triển khai ghi event với khóa UUID rồi session/cart, so sánh tám trường payload chuẩn hóa và trả sau commit.
-- [ ] Test hai request cùng UUID, hai UUID tranh cùng session/cart, retry sau đổi snapshot và DB commit lỗi.
-- [ ] Chạy TestClient với PostgreSQL test và gọi HTTP thật một lượt sau khi bật Uvicorn.
-- [ ] Commit `feat(api): serve catalog and persist idempotent events`, push và xác nhận SHA.
+- [x] Test liveness khi DB ngắt, chưa có snapshot, phân trang, ID không có, schema lỗi và envelope lỗi thống nhất.
+- [x] Triển khai catalog bằng transaction đọc REPEATABLE READ, thứ tự ID theo collation C.
+- [x] Triển khai ghi event với khóa UUID rồi session/cart, so sánh tám trường payload chuẩn hóa và trả sau commit.
+- [x] Test hai request cùng UUID, hai UUID tranh cùng session/cart, retry sau đổi snapshot và DB commit lỗi.
+- [x] Chạy TestClient với PostgreSQL test và gọi HTTP thật một lượt sau khi bật Uvicorn.
+- [x] Commit `feat(api): serve catalog and persist idempotent events`, push và xác nhận SHA.
 
 **Nghiệm thu.** `.venv/Scripts/python.exe -m pytest tests/test_api.py -q` pass. Các mã 200/201/404/409/422/503 được đối chiếu envelope trong hợp đồng.
 
@@ -180,12 +184,12 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** Hàm lấy gợi ý nhận connection, `run_id` và kiểu query tương ứng. API xuất RecommendationResponse. Complements tái sử dụng recommend_complements của A04.
 
-- [ ] Test user mới nhận popularity, seen bị lọc, candidates được bù đúng thứ tự và rank được đánh lại liên tiếp.
-- [ ] Test substitutes cùng category, loại sản phẩm gốc, trường hợp thiếu ứng viên và sản phẩm không có.
-- [ ] Test complements giỏ rỗng, ID trùng, có một ID không có, nhiều antecedent và ràng buộc tương thích.
-- [ ] Triển khai ba route với cùng active run trong request. Giữ thứ tự MMR từ Gold, tách fallback popularity khỏi thang điểm model.
-- [ ] Test một request đang đọc khi importer đổi snapshot, khẳng định metadata và kết quả cùng run.
-- [ ] Commit `feat(api): serve personalized substitute and complement recommendations`, push và xác nhận SHA.
+- [x] Test user mới nhận popularity, seen bị lọc, candidates được bù đúng thứ tự và rank được đánh lại liên tiếp.
+- [x] Test substitutes cùng category, loại sản phẩm gốc, trường hợp thiếu ứng viên và sản phẩm không có.
+- [x] Test complements giỏ rỗng, ID trùng, có một ID không có, nhiều antecedent và ràng buộc tương thích.
+- [x] Triển khai ba route với cùng active run trong request. Giữ thứ tự MMR từ Gold, tách fallback popularity khỏi thang điểm model.
+- [x] Test một request đang đọc khi importer đổi snapshot, khẳng định metadata và kết quả cùng run.
+- [x] Commit `feat(api): serve personalized substitute and complement recommendations`, push và xác nhận SHA.
 
 **Nghiệm thu.** `.venv/Scripts/python.exe -m pytest tests/test_recommendation_api.py tests/test_api.py -q` pass. Ba nhóm chạy được bằng fixture Gold.
 
@@ -197,12 +201,12 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** `rerank_session(batch_items: Sequence[RecommendationItem], popularity_items: Sequence[RecommendationItem], session_events: Sequence[Event], similarities: Sequence[RecommendationItem], seen_ids: set[str], catalog_ids: set[str], request_time: datetime, limit: int) -> list[Recommendation]`. DB chọn đúng user/session và thứ tự event trước khi gọi hàm.
 
-- [ ] Test cutoff 30 phút, giới hạn 20 event, future event và cùng session dưới user khác.
-- [ ] Test trọng số 1/2/4, half-life 10 phút, chuẩn hóa nguồn riêng, toàn điểm bằng nhau hoặc bằng 0 và fallback khi tín hiệu rỗng.
-- [ ] Triển khai công thức mục 7.3 của DATA_CONTRACTS, loại seen và không chuẩn hóa lẫn điểm popularity đã bù với ALS.
-- [ ] Test POST click thành công rồi GET personalized cùng run, xác nhận thứ tự đổi theo fixture. Hai phiên đồng thời giữ lịch sử riêng.
-- [ ] Đối chiếu giới hạn tối đa 200 ứng viên và rank sau lọc.
-- [ ] Commit `feat(session): rerank recommendations from recent interactions`, push và xác nhận SHA.
+- [x] Test cutoff 30 phút, giới hạn 20 event, future event và cùng session dưới user khác.
+- [x] Test trọng số 1/2/4, half-life 10 phút, chuẩn hóa nguồn riêng, toàn điểm bằng nhau hoặc bằng 0 và fallback khi tín hiệu rỗng.
+- [x] Triển khai công thức mục 7.3 của DATA_CONTRACTS, loại seen và không chuẩn hóa lẫn điểm popularity đã bù với ALS.
+- [x] Test POST click thành công rồi GET personalized cùng run, xác nhận thứ tự đổi theo fixture. Hai phiên đồng thời giữ lịch sử riêng.
+- [x] Đối chiếu giới hạn tối đa 200 ứng viên và rank sau lọc.
+- [x] Commit `feat(session): rerank recommendations from recent interactions`, push và xác nhận SHA.
 
 **Nghiệm thu.** `.venv/Scripts/python.exe -m pytest tests/test_session.py tests/test_recommendation_api.py -q` pass, một ca trước/sau click có cùng run_id và thứ tự khác.
 
@@ -214,11 +218,11 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** `export_demo_events(database_url: str, output_dir: Path) -> Path` trả đường dẫn manifest sau khi xuất hoàn chỉnh, CLI `python -m recommender.pipeline.export_events`. Quét các event demo trong một snapshot đọc nhất quán.
 
-- [ ] Test không có event, timestamp tương lai hoặc quá cũ, UUID bất biến và chỉ tám trường nghiệp vụ trong JSONL.
-- [ ] Xuất đầy đủ các event demo nhìn thấy trong lượt chạy vào batch mới, ghi file tạm, checksum và manifest cuối cùng.
-- [ ] Test export hai lần và một transaction commit muộn giữa hai lượt, xác nhận lượt sau có event mới và các dòng lặp giữ nguyên UUID.
-- [ ] Test lỗi ghi local hoặc upload MinIO giữ được dữ liệu để retry, đối chiếu payload với DB trước khi lập kế hoạch dọn log.
-- [ ] Commit `feat(pipeline): export committed demo events to Bronze`, push và xác nhận SHA.
+- [x] Test không có event, timestamp tương lai hoặc quá cũ, UUID bất biến và chỉ tám trường nghiệp vụ trong JSONL.
+- [x] Xuất đầy đủ các event demo nhìn thấy trong lượt chạy vào batch mới, ghi file tạm, checksum và manifest cuối cùng.
+- [x] Test export hai lần và một transaction commit muộn giữa hai lượt, xác nhận lượt sau có event mới và các dòng lặp giữ nguyên UUID.
+- [x] Test lỗi ghi local hoặc upload MinIO giữ được dữ liệu để retry, đối chiếu payload với DB trước khi lập kế hoạch dọn log.
+- [x] Commit `feat(pipeline): export committed demo events to Bronze`, push và xác nhận SHA.
 
 **Nghiệm thu.** JSONL được Event.model_validate_json chấp nhận, manifest đúng byte thực tế và pipeline ETL của Pháp có thể dedup theo event_id.
 
@@ -230,13 +234,13 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **Interface.** Client nhận `API_BASE_URL`, timeout và gọi bảy route đã có. State giữ user/session/cart, sản phẩm đang xem và event đang chờ retry. Entry point `streamlit run src/recommender/ui/app.py`.
 
-- [ ] Viết test State tạo phiên mới khi đổi user, cart ổn định theo phiên, tạo UUID một lần cho thao tác và giữ UUID khi retry.
-- [ ] Làm trang danh mục, chi tiết và giỏ với ảnh fallback khi URL ảnh lỗi.
-- [ ] Gắn Dành cho bạn, Sản phẩm thay thế và Thường thêm cùng vào đúng ngữ cảnh, có so sánh batch với phiên cho demo.
-- [ ] Ghi view khi mở trang chi tiết, click khi người dùng chọn sản phẩm, add_to_cart khi thêm giỏ. Streamlit rerun do thao tác khác giữ nguyên số event.
-- [ ] Dùng Streamlit AppTest kiểm tra điều hướng và state, thêm một lượt thao tác trên trình duyệt với API và DB thật.
-- [ ] Kiểm tra timeout, lỗi API, thiếu snapshot, giỏ rỗng và đổi snapshot giữa các lần lấy metadata. Lưu ảnh demo trong `docs/demo/`.
-- [ ] Commit `feat(ui): add storefront and three recommendation sections`, push và xác nhận SHA.
+- [x] Viết test State tạo phiên mới khi đổi user, cart ổn định theo phiên, tạo UUID một lần cho thao tác và giữ UUID khi retry.
+- [x] Làm trang danh mục, chi tiết và giỏ với ảnh fallback khi URL ảnh lỗi.
+- [x] Gắn Dành cho bạn, Sản phẩm thay thế và Thường thêm cùng vào đúng ngữ cảnh, có so sánh batch với phiên cho demo.
+- [x] Ghi view khi mở trang chi tiết, click khi người dùng chọn sản phẩm, add_to_cart khi thêm giỏ. Streamlit rerun do thao tác khác giữ nguyên số event.
+- [x] Dùng Streamlit AppTest kiểm tra điều hướng và state, thêm một lượt thao tác trên trình duyệt với API và DB thật.
+- [x] Kiểm tra timeout, lỗi API, thiếu snapshot, giỏ rỗng và đổi snapshot giữa các lần lấy metadata. Lưu ảnh demo trong `docs/demo/`.
+- [x] Commit `feat(ui): add storefront and three recommendation sections`, push và xác nhận SHA.
 
 **Nghiệm thu.** `.venv/Scripts/python.exe -m pytest tests/test_ui.py -q` pass, UI ghi được event demo và phản ánh gợi ý theo phiên.
 
@@ -251,10 +255,11 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 - [ ] Kiểm tra dataset_version, cutoff và schema bốn bảng Gold thật, nối output rules của Thành vào đúng quá trình công bố run của Pháp.
 - [ ] Chạy nhập snapshot thật, kiểm tra ba nhóm gợi ý trên cùng user/catalog và fallback.
 - [ ] Ghi event từ UI, xuất Bronze, nhờ ETL của Pháp xử lý rồi import batch mới, đối chiếu vòng lặp dữ liệu.
-- [ ] Test E2E với fixture cho luồng click → DB → session → export. Chạy thêm vòng E2E thật và ghi dataset/run thực tế.
-- [ ] Đo API personalized/substitutes/complements và nhận event sau warm-up, tách phép đo thay đổi phiên khỏi thời gian train.
-- [ ] Ghi benchmark và ảnh bằng chứng trong `docs/results/`, giữ các số đo thực tế cùng cấu hình máy.
-- [ ] Commit `feat(integration): connect model snapshots and benchmark serving`, push và xác nhận SHA.
+- [x] Test E2E fixture click → DB → session → export.
+- [ ] Vòng E2E Gold thật sau khi Pháp bàn giao.
+- [x] Đo API personalized/substitutes/complements/events trên fixture sau warm-up, tách thời gian train.
+- [x] Benchmark + 400 mẫu thô trong docs/results; ảnh browser trong docs/demo.
+- [x] Commit `feat(integration): connect model snapshots and benchmark serving`, push và xác nhận SHA.
 
 **Nghiệm thu.** Vòng E2E thật hoàn tất và có số đo phục vụ, dữ liệu test được tách khỏi log demo dùng để báo cáo.
 
@@ -264,13 +269,14 @@ Fixture Gold ở A03 giúp phát triển phần serving trước khi Pháp bàn 
 
 **File.** Cập nhật `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/DATA_CONTRACTS.md`, `docs/PROJECT_CHECKLIST.md`, `PLAN.md` và bản tóm tắt root README khi thay đổi vận hành cần phản ánh. Thêm `docs/DEMO.md` với kịch bản đã chạy.
 
-- [ ] Ghi các lệnh thật để lấy dữ liệu, migrate, import, chạy API/UI, xuất log và rollback. Chạy trên checkout sạch bằng tài khoản của teammate.
-- [ ] Cập nhật ERD theo migration thật và sơ đồ Kafka/MinIO/DB/serving, lưu hình dưới `docs/`.
-- [ ] Viết phần báo cáo thuộc Thành về sinh dữ liệu, Kafka/MinIO, PostgreSQL, FP-Growth, API, session, UI và số đo ứng dụng.
+- [x] Ghi lệnh thật trong docs/DEMO.md; clean tracked source → fixture → migrate/import trên máy Thành đã chạy.
+- [ ] Teammate chạy lại từ tài khoản và máy của mình.
+- [x] ERD migration trong docs/DATABASE.md, sơ đồ Kafka/MinIO/DB/serving trong docs/ARCHITECTURE.md; ảnh browser docs/demo.
+- [x] Báo cáo phần Thành trong docs/THANH_REPORT.md.
 - [ ] Đối chiếu bảng kết quả của Pháp với dataset/run đã dùng. Ghi giới hạn dữ liệu mô phỏng và phạm vi đã kiểm chứng.
-- [ ] Chuẩn bị demo user cũ/user mới, thay thế, mua kèm, đổi sở thích phiên và batch tiếp theo. Lưu fixture demo để có thể chạy lại.
-- [ ] Chạy toàn bộ pytest, Ruff, kiểm tra link tài liệu và hướng dẫn từ đầu đến cuối.
-- [ ] Đánh dấu các task đã đạt, ghi commit/SHA push tương ứng, commit `docs(delivery): finalize Thanh implementation and demo guide`, push và xác nhận SHA.
+- [x] Fixture CLI và kịch bản user cũ/mới, substitutes/complements/session/rollback đã có; batch train tiếp theo chờ Pháp.
+- [x] 450 tests pass sau review, Ruff/check format pass, 149 local doc links đúng; wheel có SQL, clean-source CLI đã chạy.
+- [x] Task đạt và commit tương ứng đã ghi; docs(delivery) push 63df300, bản sửa review có commit riêng.
 
 **Nghiệm thu.** Teammate có thể chạy phần ứng dụng bằng tài liệu và output mô hình đã bàn giao. Báo cáo cùng demo sử dụng cùng phiên bản dữ liệu và kết quả thực nghiệm.
 
@@ -280,15 +286,15 @@ Chỉ điền commit và SHA remote sau khi task đã đạt kiểm tra.
 
 | Task | Trạng thái | Commit | Kiểm tra và SHA remote |
 | --- | --- | --- | --- |
-| A00 | Chưa thực hiện theo kế hoạch này | | |
-| A01 | Chưa thực hiện theo kế hoạch này | | |
-| A02 | Chưa thực hiện | | |
-| A03 | Chưa thực hiện | | |
-| A04 | Chưa thực hiện | | |
-| A05 | Chưa thực hiện | | |
-| A06 | Chưa thực hiện | | |
-| A07 | Chưa thực hiện | | |
-| A08 | Chưa thực hiện | | |
-| A09 | Chưa thực hiện | | |
-| A10 | Chờ output Gold thật để nghiệm thu toàn bộ | | |
-| A11 | Chưa thực hiện | | |
+| A00 | Hoàn thành kiểm tra | d470ec8 | 383 tests; Kafka→MinIO 8/8; start/stop thật |
+| A01 | Code và kiểm tra local xong; chờ máy Pháp | be950dc | 387 tests; MinIO roundtrip đủ catalog/users/events |
+| A02 | Hoàn thành | 6974f41 | 9 tests PostgreSQL thật; migration lặp, UTC, constraints |
+| A03 | Hoàn thành serving importer | 3c8c183 | 13 tests; Parquet/checksum/rollback/concurrency |
+| A04 | Code và Spark fixture hoàn thành | 0913db5 | 5 tests; rules thật chờ Gold publisher |
+| A05 | Hoàn thành | 8529991 | 9 tests; HTTP Uvicorn; UUID/identity/commit |
+| A06 | Hoàn thành | 9ebe486 | 13 tests API; giữ run và MMR rank |
+| A07 | Hoàn thành | 28c76b9 | 9 tests; click đổi thứ tự cùng run, tách session |
+| A08 | Hoàn thành | 6924104 | 8 tests exporter/sync; replay và late commit |
+| A09 | Hoàn thành | 78aad25 | 4 tests; browser thật catalog→detail→cart; ảnh docs/demo |
+| A10 | Runner/E2E fixture/benchmark xong; chờ Gold thật | f99e4d0 | 400 HTTP mẫu, 0 lỗi; 2 E2E tests |
+| A11 | Tài liệu và review local xong; chờ Gold thật/hai máy | 63df300 | 450 tests; review sửa 7 lỗi; packaged SQL; clean source |

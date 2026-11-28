@@ -1,17 +1,19 @@
-"""Pull/generate catalog & users data, then commit and push to GitHub for teammates."""
+"""Tải hoặc sinh dữ liệu sản phẩm và người dùng, rồi commit và đẩy lên GitHub cho đồng đội."""
 
 import subprocess
 import sys
 from pathlib import Path
 
-# Paths
+# Các đường dẫn
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PYTHON = sys.executable
 
 
 def run_cmd(cmd: list[str], desc: str) -> None:
     print(f"\n--> {desc}...")
-    result = subprocess.run(cmd, cwd=REPO_ROOT, text=True, capture_output=True)
+    result = subprocess.run(
+        cmd, cwd=REPO_ROOT, text=True, capture_output=True, check=False
+    )
     if result.returncode != 0:
         print(f"[LỖI] {desc} thất bại:")
         print(result.stderr)
@@ -25,7 +27,7 @@ def main() -> None:
     print(" BỘ CÔNG CỤ ĐỒNG BỘ DATA SẢN PHẨM & NGƯỜI DÙNG LÊN GITHUB ")
     print("=" * 60)
 
-    # 1. Trích xuất / kiểm tra Catalog 1.000 sản phẩm
+    # 1. Trích xuất hoặc kiểm tra danh mục 1.000 sản phẩm
     run_cmd(
         [
             PYTHON,
@@ -41,7 +43,7 @@ def main() -> None:
         "1. Trích xuất 1.000 sản phẩm thật Best Buy vào data/bronze/products/",
     )
 
-    # 2. Sinh / kiểm tra 1.000 User Profiles
+    # 2. Sinh hoặc kiểm tra 1.000 hồ sơ người dùng
     run_cmd(
         [
             PYTHON,
@@ -57,7 +59,7 @@ def main() -> None:
         "2. Khởi tạo 1.000 hồ sơ người dùng vào data/bronze/users/",
     )
 
-    # 3. Git stage, commit & push
+    # 3. Đưa file vào staging, tạo commit và đẩy lên Git
     run_cmd(
         [
             "git",
@@ -72,12 +74,13 @@ def main() -> None:
         "3. Đưa file dữ liệu vào Git staging",
     )
 
-    # Commit nếu có thay đổi
+    # Tạo commit nếu có thay đổi
     status = subprocess.run(
         ["git", "status", "--porcelain"],
         cwd=REPO_ROOT,
         text=True,
         capture_output=True,
+        check=True,
     ).stdout.strip()
     if status:
         run_cmd(
@@ -92,7 +95,7 @@ def main() -> None:
     else:
         print("\n--> Không có thay đổi mới cần commit.")
 
-    # Push to origin
+    # Đẩy lên remote origin
     run_cmd(["git", "push", "origin", "main"], "5. Đẩy (push) dữ liệu lên GitHub")
 
     print("\n" + "=" * 60)

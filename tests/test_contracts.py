@@ -1,4 +1,4 @@
-"""Offline acceptance tests for the shared v1 data contracts (T02)."""
+"""Test nghiệm thu ngoại tuyến cho hợp đồng dữ liệu v1 dùng chung (T02)."""
 
 import json
 from collections import Counter, defaultdict
@@ -102,7 +102,7 @@ RULE = {
 
 
 def read_jsonl(filename: str, model: type[ContractModel]) -> list[ContractModel]:
-    """Parse every fixture line through the same JSON entry point as ingestion."""
+    """Phân tích từng dòng dữ liệu mẫu qua cùng điểm đọc JSON như bước thu thập."""
     data = (FIXTURES / filename).read_bytes()
     assert b"\r" not in data
     assert not data.startswith(b"\xef\xbb\xbf")
@@ -140,7 +140,7 @@ def test_offline_fixtures_and_identity_integrity() -> None:
     assert all(len(identities) == 1 for identities in owners.values())
     assert len(baskets) == 10
     assert all(len(items) >= 2 for items in baskets.values())
-    # The first fixture journey provides a known aggregate for downstream ETL.
+    # Chuỗi hành vi đầu tiên của dữ liệu mẫu cho kết quả tổng hợp đã biết để kiểm tra ETL.
     counts = Counter(
         event.event_type
         for event in events
@@ -784,7 +784,7 @@ def test_config_env_file_and_environment_precedence(
     assert file_settings.api_base_url == "http://file:8000"
     assert file_settings.random_seed == 7
     assert get_settings(env_file=None).random_seed == 42
-    # Reading .env does not leak values into later calls or os.environ.
+    # Đọc .env không làm rò rỉ giá trị sang lần gọi sau hoặc os.environ.
     absolute_lake = tmp_path / "lake"
     for key, value in {
         "DATA_LAKE_DIR": str(absolute_lake),

@@ -1,4 +1,4 @@
-﻿# Script tự động trích xuất sản phẩm, người dùng và push lên GitHub cho teammate
+# Tự động trích xuất sản phẩm, người dùng và đẩy lên GitHub cho đồng đội
 $ErrorActionPreference = "Stop"
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path

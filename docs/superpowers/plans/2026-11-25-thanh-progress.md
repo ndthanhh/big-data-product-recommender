@@ -1,0 +1,72 @@
+# Nhật ký thực thi kế hoạch phần việc Thành
+
+Kế hoạch [A00–A11](2026-11-25-thanh-remaining-work.md). Bắt đầu từ commit b59dc55.
+
+## Quyết định triển khai
+
+- Làm trên nhánh codex/thanh-remaining-work trong checkout hiện có để tiếp tục các thay đổi streaming người dùng đang làm dở. Push nhánh sau mỗi task theo yêu cầu.
+- Fixture Gold dùng schemas hiện tại, đọc Parquet bằng PyArrow. A10 nghiệm thu snapshot thật phụ thuộc bàn giao của Pháp.
+- Snapshot validator, complements và session dùng cùng kiểu Pydantic, API đọc connection với run cố định. A08 xuất lại toàn bộ log demo theo đặc tả để tránh bỏ sót transaction commit muộn.
+
+## Tiến độ
+
+- A00 đang thực hiện. Baseline gần nhất 376 test pass, 8 lỗi lint đã xác định.
+
+- A00 hoàn thành. Producer/consumer hỗ trợ cooperative stop, worker truyền lỗi, script xác minh PID và xử lý PID cũ đã hết. Kiểm tra Kafka→MinIO 8/8 sự kiện, 2 batch; start/stop thực tế thành công. Toàn bộ suite 383 tests.
+- Ruling A00. Image minio/mc hiện không tải được, nghiệm thu dùng docker compose up -d postgres kafka minio. Client Python tạo bucket khi ghi, hướng dẫn đã cập nhật.
+
+- A00 đã push: d470ec877c65b835a4faf58c8463b4572170b63f (SHA remote khớp).
+- A01 code hoàn thành: 387 tests pass, Ruff pass. MinIO roundtrip catalog/users 1.000 dòng và 2 batch/8 events đúng hash. Chờ endpoint LAN và tài khoản thực trên máy Pháp.
+- Ruling A01: sync trả danh sách prefix thay vì None để hỗ trợ tải chính xác batch; prefix chứa fingerprint manifest, manifest upload cuối. minio-init chuyển profile tùy chọn do image mc không tải được; Python tạo bucket. Chi phí: máy thứ hai vẫn cần xác minh mạng/quyền riêng.
+
+- A01 push be950dcfb0483e91f29066aaad47e9463c3f6737, SHA remote khớp.
+- A02 hoàn thành: 9 tests DB thật, migration lặp và packaged SQL resource đúng; Ruff pass.
+- Ruling A02: POSTGRES_PORT cấu hình mapping Docker, local .env dùng 5433 do postgres Windows chiếm 5432; defaults vẫn 5432. Test chỉ truncate database *_test đã chọn tường minh. Chi phí: teammate cần chọn đúng cổng local.
+
+- A02 push 6974f41e0935c8a66108a003a85bc33d41d7d951, SHA remote khớp.
+- A03 hoàn thành: 13 tests importer (22 gồm DB), checksums/Parquet/keys/as-of/empty rules; rollback giữ catalog, cạnh tranh cùng/khác run, retry ready no-op.
+- Ruling A03: importer nạp bốn bảng serving và kiểm tra byte mọi artifact liệt kê; validation nội dung model/vocabulary/ALS mappings thuộc publisher Gold của Pháp. Fixture không đại diện kết quả train. Chi phí: nghiệm thu artifact model thật cần A10. PyArrow thêm app dependency.
+
+- A03 push 3c8c1837f315710a2646cdc54e5d21dec4b35972, SHA remote khớp.
+- A04: 5 tests pass (Spark thật 35.73s). Support/confidence 2/3, lift 1.0; giỏ một item loại khỏi mẫu số; lọc compatibility và dedup consequent. Runner lưu model/rules/config, cần nối Gold publisher của Pháp. Tham khảo https://spark.apache.org/docs/3.5.7/ml-frequent-pattern-mining.html (Spark chỉ phát luật một consequent).
+
+- A04 push 0913db5f2499b51d13c537080837f14b231f8718, SHA remote khớp.
+- A05 hoàn thành 9 tests DB/API và Uvicorn HTTP thật: health/catalog 200; UUID retry/conflict; ownership locks concurrent; commit failure 503 không lưu event. Ruff pass.
+
+- A05 push 85299918b9123845dfc245394e143993e167a6f1, SHA remote khớp.
+- A06: 13 tests API pass. Personalized lọc seen/bù popularity, substitute cùng category, complements subset/rỗng/ID lỗi; request giữ run cũ khi con trỏ đổi, thứ tự MMR giữ nguyên. Ruff pass.
+
+- A06 push 9ebe48609a3065c543c1b8f5416b8cb0229b70a7, SHA remote khớp.
+- A07: 9 tests session/API pass; weights 1/2/4, half-life 10m, 30m/future/20event, normalizations riêng, before/after click cùng run đổi b→c, session khác không đổi và user khác 409. Ruff pass.
+
+- A07 push 28c76b9466f69a5fb947494c85a655b4eef8d705, SHA remote khớp.
+- A08: 8 tests exporter/sync pass; full consistent export tám trường, late commit xuất lần sau, UUID nguyên, previous batch và DB giữ nguyên khi lỗi ghi. Hidden staging được publisher bỏ qua (test RED→GREEN). Ruff pass.
+
+- A08 push 69241044edc5ee1d3746fd2660dfd87b2b2a8ced, SHA remote khớp.
+- A09: 4 tests state/client/AppTest pass; rerun không nhân events, đổi user/giỏ/UUID ổn định, timeout giữ pending. Browser thật với fixture_demo: Product a → substitute c → thêm giỏ → complement d; ảnh docs/demo/cart-fixture.jpg. API/UI chạy local cổng 8000/8501.
+- Ruling A09: ảnh catalogue dùng biểu tượng, ảnh chi tiết chỉ hiển thị sau kiểm tra HTTP/định dạng và có fallback. Nâng minimum Streamlit 1.54 cho widget width, thêm HTTPX vào app dependency. Chi phí: tải metadata từng gợi ý làm UI chậm hơn, benchmark API tách riêng.
+
+- A09 push 78aad25ebba738e9b54828fadf6d329b9618899e, SHA remote khớp.
+- A10 phần độc lập hoàn thành: 2 E2E tests pass; runner và fixture CLI; HTTP benchmark Uvicorn 400 mẫu, concurrency4, warmup3, 0 lỗi, DB recommender_benchmark riêng. P95 personalized59.83ms/substitutes62.17ms/complements72.54ms/events85.93ms, chỉ 5 sản phẩm fixture.
+- Ruling A10: Silver/Gold model thật của Pháp chưa có; giữ các bước nghiệm thu model/vòng retrain ở trạng thái chờ. Không tạo ETL/ALS thay teammate hoặc coi fixture là model đã train. Chi phí: chưa kết luận chất lượng và hiệu năng với 1.000 sản phẩm/120k events.
+
+- A10 push f99e4d0032afdeb5201f66f34e5c35e6528f53fe, SHA remote khớp.
+- A11: 442 tests pass (74.12s), Ruff + 58 files format pass, pip check đúng, wheel build/install chứa SQL migration, 149 link tài liệu local đúng. Bản git archive sạch dùng source riêng tạo fixture_clean → migrate/import vào database recommender_cleancheck thành công. README/PLAN/checklist/ERD/demo/báo cáo đã đồng bộ. Máy Pháp và Gold thật vẫn chờ.
+- Ruling execution: dùng ledger bền vững dưới docs và lệnh PowerShell thay helper shell SDD; kế thừa checkout/nhánh codex đang thực thi. Chi phí: kiểm tra tiến độ thủ công bằng SHA/ledger, không có task-done automation.
+
+- A11 push 63df300d01fc7d2be6a4a3319cc1d895327d2cb3, SHA remote khớp.
+- Final review: reviewer độc lập đọc b59dc55..63df300, 2 Critical + 5 Important được chấp nhận; chi tiết docs/REVIEW.md.
+- Final: fixed MinIO source race/ready overwrite — test_publication_uses_verified_copy_and_never_rewrites_ready_batch RED→GREEN, suite 450/450; MinIO thật cũng đúng 1.000 dòng.
+- Final: fixed Gold checksum/parse race — test_parquet_parse_uses_the_bytes_that_passed_checksum RED→GREEN, suite 450/450.
+- Final: fixed queue permanent rejection — test_permanent_rejection_does_not_block_other_events RED→GREEN, suite 450/450; payload lỗi giữ riêng, mạng/5xx giữ UUID retry.
+- Final: fixed cart basket identity — test_clear_cart_starts_new_basket_preserving_queued_ids RED→GREEN, suite 450/450.
+- Final: fixed mixed-run metadata — test_recommendation_metadata_reloads_group_after_snapshot_change và test_conditional_metadata_rejects_surviving_id_from_new_run RED→GREEN, suite 450/450.
+- Final: fixed slash product route — test_slash_product_id_and_conditional_metadata_run RED→GREEN, suite 450/450.
+- Final: fixed runner announces inactive snapshot — test_runner_does_not_announce_inactive_ready_snapshot RED→GREEN, suite 450/450.
+- Final: minor (deferred): validator quét fallback theo từng user O(U×R); group một pass để tối ưu snapshot lớn sau, tính đúng không đổi.
+- Final: Ruling: MinIO trên máy Pháp chưa có quyền truy cập để thử — giữ nghiệm thu hai máy mở — chi phí: chưa bảo đảm LAN/tài khoản trên máy đó hoạt động.
+- Final: Ruling: Silver/Gold/model thật của Pháp chưa được bàn giao — fixture chỉ chứng minh serving, chờ nghiệm thu model/vòng retrain — chi phí: chưa có kết luận chất lượng hoặc tải lớn.
+- Final: Ruling: reviewer chỉ đọc và tái hiện riêng, không chạy lại full suite — implementer chạy 450/450 sau sửa + browser/MinIO thật — chi phí: suite cuối không có một lượt chạy độc lập thứ hai.
+- Final verification: 450 tests pass/140.14s, Ruff pass, format58 files pass. Browser sau restart API/UI vẫn có A→substitute C→cart→complement D. Không có re-review; một fix pass đúng quy trình. Giữ nhánh theo yêu cầu push từng task, chưa merge main.
+
+- Final review fixes push fe57d96b4d2ab7f0d449d7d83fbe172adcc519a8; SHA remote khớp, tree sạch. A04 bổ sung nghiệm thu Spark thật → Parquet PyArrow → Gold validator: 4 luật hợp lệ. Native Spark model save/CLI I/O còn cần kiểm tra môi trường train (Windows hiện thiếu winutils/HADOOP_HOME); đã ghi rõ trong DEMO.md.

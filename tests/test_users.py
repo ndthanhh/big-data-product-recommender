@@ -1,4 +1,4 @@
-"""Offline checks for demographic profiles and preference-aware ingestion."""
+"""Kiểm tra ngoại tuyến hồ sơ nhân khẩu học và thu thập dữ liệu theo sở thích."""
 
 import hashlib
 import json

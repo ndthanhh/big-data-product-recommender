@@ -1,1 +1,1 @@
-"""Collect catalog data and export or simulate interaction events."""
+"""Thu thập danh mục sản phẩm và xuất hoặc mô phỏng sự kiện tương tác."""

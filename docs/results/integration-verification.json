@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-27",
+  "linux": {
+    "passed": 487,
+    "skipped_windows_powershell": 3,
+    "failed": 0,
+    "seconds": 466.35
+  },
+  "windows": {
+    "non_spark_before_review_passed": 463,
+    "targeted_regressions_and_powershell_after_review_passed": 16
+  },
+  "ruff": "passed",
+  "formatted_python_files": 79,
+  "review": {
+    "critical": 0,
+    "important_fixed": 4,
+    "minor": 0
+  },
+  "real_data": {
+    "products": 1000,
+    "events": 100000,
+    "personalized_rows": 200000,
+    "association_rules": 746,
+    "run_id": "merge_20261108T000000Z_alsmmr_42_62b0aa1d"
+  },
+  "scope": "Integration verification; not a new quality/performance benchmark"
+}

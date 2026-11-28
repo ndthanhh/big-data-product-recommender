@@ -1,1 +1,1 @@
-"""Streamlit shopping demo."""
+"""Giao diện demo mua sắm bằng Streamlit."""
