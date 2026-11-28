@@ -1,4 +1,4 @@
-"""Streamlit storefront: streamlit run src/recommender/ui/app.py."""
+"""Giao diện cửa hàng Streamlit: streamlit run src/recommender/ui/app.py."""
 
 import io
 

@@ -1,4 +1,4 @@
-"""T07: metrics against hand-computed values and the leakage-free time split."""
+"""T07: đối chiếu chỉ số với kết quả tính tay và chia thời gian không rò rỉ dữ liệu."""
 
 from __future__ import annotations
 
@@ -41,14 +41,14 @@ def test_edge_cases() -> None:
     assert recall_at_k([], {"p1"}) == 0.0
     assert ndcg_at_k([], {"p1"}) == 0.0
     assert recall_at_k(["p9"], {"p1"}) == 0.0
-    # More than 10 labels: denominator keeps all of them; IDCG caps at 10.
+    # Hơn 10 nhãn: mẫu số vẫn tính tất cả; IDCG giới hạn ở 10.
     many = {f"p{i}" for i in range(20)}
     top = [f"p{i}" for i in range(10)]
     assert recall_at_k(top, many) == pytest.approx(0.5, abs=TOL)
     assert ndcg_at_k(top, many) == pytest.approx(1.0, abs=TOL)
-    # Positions beyond k are ignored.
+    # Bỏ qua vị trí lớn hơn k.
     assert recall_at_k(["x"] * 10 + ["p1"], {"p1"}) == 0.0
-    # ILD undefined for <2 valid vectors; missing vectors are not "diverse".
+    # ILD không xác định khi có <2 vector hợp lệ; vector thiếu không được coi là đa dạng.
     assert intra_list_diversity(["p1"], {"p1": np.array([1.0])}) == (None, 0)
     assert intra_list_diversity(["p1", "p2"], {"p1": np.array([1.0]), "p2": None}) == (
         None,
@@ -60,8 +60,8 @@ def test_edge_cases() -> None:
 
 
 def test_evaluate_lists_macro_average_and_user_set() -> None:
-    relevance = {"u1": {"p2", "p4"}, "u2": {"p1"}, "u3": set()}  # u3 excluded
-    recs = {"u1": ["p2", "p3", "p4"]}  # u2 has no list -> scores 0
+    relevance = {"u1": {"p2", "p4"}, "u2": {"p1"}, "u3": set()}  # loại u3
+    recs = {"u1": ["p2", "p3", "p4"]}  # u2 không có danh sách -> điểm 0
     vectors = {p: np.eye(4)[i] for i, p in enumerate(["p1", "p2", "p3", "p4"])}
     out = evaluate_lists(recs, relevance, vectors, catalog_size=5)
     assert out["users"] == 2 and out["labels"] == 3
@@ -93,19 +93,19 @@ def test_split_boundaries_and_cart_purge(spark) -> None:
     from recommender.pipeline.etl import silver_event_schema
 
     rows = [
-        _ev(1, "2026-10-01T00:00:00Z"),  # start inclusive -> train
-        _ev(2, "2026-10-24T23:59:59Z"),  # train
-        _ev(3, "2026-10-25T00:00:00Z"),  # exactly at cutoff -> validation
-        _ev(4, "2026-11-01T00:00:00Z"),  # exactly at test cutoff -> test
-        _ev(5, "2026-11-08T00:00:00Z"),  # end exclusive -> outside
-        _ev(6, "2026-09-30T23:59:59Z"),  # before start -> outside
-        # cart spanning the validation cutoff -> purged entirely
+        _ev(1, "2026-10-01T00:00:00Z"),  # bao gồm thời điểm bắt đầu -> tập huấn luyện
+        _ev(2, "2026-10-24T23:59:59Z"),  # tập huấn luyện
+        _ev(3, "2026-10-25T00:00:00Z"),  # đúng mốc chia -> tập kiểm định
+        _ev(4, "2026-11-01T00:00:00Z"),  # đúng mốc test -> tập kiểm tra
+        _ev(5, "2026-11-08T00:00:00Z"),  # đúng cận cuối -> ngoài cửa sổ
+        _ev(6, "2026-09-30T23:59:59Z"),  # trước thời điểm bắt đầu -> ngoài cửa sổ
+        # giỏ trải qua mốc validation -> loại toàn bộ
         _ev(7, "2026-10-24T23:50:00Z", event_type="add_to_cart", cart_id="c_cross"),
         _ev(8, "2026-10-25T00:10:00Z", event_type="add_to_cart", cart_id="c_cross"),
-        # cart ending exactly at the test cutoff -> crosses (first < cutoff <= last)
+        # giỏ kết thúc đúng mốc test -> vượt mốc (first < cutoff <= last)
         _ev(9, "2026-10-31T23:00:00Z", event_type="add_to_cart", cart_id="c_edge"),
         _ev(10, "2026-11-01T00:00:00Z", event_type="add_to_cart", cart_id="c_edge"),
-        # cart starting exactly at the cutoff stays whole in validation
+        # giỏ bắt đầu đúng mốc chia nằm trọn trong validation
         _ev(11, "2026-10-25T00:00:00Z", event_type="add_to_cart", cart_id="c_in"),
         _ev(12, "2026-10-25T00:05:00Z", event_type="add_to_cart", cart_id="c_in"),
     ]

@@ -1,4 +1,4 @@
-"""Bounded HTTP calls; UI communicates with the API only."""
+"""Giới hạn thời gian gọi HTTP; giao diện chỉ giao tiếp với API."""
 
 import httpx
 
@@ -21,7 +21,7 @@ class ApiError(RuntimeError):
 
 
 class SnapshotChanged(ApiError):
-    """Recommendation metadata was requested for a run that is no longer active."""
+    """Thông tin sản phẩm gợi ý được yêu cầu cho lần chạy không còn hoạt động."""
 
 
 class ApiClient:
@@ -64,7 +64,7 @@ class ApiClient:
         )
 
     def recommendation_products(self, fetch):
-        """Resolve an entire group under its declared run; reload once on a switch."""
+        """Lấy cả nhóm theo mã lần chạy đã khai báo; tải lại một lần nếu snapshot đổi."""
         for _ in range(2):
             response = fetch()
             try:

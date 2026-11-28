@@ -1,7 +1,7 @@
-"""T07 top-K metrics exactly as defined in EXPERIMENT_PLAN.md section 5.
+"""Các chỉ số top-K của T07 theo đúng EXPERIMENT_PLAN.md mục 5.
 
-Per-user values are macro-averaged; undefined aggregates return ``None``
-(serialized as JSON null / empty CSV cell with ``status=not_evaluable``).
+Lấy trung bình đều giữa các người dùng; giá trị tổng hợp không xác định
+trả về ``None`` (ghi thành JSON null hoặc ô CSV trống với ``status=not_evaluable``).
 """
 
 from __future__ import annotations
@@ -13,14 +13,14 @@ import numpy as np
 
 
 def recall_at_k(recommended: Sequence[str], relevant: set[str], k: int = 10) -> float:
-    """``|set(L[:k]) & R| / |R|``; requires a non-empty ``R``."""
+    """``|set(L[:k]) & R| / |R|``; yêu cầu ``R`` không rỗng."""
     if not relevant:
         raise ValueError("Recall is undefined for an empty relevant set")
     return len(set(recommended[:k]) & relevant) / len(relevant)
 
 
 def ndcg_at_k(recommended: Sequence[str], relevant: set[str], k: int = 10) -> float:
-    """Binary-relevance NDCG with ``IDCG`` over ``min(k, |R|)`` ideal positions."""
+    """NDCG với nhãn liên quan nhị phân, ``IDCG`` tính trên ``min(k, |R|)`` vị trí lý tưởng."""
     if not relevant:
         raise ValueError("NDCG is undefined for an empty relevant set")
     dcg = sum(
@@ -37,7 +37,7 @@ def ndcg_at_k(recommended: Sequence[str], relevant: set[str], k: int = 10) -> fl
 def intra_list_diversity(
     recommended: Sequence[str], vectors: Mapping[str, np.ndarray | None]
 ) -> tuple[float | None, int]:
-    """Mean ``1 - cos`` over pairs with two valid vectors; ``(None, 0)`` if none."""
+    """Trung bình ``1 - cos`` giữa các cặp vector hợp lệ; trả ``(None, 0)`` nếu không có cặp nào."""
     valid = []
     for pid in recommended:
         vec = vectors.get(pid)
@@ -53,7 +53,7 @@ def intra_list_diversity(
 
 
 def catalog_coverage(lists: Iterable[Sequence[str]], catalog_size: int) -> float | None:
-    """``|union of lists| / |C_t|``; ``None`` for an empty catalog."""
+    """Số phần tử trong hợp các danh sách chia ``|C_t|``; trả ``None`` nếu danh mục rỗng."""
     if catalog_size <= 0:
         return None
     union: set[str] = set()
@@ -63,7 +63,7 @@ def catalog_coverage(lists: Iterable[Sequence[str]], catalog_size: int) -> float
 
 
 def mean_or_none(values: Sequence[float]) -> float | None:
-    """Macro average; ``None`` when there is no sample."""
+    """Trung bình đều giữa các mẫu; trả ``None`` khi không có mẫu."""
     return float(sum(values) / len(values)) if values else None
 
 
@@ -75,10 +75,10 @@ def evaluate_lists(
     *,
     k: int = 10,
 ) -> dict[str, float | int | None]:
-    """Recall/NDCG/ILD/coverage over users with a non-empty relevant set.
+    """Recall/NDCG/ILD/độ bao phủ trên người dùng có tập sản phẩm liên quan không rỗng.
 
-    Users of ``relevance`` without a recommendation count as empty lists
-    (accuracy 0), so every method is scored on the same user set.
+    Người dùng thuộc ``relevance`` nhưng không có gợi ý được tính là danh sách
+    rỗng (độ chính xác 0), để mọi phương pháp được chấm trên cùng tập người dùng.
     """
     users = sorted(u for u, rel in relevance.items() if rel)
     recalls, ndcgs, ilds, lengths = [], [], [], []

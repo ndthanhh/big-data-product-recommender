@@ -1,4 +1,4 @@
-"""T05: Popularity baseline, TF-IDF profiles and same-category substitutes."""
+"""T05: phương pháp cơ sở Popularity, hồ sơ TF-IDF và sản phẩm thay thế cùng nhóm."""
 
 from __future__ import annotations
 
@@ -62,7 +62,7 @@ def test_popularity_sum_and_tie_break(spark, catalog) -> None:
             ("u1", "fixture:p001", 3.0),
             ("u2", "fixture:p001", 2.0),
             ("u3", "fixture:p010", 7.0),
-            ("u3", "fixture:p999", 50.0),  # not in catalog
+            ("u3", "fixture:p999", 50.0),  # không có trong danh mục
         ],
     )
     ranked = rank_popular(inter, catalog)
@@ -72,7 +72,7 @@ def test_popularity_sum_and_tie_break(spark, catalog) -> None:
         ("fixture:p002", 5.0),
     ]
     unseen = recommend_popular(ranked, {"fixture:p010"}, 1)
-    assert [i.product_id for i in unseen] == ["fixture:p001"]  # filter before taking k
+    assert [i.product_id for i in unseen] == ["fixture:p001"]  # lọc trước khi lấy k
     rows = recommendation_rows("run_t", "popular", {"global": popular_list(ranked)})
     items = [
         RecommendationItem(
@@ -127,7 +127,7 @@ def test_substitutes_same_category_without_self(features) -> None:
             for r in rows
         ]
     )
-    # The 75% and 65% USB-C keyboards share more words than the Bluetooth one.
+    # Bàn phím USB-C 75% và 65% có nhiều từ chung hơn so với bàn phím Bluetooth.
     first = [i.product_id for i in subs["fixture:p001"]]
     assert first.index("fixture:p003") < first.index("fixture:p005")
 
@@ -137,7 +137,7 @@ def test_user_profile_prefers_interacted_category(features) -> None:
     users, profiles = user_profiles(
         features, interactions + [("u_none", "x:missing", 1.0)]
     )
-    assert users == ["u_kb"]  # empty profiles are omitted -> fallback
+    assert users == ["u_kb"]  # bỏ hồ sơ rỗng -> dùng gợi ý dự phòng
     assert np.isclose(np.linalg.norm(profiles[0]), 1.0)
     seen = {"u_kb": {"fixture:p001", "fixture:p002"}}
     recs = recommend_tfidf(features, interactions, seen, limit=3)["u_kb"]

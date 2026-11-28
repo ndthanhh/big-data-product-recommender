@@ -1,4 +1,4 @@
-"""Export a full consistent view of committed demo events for at-least-once replay."""
+"""Xuất toàn bộ sự kiện demo đã commit trong một lần đọc nhất quán, hỗ trợ phát lại ít nhất một lần."""
 
 import argparse
 import json
@@ -18,8 +18,8 @@ from recommender.schemas import Event, Product
 
 def export_demo_events(database_url: str, output_dir: Path) -> Path:
     output_dir.mkdir(parents=True, exist_ok=True)
-    # The MinIO publisher excludes hidden staging directories. A failed export
-    # leaves the database and previously published batches intact.
+    # Bộ công bố MinIO bỏ qua thư mục tạm ẩn. Nếu xuất dữ liệu thất bại,
+    # cơ sở dữ liệu và các lô đã công bố trước đó vẫn được giữ nguyên.
     temporary = Path(tempfile.mkdtemp(prefix=".export-", dir=output_dir.parent))
     try:
         with connect(database_url) as conn:

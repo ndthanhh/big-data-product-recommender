@@ -1,4 +1,4 @@
-"""T04: PySpark ETL Bronze -> Silver and Gold base aggregates (offline)."""
+"""T04: ETL PySpark từ Bronze sang Silver và dữ liệu tổng hợp Gold cơ sở, chạy ngoại tuyến."""
 
 from __future__ import annotations
 
@@ -66,12 +66,12 @@ def test_row_validators_classify_reasons() -> None:
         json.dumps(_event(1, event_id=_event(1)["event_id"].upper()))
     )
     assert ok["reason"] is None
-    assert ok["event_id"] == _event(1)["event_id"]  # UUID normalized to lowercase
+    assert ok["event_id"] == _event(1)["event_id"]  # UUID chuẩn hóa chữ thường
     product = validate_product_line(
         '{"product_id":"x:1","name":"A","category_id":"Cat","source":"x",'
         '"collected_at":"2026-10-01T00:00:00Z"}'
     )
-    assert product["reason"] == "invalid_schema"  # category_id must be lowercase
+    assert product["reason"] == "invalid_schema"  # category_id phải là chữ thường
 
 
 def test_fixture_etl_publishes_clean_silver(spark, lake) -> None:
@@ -104,12 +104,12 @@ def test_etl_rejects_and_reports_each_reason(spark, lake) -> None:
         "{broken",
         json.dumps({**_event(101), "extra": 1}),
         json.dumps(_event(102, event_at="2026-10-20T07:00:00+07:00")),
-        good_line,  # identical duplicate -> merged
+        good_line,  # bản trùng giống hệt -> gộp lại
         json.dumps(_event(103, product_id="fixture:p999")),
-        # session owned by two users
+        # một phiên thuộc hai người dùng
         json.dumps(_event(104, session_id="s_shared", user_id="u_a")),
         json.dumps(_event(105, session_id="s_shared", user_id="u_b")),
-        # cart reused in two sessions of the same user
+        # giỏ được dùng lại trong hai phiên của cùng người dùng
         json.dumps(
             _event(106, session_id="s_x", event_type="add_to_cart", cart_id="c_dup")
         ),
@@ -166,7 +166,7 @@ def test_product_versions_duplicates_and_conflicts(spark, lake) -> None:
     name_late = late.where(f"product_id = '{p1['product_id']}'").first()["name"]
     assert name_early == p1["name"] and name_late.endswith(" v2")
     assert early.count() == late.count() == 20
-    # A version collected exactly at the cutoff is not yet known.
+    # Phiên bản thu thập đúng tại mốc chia chưa được tính là đã biết.
     at_cutoff = catalog_as_of(products, datetime(2026, 10, 10, tzinfo=UTC), "r1")
     assert (
         at_cutoff.where(f"product_id = '{p1['product_id']}'").first()["name"]
@@ -242,7 +242,7 @@ def test_gold_base_weights_baskets_and_seen(spark, lake) -> None:
     assert row["interaction_weight"] == 1 + 2 + 4
     assert row["run_id"] == "run_t"
     assert inter[("u_w", "fixture:p002")]["interaction_weight"] == 4
-    assert ("u_w", "fixture:p003") not in inter  # after the window end
+    assert ("u_w", "fixture:p003") not in inter  # sau thời điểm kết thúc cửa sổ
 
     basket = (
         build_baskets(events, catalog, "run_t", start, end)
@@ -271,8 +271,8 @@ def test_empty_inputs_and_unfinished_batch(spark, lake) -> None:
     assert result.manifest["event_time_min"] is None
     assert result.report["events"]["input_rows"] == 0
 
-    # A crashed batch leaves data files but no manifest: the rerun overwrites
-    # them and publishes, while readers never saw the unfinished version.
+    # Lô bị lỗi để lại file dữ liệu nhưng chưa có manifest: lần chạy lại ghi đè
+    # rồi công bố; bên đọc chưa từng thấy phiên bản dở dang.
     events_file.write_text(
         (FIXTURES / "events.jsonl").read_text(encoding="utf-8"), encoding="utf-8"
     )
@@ -290,7 +290,7 @@ def test_empty_inputs_and_unfinished_batch(spark, lake) -> None:
     assert not (stale / "part-stale.parquet").exists()
     assert load_silver(spark, lake, version)[1].count() == 50
 
-    # No Bronze catalog at all is an error, not an empty release.
+    # Thiếu hoàn toàn danh mục Bronze là lỗi, không phải một bản công bố rỗng.
     (lake.root / "bronze/products/products.jsonl").rename(
         lake.root / "bronze/products/products.old"
     )
@@ -299,7 +299,7 @@ def test_empty_inputs_and_unfinished_batch(spark, lake) -> None:
 
 
 def test_only_published_bronze_files_are_read(spark, lake) -> None:
-    """Kafka micro-batches count only once their manifest and checksum match."""
+    """Chỉ tính lô Kafka khi manifest và mã kiểm tra của lô khớp nhau."""
     events_dir = lake.root / "bronze" / "events"
     ok = events_dir / "streaming" / "batch_ok"
     ok.mkdir(parents=True)
@@ -320,7 +320,7 @@ def test_only_published_bronze_files_are_read(spark, lake) -> None:
         stream.write(json.dumps(_event(404)) + "\n")
 
     result = run_etl(spark, lake)
-    assert result.report["events"]["accepted"] == 51  # fixture 50 + batch_ok
+    assert result.report["events"]["accepted"] == 51  # 50 sự kiện mẫu + batch_ok
     skipped = {s["path"]: s["reason"] for s in result.report["bronze_files_skipped"]}
     assert skipped == {
         "events/streaming/batch_pending/events.jsonl": "no_manifest",

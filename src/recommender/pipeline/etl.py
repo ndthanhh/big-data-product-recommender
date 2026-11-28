@@ -1,21 +1,21 @@
-"""T04 ETL: Bronze JSONL -> Silver Parquet with quarantine and quality report.
+"""ETL T04: Bronze JSONL -> Silver Parquet, kèm vùng cách ly và báo cáo chất lượng.
 
-Pipeline (DATA_CONTRACTS.md sections 2-3, ARCHITECTURE.md section 3.2):
+Quy trình (DATA_CONTRACTS.md mục 2-3, ARCHITECTURE.md mục 3.2):
 
-1. Read every Bronze ``*.jsonl`` line as text, so malformed JSON is counted
-   instead of silently dropped by Spark's JSON reader.
-2. Validate each line with the shared Pydantic contracts (``Product`` /
-   ``Event``) in a Python UDF: one definition of IDs, UUIDs, UTC timestamps,
-   enums, unknown fields and ``add_to_cart`` -> ``cart_id`` for the whole repo.
-   The UDF also emits a SHA-256 of the *normalized* payload.
-3. Everything relational runs natively in Spark: duplicate/conflict detection
-   by key, product foreign keys, and session/cart ownership.
-4. Silver Parquet, quarantine Parquet and ``quality/<dataset_version>.json``
-   are written first; the manifest is written last and is the publication
-   marker. Conflicts block publication (no manifest, exit code 3).
+1. Đọc từng dòng Bronze ``*.jsonl`` dưới dạng văn bản để đếm được JSON lỗi,
+   thay vì bị bộ đọc JSON của Spark âm thầm bỏ qua.
+2. Kiểm tra từng dòng bằng hợp đồng Pydantic chung (``Product`` / ``Event``)
+   trong Python UDF: dùng cùng quy tắc ID, UUID, thời gian UTC, enum, trường
+   lạ và ràng buộc ``add_to_cart`` -> ``cart_id`` cho cả repo.
+   UDF còn sinh SHA-256 của nội dung đã chuẩn hóa.
+3. Các kiểm tra quan hệ chạy trực tiếp trong Spark: phát hiện trùng/xung đột
+   theo khóa, khóa ngoại sản phẩm và quyền sở hữu phiên/giỏ hàng.
+4. Ghi Silver Parquet, Parquet cách ly và ``quality/<dataset_version>.json``
+   trước; ghi manifest cuối cùng để đánh dấu công bố. Xung đột chặn công bố
+   (không có manifest, mã thoát 3).
 
-``dataset_version`` is content-addressed from the Bronze file checksums and
-``ETL_VERSION``: re-running on identical input is a no-op.
+``dataset_version`` được định danh từ mã kiểm tra file Bronze và
+``ETL_VERSION``: chạy lại cùng đầu vào không tạo thay đổi.
 """
 
 from __future__ import annotations
@@ -62,7 +62,7 @@ _TIMESTAMP_FIELDS = {"event_at", "collected_at"}
 
 
 class ConflictError(RuntimeError):
-    """Raised when conflicting IDs/versions block publishing a Silver dataset."""
+    """Ngoại lệ khi ID hoặc phiên bản xung đột khiến bộ dữ liệu Silver không thể công bố."""
 
     def __init__(self, dataset_version: str, report: dict[str, Any]) -> None:
         super().__init__(
@@ -75,7 +75,7 @@ class ConflictError(RuntimeError):
 
 @dataclass(slots=True)
 class SilverDataset:
-    """A published Silver dataset."""
+    """Một bộ dữ liệu Silver đã công bố."""
 
     dataset_version: str
     manifest: dict[str, Any]
@@ -84,7 +84,7 @@ class SilverDataset:
 
 
 # --------------------------------------------------------------------------- #
-# Row-level validation (runs inside Python UDFs)
+# Kiểm tra từng dòng dữ liệu (chạy trong Python UDF)
 # --------------------------------------------------------------------------- #
 
 
@@ -104,7 +104,7 @@ def _classify(exc: ValidationError) -> tuple[str, str]:
 
 
 def _parse_line(line: str | None) -> tuple[str | None, str | None]:
-    """Return ``(reason, detail)`` for lines that are not a JSON object."""
+    """Trả ``(reason, detail)`` cho dòng không phải đối tượng JSON."""
     if line is None or not line.strip():
         return "invalid_json", "empty line"
     try:
@@ -117,7 +117,7 @@ def _parse_line(line: str | None) -> tuple[str | None, str | None]:
 
 
 def validate_event_line(line: str | None) -> dict[str, Any]:
-    """Validate one Bronze event line; return normalized fields or a reason."""
+    """Kiểm tra một dòng sự kiện Bronze; trả các trường đã chuẩn hóa hoặc lý do lỗi."""
     reason, detail = _parse_line(line)
     if reason is None:
         try:
@@ -143,7 +143,7 @@ def validate_event_line(line: str | None) -> dict[str, Any]:
 
 
 def validate_product_line(line: str | None) -> dict[str, Any]:
-    """Validate one Bronze product line; return normalized fields or a reason."""
+    """Kiểm tra một dòng sản phẩm Bronze; trả các trường đã chuẩn hóa hoặc lý do lỗi."""
     reason, detail = _parse_line(line)
     if reason is None:
         try:
@@ -163,12 +163,12 @@ def validate_product_line(line: str | None) -> dict[str, Any]:
 
 
 # --------------------------------------------------------------------------- #
-# Spark schemas
+# Các lược đồ dữ liệu Spark
 # --------------------------------------------------------------------------- #
 
 
 def silver_event_schema():
-    """Spark schema of Silver events (DATA_CONTRACTS.md section 3)."""
+    """Lược đồ Spark của sự kiện Silver (DATA_CONTRACTS.md mục 3)."""
     from pyspark.sql import types as T
 
     return T.StructType(
@@ -186,7 +186,7 @@ def silver_event_schema():
 
 
 def silver_product_schema():
-    """Spark schema of Silver products (DATA_CONTRACTS.md section 3)."""
+    """Lược đồ Spark của sản phẩm Silver (DATA_CONTRACTS.md mục 3)."""
     from pyspark.sql import types as T
 
     return T.StructType(
@@ -222,7 +222,7 @@ def _udf_schema(base):
 
 
 def quarantine_schema():
-    """Rows removed from Silver, kept with their raw text for diagnosis."""
+    """Các dòng bị loại khỏi Silver, giữ văn bản thô để chẩn đoán lỗi."""
     from pyspark.sql import types as T
 
     return T.StructType(
@@ -237,12 +237,12 @@ def quarantine_schema():
 
 
 # --------------------------------------------------------------------------- #
-# Spark stages
+# Các giai đoạn xử lý Spark
 # --------------------------------------------------------------------------- #
 
 
 def read_bronze_lines(spark: SparkSession, uris: list[str]) -> DataFrame:
-    """Read the lines of exactly these published JSONL files, with file names."""
+    """Đọc các dòng của đúng những file JSONL đã công bố này, kèm tên file."""
     from pyspark.sql import functions as F
 
     return spark.read.text(uris).select(
@@ -273,7 +273,7 @@ def _quarantine(df: DataFrame, reason: str | None, key: str | None) -> DataFrame
 
 
 def _dedup(valid: DataFrame, key_cols: list[str], conflict_reason: str):
-    """Split rows into (unique, duplicate, conflict) by logical key."""
+    """Chia các dòng thành nhóm duy nhất, trùng lặp và xung đột theo khóa logic."""
     from pyspark.sql import Window
     from pyspark.sql import functions as F
 
@@ -300,7 +300,7 @@ def _dedup(valid: DataFrame, key_cols: list[str], conflict_reason: str):
 
 
 def transform_products(lines: DataFrame) -> tuple[DataFrame, DataFrame]:
-    """Bronze product lines -> (Silver products, quarantine)."""
+    """Các dòng sản phẩm Bronze -> (sản phẩm Silver, dữ liệu cách ly)."""
     from pyspark.sql import functions as F
 
     checked = _validated(lines, validate_product_line, silver_product_schema())
@@ -319,12 +319,12 @@ def transform_products(lines: DataFrame) -> tuple[DataFrame, DataFrame]:
 def transform_events(
     lines: DataFrame, product_ids: DataFrame
 ) -> tuple[DataFrame, DataFrame]:
-    """Bronze event lines -> (Silver events, quarantine).
+    """Các dòng sự kiện Bronze -> (sự kiện Silver, dữ liệu cách ly).
 
-    ``product_ids`` holds the distinct ``product_id`` of accepted Silver
-    products (any version). Ownership rules: a session belongs to exactly one
-    user, a cart to exactly one (user, session); every event of a violating
-    session or cart is rejected as ``invalid_cart_owner``.
+    ``product_ids`` chứa các ``product_id`` duy nhất của sản phẩm Silver được
+    chấp nhận, ở bất kỳ phiên bản nào. Mỗi phiên thuộc đúng một người dùng,
+    mỗi giỏ thuộc đúng một cặp (người dùng, phiên). Mọi sự kiện của phiên hoặc
+    giỏ vi phạm đều bị loại với lý do ``invalid_cart_owner``.
     """
     from pyspark.sql import functions as F
 
@@ -385,12 +385,12 @@ def transform_events(
 
 
 # --------------------------------------------------------------------------- #
-# Orchestration
+# Điều phối các bước xử lý
 # --------------------------------------------------------------------------- #
 
 
 def _bronze_table(data: bytes, name: str) -> str | None:
-    """Classify versioned sync batches without assuming a source-directory name."""
+    """Phân loại lô đồng bộ có phiên bản mà không giả định tên thư mục nguồn."""
     leaf = name.rsplit("/", 1)[-1]
     known = {
         "products.jsonl": "products",
@@ -420,11 +420,11 @@ def _bronze_table(data: bytes, name: str) -> str | None:
 def bronze_inputs(
     store: LakeStore,
 ) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
-    """Discover verified legacy, streaming, export and immutable sync batches.
+    """Tìm các lô cũ, streaming, xuất dữ liệu và đồng bộ bất biến đã được kiểm tra.
 
-    Only manifest-listed files with matching size/hash are consumed. Hidden
-    publication/download staging is excluded from every layout. Dataset sync
-    retains its existing object keys; table identity comes from the JSONL.
+    Chỉ đọc file có trong manifest, khớp kích thước và mã băm. Bỏ qua thư mục
+    tạm ẩn dùng để công bố/tải xuống ở mọi cách bố trí. Đồng bộ dữ liệu giữ
+    nguyên khóa đối tượng; bảng dữ liệu được xác định từ nội dung JSONL.
     """
     inputs = []
     skipped = []
@@ -517,7 +517,7 @@ def bronze_inputs(
 
 
 def dataset_version_for(inputs: list[dict[str, Any]]) -> str:
-    """Content-addressed Silver dataset version."""
+    """Phiên bản bộ dữ liệu Silver được định danh theo nội dung."""
     digest = hashlib.sha256(f"etl={ETL_VERSION}\n".encode())
     for item in inputs:
         digest.update(f"{item['path']}\t{item['sha256']}\n".encode())
@@ -525,7 +525,7 @@ def dataset_version_for(inputs: list[dict[str, Any]]) -> str:
 
 
 def bronze_provenance(inputs: list[dict[str, Any]]) -> dict[str, Any]:
-    """Aggregate only manifests that contributed accepted product/event files."""
+    """Chỉ tổng hợp manifest có đóng góp file sản phẩm hoặc sự kiện được chấp nhận."""
     sources = {}
     for item in inputs:
         metadata = item.get("source_manifest")
@@ -581,7 +581,7 @@ def bronze_provenance(inputs: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def manifest_name(dataset_version: str) -> str:
-    """Silver manifest object name (at the Silver root, so paths stay relative)."""
+    """Tên đối tượng manifest ở gốc Silver để các đường dẫn bên trong vẫn là tương đối."""
     return f"{dataset_version}.manifest.json"
 
 
@@ -604,7 +604,7 @@ def run_etl(
     *,
     settings: Settings | None = None,
 ) -> SilverDataset:
-    """Publish (or reuse) the Silver dataset for the current Bronze files."""
+    """Công bố hoặc dùng lại bộ dữ liệu Silver từ các file Bronze hiện tại."""
     from pyspark import StorageLevel
     from pyspark.sql import functions as F
 
@@ -645,7 +645,7 @@ def run_etl(
         + event_reasons["conflicting_event_id"]
     )
 
-    # Data files first; the manifest (publication marker) is written last.
+    # Ghi dữ liệu trước, ghi manifest sau cùng để đánh dấu công bố.
     products.orderBy("product_id", "collected_at").coalesce(1).write.mode(
         "overwrite"
     ).parquet(store.uri("silver", "products", version))
@@ -776,7 +776,7 @@ def run_etl(
 
 
 def list_silver_versions(store: LakeStore) -> list[dict[str, Any]]:
-    """Published Silver manifests, oldest first."""
+    """Các manifest Silver đã công bố, sắp từ cũ đến mới."""
     manifests = [
         store.read_json("silver", item.path)
         for item in store.list_files("silver")
@@ -788,7 +788,7 @@ def list_silver_versions(store: LakeStore) -> list[dict[str, Any]]:
 def load_silver(
     spark: SparkSession, store: LakeStore, dataset_version: str | None = None
 ) -> tuple[DataFrame, DataFrame, dict[str, Any]]:
-    """Read a published Silver dataset (latest when no version is given)."""
+    """Đọc bộ dữ liệu Silver đã công bố; lấy bản mới nhất nếu không chỉ định phiên bản."""
     if dataset_version is None:
         published = list_silver_versions(store)
         if not published:
@@ -811,7 +811,7 @@ def load_silver(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Run ``python -m recommender.pipeline.etl``."""
+    """Chạy ``python -m recommender.pipeline.etl``."""
     parser = argparse.ArgumentParser(description="Bronze JSONL -> Silver Parquet")
     parser.add_argument("--master", default="local[2]")
     parser.add_argument("--driver-memory", default="1g")

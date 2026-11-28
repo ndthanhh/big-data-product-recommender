@@ -1,9 +1,10 @@
-"""Shared Pydantic v2 contracts for Bronze/Silver, Gold and HTTP API v1.
+"""Hợp đồng Pydantic v2 dùng chung cho Bronze/Silver, Gold và HTTP API v1.
 
-DATA_CONTRACTS.md is authoritative for wire enums and UUIDs. Silver uses the
-same Product/Event models with UTC datetime values instead of wire strings.
-Record validators do not perform I/O: catalog membership and session/cart
-ownership across records must also be checked by ETL and database transactions.
+DATA_CONTRACTS.md quy định chính thức enum và UUID trong dữ liệu trao đổi.
+Silver dùng cùng mô hình Product/Event, với datetime UTC thay cho chuỗi.
+Bộ kiểm tra bản ghi không thực hiện I/O: ETL và giao dịch cơ sở dữ liệu
+còn phải kiểm tra sản phẩm có trong danh mục và quyền sở hữu phiên/giỏ
+xuyên suốt các bản ghi.
 """
 
 import re
@@ -135,7 +136,7 @@ WebUrl = Annotated[
 
 
 class ContractModel(BaseModel):
-    """Forbid unknown fields, coercion of JSON primitives and non-finite numbers."""
+    """Cấm trường lạ, tự ép kiểu dữ liệu JSON cơ bản và số không hữu hạn."""
 
     model_config = ConfigDict(
         extra="forbid", strict=True, validate_default=True, allow_inf_nan=False
@@ -143,7 +144,7 @@ class ContractModel(BaseModel):
 
 
 class UserProfile(ContractModel):
-    """Synthetic Vietnamese demographics; interest IDs reference the taxonomy."""
+    """Nhân khẩu học Việt Nam mô phỏng; mã sở thích tham chiếu hệ phân loại."""
 
     user_id: BusinessId
     name: Annotated[str, StringConstraints(min_length=1, max_length=128)]
@@ -156,7 +157,7 @@ class UserProfile(ContractModel):
 
 
 class Product(ContractModel):
-    """One version of Bronze/Silver product metadata; also the API product body."""
+    """Một phiên bản thông tin sản phẩm Bronze/Silver, cũng là nội dung sản phẩm trong API."""
 
     product_id: ProductId
     name: Annotated[str, StringConstraints(min_length=1, max_length=512)]
@@ -174,13 +175,13 @@ class Product(ContractModel):
     @field_validator("description", "brand", mode="before")
     @classmethod
     def normalize_blank_text(cls, value: object) -> object:
-        """Represent optional whitespace-only descriptions and brands as null."""
+        """Đưa mô tả và thương hiệu tùy chọn chỉ chứa khoảng trắng về null."""
         return None if isinstance(value, str) and not value.strip() else value
 
     @field_validator("name")
     @classmethod
     def validate_name(cls, value: str) -> str:
-        """Require at least one visible character without silently trimming text."""
+        """Yêu cầu ít nhất một ký tự nhìn thấy, không âm thầm cắt khoảng trắng."""
         if not value.strip():
             raise ValueError("name must not be blank")
         return value
@@ -188,21 +189,21 @@ class Product(ContractModel):
     @field_validator("category_id")
     @classmethod
     def validate_category(cls, value: str) -> str:
-        """Keep category IDs lowercase as required by CONVENTIONS.md."""
+        """Giữ mã nhóm sản phẩm ở dạng chữ thường theo CONVENTIONS.md."""
         if value != value.lower():
             raise ValueError("category_id must be lowercase")
         return value
 
     @model_validator(mode="after")
     def validate_source(self) -> Self:
-        """Require the catalog source to match the product ID prefix."""
+        """Yêu cầu nguồn danh mục khớp tiền tố ID sản phẩm."""
         if ":" in self.source or self.product_id.partition(":")[0] != self.source:
             raise ValueError("source must match the product_id prefix")
         return self
 
 
 class Event(ContractModel):
-    """The eight immutable business fields of a Bronze/Silver event."""
+    """Tám trường nghiệp vụ bất biến của một sự kiện Bronze/Silver."""
 
     event_id: EventId
     user_id: BusinessId
@@ -215,20 +216,20 @@ class Event(ContractModel):
 
     @model_validator(mode="after")
     def require_cart(self) -> Self:
-        """An add_to_cart operation must identify its cart."""
+        """Thao tác add_to_cart phải xác định giỏ hàng."""
         if self.event_type == "add_to_cart" and self.cart_id is None:
             raise ValueError("add_to_cart requires cart_id")
         return self
 
 
 class GoldProduct(Product):
-    """Catalog version selected for a particular batch run."""
+    """Phiên bản danh mục được chọn cho một lần chạy batch cụ thể."""
 
     run_id: PathId
 
 
 class Interaction(ContractModel):
-    """A deduplicated weighted user/product aggregate for the training window."""
+    """Tổng hợp có trọng số theo người dùng/sản phẩm trong cửa sổ huấn luyện, đã loại trùng."""
 
     run_id: PathId
     user_id: BusinessId
@@ -249,7 +250,7 @@ SortedProducts = Annotated[
 
 
 class Basket(ContractModel):
-    """One user's cart, aggregated exclusively from add_to_cart events."""
+    """Giỏ của một người dùng, chỉ tổng hợp từ sự kiện add_to_cart."""
 
     run_id: PathId
     cart_id: BusinessId
@@ -261,14 +262,14 @@ class Basket(ContractModel):
 
     @model_validator(mode="after")
     def validate_time_range(self) -> Self:
-        """A basket cannot end before its first event."""
+        """Giỏ hàng không thể kết thúc trước sự kiện đầu tiên của nó."""
         if self.first_event_at > self.last_event_at:
             raise ValueError("first_event_at must not exceed last_event_at")
         return self
 
 
 class SeenProduct(ContractModel):
-    """Seen membership scoped to the same catalog and training run."""
+    """Sản phẩm đã xem được xác định trong cùng danh mục và lần huấn luyện."""
 
     run_id: PathId
     user_id: BusinessId
@@ -276,7 +277,7 @@ class SeenProduct(ContractModel):
 
 
 class Recommendation(ContractModel):
-    """A recommendation item in an API response."""
+    """Một sản phẩm gợi ý trong phản hồi API."""
 
     product_id: ProductId
     rank: Rank
@@ -285,7 +286,7 @@ class Recommendation(ContractModel):
 
     @model_validator(mode="after")
     def validate_score(self) -> Self:
-        """Scores follow their method's domain; ALS and MMR may be negative."""
+        """Điểm tuân theo miền giá trị của phương pháp; điểm ALS và MMR có thể âm."""
         if self.method == "popularity" and self.score <= 0:
             raise ValueError("popularity scores must be positive")
         if self.method in {"tfidf", "session"} and not 0 <= self.score <= 1:
@@ -296,7 +297,7 @@ class Recommendation(ContractModel):
 
 
 class RecommendationItem(Recommendation):
-    """A row of Gold recommendation_items (batch algorithms only)."""
+    """Một dòng Gold recommendation_items, chỉ dùng thuật toán batch."""
 
     run_id: PathId
     kind: RecommendationKind
@@ -305,7 +306,7 @@ class RecommendationItem(Recommendation):
 
     @model_validator(mode="after")
     def validate_context(self) -> Self:
-        """Validate the context and algorithm permitted for each batch kind."""
+        """Kiểm tra ngữ cảnh và thuật toán được phép cho từng loại gợi ý batch."""
         if self.kind == "popular":
             if self.context_id != "global" or self.method != "popularity":
                 raise ValueError(
@@ -319,10 +320,10 @@ class RecommendationItem(Recommendation):
 
 
 def validate_recommendation_items(items: Sequence[RecommendationItem]) -> None:
-    """Check Gold row keys and ranks independently of physical file ordering.
+    """Kiểm tra khóa và thứ hạng các dòng Gold, không phụ thuộc thứ tự vật lý trong file.
 
-    Catalog foreign keys, category membership and seen filtering additionally
-    require the run's catalog/history and are checked by the importer in T08.
+    Khóa ngoại danh mục, nhóm sản phẩm và lọc lịch sử đã xem còn cần danh mục
+    và lịch sử của lần chạy, được bộ nhập dữ liệu kiểm tra trong T08.
     """
     groups: dict[tuple[str, str, str], list[RecommendationItem]] = defaultdict(list)
     for item in items:
@@ -337,7 +338,7 @@ def validate_recommendation_items(items: Sequence[RecommendationItem]) -> None:
 
 
 class AssociationRule(ContractModel):
-    """An FP-Growth rule with a single consequent and canonical antecedent set."""
+    """Luật FP-Growth có một sản phẩm vế phải và tập vế trái ở dạng chuẩn."""
 
     run_id: PathId
     antecedent_ids: SortedProducts
@@ -348,21 +349,21 @@ class AssociationRule(ContractModel):
 
     @model_validator(mode="after")
     def validate_consequent(self) -> Self:
-        """The consequent cannot also belong to the antecedent."""
+        """Sản phẩm vế phải không được đồng thời thuộc vế trái."""
         if self.consequent_id in self.antecedent_ids:
             raise ValueError("consequent_id must not belong to antecedent_ids")
         return self
 
 
 class ProductsQuery(ContractModel):
-    """Validated pagination parameters for the product catalog."""
+    """Tham số phân trang danh mục sản phẩm đã được kiểm tra."""
 
     limit: Annotated[int, Field(ge=1, le=100)] = 20
     offset: Annotated[int, Field(ge=0)] = 0
 
 
 class PersonalizedQuery(ContractModel):
-    """Validated parameters for personalized recommendations."""
+    """Tham số gợi ý cá nhân hóa đã được kiểm tra."""
 
     user_id: BusinessId
     limit: RecommendationLimit = 10
@@ -370,14 +371,14 @@ class PersonalizedQuery(ContractModel):
 
 
 class SubstitutesQuery(ContractModel):
-    """Validated parameters for same-category substitutes."""
+    """Tham số gợi ý sản phẩm thay thế cùng nhóm đã được kiểm tra."""
 
     product_id: ProductId
     limit: RecommendationLimit = 10
 
 
 class ComplementsRequest(ContractModel):
-    """A cart of at most 100 input IDs, deduplicated after validating its size."""
+    """Giỏ tối đa 100 ID đầu vào; loại trùng sau khi kiểm tra kích thước."""
 
     product_ids: Annotated[list[ProductId], Field(max_length=100)]
     limit: RecommendationLimit = 10
@@ -385,43 +386,43 @@ class ComplementsRequest(ContractModel):
     @field_validator("product_ids")
     @classmethod
     def deduplicate_products(cls, value: list[str]) -> list[str]:
-        """Treat the cart as a set with deterministic iteration order."""
+        """Coi giỏ hàng là tập hợp có thứ tự duyệt xác định."""
         return sorted(set(value))
 
 
 class EventCreate(Event):
-    """The event ingestion endpoint accepts demo events only."""
+    """Điểm tiếp nhận sự kiện chỉ chấp nhận sự kiện demo."""
 
     source: Literal["demo"]
 
 
 class HealthResponse(ContractModel):
-    """Process liveness only, independent of database or snapshot availability."""
+    """Chỉ kiểm tra tiến trình còn hoạt động, độc lập với cơ sở dữ liệu và snapshot."""
 
     status: Literal["ok"] = "ok"
 
 
 class ProductsResponse(ContractModel):
-    """A catalog page, including an empty items array past the last page."""
+    """Một trang danh mục; mảng items rỗng khi vượt quá trang cuối."""
 
     items: list[Product]
 
 
 class EventResponse(ContractModel):
-    """Both a new event and an equivalent retry return the same UUID body."""
+    """Sự kiện mới và yêu cầu gửi lại tương đương đều trả cùng nội dung UUID."""
 
     event_id: EventId
 
 
 class RecommendationResponse(ContractModel):
-    """Recommendations reranked consecutively after request-specific filtering."""
+    """Gợi ý được đánh lại thứ hạng liên tiếp sau bước lọc riêng của yêu cầu."""
 
     run_id: PathId
     items: list[Recommendation]
 
     @model_validator(mode="after")
     def validate_items(self) -> Self:
-        """The response is ordered by rank and cannot contain duplicate products."""
+        """Phản hồi được sắp theo thứ hạng và không chứa sản phẩm trùng."""
         if [item.rank for item in self.items] != list(range(1, len(self.items) + 1)):
             raise ValueError("response ranks must be consecutive from 1 in order")
         if len({item.product_id for item in self.items}) != len(self.items):
@@ -441,14 +442,14 @@ ErrorCode = Literal[
 
 
 class ErrorField(ContractModel):
-    """A validation error at a particular request field."""
+    """Lỗi kiểm tra dữ liệu tại một trường cụ thể của yêu cầu."""
 
     path: str
     message: str
 
 
 class ErrorDetail(ContractModel):
-    """The standard v1 error detail; fields is always an array."""
+    """Chi tiết lỗi chuẩn v1; fields luôn là mảng."""
 
     code: ErrorCode
     message: str
@@ -456,6 +457,6 @@ class ErrorDetail(ContractModel):
 
 
 class ErrorResponse(ContractModel):
-    """The error envelope shared by all HTTP error responses."""
+    """Cấu trúc lỗi dùng chung cho mọi phản hồi HTTP lỗi."""
 
     detail: ErrorDetail

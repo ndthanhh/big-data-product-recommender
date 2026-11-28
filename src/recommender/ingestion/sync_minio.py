@@ -1,4 +1,4 @@
-"""Publish immutable Bronze batches to MinIO and download verified local copies."""
+"""Công bố các lô Bronze bất biến lên MinIO và tải bản sao đã kiểm tra về máy."""
 
 import argparse
 import hashlib
@@ -17,7 +17,7 @@ from recommender.streaming.consumer import create_minio_client
 
 
 def _manifest_files(folder: Path, manifest: dict) -> list[tuple[dict, Path]]:
-    """Resolve confined file paths before copying or reading any data."""
+    """Xác định đường dẫn nằm trong thư mục cho phép trước khi sao chép hoặc đọc dữ liệu."""
     if manifest.get("schema_version") != 1 or not manifest.get("files"):
         raise ValueError("Invalid manifest")
     TypeAdapter(PathId).validate_python(manifest["dataset_version"])
@@ -43,7 +43,7 @@ def _manifest_files(folder: Path, manifest: dict) -> list[tuple[dict, Path]]:
 
 
 def validate_manifest(folder: Path) -> dict:
-    """Verify confined paths, byte counts and hashes before publishing or activation."""
+    """Kiểm tra phạm vi đường dẫn, số byte và mã băm trước khi công bố hoặc kích hoạt."""
     manifest = json.loads((folder / "manifest.json").read_bytes())
     for entry, path in _manifest_files(folder, manifest):
         relative = entry["path"]
@@ -76,7 +76,7 @@ def sync_bronze_to_minio(
     *,
     client: Any = None,
 ) -> list[str]:
-    """Publish versioned batches, returning prefixes suitable for download."""
+    """Công bố các lô có phiên bản và trả về tiền tố đường dẫn dùng để tải xuống."""
     source = source_dir or get_settings().data_lake_dir / "bronze"
     client = client or create_minio_client()
     for bucket in ("bronze", "silver", "gold"):
@@ -91,16 +91,16 @@ def sync_bronze_to_minio(
         folder = manifest_path.parent
         content = manifest_path.read_bytes()
         manifest = json.loads(content)
-        # The manifest digest also separates consumer batches whose dataset ID
-        # alone may describe the same event payload.
+        # Mã băm manifest còn phân biệt các lô consumer mà chỉ riêng dataset ID
+        # có thể cùng mô tả một nội dung sự kiện.
         digest = hashlib.sha256(content).hexdigest()[:16]
         prefix = f"datasets/{manifest['dataset_version']}/{digest}"
         existing = _read_object(client, f"{prefix}/manifest.json")
         if existing is not None and existing != content:
             raise ValueError("Immutable remote manifest conflict")
         if existing is None:
-            # Capture a private copy. Hash that copy, then upload only that copy:
-            # changing a source file during publication cannot alter verified bytes.
+            # Tạo bản sao riêng, tính mã băm rồi chỉ tải chính bản sao đó lên:
+            # thay đổi file nguồn lúc công bố không làm đổi các byte đã kiểm tra.
             with tempfile.TemporaryDirectory(prefix="recommender-publish-") as name:
                 staged = Path(name)
                 for entry, path in _manifest_files(folder, manifest):
@@ -118,15 +118,15 @@ def sync_bronze_to_minio(
                 client.fput_object(
                     "bronze", f"{prefix}/manifest.json", str(staged / "manifest.json")
                 )
-        # An identical published manifest is a no-op. Never reopen its data
-        # objects for writing, even if the local source has since changed.
+        # Nếu manifest đã công bố giống hệt thì bỏ qua. Không mở lại các đối tượng
+        # dữ liệu để ghi, kể cả khi nguồn cục bộ đã thay đổi.
         published.append(prefix)
         print(prefix)
     return published
 
 
 def download_batch(prefix: str, output_dir: Path, *, client: Any = None) -> Path:
-    """Download an entire batch to a temporary sibling, then activate atomically."""
+    """Tải cả lô vào thư mục tạm cùng cấp, sau đó kích hoạt bằng thao tác nguyên tử."""
     client = client or create_minio_client()
     content = _read_object(client, prefix.rstrip("/") + "/manifest.json")
     if content is None:

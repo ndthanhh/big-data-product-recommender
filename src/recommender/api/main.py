@@ -1,4 +1,4 @@
-"""FastAPI serving entry point. Run with uvicorn recommender.api.main:app."""
+"""Điểm khởi chạy FastAPI. Chạy bằng uvicorn recommender.api.main:app."""
 
 from fastapi import FastAPI
 

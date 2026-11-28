@@ -1,4 +1,4 @@
-"""One error envelope for validation, HTTP and database failures."""
+"""Dùng chung một cấu trúc phản hồi lỗi cho kiểm tra dữ liệu, HTTP và cơ sở dữ liệu."""
 
 import logging
 

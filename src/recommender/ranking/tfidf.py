@@ -1,13 +1,13 @@
-"""T05 TF-IDF content features, user content profiles and personalized TF-IDF.
+"""T05 đặc trưng nội dung TF-IDF, hồ sơ nội dung người dùng và gợi ý TF-IDF cá nhân hóa.
 
-Text = ``name + category_id + description`` (null -> ""), Unicode NFC and
-lowercase; tokens are maximal runs of letters/digits, so Vietnamese words with
-diacritics stay intact. Spark ML ``CountVectorizer`` + ``IDF`` are fit on the
-catalog as of the cutoff only (EXPERIMENT_PLAN.md sections 3.3 and 6).
+Văn bản = ``name + category_id + description`` (null -> ""), chuẩn hóa
+Unicode NFC và chữ thường. Token là chuỗi chữ/số dài nhất, giữ nguyên
+từ tiếng Việt có dấu. Spark ML ``CountVectorizer`` + ``IDF`` chỉ học từ
+danh mục có trước mốc thời gian (EXPERIMENT_PLAN.md mục 3.3 và 6).
 
-The product dimension is small (catalog), so fitted vectors are L2-normalized
-into a dense NumPy matrix on the driver; the event dimension stays in Spark.
-User profiles are ``L2(sum_i weight(u,i) * v_i)`` and scores are cosines.
+Số sản phẩm trong danh mục nhỏ, nên vector sau khi học được chuẩn hóa L2
+và đưa vào ma trận NumPy đặc trên driver; dữ liệu sự kiện vẫn ở Spark.
+Hồ sơ người dùng là ``L2(sum_i weight(u,i) * v_i)`` và điểm là cosine.
 """
 
 from __future__ import annotations
@@ -35,18 +35,18 @@ USER_BATCH = 2048
 def normalize_text(
     name: str | None, category_id: str | None, description: str | None
 ) -> str:
-    """NFC + lowercase concatenation used for both fit and transform."""
+    """Ghép văn bản, chuẩn hóa NFC và chữ thường cho cả bước học và biến đổi."""
     text = " ".join(part or "" for part in (name, category_id, description))
     return unicodedata.normalize("NFC", text).lower()
 
 
 @dataclass(slots=True)
 class TfidfFeatures:
-    """L2-normalized TF-IDF rows of one run's catalog."""
+    """Các dòng TF-IDF chuẩn hóa L2 của danh mục thuộc một lần chạy."""
 
     product_ids: list[str]
     categories: list[str]
-    matrix: np.ndarray  # shape (n_products, vocab), rows L2-normalized or zero
+    matrix: np.ndarray  # (n_products, vocab), chuẩn hóa L2 hoặc toàn 0
     index: dict[str, int] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
@@ -55,11 +55,11 @@ class TfidfFeatures:
 
     @property
     def zero_vectors(self) -> int:
-        """Products whose text produced no non-zero TF-IDF weight."""
+        """Các sản phẩm có văn bản không tạo ra trọng số TF-IDF khác 0."""
         return int((np.linalg.norm(self.matrix, axis=1) == 0).sum())
 
     def vector(self, product_id: str) -> np.ndarray | None:
-        """Normalized vector, or ``None`` when missing or zero."""
+        """Vector đã chuẩn hóa, hoặc ``None`` khi thiếu hay toàn 0."""
         row = self.index.get(product_id)
         if row is None:
             return None
@@ -70,7 +70,7 @@ class TfidfFeatures:
 def fit_tfidf(
     catalog: DataFrame, *, vocab_size: int = VOCAB_SIZE, min_df: float = MIN_DF
 ) -> tuple[PipelineModel, TfidfFeatures]:
-    """Fit CountVectorizer + IDF on ``catalog`` and return normalized features."""
+    """Huấn luyện CountVectorizer + IDF trên ``catalog`` và trả đặc trưng đã chuẩn hóa."""
     from pyspark.ml import Pipeline
     from pyspark.ml.feature import IDF, CountVectorizer, RegexTokenizer
     from pyspark.sql import functions as F
@@ -120,7 +120,7 @@ def fit_tfidf(
 def features_from_rows(
     rows: Iterable[tuple[str, str, list[int], list[float], int]],
 ) -> TfidfFeatures:
-    """Rebuild features saved by :func:`feature_rows` (reload path)."""
+    """Dựng lại đặc trưng đã lưu bởi :func:`feature_rows` khi nạp lại."""
     rows = sorted(rows)
     width = max((r[4] for r in rows), default=1)
     matrix = np.zeros((len(rows), max(width, 1)), dtype=np.float64)
@@ -132,7 +132,7 @@ def features_from_rows(
 def feature_rows(
     features: TfidfFeatures,
 ) -> list[tuple[str, str, list[int], list[float], int]]:
-    """Sparse per-product rows for persisting the normalized vectors per run."""
+    """Các dòng thưa theo sản phẩm để lưu vector chuẩn hóa của từng lần chạy."""
     out = []
     width = features.matrix.shape[1]
     for pid, category, vec in zip(
@@ -146,7 +146,7 @@ def feature_rows(
 def user_profiles(
     features: TfidfFeatures, interactions: Iterable[tuple[str, str, float]]
 ) -> tuple[list[str], np.ndarray]:
-    """L2-normalized weighted profiles; users with an empty profile are omitted."""
+    """Hồ sơ có trọng số chuẩn hóa L2; bỏ qua người dùng có hồ sơ rỗng."""
     by_user: dict[str, list[tuple[int, float]]] = defaultdict(list)
     for user_id, product_id, weight in interactions:
         row = features.index.get(product_id)
@@ -172,7 +172,7 @@ def _top_rows(
     if candidates.size == 0:
         return []
     if candidates.size > limit:
-        # Exact boundary: keep every item tied with the limit-th best score.
+        # Giữ mọi sản phẩm bằng điểm với sản phẩm tốt thứ limit tại ranh giới chọn.
         part = np.argpartition(-scores[candidates], limit - 1)[:limit]
         threshold = scores[candidates[part]].min()
         candidates = candidates[scores[candidates] >= threshold]
@@ -191,7 +191,7 @@ def recommend_tfidf(
     limit: int = CANDIDATE_LIMIT,
     users: Iterable[str] | None = None,
 ) -> dict[str, list[Scored]]:
-    """Personalized TF-IDF: cosine(profile, item) over unseen catalog items."""
+    """TF-IDF cá nhân hóa: cosine giữa hồ sơ và sản phẩm chưa xem trong danh mục."""
     user_ids, profiles = user_profiles(features, interactions)
     wanted = None if users is None else set(users)
     result: dict[str, list[Scored]] = {}

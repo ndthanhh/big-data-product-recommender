@@ -1,4 +1,4 @@
-"""Validate a complete, immutable serving snapshot before opening a write transaction."""
+"""Kiểm tra snapshot phục vụ đầy đủ và bất biến trước khi mở giao dịch ghi."""
 
 import hashlib
 import json

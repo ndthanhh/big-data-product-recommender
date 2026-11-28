@@ -1,17 +1,17 @@
-"""T07 benchmark: Popularity vs TF-IDF vs Implicit ALS vs ALS + MMR.
+"""Đo thử T07: Popularity, TF-IDF, Implicit ALS và ALS + MMR.
 
-Protocol (EXPERIMENT_PLAN.md sections 3-7):
+Quy trình (EXPERIMENT_PLAN.md mục 3-7):
 
-1. Split Silver events by the two UTC cutoffs and purge carts crossing them.
-2. Validation: fit on train only (catalog, vocabulary/IDF, popularity, ALS
-   factors, rules and seen sets as of ``split_val_time``); choose the ALS
-   configuration, the MMR lambda and the FP-Growth thresholds.
-3. Lock the configuration, refit on train + validation (cutoff
-   ``split_test_time``) and score the test window exactly once.
+1. Chia sự kiện Silver theo hai mốc UTC và loại giỏ hàng trải qua các mốc đó.
+2. Tập validation: chỉ học từ tập train (danh mục, từ vựng/IDF, popularity,
+   các nhân tố ALS, luật và lịch sử đã xem tính đến ``split_val_time``);
+   chọn cấu hình ALS, hệ số lambda của MMR và các ngưỡng FP-Growth.
+3. Chốt cấu hình, huấn luyện lại trên train + validation (mốc
+   ``split_test_time``), rồi đánh giá tập test đúng một lần.
 
-Every method is scored on the same users ``U`` (users with at least one
-relevant label), the same candidate policy ``C_t minus H_u`` and the same
-popularity fallback. Outputs go to ``gold/<run_id>/evaluation/``.
+Mọi phương pháp được đánh giá trên cùng tập người dùng ``U`` (có ít nhất
+một nhãn liên quan), cùng chính sách ứng viên ``C_t minus H_u`` và cùng
+cơ chế bổ sung bằng popularity. Kết quả lưu ở ``gold/<run_id>/evaluation/``.
 """
 
 from __future__ import annotations
@@ -92,7 +92,7 @@ QUALITY_COLUMNS = (
 
 @dataclass(slots=True)
 class Timer:
-    """Monotonic stage timings (EXPERIMENT_PLAN.md section 9)."""
+    """Đo thời gian từng giai đoạn bằng đồng hồ đơn điệu (EXPERIMENT_PLAN.md mục 9)."""
 
     rows: list[dict[str, Any]] = field(default_factory=list)
 
@@ -101,7 +101,7 @@ class Timer:
         status, error = "ok", ""
         try:
             return fn()
-        except Exception as exc:  # recorded, then re-raised
+        except Exception as exc:  # ghi nhận lỗi rồi ném lại ngoại lệ
             status, error = "error", repr(exc)[:500]
             raise
         finally:
@@ -118,7 +118,7 @@ class Timer:
 
 @dataclass(slots=True)
 class WindowData:
-    """Everything a model may know at one cutoff."""
+    """Toàn bộ thông tin mô hình được phép biết tại một mốc thời gian."""
 
     cutoff: datetime
     catalog: DataFrame
@@ -141,7 +141,7 @@ def prepare_window(
     timer: Timer,
     label: str,
 ) -> WindowData:
-    """Catalog as-of cutoff, aggregates and TF-IDF fitted on allowed data only."""
+    """Danh mục tại mốc thời gian, dữ liệu tổng hợp và TF-IDF chỉ học từ dữ liệu được phép."""
     catalog = catalog_as_of(products, cutoff, run_id).cache()
     meta = {
         r["product_id"]: {
@@ -184,7 +184,7 @@ def prepare_window(
 def relevance_labels(
     eval_events: DataFrame, window: WindowData
 ) -> tuple[dict[str, set[str]], dict[str, int]]:
-    """``R_u``: click/add_to_cart items in ``C_t`` not in ``H_u`` (section 4)."""
+    """``R_u``: sản phẩm click/add_to_cart thuộc ``C_t`` và chưa có trong ``H_u`` (mục 4)."""
     from pyspark.sql import functions as F
 
     rows = (
@@ -238,7 +238,7 @@ def method_lists(
     k: int = DEFAULT_K,
     mmr_stats: MmrStats | None = None,
 ) -> tuple[dict[str, list[str]], dict[str, bool]]:
-    """Top-k lists for ``users`` under one method, with shared fallback."""
+    """Danh sách top-k cho ``users`` theo một phương pháp, dùng chung cơ chế dự phòng."""
     if method == "popularity":
         lists = {
             u: [
@@ -282,7 +282,7 @@ def score_lists(
     labels: Mapping[str, set[str]],
     window: WindowData,
 ) -> list[dict[str, Any]]:
-    """Quality rows for the three user cohorts."""
+    """Các dòng kết quả chất lượng cho ba nhóm người dùng."""
     vectors = {pid: window.features.vector(pid) for pid in window.features.product_ids}
     rows = []
     for cohort in COHORTS:
@@ -313,7 +313,7 @@ def score_lists(
 def holdout_carts(
     baskets: DataFrame, window: WindowData, seed: int
 ) -> list[tuple[str, list[str], str]]:
-    """``(cart_id, query items, held-out item)`` for carts with >= 2 catalog items."""
+    """``(cart_id, sản phẩm truy vấn, sản phẩm giữ lại)`` cho giỏ có >= 2 sản phẩm trong danh mục."""
     out = []
     for r in baskets.select("cart_id", "product_ids").collect():
         items = sorted(p for p in r["product_ids"] if p in window.catalog_meta)
@@ -337,7 +337,7 @@ def score_complements(
     window: WindowData,
     stats: dict[str, int],
 ) -> dict[str, Any]:
-    """Hit/Recall@10 of the held-out cart item (one target per cart)."""
+    """Hit/Recall@10 cho sản phẩm giữ lại của giỏ hàng (mỗi giỏ một mục tiêu)."""
     hits = predicted = 0
     confidences = []
     for _, query, held in carts:
@@ -365,7 +365,7 @@ def score_complements(
 
 
 def _better(a: dict[str, Any], b: dict[str, Any]) -> bool:
-    """Selection order: NDCG, then Recall (within 1e-6), then train time."""
+    """Thứ tự chọn: NDCG, rồi Recall (sai số 1e-6), rồi thời gian huấn luyện."""
     if abs(a["ndcg_at_10"] - b["ndcg_at_10"]) >= TIE_TOLERANCE:
         return a["ndcg_at_10"] > b["ndcg_at_10"]
     if abs(a["recall_at_10"] - b["recall_at_10"]) >= TIE_TOLERANCE:
@@ -375,7 +375,7 @@ def _better(a: dict[str, Any], b: dict[str, Any]) -> bool:
 
 def _pick(rows: list[dict[str, Any]]) -> dict[str, Any]:
     best = rows[0]
-    for row in rows[1:]:  # grid order breaks remaining ties
+    for row in rows[1:]:  # khi vẫn bằng nhau, ưu tiên thứ tự lưới
         if _better(row, best):
             best = row
     return best
@@ -383,7 +383,7 @@ def _pick(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 @dataclass(slots=True)
 class BenchmarkResult:
-    """Selected configuration and every report table."""
+    """Cấu hình đã chọn và toàn bộ bảng báo cáo."""
 
     als: AlsParams
     mmr_lambda: float
@@ -395,7 +395,7 @@ class BenchmarkResult:
     config: dict[str, Any]
 
     def selection(self) -> dict[str, Any]:
-        """The locked configuration used for test and serving."""
+        """Cấu hình đã chốt để đánh giá tập test và phục vụ gợi ý."""
         return {
             "als": self.als.as_dict(),
             "mmr_lambda": self.mmr_lambda,
@@ -418,7 +418,7 @@ def run_benchmark(
     fp_grid: Sequence[FpGrowthParams] = FPGROWTH_GRID,
     log: Callable[[str], None] = print,
 ) -> BenchmarkResult:
-    """Run validation selection and the single locked test evaluation."""
+    """Chọn cấu hình trên validation, rồi đánh giá tập test một lần với cấu hình đã chốt."""
     from pyspark.sql import functions as F
 
     split_config = split_config or SplitConfig()
@@ -431,7 +431,7 @@ def run_benchmark(
     quality: list[dict[str, Any]] = []
     complements: list[dict[str, Any]] = []
 
-    # ---------------- validation: fit on train ---------------- #
+    # ---------------- validation: huấn luyện trên train ---------------- #
     train = labeled.where(F.col("split") == "train")
     val_events = labeled.where(F.col("split") == "validation")
     w_val = prepare_window(
@@ -467,7 +467,7 @@ def run_benchmark(
         rows = score_lists("validation", "als", config, lists, fb, labels_val, w_val)
         quality += rows
         row = {**rows[0], "train_seconds": seconds, "params": params}
-        # Keep only the current best candidates in memory (grid order breaks ties).
+        # Chỉ giữ ứng viên tốt nhất hiện tại trong bộ nhớ; dùng thứ tự lưới khi bằng nhau.
         if best_row is None or _better(row, best_row):
             best_row, cands_val = row, cands
         log(f"  ALS {config}: NDCG@10={rows[0]['ndcg_at_10']:.4f}")
@@ -531,7 +531,7 @@ def run_benchmark(
         ),
     )[1][1]
 
-    # ---------------- test: refit on train + validation ---------------- #
+    # ---------------- test: huấn luyện lại trên train + validation ---------------- #
     history = labeled.where(F.col("split").isin("train", "validation"))
     test_events = labeled.where(F.col("split") == "test")
     w_test = prepare_window(
@@ -655,7 +655,7 @@ def _csv(rows: Sequence[Mapping[str, Any]], columns: Sequence[str]) -> bytes:
 def write_evaluation(
     store: LakeStore, run_id: str, result: BenchmarkResult
 ) -> list[str]:
-    """Write the evaluation files of EXPERIMENT_PLAN.md section 11."""
+    """Ghi các file đánh giá theo EXPERIMENT_PLAN.md mục 11."""
     base = (run_id, "evaluation")
     config = {**result.config, "selection": result.selection()}
     store.write_json("gold", *base, "config.json", value=config)
@@ -694,7 +694,7 @@ def write_evaluation(
 
 
 def format_test_table(result: BenchmarkResult) -> str:
-    """Human-readable test results for the console."""
+    """Định dạng kết quả tập test dễ đọc để hiển thị trên console."""
     lines = ["model        Recall@10  NDCG@10   ILD      Coverage  fallback"]
     for row in result.quality:
         if row["split"] == "test" and row["cohort"] == "all":
@@ -715,7 +715,7 @@ def format_test_table(result: BenchmarkResult) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Run ``python -m recommender.evaluation.benchmark`` (evaluation only)."""
+    """Chạy ``python -m recommender.evaluation.benchmark`` (chỉ đánh giá)."""
     from recommender.pipeline.etl import load_silver
     from recommender.pipeline.publish_snapshot import make_run_id
 

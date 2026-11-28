@@ -1,4 +1,4 @@
-"""The actual ML publisher must hand a usable snapshot to the serving app."""
+"""Bộ công bố ML thực tế phải bàn giao snapshot dùng được cho ứng dụng phục vụ."""
 
 from datetime import UTC, datetime
 from uuid import uuid4

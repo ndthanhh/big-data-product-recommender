@@ -1,4 +1,4 @@
-"""Consume Kafka events into durable local/MinIO Bronze micro-batches."""
+"""Nhận sự kiện Kafka và lưu bền vững thành các lô Bronze nhỏ trên máy hoặc MinIO."""
 
 import argparse
 import logging
@@ -20,7 +20,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 def create_minio_client() -> Any:
-    """Use bounded connection/read timeouts so offline fallback is prompt."""
+    """Giới hạn thời gian kết nối và đọc để chuyển sang lưu cục bộ nhanh khi mất kết nối."""
     from minio import Minio
     from urllib3 import PoolManager, Timeout
 
@@ -35,11 +35,11 @@ def create_minio_client() -> Any:
 
 
 class BronzeSink:
-    """Keep complete local batches and optionally copy them to the Bronze bucket.
+    """Giữ các lô cục bộ hoàn chỉnh và tùy chọn sao chép lên bucket Bronze.
 
-    Each batch gets its own directory and manifest; restarts cannot overwrite an
-    earlier publication. Kafka replay is at-least-once; ETL deduplicates event_id.
-    MinIO upload failures leave the local batch available for subsequent replay.
+    Mỗi lô có thư mục và manifest riêng; khởi động lại không ghi đè lô đã
+    công bố. Kafka có thể phát lại ít nhất một lần; ETL loại trùng event_id.
+    Lỗi tải lên MinIO vẫn giữ lô cục bộ để phát lại sau.
     """
 
     def __init__(
@@ -56,7 +56,7 @@ class BronzeSink:
         self.topic = topic
 
     def write_batch(self, events: Sequence[Event]) -> Path:
-        """Publish local data and manifest first, then upload the manifest last."""
+        """Công bố dữ liệu và manifest cục bộ trước; khi tải lên, gửi manifest sau cùng."""
         if not events:
             raise ValueError("Cannot publish an empty micro-batch")
         batch_id = f"batch_{uuid4()}"
@@ -84,8 +84,8 @@ class BronzeSink:
                         else "application/json",
                     )
             except (ImportError, OSError, MinioException, HTTPError) as exc:
-                # Only the optional remote copy is guarded: local write failures
-                # must propagate and prevent Kafka offsets from being committed.
+                # Chỉ bắt lỗi ở bước sao chép từ xa tùy chọn; lỗi ghi cục bộ
+                # phải được chuyển tiếp và ngăn commit offset Kafka.
                 LOGGER.warning(
                     "MinIO upload unavailable (%s); retained local batch %s",
                     type(exc).__name__,
@@ -95,7 +95,7 @@ class BronzeSink:
 
 
 def create_kafka_consumer(bootstrap_servers: str, topic: str, group_id: str) -> Any:
-    """Read raw JSON bytes with explicit durable-publication offset commits."""
+    """Đọc byte JSON thô và chỉ commit offset rõ ràng sau khi lưu bền vững."""
     from kafka import KafkaConsumer
 
     return KafkaConsumer(
@@ -118,11 +118,11 @@ def consume_events(
     monotonic: Callable[[], float] = time.monotonic,
     should_stop: Callable[[], bool] | None = None,
 ) -> int:
-    """Flush by size/time and on Ctrl+C; commit only successfully stored offsets.
+    """Ghi lô theo kích thước/thời gian và khi Ctrl+C; chỉ commit offset đã lưu thành công.
 
-    Explicit per-partition offsets avoid acknowledging excess records fetched in
-    the final poll. An invalid payload or storage failure stops without committing
-    its batch, allowing replay after the underlying problem is corrected.
+    Chỉ rõ offset cho từng phân vùng để tránh xác nhận thừa bản ghi được lấy
+    ở lần poll cuối. Nội dung không hợp lệ hoặc lỗi lưu trữ sẽ dừng mà không
+    commit lô đó, cho phép phát lại sau khi khắc phục nguyên nhân.
     """
     from kafka.structs import OffsetAndMetadata, TopicPartition
 
@@ -188,7 +188,7 @@ def consume_events(
 
 
 def main(argv: list[str] | None = None) -> None:
-    """Run python -m recommender.streaming.consumer (Ctrl+C flushes and stops)."""
+    """Chạy python -m recommender.streaming.consumer; Ctrl+C ghi nốt dữ liệu rồi dừng."""
     settings = get_settings()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--bootstrap-servers", default=settings.kafka_bootstrap_servers)

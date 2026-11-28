@@ -1,4 +1,4 @@
-"""Immutable, idempotent demo events with transaction-scoped ownership locks."""
+"""Sự kiện demo bất biến, gửi lại an toàn, có khóa quyền sở hữu trong phạm vi giao dịch."""
 
 from fastapi import APIRouter, Request, Response
 from psycopg.rows import dict_row

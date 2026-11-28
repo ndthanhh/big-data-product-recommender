@@ -1,4 +1,4 @@
-"""Deterministic, bounded session ranking; never trains a model in a request."""
+"""Xếp hạng theo phiên có tính xác định và giới hạn xử lý; không huấn luyện trong yêu cầu."""
 
 from collections import defaultdict
 from collections.abc import Sequence

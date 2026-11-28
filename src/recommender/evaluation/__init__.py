@@ -1,1 +1,1 @@
-"""Evaluate recommendation quality and performance."""
+"""Đánh giá chất lượng và hiệu năng của hệ thống gợi ý."""

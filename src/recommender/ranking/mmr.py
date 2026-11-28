@@ -1,11 +1,11 @@
-"""T06 Maximal Marginal Relevance re-ranking (DATA_CONTRACTS.md section 7.2).
+"""T06 xếp hạng lại bằng Maximal Marginal Relevance (DATA_CONTRACTS.md mục 7.2).
 
-At each step pick ``argmax[lambda * norm(rel(i)) - (1 - lambda) * max_j cos(i, j)]``
-over the remaining candidates, ``j`` ranging over the already selected items
-(penalty 0 for the first pick). ``norm`` is min-max over the candidate list;
-equal non-zero scores normalize to 1, all-zero to 0. Missing or zero vectors
-have cosine 0. Rank is the selection order and is never re-sorted by the MMR
-score; objective ties break by product ID ascending.
+Mỗi bước chọn ``argmax[lambda * norm(rel(i)) - (1 - lambda) * max_j cos(i, j)]``
+trên các ứng viên còn lại; ``j`` là sản phẩm đã chọn (mức phạt bằng 0
+ở lượt đầu). ``norm`` chuẩn hóa min-max trên danh sách ứng viên; các điểm
+khác 0 bằng nhau thành 1, toàn bộ bằng 0 thành 0. Vector thiếu hoặc bằng
+0 có cosine bằng 0. Thứ hạng là thứ tự chọn, không xếp lại theo điểm MMR;
+nếu giá trị mục tiêu bằng nhau thì ưu tiên ID sản phẩm tăng dần.
 """
 
 from __future__ import annotations
@@ -21,7 +21,7 @@ MMR_LAMBDAS = (0.3, 0.5, 0.7, 1.0)
 
 
 def min_max_normalize(scores: Sequence[float]) -> np.ndarray:
-    """Contract normalization of a list of finite scores."""
+    """Chuẩn hóa danh sách điểm hữu hạn theo hợp đồng dữ liệu."""
     values = np.asarray(scores, dtype=np.float64)
     if values.size == 0:
         return values
@@ -33,7 +33,7 @@ def min_max_normalize(scores: Sequence[float]) -> np.ndarray:
 
 @dataclass(slots=True)
 class MmrStats:
-    """Diagnostics for reports: candidates lacking a usable vector."""
+    """Thông tin chẩn đoán cho báo cáo: ứng viên thiếu vector dùng được."""
 
     lists: int = 0
     candidates: int = 0
@@ -48,7 +48,7 @@ def mmr_rerank(
     limit: int | None = None,
     stats: MmrStats | None = None,
 ) -> list[Scored]:
-    """Re-rank ``candidates``; returned scores are the objective at selection."""
+    """Xếp hạng lại ``candidates``; điểm trả về là giá trị mục tiêu tại thời điểm chọn."""
     if not 0 <= lam <= 1:
         raise ValueError("lambda must lie in [0, 1]")
     n = len(candidates)
@@ -72,7 +72,7 @@ def mmr_rerank(
         stats.candidates += n
         stats.missing_vectors += missing
 
-    # Tie-break by product ID: evaluate in ID order so argmax picks the smallest.
+    # Xét theo ID tăng dần để argmax chọn ID nhỏ nhất khi bằng điểm.
     order = np.argsort(np.asarray(ids, dtype=object), kind="stable")
     rel = relevance[order]
     mat = matrix[order]

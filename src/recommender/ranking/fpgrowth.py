@@ -1,19 +1,19 @@
-"""T06 FP-Growth complements ("Thường thêm cùng").
+"""T06 gợi ý mua kèm bằng FP-Growth ("Thường thêm cùng").
 
-Fit: Spark ML ``FPGrowth`` on train baskets with at least two items; the
-support denominator ``|B|`` is the number of baskets actually fitted.
-Metrics are recomputed from frequent itemsets for every single-consequent
-rule (DATA_CONTRACTS.md section 4.3)::
+Huấn luyện Spark ML ``FPGrowth`` trên giỏ train có ít nhất hai sản phẩm;
+mẫu số support ``|B|`` là số giỏ thực sự dùng để học. Tính lại các chỉ số
+từ tập mục phổ biến cho từng luật có một sản phẩm vế phải
+(DATA_CONTRACTS.md mục 4.3)::
 
     support(A -> i)    = count(A u {i}) / |B|
     confidence(A -> i) = count(A u {i}) / count(A)
     lift(A -> i)       = confidence / (count({i}) / |B|)
 
-Query (section 6.7): rules whose antecedent is a subset of the cart; per
-consequent not in the cart keep the rule with max confidence, then lift, then
-lexicographic antecedent; order results by confidence desc, lift desc,
-product_id asc. Optional compatibility rules filter technically
-incompatible pairs; without a configured rule a pair is only co-occurrence.
+Truy vấn (mục 6.7): chọn luật có vế trái là tập con của giỏ; với mỗi
+sản phẩm vế phải chưa có trong giỏ, giữ luật có confidence cao nhất,
+rồi lift cao nhất, rồi vế trái theo thứ tự từ điển. Sắp kết quả theo
+confidence giảm, lift giảm, product_id tăng. Quy tắc tương thích tùy chọn
+loại cặp không tương thích kỹ thuật; khi chưa cấu hình chỉ có nghĩa đồng xuất hiện.
 """
 
 from __future__ import annotations
@@ -28,20 +28,20 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from pyspark.sql import DataFrame
 
-# Category pairs whose recommendation requires an equal, present attribute.
-# Example from DATA_CONTRACTS.md 6.7: frozenset({"cable", "keyboard"}): "connector".
+# Các cặp nhóm sản phẩm cần có cùng giá trị thuộc tính và không được thiếu thuộc tính đó.
+# Ví dụ từ DATA_CONTRACTS.md mục 6.7: frozenset({"cable", "keyboard"}): "connector".
 COMPATIBILITY_RULES: dict[frozenset[str], str] = {}
 
 
 @dataclass(frozen=True, slots=True)
 class FpGrowthParams:
-    """Thresholds of one FP-Growth configuration."""
+    """Các ngưỡng của một cấu hình FP-Growth."""
 
     min_support: float = 0.001
     min_confidence: float = 0.2
 
     def as_dict(self) -> dict[str, float]:
-        """JSON-friendly form."""
+        """Biểu diễn thuận tiện để ghi JSON."""
         return asdict(self)
 
 
@@ -50,7 +50,7 @@ FPGROWTH_GRID = tuple(FpGrowthParams(s, c) for s in (0.001, 0.01) for c in (0.2,
 
 @dataclass(frozen=True, slots=True)
 class Rule:
-    """One association rule with a sorted antecedent."""
+    """Một luật kết hợp có vế trái đã sắp xếp."""
 
     antecedent_ids: tuple[str, ...]
     consequent_id: str
@@ -61,7 +61,7 @@ class Rule:
 
 @dataclass(slots=True)
 class FpGrowthResult:
-    """Rules plus basket statistics recorded in the run manifest."""
+    """Các luật và thống kê giỏ hàng được ghi vào manifest của lần chạy."""
 
     rules: DataFrame
     baskets_total: int
@@ -70,7 +70,7 @@ class FpGrowthResult:
 
 
 def rules_schema():
-    """Spark schema of Gold ``association_rules``."""
+    """Lược đồ Spark của Gold ``association_rules``."""
     from pyspark.sql import types as T
 
     return T.StructType(
@@ -94,7 +94,7 @@ def fit_fpgrowth(
     *,
     model_path: str | None = None,
 ) -> FpGrowthResult:
-    """Mine rules from Gold baskets of one learning window."""
+    """Khai phá luật từ giỏ hàng Gold của một cửa sổ học."""
     from pyspark.ml.fpm import FPGrowth
     from pyspark.sql import functions as F
 
@@ -120,8 +120,8 @@ def fit_fpgrowth(
         minConfidence=params.min_confidence,
     ).fit(fit_baskets)
     if model_path:
-        # The publisher has already checked that no ready manifest exists.
-        # Overwrite a partial, unpublished model left by an interrupted run.
+        # Bộ công bố đã kiểm tra rằng chưa có manifest sẵn sàng.
+        # Ghi đè mô hình dở dang, chưa công bố do lần chạy trước bị ngắt.
         model.write().overwrite().save(model_path)
     freq = model.freqItemsets.select(
         F.array_sort("items").alias("key"), F.col("freq").cast("double").alias("freq")
@@ -170,7 +170,7 @@ def fit_fpgrowth(
 
 
 def collect_rules(rules: DataFrame) -> list[Rule]:
-    """Driver-side rules for querying/evaluation."""
+    """Các luật trên driver để truy vấn và đánh giá."""
     return [
         Rule(
             tuple(r["antecedent_ids"]),
@@ -188,7 +188,7 @@ def is_compatible(
     candidate: Mapping[str, object],
     compatibility: Mapping[frozenset[str], str] = COMPATIBILITY_RULES,
 ) -> bool:
-    """Apply a configured attribute rule; unconfigured category pairs pass."""
+    """Áp dụng quy tắc thuộc tính đã cấu hình; cho qua cặp nhóm chưa có quy tắc."""
     attribute = compatibility.get(
         frozenset({str(cart_product["category_id"]), str(candidate["category_id"])})
     )
@@ -207,7 +207,7 @@ def recommend_complements(
     catalog: Mapping[str, Mapping[str, object]] | None = None,
     compatibility: Mapping[frozenset[str], str] = COMPATIBILITY_RULES,
 ) -> list[tuple[str, float, Rule]]:
-    """``(product_id, confidence, winning rule)`` for one cart."""
+    """``(product_id, confidence, luật được chọn)`` cho một giỏ hàng."""
     basket = set(cart)
     if not basket:
         return []
@@ -247,7 +247,7 @@ def fit_rules(
     min_confidence: float,
     model_path: str | None = None,
 ) -> DataFrame:
-    """Backward-compatible facade using the same pipeline FP-Growth implementation."""
+    """Giao diện tương thích ngược, dùng chung phần triển khai FP-Growth của pipeline."""
     if not 0 < min_support <= 1 or not 0 < min_confidence <= 1:
         raise ValueError("Support and confidence must lie in (0,1]")
     runs = baskets.select("run_id").distinct().limit(2).collect()

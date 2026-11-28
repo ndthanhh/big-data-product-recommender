@@ -1,4 +1,4 @@
-"""Offline contract, behavioral and CLI checks for T03 ingestion."""
+"""Kiểm tra hợp đồng, hành vi và CLI ngoại tuyến cho phần thu thập T03."""
 
 import hashlib
 import json

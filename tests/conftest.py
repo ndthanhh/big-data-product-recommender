@@ -1,4 +1,4 @@
-"""Shared Spark fixtures: one local[2] UTC session per test run, offline."""
+"""Fixture Spark dùng chung: mỗi đợt test một phiên local[2] theo UTC, chạy ngoại tuyến."""
 
 from __future__ import annotations
 
@@ -15,13 +15,13 @@ FIXTURES = Path(__file__).parent / "fixtures"
 
 
 def pytest_configure(config: pytest.Config) -> None:
-    """Register the marker used by tests that start a local Spark session."""
+    """Đăng ký nhãn cho các test khởi tạo phiên Spark cục bộ."""
     config.addinivalue_line("markers", "spark: needs PySpark and a JDK (local[2])")
 
 
 @pytest.fixture(scope="session")
 def spark() -> Iterator[object]:
-    """Small local Spark session; skips Spark tests when PySpark/Java is absent."""
+    """Phiên Spark cục bộ nhỏ; bỏ qua test Spark khi thiếu PySpark hoặc Java."""
     pytest.importorskip("pyspark")
     os.environ.setdefault("SPARK_LOCAL_IP", "127.0.0.1")
     os.environ["PYSPARK_PYTHON"] = sys.executable
@@ -40,7 +40,7 @@ def spark() -> Iterator[object]:
 
 
 def publish_bronze(folder: Path) -> None:
-    """Write the manifest that publishes every JSONL file in ``folder``."""
+    """Ghi manifest công bố mọi file JSONL trong ``folder``."""
     files = []
     for path in sorted(folder.glob("*.jsonl")):
         data = path.read_bytes()
@@ -59,7 +59,7 @@ def publish_bronze(folder: Path) -> None:
 
 @pytest.fixture()
 def lake(tmp_path: Path):
-    """Empty local lake with fixture catalog/events copied into Bronze."""
+    """Data Lake cục bộ rỗng với danh mục và sự kiện mẫu được sao chép vào Bronze."""
     from recommender.pipeline.lake import LocalLakeStore
 
     store = LocalLakeStore(tmp_path / "data")

@@ -1,1 +1,1 @@
-"""Transform and publish data lake snapshots."""
+"""Biến đổi và công bố các snapshot của Data Lake."""

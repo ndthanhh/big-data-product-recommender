@@ -1,4 +1,4 @@
-"""Generate reproducible Vietnamese demographic profiles and Bronze JSONL."""
+"""Sinh hồ sơ nhân khẩu học Việt Nam có thể tái lập và ghi JSONL Bronze."""
 
 import argparse
 import json
@@ -34,10 +34,10 @@ VIETNAMESE_CITIES = (
 
 
 def generate_users(limit: int = 1000, seed: int = 42) -> list[UserProfile]:
-    """Balance primary interests over the existing 12 Best Buy category IDs.
+    """Cân bằng sở thích chính trên 12 mã nhóm sản phẩm Best Buy hiện có.
 
-    Demographics and interests are sampled independently. A fixed UTC creation
-    window and instance-local RNGs make replay independent of wall clock time.
+    Nhân khẩu học và sở thích được lấy mẫu độc lập. Khoảng thời gian tạo UTC
+    cố định và bộ sinh ngẫu nhiên riêng giúp tái lập mà không lệ thuộc giờ thực tế.
     """
     if limit <= 0 or seed < 0:
         raise ValueError("limit must be positive and seed must be nonnegative")
@@ -80,7 +80,7 @@ def generate_users(limit: int = 1000, seed: int = 42) -> list[UserProfile]:
 def validate_user_interests(
     profiles: Sequence[UserProfile], category_ids: Collection[str]
 ) -> None:
-    """Reject missing/duplicate user IDs and preferences outside the catalog."""
+    """Từ chối ID người dùng thiếu/trùng và sở thích ngoài danh mục sản phẩm."""
     if not profiles or len({u.user_id for u in profiles}) != len(profiles):
         raise ValueError("Users must be nonempty with unique user_id values")
     categories = set(category_ids)
@@ -95,7 +95,7 @@ def validate_user_interests(
 def load_users(
     path: str | Path, *, category_ids: Collection[str] | None = None
 ) -> list[UserProfile]:
-    """Read a strict JSON seed array or JSONL, preserving input user order."""
+    """Đọc mảng JSON hoặc JSONL gốc theo quy tắc nghiêm ngặt, giữ thứ tự người dùng đầu vào."""
     content = Path(path).read_text(encoding="utf-8")
     if content.lstrip().startswith("["):
         profiles = [UserProfile.model_validate(row) for row in json.loads(content)]
@@ -115,7 +115,7 @@ def ingest_users(
     seed: int = 42,
     cache_path: str | Path | None = None,
 ) -> Path:
-    """Write the requested deterministic seed and publish profiles with manifest."""
+    """Ghi dữ liệu gốc có thể tái lập theo yêu cầu, rồi công bố hồ sơ kèm manifest."""
     settings = get_settings()
     destination = (
         Path(output)
@@ -152,7 +152,7 @@ def ingest_users(
 
 
 def main(argv: list[str] | None = None) -> None:
-    """Run python -m recommender.ingestion.users."""
+    """Chạy python -m recommender.ingestion.users."""
     settings = get_settings()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--limit", type=int, default=1000)

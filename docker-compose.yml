@@ -75,7 +75,7 @@ services:
     networks:
       - recommender
     healthcheck:
-      # Idempotently initialize the topic before marking this broker healthy.
+      # Tạo topic nếu chưa có trước khi đánh dấu broker hoạt động tốt.
       test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:19092 --create --if-not-exists --topic product-events --partitions 1 --replication-factor 1"]
       interval: 10s
       timeout: 10s

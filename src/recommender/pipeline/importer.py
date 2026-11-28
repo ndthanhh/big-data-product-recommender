@@ -1,4 +1,4 @@
-"""Transactional Gold publication. Retry is idempotent; rollback is explicit."""
+"""Công bố Gold trong giao dịch; gửi lại không gây lặp, khôi phục phiên bản phải yêu cầu rõ."""
 
 import argparse
 from pathlib import Path
@@ -99,7 +99,7 @@ def import_snapshot(path: Path, database_url: str) -> str:
                 (run,),
             )
     except Exception:
-        # Do not store connection strings or arbitrary exception payloads in metadata.
+        # Không lưu chuỗi kết nối hay nội dung ngoại lệ tùy ý vào thông tin mô tả.
         with connect(database_url) as conn:
             conn.execute(
                 "UPDATE batch_runs SET status='failed',error_message='Import failed; see process log' WHERE run_id=%s AND manifest_sha256=%s AND status<>'ready'",

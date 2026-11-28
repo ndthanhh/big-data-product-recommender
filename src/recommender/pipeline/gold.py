@@ -1,9 +1,9 @@
-"""T04 Gold base: window-scoped aggregates computed after the time split.
+"""Dữ liệu nền Gold T04: tổng hợp trong cửa sổ thời gian sau khi chia dữ liệu.
 
-Every function takes an explicit half-open learning window ``[start, end)``
-so the same code serves offline evaluation (``end`` = a split cutoff) and the
-serving snapshot. Weights are the fixed v1 values ``view=1, click=2,
-add_to_cart=4`` from ``recommender.schemas.EVENT_WEIGHTS``.
+Mỗi hàm nhận cửa sổ học nửa mở ``[start, end)`` tường minh để dùng chung
+cho đánh giá ngoại tuyến (``end`` là mốc chia) và snapshot phục vụ gợi ý.
+Trọng số v1 cố định là ``view=1, click=2, add_to_cart=4`` từ
+``recommender.schemas.EVENT_WEIGHTS``.
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 
 def weight_column(event_type: str = "event_type") -> Column:
-    """Behavior weight of an event type (``1 : 2 : 4``)."""
+    """Trọng số hành vi theo loại sự kiện (``1 : 2 : 4``)."""
     from pyspark.sql import functions as F
 
     expr = None
@@ -30,7 +30,7 @@ def weight_column(event_type: str = "event_type") -> Column:
 
 
 def in_window(events: DataFrame, start: datetime | None, end: datetime) -> DataFrame:
-    """Events with ``start <= event_at < end`` (``start=None`` means unbounded)."""
+    """Các sự kiện thỏa ``start <= event_at < end``; ``start=None`` nghĩa là không có cận dưới."""
     from pyspark.sql import functions as F
 
     condition = F.col("event_at") < F.lit(end)
@@ -40,7 +40,7 @@ def in_window(events: DataFrame, start: datetime | None, end: datetime) -> DataF
 
 
 def catalog_as_of(products: DataFrame, cutoff: datetime, run_id: str) -> DataFrame:
-    """One metadata version per product: the latest with ``collected_at < cutoff``."""
+    """Mỗi sản phẩm lấy một phiên bản thông tin: bản mới nhất thỏa ``collected_at < cutoff``."""
     from pyspark.sql import Window
     from pyspark.sql import functions as F
 
@@ -61,10 +61,10 @@ def build_interactions(
     start: datetime | None,
     end: datetime,
 ) -> DataFrame:
-    """Gold ``interactions``: ``sum(weight)`` and ``max(event_at)`` per (user, product).
+    """Gold ``interactions``: ``sum(weight)`` và ``max(event_at)`` theo (người dùng, sản phẩm).
 
-    Only products of the run catalog are aggregated, so models never learn an
-    item the snapshot cannot serve.
+    Chỉ tổng hợp sản phẩm thuộc danh mục của lần chạy, để mô hình chỉ học
+    những sản phẩm mà snapshot có thể phục vụ.
     """
     from pyspark.sql import functions as F
 
@@ -93,9 +93,9 @@ def build_baskets(
     start: datetime | None,
     end: datetime,
 ) -> DataFrame:
-    """Gold ``baskets`` from ``add_to_cart`` only: sorted unique product IDs.
+    """Gold ``baskets`` chỉ từ ``add_to_cart``: ID sản phẩm duy nhất và được sắp xếp.
 
-    ETL already guarantees a cart has one ``(user_id, session_id)`` owner.
+    ETL đã bảo đảm mỗi giỏ chỉ thuộc một chủ sở hữu ``(user_id, session_id)``.
     """
     from pyspark.sql import functions as F
 
@@ -130,7 +130,7 @@ def build_seen_products(
     start: datetime | None,
     end: datetime,
 ) -> DataFrame:
-    """Gold ``seen_products``: every event type marks an item as seen."""
+    """Gold ``seen_products``: mọi loại sự kiện đều đánh dấu sản phẩm đã được xem."""
     from pyspark.sql import functions as F
 
     return (

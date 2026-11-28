@@ -1,1 +1,1 @@
-"""Serve catalog and recommendations and accept interaction events."""
+"""Cung cấp danh mục, kết quả gợi ý và tiếp nhận sự kiện tương tác."""

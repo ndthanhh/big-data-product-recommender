@@ -1,4 +1,4 @@
-"""Small serving snapshot with actual Parquet files, explicitly synthetic."""
+"""Snapshot nhỏ phục vụ thử nghiệm, dùng file Parquet thật với dữ liệu mô phỏng."""
 
 import hashlib
 import json

@@ -1,4 +1,4 @@
-"""Exercise PostgreSQL constraints with actual writes."""
+"""Kiểm tra ràng buộc PostgreSQL bằng thao tác ghi thực tế."""
 
 import pytest
 from psycopg import IntegrityError

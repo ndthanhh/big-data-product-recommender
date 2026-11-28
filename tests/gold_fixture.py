@@ -1,4 +1,4 @@
-"""Mutable test helpers around the reproducible demo fixture."""
+"""Hàm hỗ trợ test cho phép sửa dữ liệu mẫu demo có thể tái lập."""
 
 import hashlib
 import json

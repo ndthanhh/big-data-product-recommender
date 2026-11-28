@@ -1,4 +1,4 @@
-"""Cooperative shutdown and propagation of streaming worker failures."""
+"""Phối hợp dừng và chuyển tiếp lỗi của các tác vụ streaming."""
 
 import importlib.util
 import json
@@ -11,7 +11,7 @@ from unittest.mock import Mock
 
 import pytest
 from test_streaming import fake_consumer, messages, stream_events
-from test_streaming import inputs as inputs  # noqa: PLC0414 -- pytest fixture re-export
+from test_streaming import inputs as inputs  # noqa: PLC0414 -- xuất lại fixture pytest
 
 from recommender.streaming.consumer import consume_events
 from recommender.streaming.producer import run_producer

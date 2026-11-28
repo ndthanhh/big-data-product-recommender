@@ -1,4 +1,4 @@
-"""Measure HTTP serving separately from training. Use a dedicated benchmark DB."""
+"""Đo hiệu năng phục vụ HTTP riêng với huấn luyện, dùng cơ sở dữ liệu đo thử riêng."""
 
 import argparse
 import json

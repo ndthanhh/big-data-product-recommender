@@ -1,4 +1,4 @@
-"""Short-lived UTC database connections; no connections at import time."""
+"""Kết nối cơ sở dữ liệu ngắn hạn theo UTC; không mở kết nối khi import mô-đun."""
 
 from contextlib import contextmanager
 

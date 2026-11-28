@@ -1,4 +1,4 @@
-"""Discover the immutable sync prefixes and exported demo batches without Spark."""
+"""Tìm tiền tố đồng bộ bất biến và lô demo đã xuất mà không cần Spark."""
 
 from datetime import UTC, datetime
 from pathlib import Path

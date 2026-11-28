@@ -1,4 +1,4 @@
-"""Verify that shared batches are complete and immutable."""
+"""Kiểm tra các lô chia sẻ đầy đủ và bất biến."""
 
 import hashlib
 import io

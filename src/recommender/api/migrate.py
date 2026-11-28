@@ -1,4 +1,4 @@
-"""Apply packaged PostgreSQL migrations, once, in a serialized transaction."""
+"""Áp dụng mỗi migration PostgreSQL đóng gói đúng một lần trong giao dịch được tuần tự hóa."""
 
 from importlib.resources import files
 

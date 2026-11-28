@@ -1,4 +1,4 @@
-"""Three recommendation contexts share the request's consistent snapshot."""
+"""Ba ngữ cảnh gợi ý dùng chung snapshot nhất quán của yêu cầu."""
 
 from fastapi import APIRouter, Query, Request
 

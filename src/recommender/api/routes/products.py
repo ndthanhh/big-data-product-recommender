@@ -1,4 +1,4 @@
-"""Read catalog metadata under a single database snapshot."""
+"""Đọc thông tin sản phẩm trong cùng một snapshot cơ sở dữ liệu."""
 
 from fastapi import APIRouter, Query, Request
 from psycopg.rows import dict_row

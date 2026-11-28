@@ -1,4 +1,4 @@
-"""Run producer and consumer with cooperative shutdown and failure propagation."""
+"""Chạy producer và consumer, phối hợp dừng và chuyển lỗi về luồng chính."""
 
 import argparse
 import logging
@@ -22,13 +22,13 @@ def run_workers(
     consumer: Callable[[], None],
     stopped: threading.Event,
 ) -> None:
-    """Stop both workers on completion, failure or interrupt, then report failures."""
+    """Dừng cả hai tác vụ khi hoàn tất, gặp lỗi hoặc bị ngắt, sau đó báo lỗi."""
     failures: Queue[Exception] = Queue()
 
     def invoke(action: Callable[[], None]) -> None:
         try:
             action()
-        except Exception as exc:  # noqa: BLE001 -- propagate worker failures to main
+        except Exception as exc:  # noqa: BLE001 -- chuyển lỗi của tác vụ về luồng chính
             failures.put(exc)
         finally:
             stopped.set()

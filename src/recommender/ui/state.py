@@ -1,4 +1,4 @@
-"""UI transitions generate events once; retries retain immutable payloads."""
+"""Chuyển trạng thái giao diện chỉ tạo sự kiện một lần; gửi lại giữ nguyên nội dung."""
 
 from dataclasses import dataclass, field
 from datetime import UTC, datetime

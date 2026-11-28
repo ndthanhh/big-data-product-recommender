@@ -1,12 +1,13 @@
-"""T06 Implicit ALS collaborative filtering (PySpark ML).
+"""T06 lọc cộng tác bằng Implicit ALS (PySpark ML).
 
-* ID mapping: string IDs -> int32 indices assigned in ascending ID order
-  (bijective, reproducible; DATA_CONTRACTS.md section 4.4).
-* ``implicitPrefs=True`` with ``interaction_weight`` as the confidence input,
-  ``coldStartStrategy='drop'``; users/items without factors use the shared
-  popularity fallback.
-* Candidates: top ``CANDIDATE_LIMIT`` per user after removing seen items,
-  products outside the run catalog and non-finite scores; ties by product ID.
+* Ánh xạ ID chuỗi -> chỉ số int32 theo thứ tự ID tăng dần; song ánh và
+  có thể tái lập (DATA_CONTRACTS.md mục 4.4).
+* Dùng ``implicitPrefs=True``, lấy ``interaction_weight`` làm đầu vào độ
+  tin cậy và ``coldStartStrategy='drop'``; người dùng/sản phẩm không có
+  nhân tố dùng cơ chế dự phòng popularity chung.
+* Lấy top ``CANDIDATE_LIMIT`` mỗi người dùng sau khi loại sản phẩm đã xem,
+  sản phẩm ngoài danh mục lần chạy và điểm không hữu hạn; nếu bằng điểm
+  thì xếp theo ID sản phẩm.
 """
 
 from __future__ import annotations
@@ -25,7 +26,7 @@ MAX_INDEX = 2_147_483_647
 
 @dataclass(frozen=True, slots=True)
 class AlsParams:
-    """Hyperparameters of one ALS configuration (EXPERIMENT_PLAN.md section 6)."""
+    """Siêu tham số của một cấu hình ALS (EXPERIMENT_PLAN.md mục 6)."""
 
     rank: int = 32
     max_iter: int = 10
@@ -34,7 +35,7 @@ class AlsParams:
     seed: int = 42
 
     def as_dict(self) -> dict[str, float | int]:
-        """JSON-friendly form for manifests and reports."""
+        """Biểu diễn thuận tiện để ghi JSON trong manifest và báo cáo."""
         return asdict(self)
 
 
@@ -47,7 +48,7 @@ ALS_GRID = tuple(
 
 
 def build_index(df: DataFrame, id_col: str, index_col: str) -> DataFrame:
-    """Bijective ``(id, int index)`` mapping in ascending ID order."""
+    """Ánh xạ song ánh ``(id, int index)`` theo thứ tự ID tăng dần."""
     from pyspark.sql import types as T
 
     ids = df.select(id_col).distinct().orderBy(id_col)
@@ -64,7 +65,7 @@ def build_index(df: DataFrame, id_col: str, index_col: str) -> DataFrame:
 
 @dataclass(slots=True)
 class AlsArtifacts:
-    """A fitted model with the exact ID mappings it was trained with."""
+    """Mô hình đã huấn luyện kèm đúng các ánh xạ ID dùng khi học."""
 
     model: ALSModel
     user_index: DataFrame
@@ -73,7 +74,7 @@ class AlsArtifacts:
 
 
 def fit_als(interactions: DataFrame, params: AlsParams) -> AlsArtifacts:
-    """Fit implicit ALS on Gold interactions of one learning window."""
+    """Huấn luyện implicit ALS trên tương tác Gold của một cửa sổ học."""
     from pyspark.ml.recommendation import ALS
 
     user_index = build_index(interactions, "user_id", "user_index").cache()
@@ -108,10 +109,10 @@ def als_candidates(
     *,
     limit: int = CANDIDATE_LIMIT,
 ) -> dict[str, list[Scored]]:
-    """Top unseen catalog candidates per user, as driver-side lists.
+    """Ứng viên tốt nhất chưa xem trong danh mục của từng người dùng, dưới dạng danh sách trên driver.
 
-    Fetches ``limit + max seen per user`` so filtering cannot leave a user
-    short while unseen scored items remain.
+    Lấy ``limit + số sản phẩm đã xem tối đa mỗi người dùng`` để bước lọc
+    không làm thiếu gợi ý khi vẫn còn sản phẩm chưa xem có điểm dự đoán.
     """
     from pyspark.sql import Window
     from pyspark.sql import functions as F
@@ -153,7 +154,7 @@ def als_candidates(
 def save_als(
     artifacts: AlsArtifacts, model_uri: str, user_uri: str, product_uri: str
 ) -> None:
-    """Persist the model together with the exact ID mappings it was trained with."""
+    """Lưu mô hình cùng đúng các ánh xạ ID đã dùng khi huấn luyện."""
     artifacts.model.write().overwrite().save(model_uri)
     artifacts.user_index.orderBy("user_index").coalesce(1).write.mode(
         "overwrite"
@@ -170,7 +171,7 @@ def load_als(
     product_uri: str,
     params: AlsParams | None = None,
 ) -> AlsArtifacts:
-    """Reload a saved model; reject mappings that do not match its factors."""
+    """Nạp lại mô hình đã lưu; từ chối ánh xạ không khớp các nhân tố của mô hình."""
     from pyspark.ml.recommendation import ALSModel
 
     model = ALSModel.load(model_uri)

@@ -1,4 +1,4 @@
-"""Validate/import an existing Gold snapshot, then serve the demo API."""
+"""Kiểm tra và nhập snapshot Gold có sẵn, sau đó khởi chạy API demo."""
 
 import argparse
 from pathlib import Path

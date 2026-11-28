@@ -1,4 +1,4 @@
-# Script chạy streaming sự kiện hành vi người dùng qua Kafka và MinIO
+# Chạy luồng sự kiện hành vi người dùng qua Kafka và MinIO
 param (
     [int]$Events = 1000,
     [float]$Rate = 20,

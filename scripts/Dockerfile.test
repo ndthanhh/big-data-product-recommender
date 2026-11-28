@@ -1,4 +1,4 @@
-# Cached Linux base supplies Python 3.11 and JDK 17; pip installs Spark 3.5.7.
+# Ảnh nền Linux đã lưu đệm có Python 3.11 và JDK 17; pip cài Spark 3.5.7.
 ARG BASE_IMAGE=public.ecr.aws/bitnami/spark:3.5.1
 FROM ${BASE_IMAGE}
 USER root

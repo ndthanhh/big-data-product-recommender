@@ -1,4 +1,4 @@
-"""Basket co-occurrence suggestions with explicitly configured compatibility."""
+"""Gợi ý theo sản phẩm cùng xuất hiện trong giỏ, với quy tắc tương thích được cấu hình rõ."""
 
 from collections.abc import Mapping, Sequence
 

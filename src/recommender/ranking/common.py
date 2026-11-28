@@ -1,4 +1,4 @@
-"""Ranking helpers shared by every batch method (DATA_CONTRACTS.md section 7)."""
+"""Hàm hỗ trợ xếp hạng dùng chung cho mọi phương pháp batch (DATA_CONTRACTS.md mục 7)."""
 
 from __future__ import annotations
 
@@ -6,13 +6,13 @@ import math
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 
-CANDIDATE_LIMIT = 200  # max Gold rows per (kind, context_id)
+CANDIDATE_LIMIT = 200  # số dòng Gold tối đa cho mỗi (kind, context_id)
 DEFAULT_K = 10
 
 
 @dataclass(frozen=True, slots=True)
 class Scored:
-    """One ranked candidate."""
+    """Một ứng viên đã được xếp hạng."""
 
     product_id: str
     score: float
@@ -20,7 +20,7 @@ class Scored:
 
 
 def rank_key(item: tuple[str, float]) -> tuple[float, str]:
-    """Score descending, then product ID ascending (Unicode / collation C)."""
+    """Điểm giảm dần, rồi ID sản phẩm tăng dần theo Unicode / quy tắc đối chiếu C."""
     return (-item[1], item[0])
 
 
@@ -31,7 +31,7 @@ def top_k(
     exclude: set[str] | frozenset[str] = frozenset(),
     allowed: set[str] | frozenset[str] | None = None,
 ) -> list[tuple[str, float]]:
-    """Deterministic top-k after dropping excluded, unknown and non-finite items."""
+    """Top-k xác định sau khi loại sản phẩm bị chặn, không xác định hoặc có điểm không hữu hạn."""
     kept = [
         (pid, float(score))
         for pid, score in scores
@@ -50,10 +50,10 @@ def with_fallback(
     seen: set[str] | frozenset[str],
     limit: int,
 ) -> list[Scored]:
-    """Primary candidates in their own order, then unseen popularity fill.
+    """Giữ thứ tự ứng viên chính, rồi bổ sung sản phẩm phổ biến chưa xem.
 
-    Scores of different methods are never re-sorted together (DATA_CONTRACTS.md
-    section 6.5): fallback rows always come after the primary list.
+    Không xếp lại chung điểm của các phương pháp khác nhau (DATA_CONTRACTS.md
+    mục 6.5): các dòng dự phòng luôn nằm sau danh sách chính.
     """
     result: list[Scored] = []
     used: set[str] = set()
@@ -79,7 +79,7 @@ def recommendation_rows(
     kind: str,
     lists: Mapping[str, Sequence[Scored]],
 ) -> list[tuple[str, str, str, str, int, float, str]]:
-    """Flatten per-context lists into Gold ``recommendation_items`` tuples."""
+    """Trải phẳng danh sách theo ngữ cảnh thành các tuple Gold ``recommendation_items``."""
     rows = []
     for context_id in sorted(lists):
         for rank, item in enumerate(lists[context_id], start=1):
@@ -98,7 +98,7 @@ def recommendation_rows(
 
 
 def recommendation_schema():
-    """Spark schema of Gold ``recommendation_items``."""
+    """Lược đồ Spark của Gold ``recommendation_items``."""
     from pyspark.sql import types as T
 
     return T.StructType(

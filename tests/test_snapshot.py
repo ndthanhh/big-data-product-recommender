@@ -1,4 +1,4 @@
-"""Gold snapshot export and end-to-end benchmark on the offline fixtures."""
+"""Xuất snapshot Gold và đo thử toàn bộ luồng trên dữ liệu mẫu ngoại tuyến."""
 
 from __future__ import annotations
 
@@ -88,7 +88,7 @@ def test_snapshot_exports_contract_tables(spark, lake) -> None:
     for r in gold("association_rules").collect():
         AssociationRule(**r.asDict())
 
-    # Reload the ALS model with its saved mapping.
+    # Nạp lại mô hình ALS cùng ánh xạ đã lưu.
     from pyspark.ml.recommendation import ALSModel
 
     model = ALSModel.load(lake.uri("gold", run_id, "models", "als"))
@@ -99,7 +99,7 @@ def test_snapshot_exports_contract_tables(spark, lake) -> None:
     fp_model = FPGrowthModel.load(lake.uri("gold", run_id, "models", "fpgrowth"))
     assert fp_model.freqItemsets.count() > 0
 
-    # Publishing the same run again is a no-op with the same fingerprint.
+    # Công bố lại cùng lần chạy không thay đổi dữ liệu hay dấu vân tay.
     before = lake.read_bytes("gold", run_id, "manifest.json")
     build_snapshot(
         spark,

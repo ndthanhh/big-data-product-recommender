@@ -1,4 +1,4 @@
-"""Publication cache identity must cover the complete requested learning run."""
+"""Định danh bộ nhớ đệm công bố phải bao quát toàn bộ lần học được yêu cầu."""
 
 from datetime import UTC, datetime
 

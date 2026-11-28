@@ -1,14 +1,14 @@
-"""T07 time split with cart purge (EXPERIMENT_PLAN.md section 3).
+"""T07 chia dữ liệu theo thời gian, loại giỏ hàng vượt mốc (EXPERIMENT_PLAN.md mục 3).
 
-Half-open windows on ``event_at`` (UTC)::
+Các cửa sổ nửa mở theo ``event_at`` (UTC)::
 
     train      = [start, split_val_time)
     validation = [split_val_time, split_test_time)
     test       = [split_test_time, end)
 
-An event exactly at a cutoff belongs to the later part. A cart with
-``first_event_at < cutoff <= last_event_at`` for either cutoff is purged
-entirely from all three parts (never split, never moved into train).
+Sự kiện đúng tại mốc chia thuộc phần sau. Giỏ hàng thỏa
+``first_event_at < cutoff <= last_event_at`` ở một trong hai mốc bị loại
+khỏi cả ba phần, không bị chia nhỏ hay chuyển vào tập train.
 """
 
 from __future__ import annotations
@@ -31,7 +31,7 @@ PARTS = ("train", "validation", "test")
 
 @dataclass(frozen=True, slots=True)
 class SplitConfig:
-    """Observation window and the two cutoffs."""
+    """Khoảng thời gian quan sát và hai mốc chia dữ liệu."""
 
     start: datetime = SPLIT_START
     split_val_time: datetime = SPLIT_VAL_TIME
@@ -43,7 +43,7 @@ class SplitConfig:
             raise ValueError("Require start < split_val_time < split_test_time < end")
 
     def as_dict(self) -> dict[str, str]:
-        """JSON form with ``Z`` timestamps."""
+        """Biểu diễn JSON với dấu thời gian có hậu tố ``Z``."""
         return {
             "start": iso_z(self.start),
             "split_val_time": iso_z(self.split_val_time),
@@ -54,7 +54,7 @@ class SplitConfig:
 
 @dataclass(slots=True)
 class SplitResult:
-    """Events labeled with ``split`` plus the summary/invariant report."""
+    """Sự kiện được gán nhãn ``split`` kèm báo cáo tổng hợp và kiểm tra bất biến."""
 
     events: DataFrame
     purged_carts: list[str]
@@ -62,7 +62,7 @@ class SplitResult:
 
 
 def split_events(events: DataFrame, config: SplitConfig | None = None) -> SplitResult:
-    """Label in-window events ``train``/``validation``/``test`` after cart purge."""
+    """Gán nhãn ``train``/``validation``/``test`` sau khi loại giỏ hàng vượt mốc."""
     from pyspark import StorageLevel
     from pyspark.sql import functions as F
 
@@ -154,7 +154,7 @@ def split_events(events: DataFrame, config: SplitConfig | None = None) -> SplitR
 
 
 def check_invariants(labeled: DataFrame, config: SplitConfig) -> dict[str, bool]:
-    """Leakage checks required before training (EXPERIMENT_PLAN.md 3.2)."""
+    """Kiểm tra rò rỉ dữ liệu trước khi huấn luyện (EXPERIMENT_PLAN.md mục 3.2)."""
     from pyspark.sql import functions as F
 
     max_by = {

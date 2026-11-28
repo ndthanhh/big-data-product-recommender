@@ -1,4 +1,4 @@
-"""T06: Implicit ALS (ID mapping, candidates), MMR re-ranking and FP-Growth."""
+"""T06: Implicit ALS (ánh xạ ID, ứng viên), xếp hạng lại MMR và FP-Growth."""
 
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ from recommender.schemas import AssociationRule
 @pytest.fixture(scope="module")
 def interactions(spark):
     rows = []
-    # Two taste groups: users a* like items x1..x3, users b* like y1..y3.
+    # Hai nhóm sở thích: người dùng a* thích x1..x3, người dùng b* thích y1..y3.
     for u in ("a1", "a2", "a3", "a4"):
         rows += [(u, f"t:x{i}", float(i)) for i in (1, 2, 3)]
     for u in ("b1", "b2", "b3", "b4"):
@@ -63,12 +63,12 @@ def test_als_candidates_unseen_catalog_and_string_ids(spark, interactions) -> No
     for user, items in cands.items():
         ids = [i.product_id for i in items]
         assert not set(ids) & seen_map[user]
-        assert set(ids) <= {r["product_id"] for r in catalog.collect()}  # y3 excluded
+        assert set(ids) <= {r["product_id"] for r in catalog.collect()}  # loại y3
         assert all(math.isfinite(i.score) and i.method == "als" for i in items)
         assert [(-i.score, i.product_id) for i in items] == sorted(
             (-i.score, i.product_id) for i in items
         )
-    # a3 never saw x4 but its group did: x4 should be its best candidate.
+    # a3 chưa xem x4 nhưng người cùng nhóm đã xem: x4 phải là ứng viên tốt nhất của a3.
     assert cands["a3"][0].product_id == "t:x4"
 
 
@@ -106,7 +106,7 @@ def test_mmr_increases_diversity_and_keeps_selection_order() -> None:
     reranked = mmr_rerank(cands, vectors, 0.5, limit=2)
     assert raw == ["a1", "a2"]
     assert [i.product_id for i in reranked] == ["a1", "b1"]
-    # First pick has no penalty: 0.5 * norm(1.0) = 0.5.
+    # Lượt chọn đầu không có mức phạt: 0.5 * norm(1.0) = 0.5.
     assert reranked[0].score == pytest.approx(0.5)
     # b1: 0.5 * norm(0.6) - 0.5 * 0 = 0.5 * 0 = 0 ; a2: 0.5*0.875 - 0.5*1 < 0
     assert reranked[1].score == pytest.approx(0.0)
@@ -120,7 +120,7 @@ BASKETS = [
     ["p:a", "p:b", "p:c"],
     ["p:a", "p:c"],
     ["p:b", "p:d"],
-    ["p:e"],  # single-item basket: stored, never fitted
+    ["p:e"],  # giỏ một sản phẩm: được lưu nhưng không dùng để huấn luyện
 ]
 
 
@@ -141,11 +141,11 @@ def test_fpgrowth_metrics_are_recomputed_per_consequent(spark) -> None:
     rules = {
         (r.antecedent_ids, r.consequent_id): r for r in collect_rules(result.rules)
     }
-    n = 5  # fitted baskets only
+    n = 5  # chỉ tính giỏ dùng để huấn luyện
     ab = rules[(("p:a",), "p:b")]
     assert ab.support == pytest.approx(3 / n)
-    assert ab.confidence == pytest.approx(3 / 4)  # a in 4 baskets, a&b in 3
-    assert ab.lift == pytest.approx((3 / 4) / (4 / n))  # b in 4 baskets
+    assert ab.confidence == pytest.approx(3 / 4)  # a: 4 giỏ, a&b: 3 giỏ
+    assert ab.lift == pytest.approx((3 / 4) / (4 / n))  # b có trong 4 giỏ
     for r in result.rules.collect():
         AssociationRule(
             run_id=r["run_id"],
@@ -162,13 +162,13 @@ def test_complements_subset_match_order_and_never_in_cart() -> None:
     rules = [
         Rule(("p:a",), "p:b", 0.6, 0.75, 0.9),
         Rule(("p:a",), "p:c", 0.4, 0.5, 1.25),
-        Rule(("p:a", "p:b"), "p:c", 0.2, 0.5, 1.5),  # same confidence, higher lift
+        Rule(("p:a", "p:b"), "p:c", 0.2, 0.5, 1.5),  # cùng confidence, lift cao hơn
         Rule(("p:b",), "p:a", 0.6, 0.75, 0.9),
-        Rule(("p:z",), "p:d", 0.2, 0.9, 2.0),  # antecedent not in cart
+        Rule(("p:z",), "p:d", 0.2, 0.9, 2.0),  # vế trái không có trong giỏ
     ]
     out = recommend_complements(rules, ["p:a", "p:b"], limit=10)
-    assert [pid for pid, _, _ in out] == ["p:c"]  # a, b are in the cart
-    assert out[0][2].antecedent_ids == ("p:a", "p:b")  # best lift wins the tie
+    assert [pid for pid, _, _ in out] == ["p:c"]  # a, b có trong giỏ
+    assert out[0][2].antecedent_ids == ("p:a", "p:b")  # ưu tiên lift khi hòa
     only_a = recommend_complements(rules, ["p:a"], limit=10)
     assert [pid for pid, _, _ in only_a] == ["p:b", "p:c"]
     assert recommend_complements(rules, [], limit=10) == []
@@ -212,7 +212,7 @@ def test_als_reload_reproduces_candidates(spark, interactions, tmp_path) -> None
     after = as_tuples(als_candidates(reloaded, seen, catalog, limit=5))
     assert before == after and before
 
-    # A mapping that does not match the factors is rejected.
+    # Từ chối ánh xạ không khớp các nhân tố của mô hình.
     interactions.where("user_id != 'b4'").select("user_id").distinct().orderBy(
         "user_id"
     ).rdd.zipWithIndex().map(lambda p: (p[0][0], int(p[1]))).toDF(

@@ -1,4 +1,4 @@
-"""Load local configuration without changing the process environment."""
+"""Nạp cấu hình cục bộ mà không thay đổi biến môi trường của tiến trình."""
 
 import os
 from dataclasses import dataclass
@@ -24,7 +24,7 @@ DataLakeStorage = Literal["local", "minio"]
 
 @dataclass(frozen=True, slots=True)
 class Settings:
-    """Configuration shared by the offline pipeline and serving applications."""
+    """Cấu hình dùng chung cho pipeline ngoại tuyến và các ứng dụng phục vụ."""
 
     data_lake_dir: Path = PROJECT_ROOT / "data"
     database_url: str = DEFAULT_DATABASE_URL
@@ -41,10 +41,10 @@ class Settings:
 
 
 def get_settings(env_file: str | Path | None = PROJECT_ROOT / ".env") -> Settings:
-    """Read defaults < .env < environment; resolve local data paths from the repo.
+    """Nạp theo ưu tiên mặc định < .env < biến môi trường; lấy gốc repo để xác định đường dẫn dữ liệu.
 
-    Pass ``None`` to disable .env loading. Configuration is read on each call so
-    importing this module neither mutates os.environ nor caches stale settings.
+    Truyền ``None`` để tắt nạp .env. Cấu hình được đọc lại mỗi lần gọi, nên
+    việc import mô-đun không sửa os.environ hay lưu đệm cấu hình đã cũ.
     """
     file_values = (
         dotenv_values(env_file, encoding="utf-8") if env_file is not None else {}

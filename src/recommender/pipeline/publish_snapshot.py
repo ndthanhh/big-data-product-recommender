@@ -1,20 +1,20 @@
-"""Gold snapshot export: one immutable ``gold/<run_id>/`` per batch run.
+"""Xuất snapshot Gold: mỗi lần chạy batch có một ``gold/<run_id>/`` bất biến.
 
-This is the hand-over to the importer (T08, milestone M2). Layout follows
-DATA_CONTRACTS.md section 4::
+Đây là đầu ra bàn giao cho bộ nhập dữ liệu (T08, mốc M2). Bố cục theo
+DATA_CONTRACTS.md mục 4::
 
     gold/<run_id>/
-      products/ interactions/ baskets/ seen_products/       Parquet tables
-      recommendation_items/ association_rules/              Parquet tables
-      models/tfidf/  models/tfidf_features/                 vectorizer + vectors
+      products/ interactions/ baskets/ seen_products/       các bảng Parquet
+      recommendation_items/ association_rules/              các bảng Parquet
+      models/tfidf/  models/tfidf_features/                 bộ vector hóa và vector
       models/als/ models/als_user_index/ models/als_product_index/
-      evaluation/                                           benchmark (optional)
-      manifest.json                                         written last
+      evaluation/                                           đánh giá (tùy chọn)
+      manifest.json                                         ghi sau cùng
 
-Serving models are fit on all Silver events in ``[training_start,
-training_end)`` with the configuration locked by the benchmark (or defaults
-with ``--skip-evaluation``). The run fingerprint is the SHA-256 of
-``manifest.json``; an existing published run is never overwritten.
+Mô hình phục vụ học từ mọi sự kiện Silver trong ``[training_start,
+training_end)`` với cấu hình đã chốt khi đánh giá, hoặc cấu hình mặc định
+khi dùng ``--skip-evaluation``. Dấu vân tay lần chạy là SHA-256 của
+``manifest.json``; không ghi đè lần chạy đã công bố.
 """
 
 from __future__ import annotations
@@ -86,7 +86,7 @@ DEFAULT_SELECTION: dict[str, Any] = {
 
 
 def _evaluation_identity(config: dict[str, Any] | None) -> dict[str, Any] | None:
-    """Grids/splits/policies are inputs; measurement timestamp/environment are not."""
+    """Lưới cấu hình/mốc chia/chính sách là đầu vào; thời điểm đo và môi trường đo thì không."""
     if config is None:
         return None
     return {
@@ -120,10 +120,10 @@ def make_run_id(
     training_start: datetime | None = None,
     evaluation_config: dict[str, Any] | None = None,
 ) -> str:
-    """Deterministic run ID: same inputs/code/config -> same ID (no-op rerun).
+    """Mã lần chạy xác định: cùng đầu vào/code/cấu hình -> cùng ID, chạy lại không đổi dữ liệu.
 
-    ``evaluated`` separates a run that carries ``evaluation/`` from one built
-    with a reused or default selection, so neither shadows the other.
+    ``evaluated`` phân biệt lần chạy có ``evaluation/`` với lần dùng lựa chọn
+    cũ hoặc mặc định, để hai loại không che khuất nhau.
     """
     commit, dirty = provenance()
     digest = hashlib.sha256(
@@ -195,7 +195,7 @@ def build_snapshot(
     evaluation: BenchmarkResult | None = None,
     log: Any = print,
 ) -> dict[str, Any]:
-    """Fit serving models, export every Gold table, then publish the manifest."""
+    """Huấn luyện mô hình phục vụ, xuất toàn bộ bảng Gold, rồi công bố manifest."""
     from pyspark.sql import types as T
 
     requested_inputs = _publication_inputs(
@@ -249,18 +249,18 @@ def build_snapshot(
         raise ValueError("Catalog as of training_end is empty")
     stage("aggregate", t)
 
-    # TF-IDF + substitutes
+    # TF-IDF và gợi ý sản phẩm thay thế
     t = time.perf_counter()
     tfidf_model, features = fit_tfidf(catalog)
     substitutes = build_substitutes(features)
     stage("fit_tfidf", t)
 
-    # Popularity
+    # Xếp hạng độ phổ biến (Popularity)
     t = time.perf_counter()
     popular = rank_popular(interactions, catalog)
     stage("fit_popularity", t)
 
-    # ALS + MMR personalized, popularity fill after the primary list
+    # Cá nhân hóa bằng ALS + MMR, bổ sung popularity sau danh sách chính
     t = time.perf_counter()
     als_params = AlsParams(**{**selection["als"], "seed": seed})
     als = fit_als(interactions, als_params)
@@ -285,7 +285,7 @@ def build_snapshot(
         )
     stage("rerank_mmr", t)
 
-    # FP-Growth complements
+    # Gợi ý mua kèm bằng FP-Growth
     t = time.perf_counter()
     fp_params = FpGrowthParams(**selection["fpgrowth"])
     fp = fit_fpgrowth(
@@ -298,7 +298,7 @@ def build_snapshot(
     n_rules = rules.count()
     stage("fit_fpgrowth", t)
 
-    # Contract validation before anything is written
+    # Kiểm tra hợp đồng dữ liệu trước khi ghi bất kỳ đầu ra nào
     t = time.perf_counter()
     rows = (
         recommendation_rows(run_id, "popular", {"global": popular_list(popular)})
@@ -340,7 +340,7 @@ def build_snapshot(
             )
     stage("validate", t)
 
-    # Export tables and models
+    # Xuất các bảng và mô hình
     t = time.perf_counter()
     rec_df = spark.createDataFrame(rows, recommendation_schema())
     _write(catalog, store, run_id, "products")
@@ -485,7 +485,7 @@ def build_snapshot(
 
 
 def default_window(events: DataFrame) -> tuple[datetime, datetime]:
-    """``[floor_day(min event_at), floor_day(max event_at) + 1 day)``."""
+    """Khoảng ``[floor_day(min event_at), floor_day(max event_at) + 1 ngày)``."""
     from pyspark.sql import functions as F
 
     row = events.agg(F.min("event_at").alias("a"), F.max("event_at").alias("b")).first()
@@ -505,7 +505,7 @@ def _parse_time(value: str) -> datetime:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Run ``python -m recommender.pipeline.publish_snapshot``: benchmark + serving run."""
+    """Chạy ``python -m recommender.pipeline.publish_snapshot``: đánh giá và tạo lần chạy phục vụ."""
     from recommender.evaluation.benchmark import (
         ALS_GRID,
         FPGROWTH_GRID,

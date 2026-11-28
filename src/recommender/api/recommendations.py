@@ -1,4 +1,4 @@
-"""Serving queries always receive an already pinned run and connection."""
+"""Truy vấn phục vụ luôn nhận kết nối và mã lần chạy đã được cố định từ trước."""
 
 from datetime import UTC, datetime, timedelta
 
@@ -67,7 +67,7 @@ def personalized(conn, run, query):
     if query.session_id:
         now = datetime.now(UTC)
         args = (query.user_id, query.session_id, now - timedelta(minutes=30), now)
-        # Exclude every product in the window, even when only 20 events score.
+        # Loại mọi sản phẩm trong cửa sổ thời gian, dù chỉ dùng 20 sự kiện để tính điểm.
         seen.update(
             row[0]
             for row in conn.execute(

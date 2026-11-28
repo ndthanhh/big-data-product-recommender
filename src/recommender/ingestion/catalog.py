@@ -1,8 +1,8 @@
-"""Collect a balanced Best Buy catalog, retaining a seed for offline replay.
+"""Thu thập danh mục Best Buy cân bằng, giữ dữ liệu gốc để tái lập ngoại tuyến.
 
-Product v1 stores price/model/activity and JSON-encoded tags in its flat
-string-valued attributes. collected_at is the reproducible experiment snapshot;
-the manifest records the actual acquisition/publication time.
+Product v1 lưu giá, mẫu, trạng thái hoạt động và nhãn mã hóa JSON trong
+attributes phẳng có giá trị chuỗi. collected_at là mốc snapshot thực nghiệm
+có thể tái lập; manifest ghi thời gian thu thập và công bố thực tế.
 """
 
 import argparse
@@ -83,11 +83,11 @@ def _https(value: object) -> str | None:
 
 
 def normalize_product(raw: Mapping[str, Any]) -> Product:
-    """Normalize a raw Best Buy record or validate a previously normalized seed.
+    """Chuẩn hóa bản ghi Best Buy thô hoặc kiểm tra dữ liệu gốc đã chuẩn hóa.
 
-    Reject unusable SKUs, nonphysical products, unsupported departments,
-    nonpositive/nonfinite prices, and missing/invalid images. Optional metadata
-    completeness is ranked by select_products rather than fabricated.
+    Loại SKU không dùng được, sản phẩm phi vật lý, ngành hàng không hỗ trợ,
+    giá không dương hoặc không hữu hạn, ảnh thiếu hoặc không hợp lệ. Độ đầy đủ
+    của thông tin tùy chọn do select_products xếp hạng, không tự bịa dữ liệu.
     """
     if "product_id" in raw:
         product = Product.model_validate(dict(raw))
@@ -191,11 +191,11 @@ def _quality(product: Product) -> int:
 def select_products(
     records: Iterable[Mapping[str, Any]], limit: int = 1000, seed: int = 42
 ) -> list[Product]:
-    """Select exactly limit clean unique SKUs, balancing technology categories.
+    """Chọn đúng limit SKU sạch, duy nhất và cân bằng các nhóm sản phẩm công nghệ.
 
-    Completeness wins within each category; a seeded hash breaks ties without
-    depending on source ordering. Round-robin selection redistributes unfilled
-    quotas from small categories to categories that still have candidates.
+    Ưu tiên bản ghi đầy đủ trong từng nhóm; dùng hàm băm có seed để phân định
+    khi bằng nhau, không phụ thuộc thứ tự nguồn. Chọn luân phiên và phân bổ lại
+    chỉ tiêu chưa dùng của nhóm nhỏ cho nhóm vẫn còn ứng viên.
     """
     if limit <= 0 or seed < 0:
         raise ValueError("limit must be positive and seed must be nonnegative")
@@ -266,7 +266,7 @@ def ingest_catalog(
     seed: int = 42,
     cache_path: str | Path | None = None,
 ) -> Path:
-    """Collect from an explicit file/URL, or prefer a sufficient offline seed."""
+    """Thu thập từ file/URL chỉ định, hoặc ưu tiên dữ liệu gốc ngoại tuyến nếu đủ."""
     settings = get_settings()
     cache = (
         Path(cache_path)
@@ -298,7 +298,7 @@ def ingest_catalog(
             actual_source = BESTBUY_URL
             raw = _read_source(actual_source)
     products = select_products(raw, limit, seed)
-    # A small run must not shrink a useful offline seed down to --limit rows.
+    # Lần chạy nhỏ không được thu hẹp bộ dữ liệu gốc ngoại tuyến xuống chỉ --limit dòng.
     try:
         cached_products = select_products(raw, 1000, seed)
     except ValueError:
@@ -321,7 +321,7 @@ def ingest_catalog(
 
 
 def main(argv: list[str] | None = None) -> None:
-    """Run python -m recommender.ingestion.catalog."""
+    """Chạy python -m recommender.ingestion.catalog."""
     settings = get_settings()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--limit", type=int, default=1000)
